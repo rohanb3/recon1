@@ -1,0 +1,113 @@
+@import './variables.scss';
+@import './fonts.scss';
+@import './table.scss';
+@import './datepicker.scss';
+@import './mixins.scss';
+
+html {
+  overflow: hidden;
+}
+
+button {
+  outline: 0;
+}
+
+textarea {
+  resize: none;
+}
+
+#app .quick-search {
+  .v-input__control {
+    min-height: 20px;
+    height: 20px;
+  }
+
+  .v-input__slot {
+    width: 140px;
+    box-shadow: none;
+    margin-bottom: 0;
+    padding-left: 4px;
+    border: solid 1px $quick-search-border-color;
+    border-radius: 3px;
+    font-size: 12px;
+
+    input::placeholder {
+      opacity: 0.8;
+      color: $base-text-color;
+    }
+
+    .v-input__icon {
+      min-width: 16px;
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .v-icon.material-icons {
+    font-size: 14px;
+    opacity: 0.8;
+    color: $base-text-color;
+  }
+
+  .v-text-field__details {
+    display: none;
+  }
+}
+
+.popover {
+  &:after,
+  &:before {
+    bottom: 100%;
+    left: 93%;
+    border: solid transparent;
+    content: ' ';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+  &:after {
+    border-bottom-color: $base-white;
+    border-width: 8px;
+    margin-left: -8px;
+  }
+}
+.v-menu__content {
+  overflow: visible;
+  contain: inherit;
+}
+
+#app .popper {
+  background-color: $popper-background-color;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 2px 24px 0 $popper-shadow-color;
+  padding: 0px;
+  top: 10px !important;
+
+  &[x-placement^='bottom'] {
+    .popper__arrow {
+      border-width: 0 10px 10px 10px !important;
+      top: -10px !important;
+      border-bottom-color: $popper-background-color;
+    }
+  }
+}
+
+.application--wrap .blurred {
+  filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+  -webkit-filter: url(#blur-filter);
+  filter: url(#blur-filter);
+  -webkit-filter: blur(3px);
+  filter: blur(3px);
+}
+
+.big-spinner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+.blur-svg {
+  display: none;
+}
