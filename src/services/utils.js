@@ -6,3 +6,22 @@ export function extractPropertiesFromArrObj(dataArray, selectField = "id") {
     return [];
   }
 }
+
+export function getStrFirstNOptions(itemKey, items = [], outputItems = 3) {
+  if (!itemKey) return "";
+
+  const shortItemList = items
+    .slice(0, outputItems + 1)
+    .reduce((acc, item) => (item[itemKey] ? [...acc, item[itemKey]] : acc), []);
+
+  if (shortItemList.length > 0 && shortItemList.length <= outputItems) {
+    return `: ${shortItemList.join(", ")}`;
+  }
+
+  if (shortItemList.length > outputItems) {
+    shortItemList.pop();
+    return `: ${shortItemList.join(", ")}...`;
+  }
+
+  return "";
+}

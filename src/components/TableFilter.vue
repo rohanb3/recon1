@@ -13,12 +13,12 @@
     >
       <div class="popper">
         <div v-if="useQuickBtn" class="table-filter-btn">
-          <a href="#" @click.prevent="onSelectAllItemDisplayed">
-            {{ $t("table.filter.select.all") }}
-          </a>
-          <a href="#" @click.prevent="onClearAllItemDisplayed">
-            {{ $t("table.filter.clear.all") }}
-          </a>
+          <a href="#" @click.prevent="onSelectAllItemDisplayed">{{
+            $t("table.filter.select.all")
+          }}</a>
+          <a href="#" @click.prevent="onClearAllItemDisplayed">{{
+            $t("table.filter.clear.all")
+          }}</a>
         </div>
         <template v-if="useSearchField">
           <input
@@ -61,9 +61,10 @@
 import tableToolbarBalloon from "@/mixins/tableToolbarBalloon";
 import debounce from "lodash.debounce";
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
+import { getStrFirstNOptions } from "@/services/utils";
 
 const SEARCH_TIMEOUT = 500;
-const DISPLAYED_ITEMS_IN_TITLE = 4;
+const DISPLAYED_ITEMS_IN_TITLE = 3;
 
 export default {
   name: "TableFilter",
@@ -135,17 +136,7 @@ export default {
       return this.selectedItems.length;
     },
     selectedItemsForTitle() {
-      const itemsInTitle = this.selectedItems
-        .slice(0, DISPLAYED_ITEMS_IN_TITLE)
-        .reduce((acc, item) => (item[this.name] ? [...acc, item[this.name]] : acc), []);
-      if (itemsInTitle.length > 0 && itemsInTitle.length <= 3) {
-        return `: ${itemsInTitle.join(", ")}`;
-      }
-      if (itemsInTitle.length > 3) {
-        itemsInTitle.pop();
-        return `: ${itemsInTitle.join(", ")}...`;
-      }
-      return "";
+      return getStrFirstNOptions(this.name, this.selectedItems, DISPLAYED_ITEMS_IN_TITLE);
     }
   },
   methods: {
@@ -163,7 +154,7 @@ export default {
     },
     exactMatchSearch() {
       const result = this.unselectedItems.filter(option => {
-        return this.compareStr(option[this.name].toLowerCase(), this.searchField.toLowerCase());
+        return this.compareStr(option[this.name], this.searchField);
       });
       return result.length > 0 ? result : 0;
     },
@@ -174,7 +165,7 @@ export default {
       return result.length > 0 ? result : 0;
     },
     compareStr(word, searchWord) {
-      return word.substring(0, searchWord.length) === searchWord;
+      return word.toLowerCase().substring(0, searchWord.length) === searchWord.toLowerCase();
     },
     onClickItem(item) {
       this.$emit("select", {
@@ -212,13 +203,7 @@ export default {
       this.onHide();
     },
     sortItems(currentItem, nextItem) {
-      if (currentItem[this.name] > nextItem[this.name]) {
-        return 1;
-      }
-      if (currentItem[this.name] < nextItem[this.name]) {
-        return -1;
-      }
-      return 0;
+      return currentItem[this.name] - nextItem[this.name];
     }
   }
 };
