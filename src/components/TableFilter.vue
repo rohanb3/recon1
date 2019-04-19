@@ -13,12 +13,12 @@
     >
       <div class="popper">
         <div v-if="useQuickBtn" class="table-filter-btn">
-          <a href="#" @click.prevent="onSelectAllItemDisplayed">{{
-            $t("table.filter.select.all")
-          }}</a>
-          <a href="#" @click.prevent="onClearAllItemDisplayed">{{
-            $t("table.filter.clear.all")
-          }}</a>
+          <a href="#" @click.prevent="onSelectAllItemDisplayed">
+            {{ $t("table.filter.select.all") }}
+          </a>
+          <a href="#" @click.prevent="onClearAllItemDisplayed">
+            {{ $t("table.filter.clear.all") }}
+          </a>
         </div>
         <template v-if="useSearchField">
           <input
@@ -63,6 +63,7 @@ import debounce from "lodash.debounce";
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
 
 const SEARCH_TIMEOUT = 500;
+const DISPLAYED_ITEMS_IN_TITLE = 4;
 
 export default {
   name: "TableFilter",
@@ -116,13 +117,13 @@ export default {
   computed: {
     optionList() {
       if (this.searchField.length) return this.searchinOptions;
-      /* eslint-disable-next-line */
-      return this.itemDisplayed.sort(this.sortItems);
+      return this.itemDisplayed.slice(0).sort(this.sortItems);
     },
     itemDisplayed() {
       const listSize = this.listSize - this.listSizeSelectedItems;
+      const shortListUnselectedItems = this.unselectedItems.slice(0, listSize > 0 ? listSize : 0);
 
-      return this.selectedItems.concat(this.unselectedItems.slice(0, listSize > 0 ? listSize : 0));
+      return this.selectedItems.concat(shortListUnselectedItems);
     },
     selectedItems() {
       return this.items.filter(item => item.selected === true);
@@ -135,7 +136,7 @@ export default {
     },
     selectedItemsForTitle() {
       const itemsInTitle = this.selectedItems
-        .slice(0, 4)
+        .slice(0, DISPLAYED_ITEMS_IN_TITLE)
         .reduce((acc, item) => (item[this.name] ? [...acc, item[this.name]] : acc), []);
       if (itemsInTitle.length > 0 && itemsInTitle.length <= 3) {
         return `: ${itemsInTitle.join(", ")}`;
@@ -225,6 +226,7 @@ export default {
 
 <style scoped lang="scss">
 @import "~@/assets/styles/variables.scss";
+@import "~@/assets/styles/popper.scss";
 
 .table-filter {
   height: 20px;
