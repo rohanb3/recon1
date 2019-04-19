@@ -22,16 +22,16 @@ async function loadItems({ commit, state }, { itemType, filters = {} }, resetPre
   };
 
   const { getAll } = getEntityActions(itemType);
-  const { result, total } = await getAll(filtersToApply);
+  const { data, total } = await getAll(filtersToApply);
 
   if (resetPrevious) {
     commit(RESET_ITEMS, itemType);
   }
 
-  commit(INSERT_ITEMS, { itemType, items: result });
+  commit(INSERT_ITEMS, { itemType, items: data });
   commit(SET_ITEMS_TOTAL, { itemType, total });
 
-  if (result.length < ITEMS_TO_LOAD) {
+  if (data.length < ITEMS_TO_LOAD) {
     commit(SET_ALL_ITEMS_LOADED, itemType);
   }
 }

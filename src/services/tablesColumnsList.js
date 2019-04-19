@@ -5,7 +5,7 @@ import * as sortableColumns from "@/constants/tableСolumnsSorted";
 export const getOrdersTableColumns = () => [
   {
     name: "ordersNumber",
-    field: "ordersNumber",
+    field: "orderNumber",
     class: "text",
     title: i18n.t("order.number"),
     width: "3",
