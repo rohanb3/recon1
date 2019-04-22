@@ -55,6 +55,10 @@
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
+  "prettier": {
+    "trailingComma": "es5",
+    "singleQuote": true
+  },
   "lint-staged": {
     "*.{js,vue}": [
       "vue-cli-service lint",

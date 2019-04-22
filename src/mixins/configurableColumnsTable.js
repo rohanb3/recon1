@@ -1,15 +1,15 @@
-import { SET_COLUMNS, RESET_COLUMNS, SHOW_COLUMN, HIDE_COLUMN } from "@/store/tables/mutationTypes";
+import { SET_COLUMNS, RESET_COLUMNS, SHOW_COLUMN, HIDE_COLUMN } from '@/store/tables/mutationTypes';
 
 export default {
   data() {
     return {
-      tableName: "default"
+      tableName: 'default',
     };
   },
   computed: {
     columns() {
       return this.$store.state.tables[this.tableName].columns;
-    }
+    },
   },
   methods: {
     onColumnsResized(data) {
@@ -23,24 +23,24 @@ export default {
 
       this.$store.commit(SET_COLUMNS, {
         tableName: this.tableName,
-        columns: updatedColumns
+        columns: updatedColumns,
       });
     },
     onColumnsReordered(columns) {
       this.$store.commit(SET_COLUMNS, {
         tableName: this.tableName,
-        columns
+        columns,
       });
     },
     onColumnVisibilityChanged({ name, value }) {
       const mutation = value ? SHOW_COLUMN : HIDE_COLUMN;
       this.$store.commit(mutation, {
         tableName: this.tableName,
-        columnName: name
+        columnName: name,
       });
     },
     setDefaultColumns() {
       this.$store.commit(RESET_COLUMNS, this.tableName);
-    }
-  }
+    },
+  },
 };

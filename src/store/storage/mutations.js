@@ -1,12 +1,12 @@
-import Vue from "vue";
+import Vue from 'vue';
 import {
   INSERT_ITEMS,
   CHANGE_ITEM,
   REMOVE_ITEM,
   RESET_ITEMS,
   SET_ALL_ITEMS_LOADED,
-  SET_ITEMS_TOTAL
-} from "./mutationTypes";
+  SET_ITEMS_TOTAL,
+} from './mutationTypes';
 
 export default {
   /* eslint-disable no-param-reassign */
@@ -35,6 +35,6 @@ export default {
   },
   [SET_ITEMS_TOTAL](state, { itemType, total = 0 }) {
     state[itemType].total = total;
-  }
+  },
   /* eslint-enable no-param-reassign */
 };

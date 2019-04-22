@@ -1,10 +1,10 @@
-import { ORDERS } from "@/constants/entityTypes";
-import { getOrders } from "@/services/ordersRepository";
+import { ORDERS } from '@/constants/entityTypes';
+import { getOrders } from '@/services/ordersRepository';
 
 const handlers = {
   [ORDERS]: {
-    getAll: getOrders
-  }
+    getAll: getOrders,
+  },
 };
 
 const defaultHandler = itemType => () => {
@@ -16,5 +16,5 @@ export const getEntityActions = type => ({
   getAll: handlers[type].getAll || defaultHandler(type),
   create: handlers[type].create || defaultHandler(type),
   update: handlers[type].update || defaultHandler(type),
-  delete: handlers[type].delete || defaultHandler(type)
+  delete: handlers[type].delete || defaultHandler(type),
 });

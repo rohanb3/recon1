@@ -18,26 +18,26 @@
 </template>
 
 <script>
-import { ORDER_BY_DESC, ORDER_BY_ASC } from "@/constants/sortingDirection";
+import { ORDER_BY_DESC, ORDER_BY_ASC } from '@/constants/sortingDirection';
 
 export default {
-  name: "SortingHeaderCell",
+  name: 'SortingHeaderCell',
   props: {
     column: {
       type: Object,
-      required: true
+      required: true,
     },
     sortingField: {
       validator(value) {
-        return typeof value === "string" || value === null;
-      }
+        return typeof value === 'string' || value === null;
+      },
     },
     sortDirection: {
       required: true,
       validator(value) {
         return [ORDER_BY_DESC, ORDER_BY_ASC, null].includes(value);
-      }
-    }
+      },
+    },
   },
   computed: {
     arrowDirection() {
@@ -45,13 +45,13 @@ export default {
         return this.sortDirection === ORDER_BY_ASC;
       }
       return null;
-    }
+    },
   },
   methods: {
     onClickSortingHeaderCell() {
-      this.$emit("sortDirectionChanged", this.column.sortingFieldName);
-    }
-  }
+      this.$emit('sortDirectionChanged', this.column.sortingFieldName);
+    },
+  },
 };
 </script>
 

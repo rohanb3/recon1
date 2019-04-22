@@ -1,2 +1,2 @@
 // eslint-disable-next-line import/prefer-default-export
-export const ORDERS = "ORDERS";
+export const ORDERS = 'ORDERS';

@@ -1,10 +1,10 @@
 export default {
-  name: "ConfigurableFooter",
+  name: 'ConfigurableFooter',
   props: {
     columns: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     preparedColumns() {
@@ -17,15 +17,15 @@ export default {
           style.flex = 1;
         }
 
-        const machineName = (item.name || `column${index}`).toLowerCase().replace(/\W/g, "");
+        const machineName = (item.name || `column${index}`).toLowerCase().replace(/\W/g, '');
 
         return {
           ...item,
           _className: `column-${machineName}`,
-          style
+          style,
         };
       });
       return columns;
-    }
-  }
+    },
+  },
 };

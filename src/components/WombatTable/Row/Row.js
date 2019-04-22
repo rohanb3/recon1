@@ -1,14 +1,14 @@
 export default {
-  name: "configurable-row",
+  name: 'configurable-row',
   props: {
     height: true,
     item: {
-      type: Object
+      type: Object,
     },
     columns: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     styles() {
@@ -31,15 +31,15 @@ export default {
           style.flex = 1;
         }
 
-        const machineName = (item.name || `column${index}`).toLowerCase().replace(/\W/g, "");
+        const machineName = (item.name || `column${index}`).toLowerCase().replace(/\W/g, '');
 
         return {
           ...item,
           style,
-          _className: `column-${machineName}`
+          _className: `column-${machineName}`,
         };
       });
       return columns;
-    }
-  }
+    },
+  },
 };

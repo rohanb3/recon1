@@ -1,7 +1,7 @@
 <template>
   <div class="orders-table">
     <div class="table-toolbar">
-      <div class="table-title">{{ $t("orders") }}</div>
+      <div class="table-title">{{ $t('orders') }}</div>
       <orders-table-toolbar />
     </div>
     <wombat-table
@@ -57,22 +57,22 @@
 </template>
 
 <script>
-import WombatTable from "@/components/WombatTable/Table";
-import WombatRow from "@/components/WombatTable/Row";
-import TableLoader from "@/components/TableLoader";
-import DefaultHeaderCell from "@/components/tableHeaderCells/DefaultHeaderCell";
-import SortingHeaderCell from "@/components/tableHeaderCells/SortingHeaderCell";
-import DefaultCell from "@/components/tableCells/DefaultCell";
+import WombatTable from '@/components/WombatTable/Table';
+import WombatRow from '@/components/WombatTable/Row';
+import TableLoader from '@/components/TableLoader';
+import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
+import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
+import DefaultCell from '@/components/tableCells/DefaultCell';
 
-import OrdersTableToolbar from "@/containers/OrdersTableToolbar";
+import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
 
-import configurableColumnsTable from "@/mixins/configurableColumnsTable";
-import lazyLoadTable from "@/mixins/lazyLoadTable";
+import configurableColumnsTable from '@/mixins/configurableColumnsTable';
+import lazyLoadTable from '@/mixins/lazyLoadTable';
 
-import { ORDERS } from "@/constants/entityTypes";
+import { ORDERS } from '@/constants/entityTypes';
 
 export default {
-  name: "SelectOrderPage",
+  name: 'SelectOrderPage',
   components: {
     WombatTable,
     WombatRow,
@@ -80,26 +80,26 @@ export default {
     DefaultCell,
     DefaultHeaderCell,
     SortingHeaderCell,
-    OrdersTableToolbar
+    OrdersTableToolbar,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
     return {
       tableName: ORDERS,
       headerComponentsHash: {
-        default: "DefaultHeaderCell",
-        sortingHeader: "SortingHeaderCell"
+        default: 'DefaultHeaderCell',
+        sortingHeader: 'SortingHeaderCell',
       },
       rowComponentsHash: {
-        default: "DefaultCell"
-      }
+        default: 'DefaultCell',
+      },
     };
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/mixins.scss";
+@import '@/assets/styles/mixins.scss';
 
 .orders-table {
   @include table-base-container;

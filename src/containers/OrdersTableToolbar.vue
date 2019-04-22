@@ -6,24 +6,24 @@
 </template>
 
 <script>
-import QuickSearchFilter from "@/containers/QuickSearchFilter";
-import { ORDERS } from "@/constants/entityTypes";
+import QuickSearchFilter from '@/containers/QuickSearchFilter';
+import { ORDERS } from '@/constants/entityTypes';
 
 export default {
-  name: "OrdersTableToolbar",
+  name: 'OrdersTableToolbar',
   components: {
-    QuickSearchFilter
+    QuickSearchFilter,
   },
   data() {
     return {
-      tableName: ORDERS
+      tableName: ORDERS,
     };
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/styles/variables.scss";
+@import '~@/assets/styles/variables.scss';
 
 .companies-table-toolbar {
   display: flex;

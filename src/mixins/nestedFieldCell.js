@@ -1,16 +1,16 @@
 export default {
   props: {
     item: {
-      type: Object
+      type: Object,
     },
     column: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   computed: {
     fields() {
-      if (typeof this.column.field === "string") {
-        return this.column.field.split(".");
+      if (typeof this.column.field === 'string') {
+        return this.column.field.split('.');
       }
       return [];
     },
@@ -20,6 +20,6 @@ export default {
       } catch (err) {
         return null;
       }
-    }
-  }
+    },
+  },
 };

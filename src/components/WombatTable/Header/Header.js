@@ -1,61 +1,61 @@
-import VueDraggableResizable from "vue-draggable-resizable";
-import VueDraggable from "vuedraggable";
+import VueDraggableResizable from 'vue-draggable-resizable';
+import VueDraggable from 'vuedraggable';
 
 const RESIZER_WIDTH = 5;
 const COLUMN_DEFAULT_MIN_WIDTH = 50;
 const MIN_DRAGGABLE_DIFFERENCE = 10;
 
-export const HEADER_CELL_ELLIPSIS_NEVER = "never";
-export const HEADER_CELL_ELLIPSIS_ALWAYS = "always";
-export const HEADER_CELL_ELLIPSIS_SMART = "smart";
+export const HEADER_CELL_ELLIPSIS_NEVER = 'never';
+export const HEADER_CELL_ELLIPSIS_ALWAYS = 'always';
+export const HEADER_CELL_ELLIPSIS_SMART = 'smart';
 
 export default {
-  name: "configurable-header",
+  name: 'configurable-header',
   components: {
     VueDraggableResizable,
-    VueDraggable
+    VueDraggable,
   },
   props: {
     columns: {
       type: Array,
-      required: true
+      required: true,
     },
     width: true,
     resize: {
       type: Boolean,
-      default: true
+      default: true,
     },
     columnsReorder: {
       type: Boolean,
-      default: true
+      default: true,
     },
     columnsEllipsisMode: {
       type: String,
-      default: HEADER_CELL_ELLIPSIS_SMART
+      default: HEADER_CELL_ELLIPSIS_SMART,
     },
     name: {
       type: String,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     return {
       resizerPositions: {},
       columnsWidth: {},
-      RESIZER_WIDTH
+      RESIZER_WIDTH,
     };
   },
   computed: {
     globalStyles() {
       return {
-        width: this.width ? `${this.width}px` : "100%"
+        width: this.width ? `${this.width}px` : '100%',
       };
     },
     isColumnsEllipsisModeAlways() {
       return this.columnsEllipsisMode === HEADER_CELL_ELLIPSIS_ALWAYS;
     },
     tableNameIdentificator() {
-      return this.name ? `wombat-columns-styles-${this.name}` : "wombat-columns-styles";
+      return this.name ? `wombat-columns-styles-${this.name}` : 'wombat-columns-styles';
     },
     preparedColumns: {
       get() {
@@ -64,7 +64,7 @@ export default {
           let _width;
           let _widthProportion;
 
-          if (item.width && String(item.width).indexOf("px") >= 0) {
+          if (item.width && String(item.width).indexOf('px') >= 0) {
             _style.width = item.width;
             _width = parseInt(item.width, 10);
           } else {
@@ -72,9 +72,9 @@ export default {
             _widthProportion = _style.flex;
           }
           const _minWidth = parseInt(item.minWidth || COLUMN_DEFAULT_MIN_WIDTH, 10);
-          _style["min-width"] = `${_minWidth}px`;
+          _style['min-width'] = `${_minWidth}px`;
 
-          const _machineName = (item.name || `column${index}`).toLowerCase().replace(/\W/g, "");
+          const _machineName = (item.name || `column${index}`).toLowerCase().replace(/\W/g, '');
           const _className = `column-${_machineName}`;
 
           return {
@@ -84,14 +84,14 @@ export default {
             _minWidth,
             _width,
             _widthProportion,
-            _style
+            _style,
           };
         });
         return columns;
       },
       set(columns) {
-        this.$emit("columnsReordered", columns);
-      }
+        this.$emit('columnsReordered', columns);
+      },
     },
     columnsStyles() {
       const styles = {};
@@ -101,7 +101,7 @@ export default {
       });
 
       return styles;
-    }
+    },
   },
   watch: {
     columnsWidth: {
@@ -110,16 +110,16 @@ export default {
         if (this.columnsEllipsisMode === HEADER_CELL_ELLIPSIS_SMART) {
           this.adjustColumnsEllipsis();
         }
-      }
+      },
     },
     columnsStyles: {
       handler() {
         this.compileColumnsStyles();
         this.checkResizerPositions();
-      }
+      },
     },
-    preparedColumns: "checkColumnsWidth",
-    width: "checkColumnsWidth"
+    preparedColumns: 'checkColumnsWidth',
+    width: 'checkColumnsWidth',
   },
   methods: {
     compileColumnsStyles() {
@@ -127,22 +127,22 @@ export default {
         .map(className => {
           const styles = Object.keys(this.columnsStyles[className] || {})
             .map(prop => `${prop}: ${this.columnsStyles[className][prop]};`)
-            .join("\n");
+            .join('\n');
 
           return `.wombat-table .cell.${className} {
             ${styles}
           }`;
         })
-        .join("\n");
+        .join('\n');
 
       let stylesContainer =
         this.stylesContainer || document.querySelector(`#${this.tableNameIdentificator}`);
 
       if (!stylesContainer) {
-        stylesContainer = document.createElement("STYLE");
+        stylesContainer = document.createElement('STYLE');
         this.stylesContainer = stylesContainer;
         stylesContainer.id = this.tableNameIdentificator;
-        document.querySelector("body").appendChild(stylesContainer);
+        document.querySelector('body').appendChild(stylesContainer);
       }
 
       stylesContainer.innerHTML = compiledStyles;
@@ -227,7 +227,7 @@ export default {
             newFluidColumnsWidth,
             newOtherFluidColumnsWidth,
             otherFluidColumns
-          )
+          ),
         };
 
         if (newFluidColumnsWidth !== fluidColumnsTotalWidth) {
@@ -235,13 +235,13 @@ export default {
 
           changes = {
             ...changes,
-            ...this.adjustFixedColumns(newFixedColumnsWidth, fixedColumns)
+            ...this.adjustFixedColumns(newFixedColumnsWidth, fixedColumns),
           };
         }
       }
 
       if (Object.keys(changes).length) {
-        this.$emit("columnsResized", changes);
+        this.$emit('columnsResized', changes);
       }
     },
     adjustFluidColumns(totalWidth, widthToAdjust, columns) {
@@ -280,29 +280,29 @@ export default {
       this.preparedColumns.forEach(column => {
         const columnRef = this.$refs[column._machineName][0];
 
-        columnRef.classList.remove("header-column-ellipsis");
+        columnRef.classList.remove('header-column-ellipsis');
 
         if (columnRef.clientWidth < columnRef.scrollWidth) {
-          columnRef.classList.add("header-column-ellipsis");
+          columnRef.classList.add('header-column-ellipsis');
         }
       });
     },
     preventColumnDragging(ev) {
       ev.preventDefault();
       ev.stopPropagation();
-    }
+    },
   },
   mounted() {
     this.checkColumnsWidth();
     this.compileColumnsStyles();
-    window.addEventListener("resize", this.checkColumnsWidth);
+    window.addEventListener('resize', this.checkColumnsWidth);
   },
   beforeDestroy() {
     const stylesFile = document.querySelector(`#${this.tableNameIdentificator}`);
     if (stylesFile) {
       stylesFile.remove();
     }
-  }
+  },
 };
 
 /* eslint-enable no-underscore-dangle */

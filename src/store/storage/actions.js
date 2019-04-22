@@ -1,6 +1,6 @@
-import { getEntityActions } from "./repositoryHelper";
+import { getEntityActions } from './repositoryHelper';
 
-import { LOAD_ITEMS, LOAD_MORE_ITEMS, CREATE_ITEM, UPDATE_ITEM, DELETE_ITEM } from "./actionTypes";
+import { LOAD_ITEMS, LOAD_MORE_ITEMS, CREATE_ITEM, UPDATE_ITEM, DELETE_ITEM } from './actionTypes';
 
 import {
   INSERT_ITEMS,
@@ -8,17 +8,17 @@ import {
   REMOVE_ITEM,
   SET_ALL_ITEMS_LOADED,
   SET_ITEMS_TOTAL,
-  RESET_ITEMS
-} from "./mutationTypes";
+  RESET_ITEMS,
+} from './mutationTypes';
 
-import { ITEMS_TO_LOAD } from "./constants";
+import { ITEMS_TO_LOAD } from './constants';
 
 async function loadItems({ commit, state }, { itemType, filters = {} }, resetPrevious) {
   const { items } = state[itemType];
   const filtersToApply = {
     ...filters,
     offset: resetPrevious ? 0 : items.length,
-    limit: ITEMS_TO_LOAD
+    limit: ITEMS_TO_LOAD,
   };
 
   const { getAll } = getEntityActions(itemType);
@@ -57,5 +57,5 @@ export default {
     const { delete: deleteItem } = getEntityActions(itemType);
     await deleteItem(id);
     commit(REMOVE_ITEM, { itemType, id });
-  }
+  },
 };

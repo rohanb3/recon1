@@ -57,7 +57,7 @@
         </div>
       </div>
     </RecycleScroller>
-    <div v-show="!scrollbarShown" class="no-result-found">{{ $t("table.no.results.found") }}</div>
+    <div v-show="!scrollbarShown" class="no-result-found">{{ $t('table.no.results.found') }}</div>
     <slot name="footer">
       <wombat-footer v-if="footerCellStotPresent" class="wombat-footer" :width="rowWidth">
         <div

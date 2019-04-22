@@ -1,14 +1,14 @@
-import { RESET_ITEMS } from "@/store/storage/mutationTypes";
-import { LOAD_ITEMS, LOAD_MORE_ITEMS } from "@/store/storage/actionTypes";
-import { APPLY_FILTERS } from "@/store/tables/actionTypes";
-import { RESET_FILTERS } from "@/store/tables/mutationTypes";
-import { ORDER, SORT } from "@/constants/filtersNames";
-import { ORDER_BY_DESC, ORDER_BY_ASC } from "@/constants/sortingDirection";
+import { RESET_ITEMS } from '@/store/storage/mutationTypes';
+import { LOAD_ITEMS, LOAD_MORE_ITEMS } from '@/store/storage/actionTypes';
+import { APPLY_FILTERS } from '@/store/tables/actionTypes';
+import { RESET_FILTERS } from '@/store/tables/mutationTypes';
+import { ORDER, SORT } from '@/constants/filtersNames';
+import { ORDER_BY_DESC, ORDER_BY_ASC } from '@/constants/sortingDirection';
 
 export default {
   data() {
     return {
-      loading: false
+      loading: false,
     };
   },
   mounted() {
@@ -51,7 +51,7 @@ export default {
     },
     usersDashboardStatistics() {
       return this.storageData.usersDashboardStatistics || {};
-    }
+    },
   },
   methods: {
     checkAndLoadItems(stateChanger) {
@@ -80,7 +80,7 @@ export default {
     applyFilters(...filters) {
       const data = {
         tableName: this.tableName,
-        filters
+        filters,
       };
       this.$store.dispatch(APPLY_FILTERS, data);
     },
@@ -91,17 +91,17 @@ export default {
       const state = {
         asc: { order: ORDER_BY_DESC, sort: sortingFieldName },
         desc: { order: null, sort: null },
-        null: { order: ORDER_BY_ASC, sort: sortingFieldName }
+        null: { order: ORDER_BY_ASC, sort: sortingFieldName },
       };
 
       const order = {
         name: ORDER,
-        value: state[this.sortDirection][ORDER]
+        value: state[this.sortDirection][ORDER],
       };
 
       const sort = {
         name: SORT,
-        value: state[this.sortDirection][SORT]
+        value: state[this.sortDirection][SORT],
       };
 
       if (sortingFieldName !== this.sortingField) {
@@ -117,6 +117,6 @@ export default {
     },
     onFiltersApplied(arrayFilters) {
       this.applyFilters(...arrayFilters);
-    }
-  }
+    },
+  },
 };

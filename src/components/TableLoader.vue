@@ -1,18 +1,18 @@
 <template>
   <div class="table-loader">
     <div class="spinner"></div>
-    <div class="text">{{ $t("loading") }}...</div>
+    <div class="text">{{ $t('loading') }}...</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "TableLoader"
+  name: 'TableLoader',
 };
 </script>
 
 <style scoped lang="scss">
-@import "~@/assets/styles/variables.scss";
+@import '~@/assets/styles/variables.scss';
 
 .table-loader {
   display: flex;
