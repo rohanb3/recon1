@@ -7,7 +7,7 @@ export function extractPropertiesFromArrObj(dataArray, selectField = "id") {
   }
 }
 
-export function getStrFirstNOptions(itemKey, items = [], outputItems = 3) {
+export function getStringFromValuesByKey(itemKey, items = [], outputItems = 3) {
   if (!itemKey) return "";
 
   const shortItemList = items

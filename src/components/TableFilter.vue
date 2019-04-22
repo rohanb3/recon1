@@ -61,7 +61,7 @@
 import tableToolbarBalloon from "@/mixins/tableToolbarBalloon";
 import debounce from "lodash.debounce";
 import VuePerfectScrollbar from "vue-perfect-scrollbar";
-import { getStrFirstNOptions } from "@/services/utils";
+import { getStringFromValuesByKey } from "@/services/utils";
 
 const SEARCH_TIMEOUT = 500;
 const DISPLAYED_ITEMS_IN_TITLE = 3;
@@ -136,7 +136,7 @@ export default {
       return this.selectedItems.length;
     },
     selectedItemsForTitle() {
-      return getStrFirstNOptions(this.name, this.selectedItems, DISPLAYED_ITEMS_IN_TITLE);
+      return getStringFromValuesByKey(this.name, this.selectedItems, DISPLAYED_ITEMS_IN_TITLE);
     }
   },
   methods: {
