@@ -10,30 +10,30 @@
 </template>
 
 <script>
-import debounce from "lodash.debounce";
+import debounce from 'lodash.debounce';
 
 const SEARCH_TIMEOUT = 500;
 
 function debounceInput(value) {
-  this.$emit("input", value.trim());
+  this.$emit('input', value.trim());
 }
 
 export default {
-  name: "QuickSearch",
+  name: 'QuickSearch',
   props: {
     placeholder: {
-      type: String
+      type: String,
     },
     initialPhrase: {
-      default: "",
+      default: '',
       validator(value) {
-        return typeof value === "string" || typeof value === "number";
-      }
-    }
+        return typeof value === 'string' || typeof value === 'number';
+      },
+    },
   },
   data() {
     return {
-      textValue: ""
+      textValue: '',
     };
   },
   mounted() {
@@ -42,13 +42,13 @@ export default {
     }
   },
   methods: {
-    debounceInput: debounce(debounceInput, SEARCH_TIMEOUT)
-  }
+    debounceInput: debounce(debounceInput, SEARCH_TIMEOUT),
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/styles/variables.scss";
+@import '~@/assets/styles/variables.scss';
 
 .quick-search /deep/ {
   .v-input__control {

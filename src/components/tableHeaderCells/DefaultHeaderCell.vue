@@ -6,13 +6,13 @@
 
 <script>
 export default {
-  name: "DefaultHeaderCell",
+  name: 'DefaultHeaderCell',
   props: {
     column: {
       type: Object,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>
 

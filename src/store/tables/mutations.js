@@ -1,6 +1,6 @@
-import Vue from "vue";
-import * as types from "./mutationTypes";
-import getDefaultFilters from "./filtersHelper";
+import Vue from 'vue';
+import * as types from './mutationTypes';
+import getDefaultFilters from './filtersHelper';
 
 export default {
   /* eslint-disable no-param-reassign */
@@ -30,10 +30,10 @@ export default {
     });
   },
   [types.RESET_FILTERS](state, tableName) {
-    Vue.set(state[tableName], "filters", getDefaultFilters(tableName));
+    Vue.set(state[tableName], 'filters', getDefaultFilters(tableName));
   },
   [types.APPLYING_FILTERS_DONE](state, tableName) {
     state[tableName].applyingFilters = false;
-  }
+  },
   /* eslint-enable no-param-reassign */
 };

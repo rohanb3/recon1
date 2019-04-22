@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import nestedFieldCell from "@/mixins/nestedFieldCell";
+import nestedFieldCell from '@/mixins/nestedFieldCell';
 
 export default {
-  name: "DefaultCell",
-  mixins: [nestedFieldCell]
+  name: 'DefaultCell',
+  mixins: [nestedFieldCell],
 };
 </script>

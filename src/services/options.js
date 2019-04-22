@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from 'moment';
 
 const daysShort = Array(7)
   .fill(1)
@@ -6,7 +6,7 @@ const daysShort = Array(7)
     moment
       .utc()
       .isoWeekday(i + 1)
-      .format("dd")
+      .format('dd')
       .toLowerCase()
       .slice(0, 1)
   )
@@ -15,7 +15,7 @@ const daysShort = Array(7)
 export default {
   daysShort,
   colors: {
-    selected: "#398ffb",
-    inRange: "#d4ebfe"
-  }
+    selected: '#398ffb',
+    inRange: '#d4ebfe',
+  },
 };

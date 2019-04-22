@@ -16,7 +16,7 @@
           column.class,
           column._className,
           isColumnsEllipsisModeAlways ? 'header-column-ellipsis' : '',
-          columnsReorder ? 'allow-redorder' : ''
+          columnsReorder ? 'allow-redorder' : '',
         ]"
       >
         <div class="content">

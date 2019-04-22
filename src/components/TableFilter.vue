@@ -14,10 +14,10 @@
       <div class="popper">
         <div v-if="useQuickBtn" class="table-filter-btn">
           <a href="#" @click.prevent="onSelectAllItemDisplayed">
-            {{ $t("table.filter.select.all") }}
+            {{ $t('table.filter.select.all') }}
           </a>
           <a href="#" @click.prevent="onClearAllItemDisplayed">
-            {{ $t("table.filter.clear.all") }}
+            {{ $t('table.filter.clear.all') }}
           </a>
         </div>
         <template v-if="useSearchField">
@@ -58,62 +58,62 @@
 </template>
 
 <script>
-import tableToolbarBalloon from "@/mixins/tableToolbarBalloon";
-import debounce from "lodash.debounce";
-import VuePerfectScrollbar from "vue-perfect-scrollbar";
-import { getStrFirstNOptions } from "@/services/utils";
+import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
+import debounce from 'lodash.debounce';
+import VuePerfectScrollbar from 'vue-perfect-scrollbar';
+import { getStringFromValuesByKey } from '@/services/utils';
 
 const SEARCH_TIMEOUT = 500;
 const DISPLAYED_ITEMS_IN_TITLE = 3;
 
 export default {
-  name: "TableFilter",
+  name: 'TableFilter',
   mixins: [tableToolbarBalloon],
   components: {
-    VuePerfectScrollbar
+    VuePerfectScrollbar,
   },
   props: {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     items: {
       type: Array,
-      required: true
+      required: true,
     },
     itemKey: {
       type: String,
-      default: "id"
+      default: 'id',
     },
     name: {
       type: String,
-      required: true
+      required: true,
     },
     listSize: {
       type: Number,
-      default: 7
+      default: 7,
     },
     useQuickBtn: {
       type: Boolean,
-      default: true
+      default: true,
     },
     useSearchField: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data() {
     return {
       searchinOptions: [],
-      searchField: "",
+      searchField: '',
       searchFocus: false,
-      minWidthFilterEditor: "auto"
+      minWidthFilterEditor: 'auto',
     };
   },
   watch: {
     items(newItems, oldItems) {
       if (newItems.length !== oldItems.length) this.search();
-    }
+    },
   },
   computed: {
     optionList() {
@@ -136,17 +136,17 @@ export default {
       return this.selectedItems.length;
     },
     selectedItemsForTitle() {
-      return getStrFirstNOptions(this.name, this.selectedItems, DISPLAYED_ITEMS_IN_TITLE);
-    }
+      return getStringFromValuesByKey(this.name, this.selectedItems, DISPLAYED_ITEMS_IN_TITLE);
+    },
   },
   methods: {
     search() {
       if (this.searchField.length > 0) {
         const result = this.exactMatchSearch() || this.occurrenceSearch() || [];
         if (result.length === 0) {
-          this.$emit("notFound", {
+          this.$emit('notFound', {
             itemKey: this.itemKey,
-            searchField: this.searchField
+            searchField: this.searchField,
           });
         }
         this.searchinOptions = result.slice(0, this.listSize);
@@ -168,27 +168,27 @@ export default {
       return word.toLowerCase().substring(0, searchWord.length) === searchWord.toLowerCase();
     },
     onClickItem(item) {
-      this.$emit("select", {
+      this.$emit('select', {
         itemKeyName: this.itemKey,
-        itemKey: item[this.itemKey]
+        itemKey: item[this.itemKey],
       });
       this.reset();
     },
     onSelectAllItemDisplayed() {
-      this.$emit("selectAll", {
+      this.$emit('selectAll', {
         itemKeyName: this.itemKey,
-        items: this.itemDisplayed
+        items: this.itemDisplayed,
       });
     },
     onClearAllItemDisplayed() {
-      this.$emit("clearAll", {
+      this.$emit('clearAll', {
         itemKeyName: this.itemKey,
-        items: this.itemDisplayed
+        items: this.itemDisplayed,
       });
     },
     reset() {
       this.searchFocus = false;
-      this.searchField = "";
+      this.searchField = '';
       this.searchinOptions = [];
     }, // eslint-disable-next-line func-names
     debounceInput: debounce(function() {
@@ -199,7 +199,7 @@ export default {
       this.checkAndShow();
     },
     hideFilter() {
-      this.minWidthFilterEditor = "auto";
+      this.minWidthFilterEditor = 'auto';
       this.onHide();
     },
     sortItems(currentItem, nextItem) {
@@ -210,14 +210,14 @@ export default {
         return -1;
       }
       return 0;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
-@import "~@/assets/styles/variables.scss";
-@import "~@/assets/styles/popper.scss";
+@import '~@/assets/styles/variables.scss';
+@import '~@/assets/styles/popper.scss';
 
 .table-filter {
   height: 20px;
@@ -269,7 +269,7 @@ export default {
   }
 }
 .selected::before {
-  content: "\2714";
+  content: '\2714';
   display: inline-block;
   color: $base-blue;
   position: absolute;

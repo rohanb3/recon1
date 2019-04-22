@@ -10,20 +10,20 @@
 </template>
 
 <script>
-import { APPLY_FILTERS } from "@/store/tables/actionTypes";
-import { SEARCH_PHRASE } from "@/constants/filtersNames";
-import QuickSearch from "@/components/QuickSearch";
+import { APPLY_FILTERS } from '@/store/tables/actionTypes';
+import { SEARCH_PHRASE } from '@/constants/filtersNames';
+import QuickSearch from '@/components/QuickSearch';
 
 export default {
-  name: "QuickSearchBranchesFilter",
+  name: 'QuickSearchBranchesFilter',
   props: {
     tableName: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   components: {
-    QuickSearch
+    QuickSearch,
   },
   computed: {
     tableData() {
@@ -33,24 +33,24 @@ export default {
       return this.tableData.filters || {};
     },
     selectedPhrase() {
-      return this.filters[SEARCH_PHRASE] || "";
-    }
+      return this.filters[SEARCH_PHRASE] || '';
+    },
   },
   methods: {
     handleQuickSearchInput(searchPhrase) {
       const filterName = {
         name: SEARCH_PHRASE,
-        value: searchPhrase
+        value: searchPhrase,
       };
       this.applyFilter(filterName);
     },
     applyFilter(...filters) {
       const data = {
         tableName: this.tableName,
-        filters
+        filters,
       };
       this.$store.dispatch(APPLY_FILTERS, data);
-    }
-  }
+    },
+  },
 };
 </script>
