@@ -13,12 +13,12 @@
     >
       <div class="popper">
         <div v-if="useQuickBtn" class="table-filter-btn">
-          <a href="#" @click.prevent="onSelectAllItemDisplayed">{{
-            $t("table.filter.select.all")
-          }}</a>
-          <a href="#" @click.prevent="onClearAllItemDisplayed">{{
-            $t("table.filter.clear.all")
-          }}</a>
+          <a href="#" @click.prevent="onSelectAllItemDisplayed">
+            {{ $t("table.filter.select.all") }}
+          </a>
+          <a href="#" @click.prevent="onClearAllItemDisplayed">
+            {{ $t("table.filter.clear.all") }}
+          </a>
         </div>
         <template v-if="useSearchField">
           <input
@@ -118,13 +118,13 @@ export default {
   computed: {
     optionList() {
       if (this.searchField.length) return this.searchinOptions;
-      return this.itemDisplayed.slice(0).sort(this.sortItems);
+      return this.itemDisplayed;
     },
     itemDisplayed() {
       const listSize = this.listSize - this.listSizeSelectedItems;
       const shortListUnselectedItems = this.unselectedItems.slice(0, listSize > 0 ? listSize : 0);
 
-      return this.selectedItems.concat(shortListUnselectedItems);
+      return this.selectedItems.concat(shortListUnselectedItems).sort(this.sortItems);
     },
     selectedItems() {
       return this.items.filter(item => item.selected === true);
@@ -203,7 +203,13 @@ export default {
       this.onHide();
     },
     sortItems(currentItem, nextItem) {
-      return currentItem[this.name] - nextItem[this.name];
+      if (currentItem[this.name] > nextItem[this.name]) {
+        return 1;
+      }
+      if (currentItem[this.name] < nextItem[this.name]) {
+        return -1;
+      }
+      return 0;
     }
   }
 };
