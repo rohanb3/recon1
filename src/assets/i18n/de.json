@@ -1,6 +1,24 @@
 {
-  "select.order": "TBD Select order to create a new dispute",
-  "order.number": "TBD Order Number",
-  "account.number": "TBD Account Number",
-  "new.dispute": "TBD New Dispute"
+  "orders.select.order": "TBD Select order to create a new dispute",
+  "orders.number": "TBD Order Number",
+  "orders.account.number": "TBD Account Number",
+  "orders.service.name": "TBD Service Name",
+  "orders.ordered.units": "TBD Ordered Units",
+  "orders.installed.units": "TBD Installed Units",
+  "orders.order.status": "TBD Order Status",
+  "orders.age.after.order": "TBD Age (after order)",
+  "orders.age.after.installation": "TBD Age (after Installation)",
+  "orders.expected.comission": "TBD Expected Comission",
+  "orders.recieved.comisson": "TBD Recieved Comisson",
+  "orders.difference": "TBD Difference",
+  "orders.new.dispute": "TBD New Dispute",
+  "orders.restore.draft": "TBD Restore Draft",
+  "orders.disputed": "TBD Disputed",
+
+  "choose.fiscal.period": "TBD Choose fiscal period",
+  "selected.date.range": "TBD Selected date range",
+  "quick.search": "TBD Search query…",
+  "orders.status": "TBD Order status",
+  "export": "TBD Export",
+  "custom.range": "TBD Custom range"
 }

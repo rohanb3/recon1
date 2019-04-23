@@ -17,8 +17,8 @@ async function loadItems({ commit, state }, { itemType, filters = {} }, resetPre
   const { items } = state[itemType];
   const filtersToApply = {
     ...filters,
-    offset: resetPrevious ? 0 : items.length,
-    limit: ITEMS_TO_LOAD,
+    skip: resetPrevious ? 0 : items.length,
+    take: ITEMS_TO_LOAD,
   };
 
   const { getAll } = getEntityActions(itemType);

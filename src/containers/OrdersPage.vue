@@ -1,7 +1,7 @@
 <template>
   <div class="orders-table">
     <div class="table-toolbar">
-      <div class="table-title">{{ $t('orders') }}</div>
+      <div class="table-title">{{ $t('orders.select.order') }}</div>
       <orders-table-toolbar />
     </div>
     <wombat-table
@@ -63,6 +63,7 @@ import TableLoader from '@/components/TableLoader';
 import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
 import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
 import DefaultCell from '@/components/tableCells/DefaultCell';
+import orderDifferenceCell from '@/components/tableCells/orderDifferenceCell';
 
 import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
 
@@ -81,6 +82,7 @@ export default {
     DefaultHeaderCell,
     SortingHeaderCell,
     OrdersTableToolbar,
+    orderDifferenceCell,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
@@ -92,6 +94,7 @@ export default {
       },
       rowComponentsHash: {
         default: 'DefaultCell',
+        orderDifference: 'orderDifferenceCell',
       },
     };
   },
@@ -116,5 +119,17 @@ export default {
 
 .table-title {
   @include table-base-title;
+}
+
+.orders-table /deep/ {
+  height: 95vh;
+  margin: 20px;
+
+  .virtual-list {
+    height: 100vh;
+    max-height: calc(
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
+    );
+  }
 }
 </style>

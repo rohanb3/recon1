@@ -1,6 +1,27 @@
 {
-  "select.order": "Select order to create a new dispute",
-  "order.number": "Order Number",
-  "account.number": "Account Number",
-  "new.dispute": "New Dispute"
+  "orders.select.order": "Select order to create a new dispute",
+  "orders.number": "Order Number",
+  "orders.account.number": "Account Number",
+  "orders.service.name": "Service Name",
+  "orders.ordered.units": "Ordered Units",
+  "orders.installed.units": "Installed Units",
+  "orders.order.status": "Order Status",
+  "orders.age.after.order": "Age (after order)",
+  "orders.age.after.installation": "Age (after Installation)",
+  "orders.expected.comission": "Expected Comission",
+  "orders.recieved.comisson": "Recieved Comisson",
+  "orders.difference": "Difference",
+  "orders.new.dispute": "New Dispute",
+  "orders.restore.draft": "Restore Draft",
+  "orders.disputed": "Disputed",
+
+  "choose.fiscal.period": "Choose fiscal period",
+  "selected.date.range": "Selected date range",
+  "quick.search": "Search query…",
+  "orders.status": "Order status",
+  "export": "Export",
+  "custom.range": "Custom range",
+
+  "loading": "Loading",
+  "table.no.results.found": "No Results found"
 }

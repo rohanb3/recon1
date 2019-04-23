@@ -190,8 +190,8 @@ export default {
       this.searchFocus = false;
       this.searchField = '';
       this.searchinOptions = [];
-    }, // eslint-disable-next-line func-names
-    debounceInput: debounce(function() {
+    },
+    debounceInput: debounce(function searchInput() {
       this.search();
     }, SEARCH_TIMEOUT),
     showFilter() {

@@ -2,7 +2,6 @@
   <div class="filter-wrapper">
     <quick-search
       class="quick-search"
-      :title="$t('branches.filter.quick.search')"
       :initial-phrase="selectedPhrase"
       @input="handleQuickSearchInput"
     ></quick-search>
