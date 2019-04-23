@@ -10,10 +10,25 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "core-js": "^2.6.5",
+    "lodash.debounce": "^4.0.8",
+    "material-design-icons-iconfont": "^4.0.5",
+    "moment": "^2.24.0",
+    "perfect-scrollbar": "^1.4.0",
+    "qs": "^6.7.0",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
+    "vue-airbnb-style-datepicker": "^2.7.0",
+    "vue-draggable-resizable": "^2.0.0-rc1",
+    "vue-i18n": "^8.10.0",
+    "vue-infinite-loading": "^2.4.4",
+    "vue-perfect-scrollbar": "^0.1.0",
+    "vue-popperjs": "^2.0.3",
     "vue-router": "^3.0.3",
+    "vue-virtual-scroller": "^1.0.0-rc.2",
+    "vuedraggable": "^2.20.0",
+    "vuetify": "^1.5.12",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -29,6 +44,8 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-vue": "^5.0.0",
     "lint-staged": "^8.1.5",
     "node-sass": "^4.9.0",
@@ -37,6 +54,10 @@
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "singleQuote": true
   },
   "lint-staged": {
     "*.{js,vue}": [
