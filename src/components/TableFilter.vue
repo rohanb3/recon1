@@ -13,12 +13,12 @@
     >
       <div class="popper">
         <div v-if="useQuickBtn" class="table-filter-btn">
-          <a href="#" @click.prevent="onSelectAllItemDisplayed">
-            {{ $t('table.filter.select.all') }}
-          </a>
-          <a href="#" @click.prevent="onClearAllItemDisplayed">
-            {{ $t('table.filter.clear.all') }}
-          </a>
+          <a href="#" @click.prevent="onSelectAllItemDisplayed">{{
+            $t('table.filter.select.all')
+          }}</a>
+          <a href="#" @click.prevent="onClearAllItemDisplayed">{{
+            $t('table.filter.clear.all')
+          }}</a>
         </div>
         <template v-if="useSearchField">
           <input
@@ -122,7 +122,7 @@ export default {
     },
     itemDisplayed() {
       const listSize = this.listSize - this.listSizeSelectedItems;
-      const shortListUnselectedItems = this.unselectedItems.slice(0, listSize > 0 ? listSize : 0);
+      const shortListUnselectedItems = this.unselectedItems.slice(0, Math.max(listSize, 0));
 
       return this.selectedItems.concat(shortListUnselectedItems).sort(this.sortItems);
     },
@@ -160,12 +160,15 @@ export default {
     },
     occurrenceSearch() {
       const result = this.unselectedItems.filter(option => {
-        return option[this.name].toLowerCase().indexOf(this.searchField.toLowerCase()) >= 0;
+        return this.compareStr(option[this.name], this.searchField, true);
       });
       return result.length > 0 ? result : 0;
     },
-    compareStr(word, searchWord) {
-      return word.toLowerCase().substring(0, searchWord.length) === searchWord.toLowerCase();
+    compareStr(word, searchWord, strictMode = false) {
+      if (strictMode) {
+        return word.toLowerCase().substring(0, searchWord.length) === searchWord.toLowerCase();
+      }
+      return word.toLowerCase().indexOf(searchWord.toLowerCase()) >= 0;
     },
     onClickItem(item) {
       this.$emit('select', {
