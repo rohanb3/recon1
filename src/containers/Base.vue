@@ -13,6 +13,7 @@
   display: flex;
   flex-flow: column;
   min-height: 100vh;
+  font-family: Roboto;
 }
 
 .content-wrapper {

@@ -15,6 +15,38 @@
   "orders.restore.draft": "Restore Draft",
   "orders.disputed": "Disputed",
 
+  "dispute.page.title": "New dispute",
+  "dispute.general.information": "General Information",
+  "dispute.customer.information": "Customer Information",
+  "dispute.affiliate.name": "Affiliate Name",
+  "dispute.affiliate.id": "Affiliate ID",
+  "dispute.account.number": "Account Number",
+  "dispute.order.confirmation": "Order Confirmation",
+  "dispute.wo.number": "WO Number",
+  "dispute.fiscal.period": "Fiscal Period",
+  "dispute.creation.date": "Creation Date",
+  "dispute.installation.date": "Installation Date",
+  "dispute.age.by.creation.date": "Age by Creation Date",
+  "dispute.age.by.instalation.date": "Age by Instalation Date",
+  "dispute.expected.comission": "Expected comission",
+  "dispute.recived.comission.difference": "Recived Comission Difference",
+  "dispute.dispute.type": "Dispute Type",
+  "dispute.submitter.comment": "Submitter Comment",
+  "dispute.customer.name": "Customer Name",
+  "dispute.customer.phone": "Customer Phone",
+  "dispute.city": "City",
+  "dispute.state": "State",
+  "dispute.customer.address": "Customer Address",
+  "dispute.zip": "ZIP",
+  "dispute.ordered.units": "Ordered Units",
+  "dispute.installed.units": "Installed Units",
+  "dispute.service.name": "Service Name",
+  "dispute.legacy.company": "Legacy Company",
+
+  "cancel": "Cancel",
+  "save.as.draft": "Save as Draft",
+  "create.new.dispute": "Create new dispute",
+
   "choose.fiscal.period": "Choose fiscal period",
   "selected.date.range": "Selected date range",
   "quick.search": "Search query…",
@@ -23,5 +55,8 @@
   "custom.range": "Custom range",
 
   "loading": "Loading",
-  "table.no.results.found": "No Results found"
+  "table.no.results.found": "No Results found",
+
+  "browse.files.or.images": "Browse files or images",
+  "choose.file": "Choose File"
 }

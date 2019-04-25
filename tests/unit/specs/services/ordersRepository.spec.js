@@ -1,4 +1,4 @@
-import disputsApi from '@/services/disputsApi';
+import disputesApi from '@/services/disputesApi';
 import { getOrders } from '@/services/ordersRepository';
 
 describe('ordersRepository', () => {
@@ -13,12 +13,12 @@ describe('ordersRepository', () => {
 
       const data = { id: '777' };
 
-      disputsApi.get = jest.fn(() => Promise.resolve({ data }));
+      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
 
       const response = await getOrders(filters);
 
       expect(response).toEqual(data);
-      expect(disputsApi.get).toHaveBeenCalledWith('/order', {
+      expect(disputesApi.get).toHaveBeenCalledWith('/order', {
         params: { ...filters },
       });
     });

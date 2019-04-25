@@ -188,16 +188,17 @@ describe('TableFilter: ', () => {
         ],
         name: 'name',
         searchField: 'Ol',
+        compareStr: jest.fn(() => true),
       };
 
       const result = TableFilter.methods.occurrenceSearch.call(mockedThis);
 
-      const expectedSelectedItems = [
-        { id: 33, name: 'North Carolina', value: 'NC' },
-        { id: 40, name: 'South Carolina', value: 'SC' },
-      ];
-
-      expect(result).toEqual(expectedSelectedItems);
+      expect(mockedThis.compareStr).toHaveBeenCalledWith(
+        mockedThis.unselectedItems[0].name,
+        mockedThis.searchField,
+        true
+      );
+      expect(result).toEqual(mockedThis.unselectedItems);
     });
 
     it('should return 0 if item not found', () => {
@@ -209,9 +210,16 @@ describe('TableFilter: ', () => {
         ],
         name: 'name',
         searchField: '132',
+        compareStr: jest.fn(() => false),
       };
 
       const result = TableFilter.methods.occurrenceSearch.call(mockedThis);
+
+      expect(mockedThis.compareStr).toHaveBeenCalledWith(
+        mockedThis.unselectedItems[0].name,
+        mockedThis.searchField,
+        true
+      );
 
       expect(result).toEqual(0);
     });
