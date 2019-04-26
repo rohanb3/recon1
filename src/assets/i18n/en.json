@@ -43,6 +43,12 @@
   "dispute.service.name": "Service Name",
   "dispute.legacy.company": "Legacy Company",
 
+  "field.cant.be.empty": "This field should be filled",
+  "field.max.length": "This field can't not be longer than %{length} symbols",
+  "field.must.consist.only.letters": "This field must consist only letters",
+  "field.must.consist.only.digits": "This field must consist only digits",
+  
+
   "cancel": "Cancel",
   "save.as.draft": "Save as Draft",
   "create.new.dispute": "Create new dispute",

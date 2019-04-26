@@ -2,7 +2,12 @@
   <div class="additional-info-block-form">
     <v-layout row mb-2>
       <v-flex md6>
-        <v-select append-icon="expand_more" :label="$t('dispute.dispute.type')"></v-select>
+        <v-select
+          append-icon="expand_more"
+          :label="$t('dispute.dispute.type')"
+          required
+          :validate-on-blur="true"
+        ></v-select>
         <v-textarea
           name="input-7-1"
           :label="$t('dispute.submitter.comment')"

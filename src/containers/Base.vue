@@ -14,6 +14,7 @@
   flex-flow: column;
   min-height: 100vh;
   font-family: Roboto;
+  min-width: 700px;
 }
 
 .content-wrapper {

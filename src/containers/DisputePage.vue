@@ -5,20 +5,22 @@
         <div class="dispute-toolbar">
           <div class="dispute-title">{{ $t('dispute.page.title') }}</div>
         </div>
+        {{ isValidGeneralInfo }}
         <v-layout row wrap>
-          <v-flex xs6 class="general-information-form">
-            <general-information-form />
+          <v-flex xs12 lg6 class="general-information-form">
+            <general-information-form v-model="isValidGeneralInfo" />
             <additional-info-block-form />
           </v-flex>
-          <v-flex xs6 class="customer-information-wrapper">
-            <customer-information-form />
+          <v-flex xs12 lg6 class="customer-information-wrapper"
+            >{{ isValidCustomerInfo }}
+            <customer-information-form v-model="isValidCustomerInfo" />
             <div class="save-button-wrapper">
               <v-btn small depressed class="button-cancel-dispute">{{ $t('cancel') }}</v-btn>
               <v-btn small depressed class="button-save-dispute">{{ $t('save.as.draft') }}</v-btn>
               <v-spacer></v-spacer>
-              <v-btn small depressed class="button-create-dispute">{{
-                $t('create.new.dispute')
-              }}</v-btn>
+              <v-btn small depressed class="button-create-dispute">
+                {{ $t('create.new.dispute') }}
+              </v-btn>
             </div>
           </v-flex>
         </v-layout>
@@ -43,6 +45,8 @@ export default {
   },
   data() {
     return {
+      isValidGeneralInfo: false,
+      isValidCustomerInfo: false,
       scrollSettings: {
         suppressScrollX: true,
       },
@@ -70,6 +74,24 @@ export default {
   .v-select__slot {
     .v-icon {
       color: $base-blue;
+    }
+  }
+
+  .error--text {
+    color: $base-red;
+  }
+
+  .date-field {
+    .v-text-field__slot {
+      input {
+        color: $base-black;
+      }
+    }
+  }
+
+  .v-text-field__slot {
+    label:not(.error--text) {
+      color: $bright-grey;
     }
   }
 }
