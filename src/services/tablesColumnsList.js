@@ -44,7 +44,7 @@ export const getOrdersTableColumns = () => [
   },
   {
     name: 'orderStatus',
-    field: 'orderStatus',
+    fieldType: 'orderStatus',
     class: 'text',
     title: i18n.t('orders.order.status'),
     width: '4',
@@ -52,7 +52,7 @@ export const getOrdersTableColumns = () => [
   },
   {
     name: 'creationAge',
-    field: 'creationAge',
+    fieldType: 'creationAge',
     class: 'text',
     title: i18n.t('orders.age.after.order'),
     width: '4',
@@ -60,7 +60,7 @@ export const getOrdersTableColumns = () => [
   },
   {
     name: 'installationAge',
-    field: 'installationAge',
+    fieldType: 'installationAge',
     class: 'text',
     title: i18n.t('orders.age.after.installation'),
     width: '5',

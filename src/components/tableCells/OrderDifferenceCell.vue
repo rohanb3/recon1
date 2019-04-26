@@ -8,7 +8,7 @@
 import { dollar } from '@/filters/currency';
 
 export default {
-  name: 'orderDifference',
+  name: 'OrderDifference',
   props: {
     item: {
       type: Object,
