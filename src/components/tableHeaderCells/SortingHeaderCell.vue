@@ -1,6 +1,6 @@
 <template>
   <div class="sorting-header-cell" @click="onClickSortingHeaderCell">
-    <span>{{ column.title }}</span>
+    <span class="sorting-header-title">{{ column.title }}</span>
     <v-icon v-show="arrowDirection === true" class="sorting-header-icon" small
       >fas arrow_downward</v-icon
     >
@@ -82,5 +82,10 @@ export default {
     top: 17px;
     margin-right: 8px;
   }
+}
+
+.sorting-header-title {
+  margin-right: 16px;
+  overflow: hidden;
 }
 </style>

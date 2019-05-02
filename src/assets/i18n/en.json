@@ -6,6 +6,9 @@
   "orders.ordered.units": "Ordered Units",
   "orders.installed.units": "Installed Units",
   "orders.order.status": "Order Status",
+  "orders.order.status.installed": "Installed",
+  "orders.order.status.canceled": "Canceled",
+  "orders.order.status.not.installed": "Not Installed",
   "orders.age.after.order": "Age (after order)",
   "orders.age.after.installation": "Age (after Installation)",
   "orders.expected.comission": "Expected Comission",
@@ -42,6 +45,12 @@
   "dispute.installed.units": "Installed Units",
   "dispute.service.name": "Service Name",
   "dispute.legacy.company": "Legacy Company",
+  "dispute.missing.transaction": "Missing Transaction",
+  "dispute.expected.commision": "Expected commision is more then received comission",
+  "dispute.order.installed": "Order was installed but commision is not received",
+  "dispute.are.you.sure": "Are you sure?",
+  "dispute.if.you.close.this.page": "Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
+
 
   "field.cant.be.empty": "This field should be filled",
   "field.max.length": "This field can't not be longer than %{length} symbols",
@@ -52,6 +61,7 @@
   "cancel": "Cancel",
   "save.as.draft": "Save as Draft",
   "create.new.dispute": "Create new dispute",
+  "remove.draft": "Remove Draft",
 
   "choose.fiscal.period": "Choose fiscal period",
   "selected.date.range": "Selected date range",

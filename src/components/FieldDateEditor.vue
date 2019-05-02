@@ -13,7 +13,6 @@
         <inline-datepicker :start-date="formattedStartDate" @dateOneSelected="onDateSelected" />
       </div>
     </div>
-
     <div slot="reference">
       <slot></slot>
     </div>
@@ -60,13 +59,6 @@ export default {
 @import '~@/assets/styles/variables.scss';
 @import '@/assets/styles/popper.scss';
 
-.popper {
-  display: flex;
-  flex-flow: row;
-
-  cursor: default;
-}
-
 .datepicker /deep/ {
   margin: 0 10px;
   .asd__selected-date-one {
@@ -76,9 +68,11 @@ export default {
 
 .popper /deep/ {
   top: 55px !important;
+
   .popper__arrow {
     border-width: 0 15px 15px 15px !important;
     top: -15px !important;
+
     border-bottom-color: $popper-background-color;
   }
 }

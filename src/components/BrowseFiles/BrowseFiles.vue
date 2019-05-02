@@ -59,4 +59,10 @@ export default {
   height: 160px;
   padding-right: 21px;
 }
+
+.ps /deep/ {
+  .ps__scrollbar-y-rail {
+    opacity: 1;
+  }
+}
 </style>

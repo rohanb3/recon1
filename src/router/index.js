@@ -22,9 +22,14 @@ export default new Router({
           name: 'select-order',
         },
         {
-          path: 'dispute',
+          path: 'edit-dispute/:disputeId',
           component: DisputePage,
-          name: 'dispute',
+          name: 'edit-dispute',
+        },
+        {
+          path: 'creat-dispute/:orderId',
+          component: DisputePage,
+          name: 'creat-dispute',
         },
       ],
     },

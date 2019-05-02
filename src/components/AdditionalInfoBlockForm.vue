@@ -1,36 +1,121 @@
 <template>
-  <div class="additional-info-block-form">
+  <v-form class="additional-info-block-form" ref="form">
     <v-layout row mb-2>
       <v-flex md6>
         <v-select
           append-icon="expand_more"
           :label="$t('dispute.dispute.type')"
+          item-text="name"
+          item-value="id"
+          :items="disputeTypeList"
+          v-model="disputeType"
           required
+          :rules="fieldCantBeEmptyRule"
+          class="required"
           :validate-on-blur="true"
         ></v-select>
         <v-textarea
           name="input-7-1"
           :label="$t('dispute.submitter.comment')"
-          value="Triple Play Select — Charter, 4HD box,
-Wifi Router Included, New Number
-Private 508-459-0523"
-          hint="Hint text"
+          v-model="submiterContent"
+          :rules="submiterContentRules"
+          :validate-on-blur="true"
         ></v-textarea>
       </v-flex>
       <v-flex md6 ml-5>
         <browse-files />
       </v-flex>
     </v-layout>
-  </div>
+  </v-form>
 </template>
 
 <script>
 import BrowseFiles from '@/components/BrowseFiles/BrowseFiles';
 
+const DISPUTE_TYPE_MISSING_TRANSACTION_ID = 'e0e82612-96d7-4602-bc24-56436a25240c';
+const DISPUTE_TYPE_EXPECTED_COMMISION_ID = 'f8893af0-33af-4d14-9437-726f995b6677';
+const DISPUTE_TYPE_ORDER_INSTALLED_ID = '89d17606-d69d-46bb-a5b3-c388fe44d235';
+
+const SUBMITER_CONTENT_MAX_LENGTH = 250;
+
 export default {
   name: 'AdditionalInfoBlockForm',
   components: {
     BrowseFiles,
+  },
+  props: {
+    value: {
+      type: Object,
+      required: true,
+    },
+  },
+  mounted() {
+    this.selectDefaultDisputType();
+  },
+  data() {
+    return {
+      disputeTypeList: [
+        {
+          id: DISPUTE_TYPE_MISSING_TRANSACTION_ID,
+          name: this.$t('dispute.missing.transaction'),
+        },
+        {
+          id: DISPUTE_TYPE_EXPECTED_COMMISION_ID,
+          name: this.$t('dispute.expected.commision'),
+        },
+        {
+          id: DISPUTE_TYPE_ORDER_INSTALLED_ID,
+          name: this.$t('dispute.order.installed'),
+        },
+      ],
+      fieldCantBeEmptyRule: [v => !!v || this.$t('field.cant.be.empty')],
+      submiterContentRules: [
+        v =>
+          String(v).length <= SUBMITER_CONTENT_MAX_LENGTH ||
+          this.$t('field.max.length', {
+            length: SUBMITER_CONTENT_MAX_LENGTH,
+          }),
+      ],
+    };
+  },
+  computed: {
+    disputeType: {
+      get() {
+        return this.value.disputeType || null;
+      },
+      set(disputeType) {
+        this.$emit('input', {
+          ...this.value,
+          disputeType,
+        });
+      },
+    },
+    submiterContent: {
+      get() {
+        return this.value.submiterContent;
+      },
+      set(submiterContent) {
+        this.$emit('input', { ...this.value, submiterContent });
+      },
+    },
+  },
+  methods: {
+    selectDefaultDisputType() {
+      if (this.disputeType === null) {
+        this.$emit('input', {
+          ...this.value,
+          disputeType: this.disputeTypeList[0].id,
+        });
+      }
+    },
+    validate() {
+      return this.$refs.form.validate();
+    },
+  },
+  watch: {
+    disputeType() {
+      this.selectDefaultDisputType();
+    },
   },
 };
 </script>

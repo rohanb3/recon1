@@ -1,5 +1,5 @@
 import disputesApi from '@/services/disputesApi';
-import { getOrders } from '@/services/ordersRepository';
+import { getOrders, getServiceList } from '@/services/ordersRepository';
 
 describe('ordersRepository', () => {
   describe('getOrders', () => {
@@ -21,6 +21,19 @@ describe('ordersRepository', () => {
       expect(disputesApi.get).toHaveBeenCalledWith('/order', {
         params: { ...filters },
       });
+    });
+  });
+
+  describe('getServiceList', () => {
+    it('should call api.get and return corect data', async () => {
+      const data = { id: '777' };
+
+      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
+
+      const response = await getServiceList();
+
+      expect(response).toEqual(data);
+      expect(disputesApi.get).toHaveBeenCalledWith('/order/service');
     });
   });
 });

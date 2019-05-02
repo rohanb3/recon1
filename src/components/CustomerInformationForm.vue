@@ -1,11 +1,11 @@
 <template>
   <div class="customer-information-form">
     <div class="customer-information-title">{{ $t('dispute.customer.information') }}</div>
-    <v-form @input="isValid => $emit('input', isValid)">
+    <v-form ref="form">
       <v-layout row mb-2>
         <v-flex md6>
           <v-text-field
-            value="465"
+            v-model="customerName"
             class="required"
             required
             :label="$t('dispute.customer.name')"
@@ -15,10 +15,10 @@
         </v-flex>
         <v-flex md6 ml-5>
           <v-text-field
-            value="132"
+            v-model="customerPhone"
             class="required"
             :label="$t('dispute.customer.phone')"
-            :rules="customerPhone"
+            :rules="customerPhoneRules"
             :validate-on-blur="true"
           ></v-text-field>
         </v-flex>
@@ -26,7 +26,7 @@
       <v-layout row mb-2>
         <v-flex md6>
           <v-text-field
-            value="84483000000354"
+            v-model="city"
             :label="$t('dispute.city')"
             required
             class="required"
@@ -37,7 +37,7 @@
         <v-flex md6 ml-5>
           <v-text-field
             class="required"
-            value="#8899"
+            v-model="state"
             :label="$t('dispute.state')"
             required
             :rules="stateRules"
@@ -48,7 +48,7 @@
       <v-layout row mb-2>
         <v-flex md6>
           <v-text-field
-            value="465"
+            v-model="customerAddress"
             class="required"
             :label="$t('dispute.customer.address')"
             required
@@ -58,7 +58,7 @@
         </v-flex>
         <v-flex md6 ml-5>
           <v-text-field
-            value="132"
+            v-model="zipCode"
             class="required"
             :label="$t('dispute.zip')"
             required
@@ -70,14 +70,14 @@
       <v-layout row mb-2>
         <v-flex md6>
           <v-text-field
-            value="84483000000354"
+            v-model="orderedUnits"
             disabled
             :label="$t('dispute.ordered.units')"
           ></v-text-field>
         </v-flex>
         <v-flex md6 ml-5>
           <v-text-field
-            value="#8899"
+            v-model="instalationUnits"
             disabled
             :label="$t('dispute.installed.units')"
           ></v-text-field>
@@ -90,21 +90,20 @@
             :label="$t('dispute.service.name')"
             required
             class="required"
-            :items="legacyCompany"
+            item-value="id"
+            item-text="name"
+            v-model="service"
+            :items="serviceList"
             :rules="serviceNameRules"
             :validate-on-blur="true"
           ></v-select>
         </v-flex>
         <v-flex md6 ml-5>
-          <v-select
-            append-icon="expand_more"
-            class="required"
+          <v-text-field
+            v-model="legacyCompany"
+            disabled
             :label="$t('dispute.legacy.company')"
-            required
-            :items="legacyCompany"
-            :rules="legacyCompanyRules"
-            :validate-on-blur="true"
-          ></v-select>
+          ></v-text-field>
         </v-flex>
       </v-layout>
     </v-form>
@@ -123,22 +122,31 @@ const ONLY_DIGITS_REGEX = /^[\d]+$/;
 
 export default {
   name: 'CustomerInformationForm',
+  props: {
+    value: {
+      type: Object,
+      required: true,
+    },
+    serviceList: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
-      legacyCompany: ['Foo', 'Bar', 'Fizz', 'Buzz'],
       customerNameRules: [
         v => !!v || this.$t('field.cant.be.empty'),
         v =>
-          v.length <= CUSTOMER_NAME_MAX_LENGTH ||
+          String(v).length <= CUSTOMER_NAME_MAX_LENGTH ||
           this.$t('field.max.length', {
             length: CUSTOMER_NAME_MAX_LENGTH,
           }),
         v => ONLY_LETTERS_AND_SPACES_REGEX.test(v) || this.$t('field.must.consist.only.letters'),
       ],
-      customerPhone: [
+      customerPhoneRules: [
         v => !!v || this.$t('field.cant.be.empty'),
         v =>
-          v.length <= CUSTOMER_PHONE_MAX_LENGTH ||
+          String(v).length <= CUSTOMER_PHONE_MAX_LENGTH ||
           this.$t('field.max.length', {
             length: CUSTOMER_PHONE_MAX_LENGTH,
           }),
@@ -147,7 +155,7 @@ export default {
       cityRules: [
         v => !!v || this.$t('field.cant.be.empty'),
         v =>
-          v.length <= CITY_MAX_LENGTH ||
+          String(v).length <= CITY_MAX_LENGTH ||
           this.$t('field.max.length', {
             length: CITY_MAX_LENGTH,
           }),
@@ -156,7 +164,7 @@ export default {
       stateRules: [
         v => !!v || this.$t('field.cant.be.empty'),
         v =>
-          v.length <= STATE_MAX_LENGTH ||
+          String(v).length <= STATE_MAX_LENGTH ||
           this.$t('field.max.length', {
             length: STATE_MAX_LENGTH,
           }),
@@ -165,7 +173,7 @@ export default {
       addressRules: [
         v => !!v || this.$t('field.cant.be.empty'),
         v =>
-          v.length <= CUSTOMER_ADDRESS_MAX_LENGTH ||
+          String(v).length <= CUSTOMER_ADDRESS_MAX_LENGTH ||
           this.$t('field.max.length', {
             length: CUSTOMER_ADDRESS_MAX_LENGTH,
           }),
@@ -173,7 +181,7 @@ export default {
       zipRules: [
         v => !!v || this.$t('field.cant.be.empty'),
         v =>
-          v.length <= CUSTOMER_ZIP_MAX_LENGTH ||
+          String(v).length <= CUSTOMER_ZIP_MAX_LENGTH ||
           this.$t('field.max.length', {
             length: CUSTOMER_ZIP_MAX_LENGTH,
           }),
@@ -182,6 +190,78 @@ export default {
       serviceNameRules: [v => !!v || this.$t('field.cant.be.empty')],
       legacyCompanyRules: [v => !!v || this.$t('field.cant.be.empty')],
     };
+  },
+  computed: {
+    customerName: {
+      get() {
+        return this.value.customerName;
+      },
+      set(customerName) {
+        this.$emit('input', { ...this.value, customerName });
+      },
+    },
+    customerPhone: {
+      get() {
+        return this.value.customerPhone;
+      },
+      set(customerPhone) {
+        this.$emit('input', { ...this.value, customerPhone });
+      },
+    },
+    city: {
+      get() {
+        return this.value.city;
+      },
+      set(city) {
+        this.$emit('input', { ...this.value, city });
+      },
+    },
+    state: {
+      get() {
+        return this.value.state;
+      },
+      set(state) {
+        this.$emit('input', { ...this.value, state });
+      },
+    },
+    customerAddress: {
+      get() {
+        return this.value.customerAddress;
+      },
+      set(customerAddress) {
+        this.$emit('input', { ...this.value, customerAddress });
+      },
+    },
+    zipCode: {
+      get() {
+        return this.value.zipCode;
+      },
+      set(zipCode) {
+        this.$emit('input', { ...this.value, zipCode });
+      },
+    },
+    orderedUnits() {
+      return this.value.orderedUnits || ' ';
+    },
+    instalationUnits() {
+      return this.value.instalationUnits || ' ';
+    },
+    service: {
+      get() {
+        return this.value.service || ' ';
+      },
+      set(service) {
+        this.$emit('input', { ...this.value, service });
+      },
+    },
+    legacyCompany() {
+      return this.value.legacyCompany || ' ';
+    },
+  },
+  methods: {
+    validate() {
+      return this.$refs.form.validate();
+    },
   },
 };
 </script>

@@ -60,10 +60,17 @@
 import WombatTable from '@/components/WombatTable/Table';
 import WombatRow from '@/components/WombatTable/Row';
 import TableLoader from '@/components/TableLoader';
+
 import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
 import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
+
 import DefaultCell from '@/components/tableCells/DefaultCell';
-import orderDifferenceCell from '@/components/tableCells/orderDifferenceCell';
+import OrderDifferenceCell from '@/components/tableCells/OrderDifferenceCell';
+import OrderStatusCell from '@/components/tableCells/OrderStatusCell';
+import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
+import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
+import PriceCell from '@/components/tableCells/PriceCell';
+import DisputeButtonCell from '@/components/tableCells/DisputeButtonCell';
 
 import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
 
@@ -82,7 +89,12 @@ export default {
     DefaultHeaderCell,
     SortingHeaderCell,
     OrdersTableToolbar,
-    orderDifferenceCell,
+    OrderDifferenceCell,
+    OrderAgeCell,
+    OrderStatusCell,
+    OrderNumberCell,
+    PriceCell,
+    DisputeButtonCell,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
@@ -94,7 +106,13 @@ export default {
       },
       rowComponentsHash: {
         default: 'DefaultCell',
-        orderDifference: 'orderDifferenceCell',
+        orderDifference: 'OrderDifferenceCell',
+        creationAge: 'OrderAgeCell',
+        installationAge: 'OrderAgeCell',
+        orderStatus: 'OrderStatusCell',
+        orderNumber: 'OrderNumberCell',
+        price: 'PriceCell',
+        disputeButton: 'DisputeButtonCell',
       },
     };
   },

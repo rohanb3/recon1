@@ -6,6 +6,9 @@
   "orders.ordered.units": "TBD Ordered Units",
   "orders.installed.units": "TBD Installed Units",
   "orders.order.status": "TBD Order Status",
+  "orders.order.status.installed": "TBD Installed",
+  "orders.order.status.canceled": "TBD Canceled",
+  "orders.order.status.not.installed": "TBD Not Installed",
   "orders.age.after.order": "TBD Age (after order)",
   "orders.age.after.installation": "TBD Age (after Installation)",
   "orders.expected.comission": "TBD Expected Comission",
@@ -42,10 +45,23 @@
   "dispute.installed.units": "TBD Installed Units",
   "dispute.service.name": "TBD Service Name",
   "dispute.legacy.company": "TBD Legacy Company",
+  "dispute.missing.transaction": "TBD Missing Transaction",
+  "dispute.expected.commision": "TBD Expected commision is more then received comission",
+  "dispute.order.installed": "TBD Order was installed but commision is not received",
+  "dispute.are.you.sure": "TBD Are you sure?",
+  "dispute.if.you.close.this.page": "TBD Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
+
+
+  "field.cant.be.empty": "TBD This field should be filled",
+  "field.max.length": "TBD This field can't not be longer than %{length} symbols",
+  "field.must.consist.only.letters": "TBD This field must consist only letters",
+  "field.must.consist.only.digits": "TBD This field must consist only digits",
+  
 
   "cancel": "TBD Cancel",
   "save.as.draft": "TBD Save as Draft",
   "create.new.dispute": "TBD Create new dispute",
+  "remove.draft": "TBD Remove Draft",
 
   "choose.fiscal.period": "TBD Choose fiscal period",
   "selected.date.range": "TBD Selected date range",
