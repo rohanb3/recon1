@@ -13,6 +13,7 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'main-page',
       redirect: { name: 'select-order' },
       component: Base,
       children: [

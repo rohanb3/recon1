@@ -7,7 +7,13 @@
       <v-layout row wrap>
         <v-flex xs12 lg6 class="general-information-form">
           <general-information-form v-model="disputeInfo" ref="generalInfo" />
-          <additional-info-block-form v-model="disputeInfo" ref="additionalInfoBlock" />
+          <additional-info-block-form
+            v-model="disputeInfo"
+            ref="additionalInfoBlock"
+            :loadingFilesStatus="loadingFilesStatus"
+            @selectedFiles="onUploadFiles"
+            @removeFile="onRemoveFile"
+          />
         </v-flex>
         <v-flex xs12 lg6 class="customer-information-wrapper">
           <customer-information-form
@@ -16,16 +22,16 @@
             :service-list="serviceList"
           />
           <div class="save-button-wrapper">
-            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">
-              {{ $t('cancel') }}
+            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">{{
+              $t('cancel')
+            }}</v-btn>
+            <v-btn small depressed class="button-save-dispute" @click="onSave">
+              {{ $t('save.as.draft') }}
             </v-btn>
-            <v-btn small depressed class="button-save-dispute" @click="onSave">{{
-              $t('save.as.draft')
-            }}</v-btn>
             <v-spacer></v-spacer>
-            <v-btn small depressed class="button-create-dispute" @click="onSave">{{
-              $t('create.new.dispute')
-            }}</v-btn>
+            <v-btn small depressed class="button-create-dispute" @click="onSave">
+              {{ $t('create.new.dispute') }}
+            </v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -57,13 +63,15 @@ import AdditionalInfoBlockForm from '@/components/AdditionalInfoBlockForm';
 import CustomerInformationForm from '@/components/CustomerInformationForm';
 import GeneralInformationForm from '@/components/GeneralInformationForm';
 import TableButton from '@/components/TableButton';
-import { STATUS_OK } from '@/constants/responseStatuses';
+import { STATUS_OK, STATUS_NOT_FOUND } from '@/constants/responseStatuses';
 
 import {
   getDispute,
   creatDispute,
   updateDispute,
   deleteDispute,
+  uploadDisputeAttachment,
+  removeDisputeAttachment,
 } from '@/services/disputesRepository';
 import { getServiceList } from '@/services/ordersRepository';
 
@@ -83,8 +91,10 @@ export default {
     return {
       disputeInfo: {},
       serviceList: [],
+      disputeAttachmentList: [],
       dialogDeleteDispute: false,
       loading: true,
+      loadingFilesStatus: false,
     };
   },
   methods: {
@@ -136,12 +146,16 @@ export default {
           const data = await creatDispute(this.$route.params.orderId);
           this.disputeInfo = data;
         }
-      } catch {
-        this.$notify({
-          group: 'notifications',
-          title: this.$t('something.went.wrong'),
-          type: 'error',
-        });
+      } catch (e) {
+        if ((e.response || {}).status === STATUS_NOT_FOUND) {
+          this.$router.push({ name: 'main-page' });
+        } else {
+          this.$notify({
+            group: 'notifications',
+            title: this.$t('something.went.wrong'),
+            type: 'error',
+          });
+        }
       } finally {
         this.loading = false;
       }
@@ -157,6 +171,47 @@ export default {
         this.$refs.additionalInfoBlock.validate(),
         this.$refs.customerInfo.validate(),
       ].every(isValidForm => isValidForm === true);
+    },
+    async onRemoveFile(filename) {
+      try {
+        const status = await removeDisputeAttachment(this.disputeInfo.id, filename);
+        if (status === STATUS_OK) {
+          await this.loadSttachments();
+        } else {
+          throw new Error();
+        }
+      } catch {
+        this.$notify({
+          group: 'notifications',
+          title: this.$t('something.went.wrong'),
+          type: 'error',
+        });
+      }
+    },
+    async onUploadFiles(files) {
+      this.loadingFilesStatus = true;
+      try {
+        const uploadFileList = [].map.call(files, file => {
+          const formData = new FormData();
+          formData.append('attachments', file, file.name);
+          return uploadDisputeAttachment(this.disputeInfo.id, formData);
+        });
+
+        await Promise.all(uploadFileList);
+        await this.loadSttachments();
+      } catch {
+        this.$notify({
+          group: 'notifications',
+          title: this.$t('something.went.wrong'),
+          type: 'error',
+        });
+      } finally {
+        this.loadingFilesStatus = false;
+      }
+    },
+    async loadSttachments() {
+      const { attachments } = await getDispute(this.disputeInfo.id);
+      this.disputeInfo.attachments = attachments;
     },
   },
 };

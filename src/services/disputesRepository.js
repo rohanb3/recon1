@@ -18,3 +18,21 @@ export const updateDispute = (id, updates = {}) => {
 export const deleteDispute = id => {
   return apiDisputes.delete(`/dispute/${id}`).then(({ status }) => status);
 };
+
+export const getDisputeAttachment = id => {
+  return apiDisputes.get(`/disputeattachment/${id}`).then(({ data }) => data);
+};
+
+export const uploadDisputeAttachment = (id, updates = {}) => {
+  return apiDisputes.post(`/disputeattachment/${id}`, updates, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
+
+export const removeDisputeAttachment = (id, filename) => {
+  return apiDisputes
+    .delete(`/disputeattachment/${id}?filename=${filename}`)
+    .then(({ status }) => status);
+};

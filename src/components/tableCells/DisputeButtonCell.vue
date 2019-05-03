@@ -1,17 +1,17 @@
 <template>
   <div class="dispute-button-cell">
-    <router-link
+    <table-button
       v-if="item.disputeStatus === null"
-      :to="{ name: 'creat-dispute', params: { orderId: item.orderId } }"
-    >
-      <table-button class="disput-button" :title="$t('orders.new.dispute')" />
-    </router-link>
-    <router-link
+      class="disput-button"
+      :title="$t('orders.new.dispute')"
+      @click="onNewDispute"
+    />
+    <table-button
       v-if="isDraftDispute"
-      :to="{ name: 'edit-dispute', params: { disputeId: item.disputeId } }"
-    >
-      <table-button class="disput-button brown-button" :title="$t('orders.restore.draft')" />
-    </router-link>
+      class="disput-button brown-button"
+      :title="$t('orders.restore.draft')"
+      @click="onRestoreDraft"
+    />
     <span class="approved-dispute" v-if="isApprovedDispute">{{ $t('orders.disputed') }}</span>
   </div>
 </template>
@@ -28,6 +28,7 @@ export default {
   props: {
     item: {
       type: Object,
+      required: true,
     },
   },
   components: {
@@ -41,6 +42,20 @@ export default {
     },
     isDraftDispute() {
       return (this.item.disputeStatus || {}).name === DRAFT_DISPUTE_STATUS;
+    },
+  },
+  methods: {
+    onRestoreDraft() {
+      this.$router.push({
+        name: 'edit-dispute',
+        params: { disputeId: this.item.disputeId },
+      });
+    },
+    onNewDispute() {
+      this.$router.push({
+        name: 'creat-dispute',
+        params: { orderId: this.item.orderId },
+      });
     },
   },
 };

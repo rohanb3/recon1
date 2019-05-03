@@ -15,7 +15,6 @@
           :validate-on-blur="true"
         ></v-select>
         <v-textarea
-          name="input-7-1"
           :label="$t('dispute.submitter.comment')"
           v-model="submiterContent"
           :rules="submiterContentRules"
@@ -23,7 +22,13 @@
         ></v-textarea>
       </v-flex>
       <v-flex md6 ml-5>
-        <browse-files />
+        <browse-files
+          :attachments="attachments"
+          :linkPreview="linkPreview"
+          :loadingStatus="loadingFilesStatus"
+          @removeFile="filename => $emit('removeFile', filename)"
+          @selectedFiles="files => $emit('selectedFiles', files)"
+        />
       </v-flex>
     </v-layout>
   </v-form>
@@ -38,6 +43,8 @@ const DISPUTE_TYPE_ORDER_INSTALLED_ID = '89d17606-d69d-46bb-a5b3-c388fe44d235';
 
 const SUBMITER_CONTENT_MAX_LENGTH = 250;
 
+const PATH_TO_ATTACHMENT_FILES = '/api/disputs/disputeattachment/';
+
 export default {
   name: 'AdditionalInfoBlockForm',
   components: {
@@ -47,6 +54,10 @@ export default {
     value: {
       type: Object,
       required: true,
+    },
+    loadingFilesStatus: {
+      type: Boolean,
+      default: false,
     },
   },
   mounted() {
@@ -79,6 +90,9 @@ export default {
     };
   },
   computed: {
+    attachments() {
+      return this.value.attachments || [];
+    },
     disputeType: {
       get() {
         return this.value.disputeType || null;
@@ -97,6 +111,9 @@ export default {
       set(submiterContent) {
         this.$emit('input', { ...this.value, submiterContent });
       },
+    },
+    linkPreview() {
+      return `${PATH_TO_ATTACHMENT_FILES + this.value.id}?fileName=`;
     },
   },
   methods: {

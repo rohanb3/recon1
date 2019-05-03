@@ -1,17 +1,65 @@
 <template>
   <div class="file-info">
-    <div class="file-info-preview"></div>
-    <div class="file-info-describe">
-      <span class="file-info-describe-name">Some-long-file-name.png</span>
-      <span class="file-info-describe-size">2,14 MB</span>
+    <div class="file-info-preview">
+      <img v-if="pictureLink" :src="pictureLink" />
+      <v-icon class="file-icon" v-if="!pictureLink">attach_file</v-icon>
     </div>
-    <v-icon class="file-info-remove" size="20" color="#ec9aa4">remove_circle</v-icon>
+    <div class="file-info-describe">
+      <span class="file-info-describe-name">{{ filename }}</span>
+      <span class="file-info-describe-size" v-show="fileSize">{{ fileSize }}</span>
+    </div>
+    <v-icon
+      v-if="!isRemoving"
+      class="file-info-remove"
+      size="20"
+      color="#ec9aa4"
+      @click="onRemoveFile"
+      >remove_circle</v-icon
+    >
   </div>
 </template>
 
 <script>
 export default {
   name: 'FileInfo',
+  props: {
+    linkPreview: {
+      type: String,
+    },
+    filename: {
+      type: String,
+      required: true,
+    },
+    fileSize: {
+      type: String,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      isRemoving: false,
+    };
+  },
+  computed: {
+    isPicture() {
+      if (this.filename.includes('.')) {
+        return ['jpg', 'png', 'bmp', 'jpeg'].includes(this.filename.split('.').pop());
+      }
+      return false;
+    },
+    pictureLink() {
+      if (this.isPicture) {
+        return this.linkPreview + this.filename;
+      }
+      return '';
+    },
+  },
+  methods: {
+    onRemoveFile() {
+      this.isRemoving = true;
+      this.$emit('removeFile', this.filename);
+    },
+  },
 };
 </script>
 
@@ -34,6 +82,17 @@ export default {
   min-width: 30px;
   border-radius: 4px;
   border: solid 1px #979797;
+  overflow: hidden;
+  text-align: center;
+
+  .file-icon {
+    padding-top: 2px;
+  }
+
+  img {
+    max-width: 30px;
+    max-height: 30px;
+  }
 }
 
 .file-info-describe {

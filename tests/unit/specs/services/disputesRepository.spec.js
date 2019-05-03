@@ -4,6 +4,9 @@ import {
   creatDispute,
   updateDispute,
   deleteDispute,
+  getDisputeAttachment,
+  uploadDisputeAttachment,
+  removeDisputeAttachment,
 } from '@/services/disputesRepository';
 
 import { STATUS_OK } from '@/constants/responseStatuses';
@@ -66,6 +69,59 @@ describe('disputesRepository', () => {
 
       expect(response).toEqual(status);
       expect(disputesApi.delete).toHaveBeenCalledWith(`/dispute/${disputerId}`);
+    });
+  });
+
+  describe('getDisputeAttachment', () => {
+    it('should call api.get and return corect data', async () => {
+      const disputerId = 7;
+      const data = { id: 1 };
+
+      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
+
+      const response = await getDisputeAttachment(disputerId);
+
+      expect(response).toEqual(data);
+      expect(disputesApi.get).toHaveBeenCalledWith(`/disputeattachment/${disputerId}`);
+    });
+  });
+
+  describe('uploadDisputeAttachment', () => {
+    it('should call api.post and return corect data', async () => {
+      const disputerId = 7;
+      const headers = {
+        'Content-Type': 'multipart/form-data',
+      };
+      const updateData = {
+        id: 1,
+      };
+
+      disputesApi.post = jest.fn(() => Promise.resolve());
+
+      await uploadDisputeAttachment(disputerId, updateData);
+
+      expect(disputesApi.post).toHaveBeenCalledWith(
+        `/disputeattachment/${disputerId}`,
+        updateData,
+        { headers }
+      );
+    });
+  });
+
+  describe('removeDisputeAttachment', () => {
+    it('should call api.delete and return corect data', async () => {
+      const disputerId = 7;
+      const filename = 'example.txt';
+      const status = STATUS_OK;
+
+      disputesApi.delete = jest.fn(() => Promise.resolve({ status }));
+
+      const response = await removeDisputeAttachment(disputerId, filename);
+
+      expect(response).toEqual(status);
+      expect(disputesApi.delete).toHaveBeenCalledWith(
+        `/disputeattachment/${disputerId}?filename=${filename}`
+      );
     });
   });
 });
