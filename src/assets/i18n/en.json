@@ -70,6 +70,8 @@
   "export": "Export",
   "custom.range": "Custom range",
 
+  "something.went.wrong": "Opps, something went wrong :(",
+
   "loading": "Loading",
   "table.no.results.found": "No Results found",
 

@@ -44,12 +44,13 @@ describe('disputesRepository', () => {
         id: 1,
       };
       const data = { id: 1, orderId: 3, affiliateId: 3 };
+      const status = STATUS_OK;
 
-      disputesApi.put = jest.fn(() => Promise.resolve({ data }));
+      disputesApi.put = jest.fn(() => Promise.resolve({ status, data }));
 
       const response = await updateDispute(disputerId, updateData);
 
-      expect(response).toEqual(data);
+      expect(response).toEqual({ data, status });
       expect(disputesApi.put).toHaveBeenCalledWith(`/dispute/${disputerId}`, updateData);
     });
   });

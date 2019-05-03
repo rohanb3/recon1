@@ -2,6 +2,7 @@
   <div class="main-layout">
     <div class="content-wrapper">
       <router-view class="app-content" />
+      <notifications group="notifications" />
     </div>
   </div>
 </template>

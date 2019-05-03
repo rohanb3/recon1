@@ -9,7 +9,10 @@ export const creatDispute = orderId => {
 };
 
 export const updateDispute = (id, updates = {}) => {
-  return apiDisputes.put(`/dispute/${id}`, updates).then(({ data }) => data);
+  return apiDisputes.put(`/dispute/${id}`, updates).then(({ data, status }) => ({
+    data,
+    status,
+  }));
 };
 
 export const deleteDispute = id => {

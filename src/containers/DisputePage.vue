@@ -1,6 +1,6 @@
 <template>
   <v-container fluid grid-list-md class="dispute-page">
-    <div class="dispute-page-wrapper" :class="{ blurred: dialogDeleteDispute }">
+    <div class="dispute-page-wrapper" :class="{ blurred: dialogDeleteDispute || loading }">
       <div class="dispute-toolbar">
         <div class="dispute-title">{{ $t('dispute.page.title') }}</div>
       </div>
@@ -16,16 +16,16 @@
             :service-list="serviceList"
           />
           <div class="save-button-wrapper">
-            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">{{
-              $t('cancel')
+            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">
+              {{ $t('cancel') }}
+            </v-btn>
+            <v-btn small depressed class="button-save-dispute" @click="onSave">{{
+              $t('save.as.draft')
             }}</v-btn>
-            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">
-              {{ $t('save.as.draft') }}
-            </v-btn>
             <v-spacer></v-spacer>
-            <v-btn small depressed class="button-create-dispute">
-              {{ $t('create.new.dispute') }}
-            </v-btn>
+            <v-btn small depressed class="button-create-dispute" @click="onSave">{{
+              $t('create.new.dispute')
+            }}</v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -36,15 +36,19 @@
         <v-card-title class="headline">{{ $t('dispute.are.you.sure') }}</v-card-title>
         <v-card-text class="description">{{ $t('dispute.if.you.close.this.page') }}</v-card-text>
         <v-card-actions class="card-buttons">
-          <table-button
-            class="button-save-draft"
-            :title="$t('save.as.draft')"
-            @click="onSaveDraft"
-          />
+          <table-button class="button-save-draft" :title="$t('save.as.draft')" @click="onSave" />
           <span class="remove-draft" @click="onRemoveDraft">{{ $t('remove.draft') }}</span>
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-progress-circular
+      v-if="loading"
+      class="big-spinner"
+      :size="70"
+      :width="7"
+      color="blue"
+      indeterminate
+    ></v-progress-circular>
   </v-container>
 </template>
 
@@ -53,6 +57,7 @@ import AdditionalInfoBlockForm from '@/components/AdditionalInfoBlockForm';
 import CustomerInformationForm from '@/components/CustomerInformationForm';
 import GeneralInformationForm from '@/components/GeneralInformationForm';
 import TableButton from '@/components/TableButton';
+import { STATUS_OK } from '@/constants/responseStatuses';
 
 import {
   getDispute,
@@ -83,22 +88,39 @@ export default {
     };
   },
   methods: {
-    async onSaveDraft() {
-      if (this.validate()) {
-        console.log(this.disputeInfo);
-        console.log(
-          await updateDispute(this.disputeInfo.id, {
+    async onSave() {
+      try {
+        if (this.validate()) {
+          const { status } = await updateDispute(this.disputeInfo.id, {
             ...this.disputeInfo,
             disputeId: this.disputeInfo.id,
-          })
-        );
+          });
+
+          if (status === STATUS_OK) {
+            this.$router.push({ name: 'select-order' });
+          } else throw new Error();
+        }
+      } catch {
+        this.$notify({
+          group: 'notifications',
+          title: this.$t('something.went.wrong'),
+          type: 'error',
+        });
       }
     },
     async onRemoveDraft() {
       try {
-        console.log(await deleteDispute(this.disputeInfo.id));
-      } catch (e) {
-        console.log(e.responce);
+        const status = await deleteDispute(this.disputeInfo.id);
+
+        if (status === STATUS_OK) {
+          this.$router.push({ name: 'select-order' });
+        } else throw new Error();
+      } catch {
+        this.$notify({
+          group: 'notifications',
+          title: this.$t('something.went.wrong'),
+          type: 'error',
+        });
       }
     },
     onCancel() {
@@ -114,9 +136,12 @@ export default {
           const data = await creatDispute(this.$route.params.orderId);
           this.disputeInfo = data;
         }
-        console.log(this.disputeInfo);
-      } catch (e) {
-        console.log(e);
+      } catch {
+        this.$notify({
+          group: 'notifications',
+          title: this.$t('something.went.wrong'),
+          type: 'error',
+        });
       } finally {
         this.loading = false;
       }
@@ -191,6 +216,12 @@ export default {
       cursor: pointer;
       color: $base-red;
     }
+  }
+
+  .big-spinner {
+    position: absolute;
+    top: 40%;
+    left: 50%;
   }
 }
 
