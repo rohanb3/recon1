@@ -129,6 +129,7 @@ import FieldDateEditor from '@/components/FieldDateEditor';
 import { SHORT_DAY_MONTH_FULL_YEAR } from '@/constants/dateFormats';
 import { dollar } from '@/filters/currency';
 import moment from 'moment';
+import { validateFieldCantBeEmpty } from '@/services/validators';
 
 export default {
   name: 'GeneralInformationForm',
@@ -146,7 +147,7 @@ export default {
   },
   data() {
     return {
-      fieldCantBeEmptyRule: [v => !!v || this.$t('field.cant.be.empty')],
+      fieldCantBeEmptyRule: [validateFieldCantBeEmpty()],
     };
   },
   computed: {

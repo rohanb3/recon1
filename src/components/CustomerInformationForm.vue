@@ -111,14 +111,19 @@
 </template>
 
 <script>
+import {
+  validateFieldCantBeEmpty,
+  validateMaxTextLength,
+  validateTextOnlyLettersAndSpaces,
+  validateOnlyDigits,
+} from '@/services/validators';
+
 const CUSTOMER_NAME_MAX_LENGTH = 50;
 const CUSTOMER_PHONE_MAX_LENGTH = 20;
 const CUSTOMER_ADDRESS_MAX_LENGTH = 80;
 const CITY_MAX_LENGTH = 50;
 const STATE_MAX_LENGTH = 50;
 const CUSTOMER_ZIP_MAX_LENGTH = 15;
-const ONLY_LETTERS_AND_SPACES_REGEX = /^[a-zA-Z ]+$/;
-const ONLY_DIGITS_REGEX = /^[\d]+$/;
 
 export default {
   name: 'CustomerInformationForm',
@@ -135,60 +140,36 @@ export default {
   data() {
     return {
       customerNameRules: [
-        v => !!v || this.$t('field.cant.be.empty'),
-        v =>
-          String(v).length <= CUSTOMER_NAME_MAX_LENGTH ||
-          this.$t('field.max.length', {
-            length: CUSTOMER_NAME_MAX_LENGTH,
-          }),
-        v => ONLY_LETTERS_AND_SPACES_REGEX.test(v) || this.$t('field.must.consist.only.letters'),
+        validateFieldCantBeEmpty(),
+        validateMaxTextLength(CUSTOMER_NAME_MAX_LENGTH),
+        validateTextOnlyLettersAndSpaces(),
       ],
       customerPhoneRules: [
-        v => !!v || this.$t('field.cant.be.empty'),
-        v =>
-          String(v).length <= CUSTOMER_PHONE_MAX_LENGTH ||
-          this.$t('field.max.length', {
-            length: CUSTOMER_PHONE_MAX_LENGTH,
-          }),
-        v => ONLY_DIGITS_REGEX.test(v) || this.$t('field.must.consist.only.digits'),
+        validateFieldCantBeEmpty(),
+        validateMaxTextLength(CUSTOMER_PHONE_MAX_LENGTH),
+        validateOnlyDigits(),
       ],
       cityRules: [
-        v => !!v || this.$t('field.cant.be.empty'),
-        v =>
-          String(v).length <= CITY_MAX_LENGTH ||
-          this.$t('field.max.length', {
-            length: CITY_MAX_LENGTH,
-          }),
-        v => ONLY_LETTERS_AND_SPACES_REGEX.test(v) || this.$t('field.must.consist.only.letters'),
+        validateFieldCantBeEmpty(),
+        validateMaxTextLength(CITY_MAX_LENGTH),
+        validateTextOnlyLettersAndSpaces(),
       ],
       stateRules: [
-        v => !!v || this.$t('field.cant.be.empty'),
-        v =>
-          String(v).length <= STATE_MAX_LENGTH ||
-          this.$t('field.max.length', {
-            length: STATE_MAX_LENGTH,
-          }),
-        v => ONLY_LETTERS_AND_SPACES_REGEX.test(v) || this.$t('field.must.consist.only.letters'),
+        validateFieldCantBeEmpty(),
+        validateMaxTextLength(STATE_MAX_LENGTH),
+        validateTextOnlyLettersAndSpaces(),
       ],
       addressRules: [
-        v => !!v || this.$t('field.cant.be.empty'),
-        v =>
-          String(v).length <= CUSTOMER_ADDRESS_MAX_LENGTH ||
-          this.$t('field.max.length', {
-            length: CUSTOMER_ADDRESS_MAX_LENGTH,
-          }),
+        validateFieldCantBeEmpty(),
+        validateMaxTextLength(CUSTOMER_ADDRESS_MAX_LENGTH),
       ],
       zipRules: [
-        v => !!v || this.$t('field.cant.be.empty'),
-        v =>
-          String(v).length <= CUSTOMER_ZIP_MAX_LENGTH ||
-          this.$t('field.max.length', {
-            length: CUSTOMER_ZIP_MAX_LENGTH,
-          }),
-        v => ONLY_DIGITS_REGEX.test(v) || this.$t('field.must.consist.only.digits'),
+        validateFieldCantBeEmpty(),
+        validateMaxTextLength(CUSTOMER_ZIP_MAX_LENGTH),
+        validateOnlyDigits(),
       ],
-      serviceNameRules: [v => !!v || this.$t('field.cant.be.empty')],
-      legacyCompanyRules: [v => !!v || this.$t('field.cant.be.empty')],
+      serviceNameRules: [validateFieldCantBeEmpty()],
+      legacyCompanyRules: [validateFieldCantBeEmpty()],
     };
   },
   computed: {
