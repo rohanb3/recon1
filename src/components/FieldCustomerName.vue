@@ -15,7 +15,7 @@
 import {
   validateFieldCantBeEmpty,
   validateMaxTextLength,
-  validateTextOnlyLettersAndSpaces,
+  validateTextOnlyLettersAndDelimiters,
 } from '@/services/validators';
 
 const CUSTOMER_NAME_MAX_LENGTH = 50;
@@ -33,7 +33,7 @@ export default {
       customerNameRules: [
         validateFieldCantBeEmpty(),
         validateMaxTextLength(CUSTOMER_NAME_MAX_LENGTH),
-        validateTextOnlyLettersAndSpaces(),
+        validateTextOnlyLettersAndDelimiters(),
       ],
     };
   },
