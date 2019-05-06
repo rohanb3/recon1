@@ -34,5 +34,9 @@ export default new Router({
         },
       ],
     },
+    {
+      path: '*',
+      redirect: { name: 'select-order' },
+    },
   ],
 });

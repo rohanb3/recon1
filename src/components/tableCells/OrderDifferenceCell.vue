@@ -1,11 +1,11 @@
 <template>
   <div class="order-difference-cell">
-    {{ difference | dollar }}
+    {{ difference | currency }}
   </div>
 </template>
 
 <script>
-import { dollar } from '@/filters/currency';
+import currency from '@/filters/currency';
 
 export default {
   name: 'OrderDifferenceCell',
@@ -15,7 +15,7 @@ export default {
     },
   },
   filters: {
-    dollar,
+    currency,
   },
   computed: {
     expectedComission() {

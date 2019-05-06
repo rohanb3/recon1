@@ -20,37 +20,15 @@
       </v-layout>
       <v-layout row mb-2>
         <v-flex md6>
-          <v-text-field
-            class="required"
-            required
-            v-model="accountNumber"
-            :label="$t('dispute.account.number')"
-            :rules="fieldCantBeEmptyRule"
-            :validate-on-blur="true"
-          ></v-text-field>
+          <FieldAccountNumber ref="fieldAccountNumber" v-model="disputeInfo" />
         </v-flex>
         <v-flex md6 ml-5>
-          <v-text-field
-            v-model="confirmationId"
-            class="required"
-            required
-            :rules="fieldCantBeEmptyRule"
-            :label="$t('dispute.order.confirmation')"
-            :validate-on-blur="true"
-          ></v-text-field>
+          <FieldOrderConfirmation ref="fieldOrderConfirmation" v-model="disputeInfo" />
         </v-flex>
       </v-layout>
       <v-layout row mb-2>
         <v-flex md6>
-          <v-text-field
-            value
-            class="required"
-            required
-            v-model="woNumber"
-            :rules="fieldCantBeEmptyRule"
-            :label="$t('dispute.wo.number')"
-            :validate-on-blur="true"
-          ></v-text-field>
+          <FieldWoNumber ref="fieldWoNumber" v-model="disputeInfo" />
         </v-flex>
         <v-flex md6 ml-5>
           <v-text-field
@@ -114,7 +92,7 @@
         </v-flex>
         <v-flex md6 ml-5>
           <v-text-field
-            :value="recevedСomission | dollar"
+            :value="recevedСomission | currency"
             disabled
             :label="$t('dispute.recived.comission.difference')"
           ></v-text-field>
@@ -126,14 +104,22 @@
 
 <script>
 import FieldDateEditor from '@/components/FieldDateEditor';
+import FieldAccountNumber from '@/components/FieldAccountNumber';
+import FieldOrderConfirmation from '@/components/FieldOrderConfirmation';
+import FieldWoNumber from '@/components/FieldWoNumber';
+
 import { SHORT_DAY_MONTH_FULL_YEAR } from '@/constants/dateFormats';
-import { dollar } from '@/filters/currency';
+import currency from '@/filters/currency';
 import moment from 'moment';
+import { validateFieldCantBeEmpty } from '@/services/validators';
 
 export default {
   name: 'GeneralInformationForm',
   components: {
     FieldDateEditor,
+    FieldAccountNumber,
+    FieldOrderConfirmation,
+    FieldWoNumber,
   },
   props: {
     value: {
@@ -142,11 +128,11 @@ export default {
     },
   },
   filters: {
-    dollar,
+    currency,
   },
   data() {
     return {
-      fieldCantBeEmptyRule: [v => !!v || this.$t('field.cant.be.empty')],
+      fieldCantBeEmptyRule: [validateFieldCantBeEmpty()],
     };
   },
   computed: {
@@ -155,30 +141,6 @@ export default {
     },
     affiliateId() {
       return this.value.affiliateId || ' ';
-    },
-    accountNumber: {
-      get() {
-        return this.value.accountNumber;
-      },
-      set(accountNumber) {
-        this.$emit('input', { ...this.value, accountNumber });
-      },
-    },
-    confirmationId: {
-      get() {
-        return this.value.confirmationId;
-      },
-      set(confirmationId) {
-        this.$emit('input', { ...this.value, confirmationId });
-      },
-    },
-    woNumber: {
-      get() {
-        return this.value.woNumber;
-      },
-      set(woNumber) {
-        this.$emit('input', { ...this.value, woNumber });
-      },
     },
     fiscalPeriod() {
       return (this.value.fiscalPeriod || {}).name || ' ';
@@ -211,6 +173,14 @@ export default {
     recevedСomission() {
       return this.value.recevedСomission || ' ';
     },
+    disputeInfo: {
+      get() {
+        return this.value;
+      },
+      set(disputeInfo) {
+        this.$emit('input', { ...this.value, disputeInfo });
+      },
+    },
   },
   methods: {
     prettifyDate(date) {
@@ -218,7 +188,12 @@ export default {
       return moment.utc(date).format(SHORT_DAY_MONTH_FULL_YEAR);
     },
     validate() {
-      return this.$refs.form.validate();
+      return [
+        this.$refs.form.validate(),
+        this.$refs.fieldWoNumber.validate(),
+        this.$refs.fieldOrderConfirmation.validate(),
+        this.$refs.fieldAccountNumber.validate(),
+      ].every(isValidForm => isValidForm === true);
     },
   },
 };

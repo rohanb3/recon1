@@ -1,7 +1,7 @@
 import disputesApi from '@/services/disputesApi';
 import {
   getDispute,
-  creatDispute,
+  createDispute,
   updateDispute,
   deleteDispute,
   getDisputeAttachment,
@@ -26,14 +26,14 @@ describe('disputesRepository', () => {
     });
   });
 
-  describe('creatDispute', () => {
+  describe('createDispute', () => {
     it('should call api.post and return corect data', async () => {
       const orderId = 7;
       const data = { id: 1, orderId: 3, affiliateId: 3 };
 
       disputesApi.post = jest.fn(() => Promise.resolve({ data }));
 
-      const response = await creatDispute(orderId);
+      const response = await createDispute(orderId);
 
       expect(response).toEqual(data);
       expect(disputesApi.post).toHaveBeenCalledWith(`/dispute?orderId=${orderId}`);

@@ -22,16 +22,16 @@
             :service-list="serviceList"
           />
           <div class="save-button-wrapper">
-            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">{{
-              $t('cancel')
+            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">
+              {{ $t('cancel') }}
+            </v-btn>
+            <v-btn small depressed class="button-save-dispute" @click="onSave">{{
+              $t('save.as.draft')
             }}</v-btn>
-            <v-btn small depressed class="button-save-dispute" @click="onSave">
-              {{ $t('save.as.draft') }}
-            </v-btn>
             <v-spacer></v-spacer>
-            <v-btn small depressed class="button-create-dispute" @click="onSave">
-              {{ $t('create.new.dispute') }}
-            </v-btn>
+            <v-btn small depressed class="button-create-dispute" @click="onSave">{{
+              $t('create.new.dispute')
+            }}</v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -64,10 +64,11 @@ import CustomerInformationForm from '@/components/CustomerInformationForm';
 import GeneralInformationForm from '@/components/GeneralInformationForm';
 import TableButton from '@/components/TableButton';
 import { STATUS_OK, STATUS_NOT_FOUND } from '@/constants/responseStatuses';
+import { errorMessage } from '@/services/notifications';
 
 import {
   getDispute,
-  creatDispute,
+  createDispute,
   updateDispute,
   deleteDispute,
   uploadDisputeAttachment,
@@ -99,38 +100,24 @@ export default {
   },
   methods: {
     async onSave() {
-      try {
-        if (this.validate()) {
-          const { status } = await updateDispute(this.disputeInfo.id, {
+      if (this.validate()) {
+        try {
+          await updateDispute(this.disputeInfo.id, {
             ...this.disputeInfo,
             disputeId: this.disputeInfo.id,
           });
-
-          if (status === STATUS_OK) {
-            this.$router.push({ name: 'select-order' });
-          } else throw new Error();
+          this.$router.push({ name: 'select-order' });
+        } catch {
+          errorMessage();
         }
-      } catch {
-        this.$notify({
-          group: 'notifications',
-          title: this.$t('something.went.wrong'),
-          type: 'error',
-        });
       }
     },
     async onRemoveDraft() {
       try {
-        const status = await deleteDispute(this.disputeInfo.id);
-
-        if (status === STATUS_OK) {
-          this.$router.push({ name: 'select-order' });
-        } else throw new Error();
+        await deleteDispute(this.disputeInfo.id);
+        this.$router.push({ name: 'select-order' });
       } catch {
-        this.$notify({
-          group: 'notifications',
-          title: this.$t('something.went.wrong'),
-          type: 'error',
-        });
+        errorMessage();
       }
     },
     onCancel() {
@@ -138,23 +125,18 @@ export default {
     },
     async loadDispute() {
       this.loading = true;
+      const { disputeId, orderId } = this.$route.params;
       try {
-        if (this.$route.params.disputeId) {
-          const data = await getDispute(this.$route.params.disputeId);
-          this.disputeInfo = data;
+        if (disputeId) {
+          this.disputeInfo = await getDispute(disputeId);
         } else {
-          const data = await creatDispute(this.$route.params.orderId);
-          this.disputeInfo = data;
+          this.disputeInfo = await createDispute(orderId);
         }
       } catch (e) {
         if ((e.response || {}).status === STATUS_NOT_FOUND) {
           this.$router.push({ name: 'main-page' });
         } else {
-          this.$notify({
-            group: 'notifications',
-            title: this.$t('something.went.wrong'),
-            type: 'error',
-          });
+          errorMessage();
         }
       } finally {
         this.loading = false;

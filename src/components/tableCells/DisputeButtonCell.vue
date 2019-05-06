@@ -12,16 +12,14 @@
       :title="$t('orders.restore.draft')"
       @click="onRestoreDraft"
     />
-    <span class="approved-dispute" v-if="isApprovedDispute">{{ $t('orders.disputed') }}</span>
+    <span class="approved-dispute" v-if="isDisputed">{{ $t('orders.disputed') }}</span>
   </div>
 </template>
 
 <script>
 import TableButton from '@/components/TableButton';
 
-const APPROVED_DISPUTE_STATUS = 'Approved';
-const DRAFT_DISPUTE_STATUS = 'Re-sent';
-const SENT_DISPUTE_STATUS = 'Sent';
+import { SENT_DISPUTE_STATUS, DRAFT_DISPUTE_STATUS } from '@/constants/disputeStatus';
 
 export default {
   name: 'DisputeButtonCell',
@@ -35,13 +33,14 @@ export default {
     TableButton,
   },
   computed: {
-    isApprovedDispute() {
-      return [APPROVED_DISPUTE_STATUS, SENT_DISPUTE_STATUS].includes(
-        (this.item.disputeStatus || {}).name
-      );
+    statusName() {
+      return (this.item.disputeStatus || {}).name;
+    },
+    isDisputed() {
+      return this.statusName === SENT_DISPUTE_STATUS;
     },
     isDraftDispute() {
-      return (this.item.disputeStatus || {}).name === DRAFT_DISPUTE_STATUS;
+      return this.statusName === DRAFT_DISPUTE_STATUS;
     },
   },
   methods: {

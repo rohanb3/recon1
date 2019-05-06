@@ -1,70 +1,29 @@
 <template>
   <div class="customer-information-form">
     <div class="customer-information-title">{{ $t('dispute.customer.information') }}</div>
-    <v-form ref="form">
+    <v-form>
       <v-layout row mb-2>
         <v-flex md6>
-          <v-text-field
-            v-model="customerName"
-            class="required"
-            required
-            :label="$t('dispute.customer.name')"
-            :rules="customerNameRules"
-            :validate-on-blur="true"
-          ></v-text-field>
+          <field-customer-name ref="fieldCustomerName" v-model="disputeInfo" />
         </v-flex>
         <v-flex md6 ml-5>
-          <v-text-field
-            v-model="customerPhone"
-            class="required"
-            :label="$t('dispute.customer.phone')"
-            :rules="customerPhoneRules"
-            :validate-on-blur="true"
-          ></v-text-field>
+          <field-customer-phone ref="fieldCustomerPhone" v-model="disputeInfo" />
         </v-flex>
       </v-layout>
       <v-layout row mb-2>
         <v-flex md6>
-          <v-text-field
-            v-model="city"
-            :label="$t('dispute.city')"
-            required
-            class="required"
-            :rules="cityRules"
-            :validate-on-blur="true"
-          ></v-text-field>
+          <field-city ref="fieldCity" v-model="disputeInfo" />
         </v-flex>
         <v-flex md6 ml-5>
-          <v-text-field
-            class="required"
-            v-model="state"
-            :label="$t('dispute.state')"
-            required
-            :rules="stateRules"
-            :validate-on-blur="true"
-          ></v-text-field>
+          <field-state ref="fieldState" v-model="disputeInfo" />
         </v-flex>
       </v-layout>
       <v-layout row mb-2>
         <v-flex md6>
-          <v-text-field
-            v-model="customerAddress"
-            class="required"
-            :label="$t('dispute.customer.address')"
-            required
-            :rules="addressRules"
-            :validate-on-blur="true"
-          ></v-text-field>
+          <field-customer-address ref="fieldCustomerAddress" v-model="disputeInfo" />
         </v-flex>
         <v-flex md6 ml-5>
-          <v-text-field
-            v-model="zipCode"
-            class="required"
-            :label="$t('dispute.zip')"
-            required
-            :rules="zipRules"
-            :validate-on-blur="true"
-          ></v-text-field>
+          <field-zip-code ref="fieldZipCode" v-model="disputeInfo" />
         </v-flex>
       </v-layout>
       <v-layout row mb-2>
@@ -85,18 +44,11 @@
       </v-layout>
       <v-layout row mb-2>
         <v-flex md6>
-          <v-select
-            append-icon="expand_more"
-            :label="$t('dispute.service.name')"
-            required
-            class="required"
-            item-value="id"
-            item-text="name"
-            v-model="service"
-            :items="serviceList"
-            :rules="serviceNameRules"
-            :validate-on-blur="true"
-          ></v-select>
+          <select-service-name
+            ref="selectServiceName"
+            v-model="disputeInfo"
+            :service-list="serviceList"
+          />
         </v-flex>
         <v-flex md6 ml-5>
           <v-text-field
@@ -111,17 +63,25 @@
 </template>
 
 <script>
-const CUSTOMER_NAME_MAX_LENGTH = 50;
-const CUSTOMER_PHONE_MAX_LENGTH = 20;
-const CUSTOMER_ADDRESS_MAX_LENGTH = 80;
-const CITY_MAX_LENGTH = 50;
-const STATE_MAX_LENGTH = 50;
-const CUSTOMER_ZIP_MAX_LENGTH = 15;
-const ONLY_LETTERS_AND_SPACES_REGEX = /^[a-zA-Z ]+$/;
-const ONLY_DIGITS_REGEX = /^[\d]+$/;
+import SelectServiceName from '@/components/SelectServiceName';
+import FieldCustomerName from '@/components/FieldCustomerName';
+import FieldCustomerPhone from '@/components/FieldCustomerPhone';
+import FieldCity from '@/components/FieldCity';
+import FieldState from '@/components/FieldState';
+import FieldCustomerAddress from '@/components/FieldCustomerAddress';
+import FieldZipCode from '@/components/FieldZipCode';
 
 export default {
   name: 'CustomerInformationForm',
+  components: {
+    SelectServiceName,
+    FieldCustomerName,
+    FieldCustomerPhone,
+    FieldCity,
+    FieldState,
+    FieldCustomerAddress,
+    FieldZipCode,
+  },
   props: {
     value: {
       type: Object,
@@ -132,135 +92,36 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      customerNameRules: [
-        v => !!v || this.$t('field.cant.be.empty'),
-        v =>
-          String(v).length <= CUSTOMER_NAME_MAX_LENGTH ||
-          this.$t('field.max.length', {
-            length: CUSTOMER_NAME_MAX_LENGTH,
-          }),
-        v => ONLY_LETTERS_AND_SPACES_REGEX.test(v) || this.$t('field.must.consist.only.letters'),
-      ],
-      customerPhoneRules: [
-        v => !!v || this.$t('field.cant.be.empty'),
-        v =>
-          String(v).length <= CUSTOMER_PHONE_MAX_LENGTH ||
-          this.$t('field.max.length', {
-            length: CUSTOMER_PHONE_MAX_LENGTH,
-          }),
-        v => ONLY_DIGITS_REGEX.test(v) || this.$t('field.must.consist.only.digits'),
-      ],
-      cityRules: [
-        v => !!v || this.$t('field.cant.be.empty'),
-        v =>
-          String(v).length <= CITY_MAX_LENGTH ||
-          this.$t('field.max.length', {
-            length: CITY_MAX_LENGTH,
-          }),
-        v => ONLY_LETTERS_AND_SPACES_REGEX.test(v) || this.$t('field.must.consist.only.letters'),
-      ],
-      stateRules: [
-        v => !!v || this.$t('field.cant.be.empty'),
-        v =>
-          String(v).length <= STATE_MAX_LENGTH ||
-          this.$t('field.max.length', {
-            length: STATE_MAX_LENGTH,
-          }),
-        v => ONLY_LETTERS_AND_SPACES_REGEX.test(v) || this.$t('field.must.consist.only.letters'),
-      ],
-      addressRules: [
-        v => !!v || this.$t('field.cant.be.empty'),
-        v =>
-          String(v).length <= CUSTOMER_ADDRESS_MAX_LENGTH ||
-          this.$t('field.max.length', {
-            length: CUSTOMER_ADDRESS_MAX_LENGTH,
-          }),
-      ],
-      zipRules: [
-        v => !!v || this.$t('field.cant.be.empty'),
-        v =>
-          String(v).length <= CUSTOMER_ZIP_MAX_LENGTH ||
-          this.$t('field.max.length', {
-            length: CUSTOMER_ZIP_MAX_LENGTH,
-          }),
-        v => ONLY_DIGITS_REGEX.test(v) || this.$t('field.must.consist.only.digits'),
-      ],
-      serviceNameRules: [v => !!v || this.$t('field.cant.be.empty')],
-      legacyCompanyRules: [v => !!v || this.$t('field.cant.be.empty')],
-    };
-  },
   computed: {
-    customerName: {
-      get() {
-        return this.value.customerName;
-      },
-      set(customerName) {
-        this.$emit('input', { ...this.value, customerName });
-      },
-    },
-    customerPhone: {
-      get() {
-        return this.value.customerPhone;
-      },
-      set(customerPhone) {
-        this.$emit('input', { ...this.value, customerPhone });
-      },
-    },
-    city: {
-      get() {
-        return this.value.city;
-      },
-      set(city) {
-        this.$emit('input', { ...this.value, city });
-      },
-    },
-    state: {
-      get() {
-        return this.value.state;
-      },
-      set(state) {
-        this.$emit('input', { ...this.value, state });
-      },
-    },
-    customerAddress: {
-      get() {
-        return this.value.customerAddress;
-      },
-      set(customerAddress) {
-        this.$emit('input', { ...this.value, customerAddress });
-      },
-    },
-    zipCode: {
-      get() {
-        return this.value.zipCode;
-      },
-      set(zipCode) {
-        this.$emit('input', { ...this.value, zipCode });
-      },
-    },
     orderedUnits() {
       return this.value.orderedUnits || ' ';
     },
     instalationUnits() {
       return this.value.instalationUnits || ' ';
     },
-    service: {
-      get() {
-        return this.value.service || ' ';
-      },
-      set(service) {
-        this.$emit('input', { ...this.value, service });
-      },
-    },
     legacyCompany() {
       return this.value.legacyCompany || ' ';
+    },
+    disputeInfo: {
+      get() {
+        return this.value;
+      },
+      set(disputeInfo) {
+        this.$emit('input', { ...this.value, disputeInfo });
+      },
     },
   },
   methods: {
     validate() {
-      return this.$refs.form.validate();
+      return [
+        this.$refs.selectServiceName.validate(),
+        this.$refs.fieldCity.validate(),
+        this.$refs.fieldCustomerPhone.validate(),
+        this.$refs.fieldCustomerName.validate(),
+        this.$refs.fieldState.validate(),
+        this.$refs.fieldCustomerAddress.validate(),
+        this.$refs.fieldZipCode.validate(),
+      ].every(isValidForm => isValidForm === true);
     },
   },
 };

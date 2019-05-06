@@ -2,18 +2,7 @@
   <v-form class="additional-info-block-form" ref="form">
     <v-layout row mb-2>
       <v-flex md6>
-        <v-select
-          append-icon="expand_more"
-          :label="$t('dispute.dispute.type')"
-          item-text="name"
-          item-value="id"
-          :items="disputeTypeList"
-          v-model="disputeType"
-          required
-          :rules="fieldCantBeEmptyRule"
-          class="required"
-          :validate-on-blur="true"
-        ></v-select>
+        <select-dispute-type v-model="disputeType" />
         <v-textarea
           :label="$t('dispute.submitter.comment')"
           v-model="submiterContent"
@@ -36,10 +25,9 @@
 
 <script>
 import BrowseFiles from '@/components/BrowseFiles/BrowseFiles';
+import SelectDisputeType from '@/components/SelectDisputeType';
 
-const DISPUTE_TYPE_MISSING_TRANSACTION_ID = 'e0e82612-96d7-4602-bc24-56436a25240c';
-const DISPUTE_TYPE_EXPECTED_COMMISION_ID = 'f8893af0-33af-4d14-9437-726f995b6677';
-const DISPUTE_TYPE_ORDER_INSTALLED_ID = '89d17606-d69d-46bb-a5b3-c388fe44d235';
+import { validateMaxTextLength } from '@/services/validators';
 
 const SUBMITER_CONTENT_MAX_LENGTH = 250;
 
@@ -48,6 +36,7 @@ const PATH_TO_ATTACHMENT_FILES = '/api/disputs/disputeattachment/';
 export default {
   name: 'AdditionalInfoBlockForm',
   components: {
+    SelectDisputeType,
     BrowseFiles,
   },
   props: {
@@ -60,33 +49,9 @@ export default {
       default: false,
     },
   },
-  mounted() {
-    this.selectDefaultDisputType();
-  },
   data() {
     return {
-      disputeTypeList: [
-        {
-          id: DISPUTE_TYPE_MISSING_TRANSACTION_ID,
-          name: this.$t('dispute.missing.transaction'),
-        },
-        {
-          id: DISPUTE_TYPE_EXPECTED_COMMISION_ID,
-          name: this.$t('dispute.expected.commision'),
-        },
-        {
-          id: DISPUTE_TYPE_ORDER_INSTALLED_ID,
-          name: this.$t('dispute.order.installed'),
-        },
-      ],
-      fieldCantBeEmptyRule: [v => !!v || this.$t('field.cant.be.empty')],
-      submiterContentRules: [
-        v =>
-          String(v).length <= SUBMITER_CONTENT_MAX_LENGTH ||
-          this.$t('field.max.length', {
-            length: SUBMITER_CONTENT_MAX_LENGTH,
-          }),
-      ],
+      submiterContentRules: [validateMaxTextLength(SUBMITER_CONTENT_MAX_LENGTH)],
     };
   },
   computed: {
@@ -117,21 +82,8 @@ export default {
     },
   },
   methods: {
-    selectDefaultDisputType() {
-      if (this.disputeType === null) {
-        this.$emit('input', {
-          ...this.value,
-          disputeType: this.disputeTypeList[0].id,
-        });
-      }
-    },
     validate() {
       return this.$refs.form.validate();
-    },
-  },
-  watch: {
-    disputeType() {
-      this.selectDefaultDisputType();
     },
   },
 };
