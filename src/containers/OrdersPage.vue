@@ -78,6 +78,7 @@ import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 
 import { ORDERS } from '@/constants/entityTypes';
+import { extractPropertiesFromArrObj } from '@/services/utils';
 
 export default {
   name: 'SelectOrderPage',
@@ -118,7 +119,7 @@ export default {
   },
   computed: {
     rowsWithId() {
-      return this.rows.map(item => ({ ...item, id: item.orderId }));
+      return this.rows.map(item => ({ ...item, id: extractPropertiesFromArrObj(item, 'orderId') }));
     },
   },
 };

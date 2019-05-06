@@ -7,9 +7,11 @@
 <script>
 import nestedFieldCell from '@/mixins/nestedFieldCell';
 
-const ORDER_STATUS_NAME_NOT_INSTALLED = 'Not Installed';
-const ORDER_STATUS_NAME_INSTALLED = 'Installed';
-const ORDER_STATUS_NAME_CANCELED = 'Canceled';
+import {
+  ORDER_STATUS_NAME_NOT_INSTALLED,
+  ORDER_STATUS_NAME_INSTALLED,
+  ORDER_STATUS_NAME_CANCELED,
+} from '@/constants/orderStatus';
 
 export default {
   name: 'OrderStatusCell',

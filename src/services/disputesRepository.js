@@ -4,7 +4,7 @@ export const getDispute = id => {
   return apiDisputes.get(`/dispute/${id}`).then(({ data }) => data);
 };
 
-export const creatDispute = orderId => {
+export const createDispute = orderId => {
   return apiDisputes.post(`/dispute?orderId=${orderId}`).then(({ data }) => data);
 };
 
