@@ -5,7 +5,7 @@ import * as sortableColumns from '@/constants/tableСolumnsSorted';
 
 const filters = {
   [ORDERS]: {
-    [filterList.SEARCH_PHRASE]: '',
+    [filterList.SEARCH_ORDERS]: '',
     [filterList.SORT]: sortableColumns.ORDER_NUMBER,
     [filterList.ORDER]: ORDER_BY_ASC,
   },

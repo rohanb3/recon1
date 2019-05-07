@@ -1,0 +1,26 @@
+@import './variables.scss';
+
+%thin-scrollbar {
+  scrollbar-color: $scrollbar-thumb-color $scrollbar-track-color;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 7px;
+    background-color: $scrollbar-track-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    background-color: $scrollbar-thumb-color;
+  }
+}
+
+%blurred-this {
+  &.blurred, .blurred {
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+    -webkit-filter: url(#blur-filter);
+    filter: url(#blur-filter);
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+  }
+}

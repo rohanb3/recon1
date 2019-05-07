@@ -1,11 +1,11 @@
 <template>
   <div class="orders-table">
     <div class="table-toolbar">
-      <div class="table-title">{{ $t('orders') }}</div>
+      <div class="table-title">{{ $t('orders.select.order') }}</div>
       <orders-table-toolbar />
     </div>
     <wombat-table
-      :items="rows"
+      :items="rowsWithId"
       :columns="columns"
       :item-height="50"
       :infinite-loading="!allItemsLoaded"
@@ -60,9 +60,17 @@
 import WombatTable from '@/components/WombatTable/Table';
 import WombatRow from '@/components/WombatTable/Row';
 import TableLoader from '@/components/TableLoader';
+
 import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
 import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
+
 import DefaultCell from '@/components/tableCells/DefaultCell';
+import OrderDifferenceCell from '@/components/tableCells/OrderDifferenceCell';
+import OrderStatusCell from '@/components/tableCells/OrderStatusCell';
+import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
+import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
+import PriceCell from '@/components/tableCells/PriceCell';
+import DisputeButtonCell from '@/components/tableCells/DisputeButtonCell';
 
 import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
 
@@ -70,6 +78,7 @@ import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 
 import { ORDERS } from '@/constants/entityTypes';
+import { extractPropertiesFromArrObj } from '@/services/utils';
 
 export default {
   name: 'SelectOrderPage',
@@ -81,6 +90,12 @@ export default {
     DefaultHeaderCell,
     SortingHeaderCell,
     OrdersTableToolbar,
+    OrderDifferenceCell,
+    OrderAgeCell,
+    OrderStatusCell,
+    OrderNumberCell,
+    PriceCell,
+    DisputeButtonCell,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
@@ -92,8 +107,20 @@ export default {
       },
       rowComponentsHash: {
         default: 'DefaultCell',
+        orderDifference: 'OrderDifferenceCell',
+        creationAge: 'OrderAgeCell',
+        installationAge: 'OrderAgeCell',
+        orderStatus: 'OrderStatusCell',
+        orderNumber: 'OrderNumberCell',
+        price: 'PriceCell',
+        disputeButton: 'DisputeButtonCell',
       },
     };
+  },
+  computed: {
+    rowsWithId() {
+      return this.rows.map(item => ({ ...item, id: extractPropertiesFromArrObj(item, 'orderId') }));
+    },
   },
 };
 </script>
@@ -111,5 +138,17 @@ export default {
 
 .table-title {
   @include table-base-title;
+}
+
+.orders-table /deep/ {
+  height: 95vh;
+  margin: 20px;
+
+  .virtual-list {
+    height: 100vh;
+    max-height: calc(
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
+    );
+  }
 }
 </style>

@@ -2,6 +2,7 @@
   <div class="main-layout">
     <div class="content-wrapper">
       <router-view class="app-content" />
+      <notifications group="notifications" />
     </div>
   </div>
 </template>
@@ -13,6 +14,8 @@
   display: flex;
   flex-flow: column;
   min-height: 100vh;
+  font-family: Roboto;
+  min-width: 700px;
 }
 
 .content-wrapper {

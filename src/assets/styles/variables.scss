@@ -8,6 +8,11 @@ $base-white: #ffffff;
 $base-orange: #ff941b;
 $base-grey: #999999;
 $base-black: #000000;
+$bright-grey: #929292;
+
+$button-blue-color: #5597e4;
+$button-yellow-color: #d8c806;
+$button-brown-color: #be7a0a;
 
 $header-height: 0px;
 $lhs-icon-color: #9b9b9b;
@@ -33,7 +38,7 @@ $table-list-padding: 22px;
 $table-datepicker-divider-color: rgba(151, 151, 151, 0.3);
 $table-datepicker-color: #4a4a4a;
 $table-datepicker-hover-color: rgba(151, 151, 151, 0.1);
-$table-toolbar-height: 60px;
+$table-toolbar-height: 65px;
 $table-disabled-row-color: #d8d8d8;
 $table-dashboard-badge-color: #1657a8;
 $table-dashboard-badge-background-color: rgba(22, 87, 168, 0.1);
@@ -52,7 +57,6 @@ $quick-search-border-color: rgba(74, 74, 74, 0.2);
 
 $users-table-dashboard-height: 46px;
 
-
 $table-filter-search-field-placeholder: rgba(74, 74, 74, 0.4);
 
 $table-filter-search-field-border-bottom: rgba(151, 151, 151, 0.3);
@@ -60,3 +64,6 @@ $table-filter-search-field-border-bottom: rgba(151, 151, 151, 0.3);
 $table-filter-border-right-color: rgba(57, 143, 251, 0.2);
 
 $no-result-found-height: 210px;
+
+$scrollbar-track-color: #f5f5f5;
+$scrollbar-thumb-color: #aaa;

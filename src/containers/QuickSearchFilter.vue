@@ -2,7 +2,6 @@
   <div class="filter-wrapper">
     <quick-search
       class="quick-search"
-      :title="$t('branches.filter.quick.search')"
       :initial-phrase="selectedPhrase"
       @input="handleQuickSearchInput"
     ></quick-search>
@@ -11,7 +10,7 @@
 
 <script>
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
-import { SEARCH_PHRASE } from '@/constants/filtersNames';
+import { SEARCH_ORDERS } from '@/constants/filtersNames';
 import QuickSearch from '@/components/QuickSearch';
 
 export default {
@@ -33,13 +32,13 @@ export default {
       return this.tableData.filters || {};
     },
     selectedPhrase() {
-      return this.filters[SEARCH_PHRASE] || '';
+      return this.filters[SEARCH_ORDERS] || '';
     },
   },
   methods: {
     handleQuickSearchInput(searchPhrase) {
       const filterName = {
-        name: SEARCH_PHRASE,
+        name: SEARCH_ORDERS,
         value: searchPhrase,
       };
       this.applyFilter(filterName);

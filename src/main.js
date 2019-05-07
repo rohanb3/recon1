@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import 'vue-popperjs/dist/vue-popper.css';
+import Notifications from 'vue-notification';
 import 'material-design-icons-iconfont/dist/material-design-icons.css';
 import AirbnbStyleDatepicker from 'vue-airbnb-style-datepicker';
 import 'vue-airbnb-style-datepicker/dist/vue-airbnb-style-datepicker.min.css';
@@ -25,6 +26,7 @@ Vue.use(Vuetify, {
 });
 
 Vue.use(AirbnbStyleDatepicker, datepickerOptions);
+Vue.use(Notifications);
 
 new Vue({
   router,
