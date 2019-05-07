@@ -1,5 +1,5 @@
 import { getOrdersTableColumns } from '@/services/tablesColumnsList';
-import { ORDERS } from '@/constants/entityTypes';
+import { ENTITY_TYPES } from '@/constants';
 
 import mutations from './mutations';
 import actions from './actions';
@@ -7,9 +7,9 @@ import getters from './getters';
 import getDefaultFilters from './filtersHelper';
 
 const state = {
-  [ORDERS]: {
+  [ENTITY_TYPES.ORDERS]: {
     columns: getOrdersTableColumns(),
-    filters: getDefaultFilters(ORDERS),
+    filters: getDefaultFilters(ENTITY_TYPES.ORDERS),
     applyingFilters: false,
   },
 };

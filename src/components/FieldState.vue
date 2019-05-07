@@ -15,7 +15,7 @@
 import {
   validateFieldCantBeEmpty,
   validateMaxTextLength,
-  validateTextOnlyLettersAndSpaces,
+  validateTextOnlyLettersAndDelimiters,
 } from '@/services/validators';
 
 const STATE_MAX_LENGTH = 50;
@@ -33,7 +33,7 @@ export default {
       stateRules: [
         validateFieldCantBeEmpty(),
         validateMaxTextLength(STATE_MAX_LENGTH),
-        validateTextOnlyLettersAndSpaces(),
+        validateTextOnlyLettersAndDelimiters(),
       ],
     };
   },

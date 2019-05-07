@@ -7,9 +7,10 @@ import {
   getDisputeAttachment,
   uploadDisputeAttachment,
   removeDisputeAttachment,
+  changeStatusDispute,
 } from '@/services/disputesRepository';
 
-import { STATUS_OK } from '@/constants/responseStatuses';
+import { RESPONSE_STATUSES } from '@/constants';
 
 describe('disputesRepository', () => {
   describe('getDispute', () => {
@@ -47,7 +48,7 @@ describe('disputesRepository', () => {
         id: 1,
       };
       const data = { id: 1, orderId: 3, affiliateId: 3 };
-      const status = STATUS_OK;
+      const status = RESPONSE_STATUSES.OK;
 
       disputesApi.put = jest.fn(() => Promise.resolve({ status, data }));
 
@@ -61,7 +62,7 @@ describe('disputesRepository', () => {
   describe('deleteDispute', () => {
     it('should call api.delete and return corect data', async () => {
       const disputerId = 7;
-      const status = STATUS_OK;
+      const status = RESPONSE_STATUSES.OK;
 
       disputesApi.delete = jest.fn(() => Promise.resolve({ status }));
 
@@ -112,7 +113,7 @@ describe('disputesRepository', () => {
     it('should call api.delete and return corect data', async () => {
       const disputerId = 7;
       const filename = 'example.txt';
-      const status = STATUS_OK;
+      const status = RESPONSE_STATUSES.OK;
 
       disputesApi.delete = jest.fn(() => Promise.resolve({ status }));
 
@@ -121,6 +122,23 @@ describe('disputesRepository', () => {
       expect(response).toEqual(status);
       expect(disputesApi.delete).toHaveBeenCalledWith(
         `/disputeattachment/${disputerId}?filename=${filename}`
+      );
+    });
+  });
+
+  describe('changeStatusDispute', () => {
+    it('should call api.patch and return corect data', async () => {
+      const disputerId = 7;
+      const statusId = '4f5yh3s257yh6';
+      const data = { id: 7 };
+
+      disputesApi.patch = jest.fn(() => Promise.resolve({ data }));
+
+      const response = await changeStatusDispute(disputerId, statusId);
+
+      expect(response).toEqual(data);
+      expect(disputesApi.patch).toHaveBeenCalledWith(
+        `/disputeattachment/${disputerId}?status=${statusId}`
       );
     });
   });

@@ -1,8 +1,8 @@
-import { ORDERS } from '@/constants/entityTypes';
+import { ENTITY_TYPES } from '@/constants';
 import { getOrders } from '@/services/ordersRepository';
 
 const handlers = {
-  [ORDERS]: {
+  [ENTITY_TYPES.ORDERS]: {
     getAll: getOrders,
   },
 };

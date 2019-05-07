@@ -36,3 +36,9 @@ export const removeDisputeAttachment = (id, filename) => {
     .delete(`/disputeattachment/${id}?filename=${filename}`)
     .then(({ status }) => status);
 };
+
+export const changeStatusDispute = (disputeId, statusId) => {
+  return apiDisputes
+    .patch(`/disputeattachment/${disputeId}?status=${statusId}`)
+    .then(({ data }) => data);
+};

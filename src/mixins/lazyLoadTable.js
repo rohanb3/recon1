@@ -2,8 +2,7 @@ import { RESET_ITEMS } from '@/store/storage/mutationTypes';
 import { LOAD_ITEMS, LOAD_MORE_ITEMS } from '@/store/storage/actionTypes';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 import { RESET_FILTERS } from '@/store/tables/mutationTypes';
-import { ORDER, SORT } from '@/constants/filtersNames';
-import { ORDER_BY_DESC, ORDER_BY_ASC } from '@/constants/sortingDirection';
+import { FILTER_NAMES, SORTING_DIRECTION } from '@/constants';
 
 export default {
   data() {
@@ -38,10 +37,10 @@ export default {
       return this.tableData.filters || {};
     },
     sortingField() {
-      return this.filters[SORT];
+      return this.filters[FILTER_NAMES.SORT];
     },
     sortDirection() {
-      return this.filters[ORDER];
+      return this.filters[FILTER_NAMES.ORDER];
     },
     role() {
       return this.$store.getters.role;
@@ -89,24 +88,24 @@ export default {
     },
     onSortDirectionChanged(sortingFieldName) {
       const state = {
-        asc: { order: ORDER_BY_DESC, sort: sortingFieldName },
+        asc: { order: SORTING_DIRECTION.DESC, sort: sortingFieldName },
         desc: { order: null, sort: null },
-        null: { order: ORDER_BY_ASC, sort: sortingFieldName },
+        null: { order: SORTING_DIRECTION.ASC, sort: sortingFieldName },
       };
 
       const order = {
-        name: ORDER,
+        name: FILTER_NAMES.ORDER,
         value: state[this.sortDirection].order,
       };
 
       const sort = {
-        name: SORT,
+        name: FILTER_NAMES.SORT,
         value: state[this.sortDirection].sort,
       };
 
       if (sortingFieldName !== this.sortingField) {
         sort.value = sortingFieldName;
-        order.value = ORDER_BY_ASC;
+        order.value = SORTING_DIRECTION.ASC;
       }
 
       if (sortingFieldName !== this.sortingField || state[this.sortDirection].order === null) {

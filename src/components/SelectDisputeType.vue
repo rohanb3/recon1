@@ -15,12 +15,7 @@
 
 <script>
 import { validateFieldCantBeEmpty } from '@/services/validators';
-
-import {
-  DISPUTE_TYPE_MISSING_TRANSACTION_ID,
-  DISPUTE_TYPE_EXPECTED_COMMISION_ID,
-  DISPUTE_TYPE_ORDER_INSTALLED_ID,
-} from '@/constants/disputeType';
+import { DISPUTE_TYPES_ID } from '@/constants';
 
 export default {
   name: 'SelectDisputeType',
@@ -38,15 +33,15 @@ export default {
       fieldCantBeEmptyRule: [validateFieldCantBeEmpty()],
       disputeTypeList: [
         {
-          id: DISPUTE_TYPE_MISSING_TRANSACTION_ID,
+          id: DISPUTE_TYPES_ID.MISSING_TRANSACTION,
           name: this.$t('dispute.missing.transaction'),
         },
         {
-          id: DISPUTE_TYPE_EXPECTED_COMMISION_ID,
+          id: DISPUTE_TYPES_ID.EXPECTED_COMMISION,
           name: this.$t('dispute.expected.commision'),
         },
         {
-          id: DISPUTE_TYPE_ORDER_INSTALLED_ID,
+          id: DISPUTE_TYPES_ID.ORDER_INSTALLED,
           name: this.$t('dispute.order.installed'),
         },
       ],

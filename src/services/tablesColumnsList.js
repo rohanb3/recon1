@@ -1,6 +1,6 @@
 import i18n from '@/i18n';
 
-import * as sortableColumns from '@/constants/tableСolumnsSorted';
+import { TABLE_СOLUMNS_SORTED } from '@/constants';
 
 /* eslint-disable-next-line import/prefer-default-export */
 export const getOrdersTableColumns = () => [
@@ -105,7 +105,7 @@ export const getOrdersTableColumns = () => [
     title: i18n.t('orders.new.dispute'),
     width: '5',
     minWidth: '105px',
-    sortingFieldName: sortableColumns.DISPUTE_STATUS,
+    sortingFieldName: TABLE_СOLUMNS_SORTED.DISPUTE_STATUS,
     fieldHeaderType: 'sortingHeader',
   },
 ];

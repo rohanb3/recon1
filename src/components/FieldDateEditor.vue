@@ -23,7 +23,7 @@
 import moment from 'moment';
 import InlineDatepicker from '@/components/InlineDatepicker';
 import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
-import { FULL_YEAR_SHORT_MONTH_SHORT_DAY } from '@/constants/dateFormats';
+import { DATE_FORMATS } from '@/constants';
 
 export default {
   name: 'FieldDateEditor',
@@ -45,7 +45,7 @@ export default {
   methods: {
     formatDayForDatePicker(date) {
       if (date === '') return '';
-      return moment.utc(date).format(FULL_YEAR_SHORT_MONTH_SHORT_DAY);
+      return moment.utc(date).format(DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY);
     },
     onDateSelected(date) {
       this.$emit('input', date);

@@ -22,28 +22,16 @@
             :service-list="serviceList"
           />
           <div class="save-button-wrapper">
-            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">{{
-              $t('cancel')
+            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">
+              {{ $t('cancel') }}
+            </v-btn>
+            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">{{
+              $t('save.as.draft')
             }}</v-btn>
-            <v-btn
-              small
-              depressed
-              class="button-save-dispute"
-              :disabled="sendingData"
-              @click="onSaveDraft"
-            >
-              {{ $t('save.as.draft') }}
-            </v-btn>
             <v-spacer></v-spacer>
-            <v-btn
-              small
-              depressed
-              class="button-create-dispute"
-              :disabled="sendingData"
-              @click="onSave"
-            >
-              {{ $t('create.new.dispute') }}
-            </v-btn>
+            <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">{{
+              $t('create.new.dispute')
+            }}</v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -57,12 +45,9 @@
           <table-button
             class="button-save-draft"
             :title="$t('save.as.draft')"
-            :disabled="sendingData"
             @click="onSaveDraft"
           />
-          <span class="remove-draft" @click="onRemoveDraft" :disabled="sendingData">{{
-            $t('remove.draft')
-          }}</span>
+          <span class="remove-draft" @click="onRemoveDraft">{{ $t('remove.draft') }}</span>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -82,8 +67,9 @@ import AdditionalInfoBlockForm from '@/components/AdditionalInfoBlockForm';
 import CustomerInformationForm from '@/components/CustomerInformationForm';
 import GeneralInformationForm from '@/components/GeneralInformationForm';
 import TableButton from '@/components/TableButton';
-import { STATUS_NOT_FOUND } from '@/constants/responseStatuses';
 import { errorMessage } from '@/services/notifications';
+
+import { RESPONSE_STATUSES, DISPUTE_STATUSES_ID } from '@/constants';
 
 import {
   getDispute,
@@ -93,9 +79,8 @@ import {
   uploadDisputeAttachment,
   removeDisputeAttachment,
 } from '@/services/disputesRepository';
-import { getServiceList } from '@/services/ordersRepository';
 
-import { DRAFT_DISPUTE_STATUS_ID } from '@/constants/disputeStatus';
+import { getServiceList } from '@/services/ordersRepository';
 
 export default {
   name: 'DisputePage',
@@ -156,7 +141,7 @@ export default {
       }
     },
     onSaveDraft() {
-      this.disputeStatusId = DRAFT_DISPUTE_STATUS_ID;
+      this.disputeStatusId = DISPUTE_STATUSES_ID.DRAFT;
       this.onSave();
     },
     async onRemoveDraft() {
@@ -180,7 +165,7 @@ export default {
           this.disputeInfo = await createDispute(orderId);
         }
       } catch (e) {
-        if ((e.response || {}).status === STATUS_NOT_FOUND) {
+        if ((e.response || {}).status === RESPONSE_STATUSES.NOT_FOUND) {
           this.$router.push({ name: 'main-page' });
         } else {
           errorMessage();
@@ -189,17 +174,14 @@ export default {
         this.loading = false;
       }
     },
+    async onCreateNewDispute() {
+      this.disputeStatusId = DISPUTE_STATUSES_ID.SENT;
+      this.onSave();
+    },
     loadServiceList() {
       getServiceList().then(data => {
         this.serviceList = data;
       });
-    },
-    validate() {
-      return [
-        this.$refs.generalInfo.validate(),
-        this.$refs.additionalInfoBlock.validate(),
-        this.$refs.customerInfo.validate(),
-      ].every(isValidForm => isValidForm === true);
     },
     async onRemoveFile(filename) {
       try {
@@ -229,6 +211,13 @@ export default {
     async loadSttachments() {
       const { attachments } = await getDispute(this.disputeInfo.id);
       this.disputeInfo.attachments = attachments;
+    },
+    validate() {
+      return [
+        this.$refs.generalInfo.validate(),
+        this.$refs.additionalInfoBlock.validate(),
+        this.$refs.customerInfo.validate(),
+      ].every(isValidForm => isValidForm === true);
     },
   },
 };

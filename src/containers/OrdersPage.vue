@@ -5,10 +5,11 @@
       <orders-table-toolbar />
     </div>
     <wombat-table
-      :items="rowsWithId"
+      :items="rows"
       :columns="columns"
       :item-height="50"
       :infinite-loading="!allItemsLoaded"
+      :item-key-name="сolumnIdName"
       @bottomReached="checkAndLoadItems"
       @columnsResized="onColumnsResized"
       @columnsReordered="onColumnsReordered"
@@ -77,8 +78,7 @@ import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 
-import { ORDERS } from '@/constants/entityTypes';
-import { extractPropertiesFromArrObj } from '@/services/utils';
+import { ENTITY_TYPES, TABLE_СOLUMN_ID_NAMES } from '@/constants';
 
 export default {
   name: 'SelectOrderPage',
@@ -100,7 +100,7 @@ export default {
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
     return {
-      tableName: ORDERS,
+      tableName: ENTITY_TYPES.ORDERS,
       headerComponentsHash: {
         default: 'DefaultHeaderCell',
         sortingHeader: 'SortingHeaderCell',
@@ -118,8 +118,8 @@ export default {
     };
   },
   computed: {
-    rowsWithId() {
-      return this.rows.map(item => ({ ...item, id: extractPropertiesFromArrObj(item, 'orderId') }));
+    сolumnIdName() {
+      return TABLE_СOLUMN_ID_NAMES[this.tableName];
     },
   },
 };

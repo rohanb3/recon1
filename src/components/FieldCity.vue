@@ -15,7 +15,7 @@
 import {
   validateFieldCantBeEmpty,
   validateMaxTextLength,
-  validateTextOnlyLettersAndSpaces,
+  validateTextOnlyLettersAndDelimiters,
 } from '@/services/validators';
 
 const CITY_MAX_LENGTH = 20;
@@ -33,7 +33,7 @@ export default {
       cityRules: [
         validateFieldCantBeEmpty(),
         validateMaxTextLength(CITY_MAX_LENGTH),
-        validateTextOnlyLettersAndSpaces(),
+        validateTextOnlyLettersAndDelimiters(),
       ],
     };
   },

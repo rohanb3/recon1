@@ -27,6 +27,10 @@ export default {
       type: Array,
       required: true,
     },
+    itemKeyName: {
+      type: String,
+      required: true,
+    },
     itemHeight: {
       default: 50,
     },

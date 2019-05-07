@@ -7,7 +7,7 @@
 
 <script>
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
-import { ORDERS } from '@/constants/entityTypes';
+import { ENTITY_TYPES } from '@/constants';
 
 export default {
   name: 'OrdersTableToolbar',
@@ -16,7 +16,7 @@ export default {
   },
   data() {
     return {
-      tableName: ORDERS,
+      tableName: ENTITY_TYPES.ORDERS,
     };
   },
 };
