@@ -96,12 +96,12 @@ export default {
 
       const order = {
         name: ORDER,
-        value: state[this.sortDirection][ORDER],
+        value: state[this.sortDirection].order,
       };
 
       const sort = {
         name: SORT,
-        value: state[this.sortDirection][SORT],
+        value: state[this.sortDirection].sort,
       };
 
       if (sortingFieldName !== this.sortingField) {

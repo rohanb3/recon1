@@ -16,9 +16,11 @@
 <script>
 import { validateFieldCantBeEmpty } from '@/services/validators';
 
-const DISPUTE_TYPE_MISSING_TRANSACTION_ID = 'e0e82612-96d7-4602-bc24-56436a25240c';
-const DISPUTE_TYPE_EXPECTED_COMMISION_ID = 'f8893af0-33af-4d14-9437-726f995b6677';
-const DISPUTE_TYPE_ORDER_INSTALLED_ID = '89d17606-d69d-46bb-a5b3-c388fe44d235';
+import {
+  DISPUTE_TYPE_MISSING_TRANSACTION_ID,
+  DISPUTE_TYPE_EXPECTED_COMMISION_ID,
+  DISPUTE_TYPE_ORDER_INSTALLED_ID,
+} from '@/constants/disputeType';
 
 export default {
   name: 'SelectDisputeType',

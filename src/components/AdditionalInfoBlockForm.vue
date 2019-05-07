@@ -60,7 +60,7 @@ export default {
     },
     disputeType: {
       get() {
-        return this.value.disputeType || null;
+        return this.value.disputeType || {};
       },
       set(disputeType) {
         this.$emit('input', {

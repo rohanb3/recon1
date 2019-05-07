@@ -22,16 +22,28 @@
             :service-list="serviceList"
           />
           <div class="save-button-wrapper">
-            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">
-              {{ $t('cancel') }}
+            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">{{
+              $t('cancel')
+            }}</v-btn>
+            <v-btn
+              small
+              depressed
+              class="button-save-dispute"
+              :disabled="sendingData"
+              @click="onSaveDraft"
+            >
+              {{ $t('save.as.draft') }}
             </v-btn>
-            <v-btn small depressed class="button-save-dispute" @click="onSave">{{
-              $t('save.as.draft')
-            }}</v-btn>
             <v-spacer></v-spacer>
-            <v-btn small depressed class="button-create-dispute" @click="onSave">{{
-              $t('create.new.dispute')
-            }}</v-btn>
+            <v-btn
+              small
+              depressed
+              class="button-create-dispute"
+              :disabled="sendingData"
+              @click="onSave"
+            >
+              {{ $t('create.new.dispute') }}
+            </v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -42,8 +54,15 @@
         <v-card-title class="headline">{{ $t('dispute.are.you.sure') }}</v-card-title>
         <v-card-text class="description">{{ $t('dispute.if.you.close.this.page') }}</v-card-text>
         <v-card-actions class="card-buttons">
-          <table-button class="button-save-draft" :title="$t('save.as.draft')" @click="onSave" />
-          <span class="remove-draft" @click="onRemoveDraft">{{ $t('remove.draft') }}</span>
+          <table-button
+            class="button-save-draft"
+            :title="$t('save.as.draft')"
+            :disabled="sendingData"
+            @click="onSaveDraft"
+          />
+          <span class="remove-draft" @click="onRemoveDraft" :disabled="sendingData">{{
+            $t('remove.draft')
+          }}</span>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -63,7 +82,7 @@ import AdditionalInfoBlockForm from '@/components/AdditionalInfoBlockForm';
 import CustomerInformationForm from '@/components/CustomerInformationForm';
 import GeneralInformationForm from '@/components/GeneralInformationForm';
 import TableButton from '@/components/TableButton';
-import { STATUS_OK, STATUS_NOT_FOUND } from '@/constants/responseStatuses';
+import { STATUS_NOT_FOUND } from '@/constants/responseStatuses';
 import { errorMessage } from '@/services/notifications';
 
 import {
@@ -75,6 +94,8 @@ import {
   removeDisputeAttachment,
 } from '@/services/disputesRepository';
 import { getServiceList } from '@/services/ordersRepository';
+
+import { DRAFT_DISPUTE_STATUS_ID } from '@/constants/disputeStatus';
 
 export default {
   name: 'DisputePage',
@@ -95,22 +116,48 @@ export default {
       disputeAttachmentList: [],
       dialogDeleteDispute: false,
       loading: true,
+      sendingData: false,
       loadingFilesStatus: false,
     };
+  },
+  computed: {
+    disputeId() {
+      return this.disputeInfo.id;
+    },
+    disputeStatusId: {
+      get() {
+        return (this.disputeInfo.disputeStatus || {}).id;
+      },
+      set(statusId) {
+        this.disputeInfo.disputeStatus.id = statusId;
+      },
+    },
+    disputeTypeId() {
+      return (this.disputeInfo.disputeType || {}).id;
+    },
   },
   methods: {
     async onSave() {
       if (this.validate()) {
+        this.sendingData = true;
         try {
           await updateDispute(this.disputeInfo.id, {
             ...this.disputeInfo,
-            disputeId: this.disputeInfo.id,
+            disputeId: this.disputeId,
+            disputeStatusId: this.disputeStatusId,
+            disputeTypeId: this.disputeTypeId,
           });
           this.$router.push({ name: 'select-order' });
         } catch {
           errorMessage();
+        } finally {
+          this.sendingData = false;
         }
       }
+    },
+    onSaveDraft() {
+      this.disputeStatusId = DRAFT_DISPUTE_STATUS_ID;
+      this.onSave();
     },
     async onRemoveDraft() {
       try {
@@ -156,18 +203,10 @@ export default {
     },
     async onRemoveFile(filename) {
       try {
-        const status = await removeDisputeAttachment(this.disputeInfo.id, filename);
-        if (status === STATUS_OK) {
-          await this.loadSttachments();
-        } else {
-          throw new Error();
-        }
+        await removeDisputeAttachment(this.disputeInfo.id, filename);
+        await this.loadSttachments();
       } catch {
-        this.$notify({
-          group: 'notifications',
-          title: this.$t('something.went.wrong'),
-          type: 'error',
-        });
+        errorMessage();
       }
     },
     async onUploadFiles(files) {
@@ -182,11 +221,7 @@ export default {
         await Promise.all(uploadFileList);
         await this.loadSttachments();
       } catch {
-        this.$notify({
-          group: 'notifications',
-          title: this.$t('something.went.wrong'),
-          type: 'error',
-        });
+        errorMessage();
       } finally {
         this.loadingFilesStatus = false;
       }
