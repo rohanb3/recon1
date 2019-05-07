@@ -19,7 +19,7 @@
 <script>
 import TableButton from '@/components/TableButton';
 
-import { SENT_DISPUTE_STATUS, DRAFT_DISPUTE_STATUS } from '@/constants/disputeStatus';
+import { DISPUTE_STATUS } from '@/constants/disputeStatus';
 
 export default {
   name: 'DisputeButtonCell',
@@ -32,14 +32,14 @@ export default {
     TableButton,
   },
   computed: {
-    statusName() {
-      return (this.item.disputeStatus || {}).name;
+    statusId() {
+      return (this.item.disputeStatus || {}).id;
     },
     isDisputed() {
-      return this.statusName === SENT_DISPUTE_STATUS;
+      return this.statusId === DISPUTE_STATUS.SENT;
     },
     isDraftDispute() {
-      return this.statusName === DRAFT_DISPUTE_STATUS;
+      return this.statusId === DISPUTE_STATUS.DRAFT;
     },
   },
 };

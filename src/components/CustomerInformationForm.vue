@@ -107,7 +107,7 @@ export default {
         return this.value;
       },
       set(disputeInfo) {
-        this.$emit('input', { ...this.value, disputeInfo });
+        this.$emit('input', disputeInfo);
       },
     },
   },

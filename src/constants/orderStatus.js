@@ -1,3 +1,6 @@
-export const ORDER_STATUS_NAME_NOT_INSTALLED = 'Not Installed';
-export const ORDER_STATUS_NAME_INSTALLED = 'Installed';
-export const ORDER_STATUS_NAME_CANCELED = 'Canceled';
+// eslint-disable-next-line import/prefer-default-export
+export const ORDER_STATUS_NAME = {
+  NOT_INSTALLED: 'Not Installed',
+  INSTALLED: 'Installed',
+  CANCELED: 'Canceled',
+};

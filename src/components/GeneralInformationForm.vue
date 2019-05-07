@@ -40,30 +40,10 @@
       </v-layout>
       <v-layout row mb-2>
         <v-flex md6>
-          <field-date-editor boundaries-selector=".disput-creation-date" v-model="createdOn">
-            <v-text-field
-              class="disput-creation-date date-field"
-              :value="prettifyDate(this.createdOn)"
-              :rules="fieldCantBeEmptyRule"
-              :label="$t('dispute.creation.date')"
-              readonly
-            ></v-text-field>
-          </field-date-editor>
+          <field-disput-creation-date ref="fieldDisputCreationDate" v-model="disputeInfo" />
         </v-flex>
         <v-flex md6 ml-5>
-          <field-date-editor
-            boundaries-selector=".disput-installation-date"
-            v-model="installationDate"
-          >
-            <v-text-field
-              class="disput-installation-date date-field required"
-              required
-              :value="prettifyDate(this.installationDate)"
-              :label="$t('dispute.installation.date')"
-              :rules="fieldCantBeEmptyRule"
-              readonly
-            ></v-text-field>
-          </field-date-editor>
+          <field-installation-date ref="fieldInstallationDate" v-model="disputeInfo" />
         </v-flex>
       </v-layout>
       <v-layout row mb-2>
@@ -103,23 +83,23 @@
 </template>
 
 <script>
-import FieldDateEditor from '@/components/FieldDateEditor';
 import FieldAccountNumber from '@/components/FieldAccountNumber';
 import FieldOrderConfirmation from '@/components/FieldOrderConfirmation';
 import FieldWoNumber from '@/components/FieldWoNumber';
+import FieldDisputCreationDate from '@/components/FieldDisputCreationDate';
+import FieldInstallationDate from '@/components/FieldInstallationDate';
 
-import { SHORT_DAY_MONTH_FULL_YEAR } from '@/constants/dateFormats';
 import currency from '@/filters/currency';
-import moment from 'moment';
 import { validateFieldCantBeEmpty } from '@/services/validators';
 
 export default {
   name: 'GeneralInformationForm',
   components: {
-    FieldDateEditor,
     FieldAccountNumber,
     FieldOrderConfirmation,
     FieldWoNumber,
+    FieldDisputCreationDate,
+    FieldInstallationDate,
   },
   props: {
     value: {
@@ -145,22 +125,6 @@ export default {
     fiscalPeriod() {
       return (this.value.fiscalPeriod || {}).name || ' ';
     },
-    createdOn: {
-      get() {
-        return this.value.createdOn || '';
-      },
-      set(createdOn) {
-        this.$emit('input', { ...this.value, createdOn });
-      },
-    },
-    installationDate: {
-      get() {
-        return this.value.installationDate || '';
-      },
-      set(installationDate) {
-        this.$emit('input', { ...this.value, installationDate });
-      },
-    },
     creationAge() {
       return this.value.creationAge || ' ';
     },
@@ -178,21 +142,18 @@ export default {
         return this.value;
       },
       set(disputeInfo) {
-        this.$emit('input', { ...this.value, disputeInfo });
+        this.$emit('input', disputeInfo);
       },
     },
   },
   methods: {
-    prettifyDate(date) {
-      if (date === '') return '';
-      return moment.utc(date).format(SHORT_DAY_MONTH_FULL_YEAR);
-    },
     validate() {
       return [
         this.$refs.form.validate(),
         this.$refs.fieldWoNumber.validate(),
         this.$refs.fieldOrderConfirmation.validate(),
         this.$refs.fieldAccountNumber.validate(),
+        this.$refs.fieldDisputCreationDate.validate(),
       ].every(isValidForm => isValidForm === true);
     },
   },
