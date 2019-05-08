@@ -5,6 +5,7 @@ export const DATE_FORMATS = {
   MONTH_ONLY: 'MMMM',
   SHORT_DAY_SHORT_MONTH_FULL_YEAR: 'DD MMM YYYY',
   SHORT_DAY_MONTH_FULL_YEAR: 'DD MMMM YYYY',
+  MONTH_FULL_YEAR: 'MMMM YYYY',
 };
 
 export const DISPUTE_STATUSES_ID = {
@@ -54,6 +55,7 @@ export const TABLE_СOLUMNS_SORTED = {
 
 export const ENTITY_TYPES = {
   ORDERS: 'ORDERS',
+  DISPUTES: 'DISPUTES',
 };
 
 export const FILTER_NAMES = {

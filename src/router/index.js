@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import Base from '@/containers/Base';
 import OrdersPage from '@/containers/OrdersPage';
 import DisputePage from '@/containers/DisputePage';
+import DisputesPage from '@/containers/DisputesPage';
 
 Vue.use(Router);
 
@@ -31,6 +32,11 @@ export default new Router({
           path: 'creat-dispute/:orderId',
           component: DisputePage,
           name: 'creat-dispute',
+        },
+        {
+          path: 'dispute-list',
+          component: DisputesPage,
+          name: 'dispute-list',
         },
       ],
     },

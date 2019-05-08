@@ -4,6 +4,11 @@ export const getDispute = id => {
   return apiDisputes.get(`/dispute/${id}`).then(({ data }) => data);
 };
 
+export const getDisputes = filters => {
+  const params = { ...filters };
+  return apiDisputes.get('/dispute', { params }).then(({ data }) => data);
+};
+
 export const createDispute = orderId => {
   return apiDisputes.post(`/dispute?orderId=${orderId}`).then(({ data }) => data);
 };

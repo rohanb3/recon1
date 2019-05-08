@@ -76,5 +76,23 @@
   "table.no.results.found": "TBD No Results found",
 
   "browse.files.or.images": "TBD Browse files or images",
-  "choose.file": "TBD Choose File"
+  "choose.file": "TBD Choose File",
+
+  "disputes.title": "TBD Dispute List With Statuses",
+  "disputes.id": "TBD ID",
+  "disputes.fiscal.period": "TBD Fiscal Period",
+  "disputes.account.number": "TBD Account Number",
+  "disputes.expected.comission": "TBD Expected Comission",
+  "disputes.recieved.comisson": "TBD Recieved Comisson",
+  "disputes.difference": "TBD Difference",
+  "disputes.disput.creator.name": "TBD Disput creator name",
+  "disputes.disput.creation.date": "TBD Disput creation Date",
+  "disputes.service.name": "TBD Service name",
+  "disputes.dispute.type": "TBD Dispute type",
+  "disputes.age.after.order": "TBD Age (after order)",
+  "disputes.age.after.installation": "TBD Age (after Installation)",
+  "disputes.age.after.disput": "TBD Age (after disput)",
+  "disputes.xyz.status": "TBD XYZ Status",
+  "disputes.dispute.status": "TBD Dispute Status",
+  "disputes.dispute.status.description": "TBD Dispute Status Description"
 }

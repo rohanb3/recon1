@@ -76,5 +76,28 @@
   "table.no.results.found": "No Results found",
 
   "browse.files.or.images": "Browse files or images",
-  "choose.file": "Choose File"
+  "choose.file": "Choose File",
+
+  "disputes.title": "Dispute List With Statuses",
+  "disputes.id": "ID",
+  "disputes.fiscal.period": "Fiscal Period",
+  "disputes.account.number": "Account Number",
+  "disputes.expected.comission": "Expected Comission",
+  "disputes.recieved.comisson": "Recieved Comisson",
+  "disputes.difference": "Difference",
+  "disputes.disput.creator.name": "Disput creator name",
+  "disputes.disput.creation.date": "Disput creation Date",
+  "disputes.service.name": "Service name",
+  "disputes.dispute.type": "Dispute type",
+  "disputes.age.after.order": "Age (after order)",
+  "disputes.age.after.installation": "Age (after Installation)",
+  "disputes.age.after.disput": "Age (after disput)",
+  "disputes.xyz.status": "XYZ Status",
+  "disputes.dispute.status": "Dispute Status",
+  "disputes.dispute.status.description": "Dispute Status Description",
+
+  "confirm": "Confirm",
+  "resubmit": "Resubmit",
+  "confirmed": "Confirmed",
+  "resubmited": "Resubmited"
 }

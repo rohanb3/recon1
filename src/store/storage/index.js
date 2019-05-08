@@ -9,6 +9,10 @@ export default {
       items: [],
       allItemsLoaded: false,
     },
+    [ENTITY_TYPES.DISPUTES]: {
+      items: [],
+      allItemsLoaded: false,
+    },
   },
   getters,
   actions,

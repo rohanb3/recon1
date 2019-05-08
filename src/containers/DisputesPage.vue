@@ -1,15 +1,13 @@
 <template>
-  <div class="orders-table">
+  <div class="disputes-table">
     <div class="table-toolbar">
-      <div class="table-title">{{ $t('orders.select.order') }}</div>
-      <orders-table-toolbar />
+      <div class="table-title">{{ $t('disputes.title') }}</div>
     </div>
     <wombat-table
       :items="rows"
       :columns="columns"
       :item-height="50"
       :infinite-loading="!allItemsLoaded"
-      :item-key-name="сolumnIdName"
       @bottomReached="checkAndLoadItems"
       @columnsResized="onColumnsResized"
       @columnsReordered="onColumnsReordered"
@@ -66,6 +64,12 @@ import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
 import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
 
 import DefaultCell from '@/components/tableCells/DefaultCell';
+import DateMonthYearCell from '@/components/tableCells/DateMonthYearCell';
+import RecievedComissonCell from '@/components/tableCells/RecievedComissonCell';
+import DifferenceComissonCell from '@/components/tableCells/DifferenceComissonCell';
+import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
+import XYZStatusCell from '@/components/tableCells/XYZStatusCell';
+
 import OrderDifferenceCell from '@/components/tableCells/OrderDifferenceCell';
 import OrderStatusCell from '@/components/tableCells/OrderStatusCell';
 import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
@@ -73,25 +77,28 @@ import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
 import PriceCell from '@/components/tableCells/PriceCell';
 import DisputeButtonCell from '@/components/tableCells/DisputeButtonCell';
 
-import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
-
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 
-import { ENTITY_TYPES, TABLE_СOLUMN_ID_NAMES } from '@/constants';
+import { ENTITY_TYPES } from '@/constants';
 
 export default {
-  name: 'OrdersPage',
+  name: 'DisputesPage',
   components: {
     WombatTable,
     WombatRow,
     TableLoader,
     DefaultCell,
+    DateMonthYearCell,
+    RecievedComissonCell,
+    DifferenceComissonCell,
+    DateYearMonthDayCell,
+    OrderAgeCell,
+    XYZStatusCell,
+
     DefaultHeaderCell,
     SortingHeaderCell,
-    OrdersTableToolbar,
     OrderDifferenceCell,
-    OrderAgeCell,
     OrderStatusCell,
     OrderNumberCell,
     PriceCell,
@@ -100,27 +107,32 @@ export default {
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
     return {
-      tableName: ENTITY_TYPES.ORDERS,
+      tableName: ENTITY_TYPES.DISPUTES,
       headerComponentsHash: {
         default: 'DefaultHeaderCell',
         sortingHeader: 'SortingHeaderCell',
       },
       rowComponentsHash: {
         default: 'DefaultCell',
+        dateMonthYear: 'DateMonthYearCell',
+        price: 'PriceCell',
+        recievedComisson: 'RecievedComissonCell',
+        differenceComisson: 'DifferenceComissonCell',
+        dateYearMonthDay: 'DateYearMonthDayCell',
+        ageAfterOrder: 'OrderAgeCell',
+        ageAfterInstallation: 'OrderAgeCell',
+        ageAfterDispute: 'OrderAgeCell',
+        xyzStatus: 'XYZStatusCell',
+
         orderDifference: 'OrderDifferenceCell',
         creationAge: 'OrderAgeCell',
         installationAge: 'OrderAgeCell',
         orderStatus: 'OrderStatusCell',
         orderNumber: 'OrderNumberCell',
-        price: 'PriceCell',
+
         disputeButton: 'DisputeButtonCell',
       },
     };
-  },
-  computed: {
-    сolumnIdName() {
-      return TABLE_СOLUMN_ID_NAMES[this.tableName];
-    },
   },
 };
 </script>
@@ -128,7 +140,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins.scss';
 
-.orders-table {
+.disputes-table {
   @include table-base-container;
 }
 
@@ -140,7 +152,7 @@ export default {
   @include table-base-title;
 }
 
-.orders-table /deep/ {
+.disputes-table /deep/ {
   height: 95vh;
   margin: 20px;
 
