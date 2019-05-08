@@ -29,7 +29,7 @@ export default {
     },
     itemKeyName: {
       type: String,
-      required: true,
+      default: 'id',
     },
     itemHeight: {
       default: 50,
@@ -114,7 +114,8 @@ export default {
     items(next, old) {
       const oldLength = old && old.length;
       const nextLength = next && next.length;
-      const itemsPrepended = !!oldLength && !!nextLength && old[0].id !== next[0].id;
+      const itemsPrepended =
+        !!oldLength && !!nextLength && old[0][this.itemKeyName] !== next[0][this.itemKeyName];
       const itemsAppended = !!oldLength && !!nextLength && nextLength > oldLength;
 
       if (this.scrollOnItemsAdding && itemsPrepended) {
