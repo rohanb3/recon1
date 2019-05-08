@@ -50,10 +50,13 @@ export default {
   computed: {
     disputeType: {
       get() {
-        return (this.value || {}).id || null;
+        return (this.value.disputeType || {}).id || null;
       },
       set(disputeType) {
-        this.$emit('input', this.disputeTypeList.find(dispute => dispute.id === disputeType));
+        this.$emit('input', {
+          ...this.value,
+          disputeType: this.disputeTypeList.find(dispute => dispute.id === disputeType),
+        });
       },
     },
   },

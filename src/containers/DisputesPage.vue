@@ -163,4 +163,9 @@ export default {
     );
   }
 }
+
+.grey-text-cell .default-cell {
+  color: $base-text-color;
+  opacity: 0.6;
+}
 </style>

@@ -22,16 +22,16 @@
             :service-list="serviceList"
           />
           <div class="save-button-wrapper">
-            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">
-              {{ $t('cancel') }}
+            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">{{
+              $t('cancel')
+            }}</v-btn>
+            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">
+              {{ $t('save.as.draft') }}
             </v-btn>
-            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">{{
-              $t('save.as.draft')
-            }}</v-btn>
             <v-spacer></v-spacer>
-            <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">{{
-              $t('create.new.dispute')
-            }}</v-btn>
+            <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">
+              {{ $t('create.new.dispute') }}
+            </v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -233,56 +233,56 @@ export default {
   margin: 20px;
   @extend %blurred-this;
 
-  .dialog-delete-dispute {
-    padding: 12px;
-    max-width: 370px;
-
-    .headline {
-      font-weight: 500;
-      font-size: 20px !important;
-      padding-bottom: 0;
-    }
-
-    .close-dialog {
-      position: absolute;
-      top: 21px;
-      right: 21px;
-      cursor: pointer;
-      opacity: 0.2;
-      color: $base-text-color;
-    }
-
-    .card-buttons {
-      padding: 10px 17px 28px 17px;
-    }
-
-    .description {
-      color: $base-text-color;
-      font-size: 14px;
-      opacity: 0.5;
-      line-height: 1.36;
-      font-weight: normal;
-    }
-
-    .button-save-draft {
-      height: 28px;
-      font-size: 14px;
-      font-weight: normal;
-      padding: 0 12px;
-      margin-right: 24px;
-    }
-
-    .remove-draft {
-      font-size: 14px;
-      cursor: pointer;
-      color: $base-red;
-    }
-  }
-
   .big-spinner {
     position: absolute;
     top: 40%;
     left: 50%;
+  }
+}
+
+.dialog-delete-dispute {
+  padding: 12px;
+  max-width: 370px;
+
+  .headline {
+    font-weight: 500;
+    font-size: 20px !important;
+    padding-bottom: 0;
+  }
+
+  .close-dialog {
+    position: absolute;
+    top: 21px;
+    right: 21px;
+    cursor: pointer;
+    opacity: 0.2;
+    color: $base-text-color;
+  }
+
+  .card-buttons {
+    padding: 10px 17px 28px 17px;
+  }
+
+  .description {
+    color: $base-text-color;
+    font-size: 14px;
+    opacity: 0.5;
+    line-height: 1.36;
+    font-weight: normal;
+  }
+
+  .button-save-draft {
+    height: 28px;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 0 12px;
+    margin-right: 24px;
+  }
+
+  .remove-draft {
+    font-size: 14px;
+    cursor: pointer;
+    color: $base-red;
   }
 }
 
@@ -313,12 +313,6 @@ export default {
         color: $base-black;
       }
     }
-  }
-
-  .v-menu__content {
-    top: 0 !important;
-    left: 0 !important;
-    @extend %thin-scrollbar;
   }
 
   .v-text-field__slot {

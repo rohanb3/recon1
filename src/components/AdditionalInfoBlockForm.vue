@@ -2,13 +2,8 @@
   <v-form class="additional-info-block-form" ref="form">
     <v-layout row mb-2>
       <v-flex md6>
-        <select-dispute-type v-model="disputeType" />
-        <v-textarea
-          :label="$t('dispute.submitter.comment')"
-          v-model="submiterContent"
-          :rules="submiterContentRules"
-          :validate-on-blur="true"
-        ></v-textarea>
+        <select-dispute-type v-model="disputeInfo" />
+        <textarea-submitter-comment v-model="disputeInfo" />
       </v-flex>
       <v-flex md6 ml-5>
         <browse-files
@@ -26,10 +21,7 @@
 <script>
 import BrowseFiles from '@/components/BrowseFiles/BrowseFiles';
 import SelectDisputeType from '@/components/SelectDisputeType';
-
-import { validateMaxTextLength } from '@/services/validators';
-
-const SUBMITER_CONTENT_MAX_LENGTH = 250;
+import TextareaSubmitterComment from '@/components/TextareaSubmitterComment';
 
 const PATH_TO_ATTACHMENT_FILES = '/api/disputs/disputeattachment/';
 
@@ -38,6 +30,7 @@ export default {
   components: {
     SelectDisputeType,
     BrowseFiles,
+    TextareaSubmitterComment,
   },
   props: {
     value: {
@@ -49,32 +42,16 @@ export default {
       default: false,
     },
   },
-  data() {
-    return {
-      submiterContentRules: [validateMaxTextLength(SUBMITER_CONTENT_MAX_LENGTH)],
-    };
-  },
   computed: {
     attachments() {
       return this.value.attachments || [];
     },
-    disputeType: {
+    disputeInfo: {
       get() {
-        return this.value.disputeType || {};
+        return this.value;
       },
-      set(disputeType) {
-        this.$emit('input', {
-          ...this.value,
-          disputeType,
-        });
-      },
-    },
-    submiterContent: {
-      get() {
-        return this.value.submiterContent;
-      },
-      set(submiterContent) {
-        this.$emit('input', { ...this.value, submiterContent });
+      set(disputeInfo) {
+        this.$emit('input', disputeInfo);
       },
     },
     linkPreview() {

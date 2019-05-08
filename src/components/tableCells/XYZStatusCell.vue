@@ -1,7 +1,7 @@
 <template>
   <div class="dispute-button-cell">
     <table-button class="disput-button brown-blue" :title="$t('confirm')" />
-    <table-button class="disput-button" :title="$t('Resubmit')" />
+    <table-button class="disput-button" :title="$t('resubmit')" />
   </div>
 </template>
 

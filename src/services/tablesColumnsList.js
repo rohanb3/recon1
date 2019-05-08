@@ -119,10 +119,9 @@ export const getDisputesTableColumns = () => [
     minWidth: '90px',
   },
   {
-    name: 'creationDate',
-    field: 'creationDate',
-    fieldType: 'dateMonthYear',
-    class: 'text',
+    name: 'fiscalPeriod',
+    field: 'fiscalPeriod.name',
+    class: 'grey-text-cell',
     title: i18n.t('disputes.fiscal.period'),
     width: '4',
     minWidth: '90px',

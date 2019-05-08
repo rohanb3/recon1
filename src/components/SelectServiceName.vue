@@ -40,8 +40,8 @@ export default {
       get() {
         return this.value.service || null;
       },
-      set(service) {
-        this.$emit('input', { ...this.value, service });
+      set(serviceId) {
+        this.$emit('input', { ...this.value, serviceId });
       },
     },
   },
