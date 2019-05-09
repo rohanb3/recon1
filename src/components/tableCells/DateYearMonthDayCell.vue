@@ -14,12 +14,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import '@/assets/styles/variables.scss';
-
-.date-year-month-day-cell {
-  color: $base-text-color;
-  opacity: 0.6;
-}
-</style>

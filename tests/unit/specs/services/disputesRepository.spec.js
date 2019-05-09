@@ -158,9 +158,7 @@ describe('disputesRepository', () => {
       const response = await changeStatusDispute(disputerId, statusId);
 
       expect(response).toEqual(data);
-      expect(disputesApi.patch).toHaveBeenCalledWith(
-        `/disputeattachment/${disputerId}?status=${statusId}`
-      );
+      expect(disputesApi.patch).toHaveBeenCalledWith(`/dispute/${disputerId}?status=${statusId}`);
     });
   });
 });

@@ -1,6 +1,6 @@
 import i18n from '@/i18n';
 
-import { TABLE_СOLUMNS_SORTED } from '@/constants';
+import { TABLE_СOLUMNS_SORTED, ROUTE_NAMES } from '@/constants';
 
 export const getOrdersTableColumns = () => [
   {
@@ -171,7 +171,7 @@ export const getDisputesTableColumns = () => [
     name: 'creationDate',
     field: 'creationDate',
     fieldType: 'dateYearMonthDay',
-    class: 'text',
+    class: 'grey-text-cell',
     title: i18n.t('disputes.disput.creation.date'),
     width: '4',
     minWidth: '110px',
@@ -227,6 +227,7 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.xyz.status'),
     width: '5',
     minWidth: '170px',
+    routeName: ROUTE_NAMES.DISPUTE_LIST,
   },
   {
     name: 'disputeStatus',
@@ -243,5 +244,33 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.dispute.status.description'),
     width: '4',
     minWidth: '110px',
+    routeName: ROUTE_NAMES.DISPUTE_LIST,
+  },
+  {
+    name: 'resubmitClaim',
+    fieldType: 'resubmitClaim',
+    class: 'text',
+    title: i18n.t('resubmission.table.resubmit.claim'),
+    width: '4',
+    minWidth: '110px',
+    routeName: ROUTE_NAMES.RESUBMISSION_TABLE,
+  },
+  {
+    name: 'reject',
+    fieldType: 'rejectDisputeStatus',
+    class: 'text',
+    title: i18n.t('resubmission.table.reject'),
+    width: '4',
+    minWidth: '110px',
+    routeName: ROUTE_NAMES.RESUBMISSION_TABLE,
+  },
+  {
+    name: 'approve',
+    fieldType: 'approveDisputeStatus',
+    class: 'text',
+    title: i18n.t('resubmission.table.approve'),
+    width: '4',
+    minWidth: '110px',
+    routeName: ROUTE_NAMES.RESUBMISSION_TABLE,
   },
 ];

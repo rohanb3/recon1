@@ -1,7 +1,8 @@
 <template>
   <div class="disputes-table">
     <div class="table-toolbar">
-      <div class="table-title">{{ $t('disputes.title') }}</div>
+      <div v-if="isResubmissionTable" class="table-title">{{ $t('resubmission.table.title') }}</div>
+      <div v-else class="table-title">{{ $t('disputes.title') }}</div>
     </div>
     <wombat-table
       :items="rows"
@@ -38,6 +39,7 @@
             :is="rowComponentsHash[rowCell.column.fieldType] || rowComponentsHash.default"
             :item="rowCell.item"
             :column="rowCell.column"
+            @changeDisputeStatus="onChangeDisputeStatus"
           />
         </wombat-row>
       </div>
@@ -69,18 +71,20 @@ import RecievedComissonCell from '@/components/tableCells/RecievedComissonCell';
 import DifferenceComissonCell from '@/components/tableCells/DifferenceComissonCell';
 import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
 import XYZStatusCell from '@/components/tableCells/XYZStatusCell';
-
-import OrderDifferenceCell from '@/components/tableCells/OrderDifferenceCell';
-import OrderStatusCell from '@/components/tableCells/OrderStatusCell';
 import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
-import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
 import PriceCell from '@/components/tableCells/PriceCell';
-import DisputeButtonCell from '@/components/tableCells/DisputeButtonCell';
+import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
+import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatusCell';
+import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
 
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 
-import { ENTITY_TYPES } from '@/constants';
+import { ENTITY_TYPES, ROUTE_NAMES } from '@/constants';
+
+import { changeStatusDispute, getDispute } from '@/services/disputesRepository';
+import { errorMessage } from '@/services/notifications';
+import { CHANGE_ITEM } from '@/store/storage/mutationTypes';
 
 export default {
   name: 'DisputesPage',
@@ -95,14 +99,12 @@ export default {
     DateYearMonthDayCell,
     OrderAgeCell,
     XYZStatusCell,
-
+    PriceCell,
     DefaultHeaderCell,
     SortingHeaderCell,
-    OrderDifferenceCell,
-    OrderStatusCell,
-    OrderNumberCell,
-    PriceCell,
-    DisputeButtonCell,
+    ResubmitClaimCell,
+    RejectDisputeStatusCell,
+    ApproveDisputeStatusCell,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
@@ -123,16 +125,36 @@ export default {
         ageAfterInstallation: 'OrderAgeCell',
         ageAfterDispute: 'OrderAgeCell',
         xyzStatus: 'XYZStatusCell',
-
-        orderDifference: 'OrderDifferenceCell',
-        creationAge: 'OrderAgeCell',
-        installationAge: 'OrderAgeCell',
-        orderStatus: 'OrderStatusCell',
-        orderNumber: 'OrderNumberCell',
-
-        disputeButton: 'DisputeButtonCell',
+        resubmitClaim: 'ResubmitClaimCell',
+        rejectDisputeStatus: 'RejectDisputeStatusCell',
+        approveDisputeStatus: 'ApproveDisputeStatusCell',
       },
     };
+  },
+  computed: {
+    columns() {
+      return this.tableData.columns.filter(
+        column => !column.routeName || column.routeName === this.$route.name
+      );
+    },
+    isResubmissionTable() {
+      return this.$route.name === ROUTE_NAMES.RESUBMISSION_TABLE;
+    },
+  },
+  methods: {
+    async onChangeDisputeStatus({ disputeId, statusId }) {
+      try {
+        await changeStatusDispute(disputeId, statusId);
+        const disputeInfo = await getDispute(disputeId);
+        this.$store.commit(CHANGE_ITEM, {
+          itemType: this.tableName,
+          id: disputeId,
+          ...disputeInfo,
+        });
+      } catch {
+        errorMessage();
+      }
+    },
   },
 };
 </script>
@@ -164,8 +186,10 @@ export default {
   }
 }
 
-.grey-text-cell .default-cell {
-  color: $base-text-color;
-  opacity: 0.6;
+.grey-text-cell {
+  .row-cell {
+    color: $base-text-color;
+    opacity: 0.6;
+  }
 }
 </style>

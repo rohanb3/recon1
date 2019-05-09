@@ -43,7 +43,5 @@ export const removeDisputeAttachment = (id, filename) => {
 };
 
 export const changeStatusDispute = (disputeId, statusId) => {
-  return apiDisputes
-    .patch(`/disputeattachment/${disputeId}?status=${statusId}`)
-    .then(({ data }) => data);
+  return apiDisputes.patch(`/dispute/${disputeId}?status=${statusId}`).then(({ data }) => data);
 };

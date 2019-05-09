@@ -67,3 +67,11 @@ export const FILTER_NAMES = {
 export const TABLE_СOLUMN_ID_NAMES = {
   [ENTITY_TYPES.ORDERS]: 'orderId',
 };
+
+export const ROUTE_NAMES = {
+  SELECT_ORDER: 'select-order',
+  EDIT_DISPUTE: 'edit-dispute',
+  CREAT_DISPUTE: 'creat-dispute',
+  DISPUTE_LIST: 'dispute-list',
+  RESUBMISSION_TABLE: 'resubmission-table',
+};

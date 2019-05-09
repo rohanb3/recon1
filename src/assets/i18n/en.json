@@ -96,6 +96,13 @@
   "disputes.dispute.status": "Dispute Status",
   "disputes.dispute.status.description": "Dispute Status Description",
 
+  "resubmission.table.title": "Resubmission Table",
+  "resubmission.table.approve": "Approve",
+  "resubmission.table.reject": "Reject",
+  "resubmission.table.resubmit.claim": "Resubmit claim",
+
+  "approve": "Approve",
+  "reject": "Reject",
   "confirm": "Confirm",
   "resubmit": "Resubmit",
   "confirmed": "Confirmed",
