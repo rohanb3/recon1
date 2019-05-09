@@ -1,9 +1,9 @@
 <template>
-  <v-form class="additional-info-block-form" ref="form">
+  <v-form class="additional-info-block-form">
     <v-layout row mb-2>
       <v-flex md6>
         <select-dispute-type v-model="disputeInfo" />
-        <textarea-submitter-comment v-model="disputeInfo" />
+        <textarea-submitter-comment v-model="disputeInfo" ref="textareaSubmitterComment" />
       </v-flex>
       <v-flex md6 ml-5>
         <browse-files
@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     validate() {
-      return this.$refs.form.validate();
+      return this.$refs.textareaSubmitterComment.validate();
     },
   },
 };

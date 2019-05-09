@@ -127,6 +127,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins.scss';
+@import '@/assets/styles/extends.scss';
 
 .orders-table {
   @include table-base-container;
@@ -138,6 +139,10 @@ export default {
 
 .table-title {
   @include table-base-title;
+}
+
+.orders-table {
+  @extend %blurred-this;
 }
 
 .orders-table /deep/ {
