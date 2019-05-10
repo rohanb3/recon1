@@ -1,6 +1,6 @@
 <template>
   <div class="app-header">
-    <v-toolbar class="header-toolbar" flat color="primary">
+    <v-toolbar class="header-toolbar" flat>
       <div class="image-wrapper">
         <img src="../assets/icons/logo.png" class="logo" />
       </div>

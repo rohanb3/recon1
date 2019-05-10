@@ -2,8 +2,17 @@
   <nav class="lhs">
     <div class="lhs-header"></div>
     <v-list>
+      <template v-for="item in navigationLinks">
+        <a v-if="item.url" :href="item.url" :key="item.title">
+          <lhs-item class="navigation-link" :item="item"></lhs-item>
+        </a>
+        <router-link v-if="item.routeName" :key="item.title" :to="{ name: item.routeName }">
+          <lhs-item class="navigation-link" :item="item"></lhs-item>
+        </router-link>
+      </template>
+
       <v-list-group
-        v-for="item in items"
+        v-for="item in groupOfItems"
         :key="item.title"
         v-model="item.active"
         :prepend-icon="item.action"
@@ -23,6 +32,7 @@
 <script>
 import LhsItemHeader from '@/components/LHS/LHSItemHeader';
 import LhsItem from '@/components/LHS/LHSItem';
+import { ROUTE_NAMES } from '@/constants';
 
 export default {
   name: 'lhs',
@@ -35,47 +45,40 @@ export default {
       activeIndex: 0,
       items: [
         {
-          action: 'search',
-          title: 'Order Search',
-          url: 'ValidatePagekey.aspx?akey=E819C48E-579F-4BBC-82CC-69C1E570E5DE',
+          action: 'home',
+          title: 'Spectrum Dashboard',
+          url: '/Reports/Dashboard.aspx',
         },
         {
-          action: 'restaurant',
-          title: 'Dining',
-          active: true,
-          items: [
-            { title: 'Breakfast & brunch' },
-            { title: 'New American', action: 'school' },
-            { title: 'Sushi' },
-          ],
+          action: 'play_arrow',
+          title: this.$t('orders'),
+          routeName: ROUTE_NAMES.SELECT_ORDER,
         },
         {
-          action: 'school',
-          title: 'Education',
-          items: [{ title: 'List Item' }],
+          action: 'list_alt',
+          title: this.$t('disputes'),
+          routeName: ROUTE_NAMES.DISPUTE_LIST,
         },
         {
-          action: 'directions_run',
-          title: 'Family',
-          items: [{ title: 'List Item' }],
+          action: 'view_list',
+          title: this.$t('resubmission.table.title'),
+          routeName: ROUTE_NAMES.RESUBMISSION_TABLE,
         },
         {
-          action: 'healing',
-          title: 'Health',
-          items: [{ title: 'List Item' }],
-        },
-        {
-          action: 'content_cut',
-          title: 'Office',
-          items: [{ title: 'List Item' }],
-        },
-        {
-          action: 'local_offer',
-          title: 'Promotions',
-          items: [{ title: 'List Item' }],
+          action: 'build',
+          title: 'System',
+          items: [],
         },
       ],
     };
+  },
+  computed: {
+    navigationLinks() {
+      return this.items.filter(item => item.url || item.routeName);
+    },
+    groupOfItems() {
+      return this.items.filter(item => item.items && item.items.length);
+    },
   },
 };
 </script>
@@ -100,12 +103,14 @@ $lhs-active-group-background-color: rgba(0, 0, 0, 0.15);
     color: $lhs-text;
   }
 
-  .v-list__group--active {
+  .v-list__group--active,
+  .navigation-link:hover {
     background-color: $lhs-active-group-background-color;
   }
 
   .v-list__group__header:hover,
-  .v-list__group__items .v-list__tile:hover {
+  .v-list__group__items .v-list__tile:hover,
+  .navigation-link:hover {
     color: $base-white !important;
 
     .v-icon {
@@ -160,11 +165,22 @@ $lhs-active-group-backgound-color: #26a69a;
   display: flex;
   flex-flow: column;
   align-items: center;
+  max-width: $lhs-width;
+  min-width: $lhs-width;
+
   a {
     text-decoration: none;
   }
   background-color: $lhs-background-color;
   font-weight: 500;
+
+  .navigation-link {
+    color: $lhs-text;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
+  }
 }
 
 .lhs-header {

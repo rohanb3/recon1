@@ -4,6 +4,10 @@ import Router from 'vue-router';
 import Base from '@/views/Base';
 import AppContent from '@/views/AppContent';
 import OrdersPage from '@/containers/OrdersPage';
+import DisputePage from '@/containers/DisputePage';
+import DisputesPage from '@/containers/DisputesPage';
+
+import { ROUTE_NAMES } from '@/constants';
 
 import AppHeader from '@/containers/AppHeader';
 import LHS from '@/containers/LHS';
@@ -16,6 +20,8 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'main-page',
+      redirect: { name: ROUTE_NAMES.SELECT_ORDER },
       component: Base,
       children: [
         {
@@ -30,7 +36,27 @@ export default new Router({
             {
               path: 'select-order',
               component: OrdersPage,
-              name: 'select-order',
+              name: ROUTE_NAMES.SELECT_ORDER,
+            },
+            {
+              path: 'edit-dispute/:disputeId',
+              component: DisputePage,
+              name: ROUTE_NAMES.EDIT_DISPUTE,
+            },
+            {
+              path: 'creat-dispute/:orderId',
+              component: DisputePage,
+              name: ROUTE_NAMES.CREAT_DISPUTE,
+            },
+            {
+              path: 'dispute-list',
+              component: DisputesPage,
+              name: ROUTE_NAMES.DISPUTE_LIST,
+            },
+            {
+              path: 'resubmission-table',
+              component: DisputesPage,
+              name: ROUTE_NAMES.RESUBMISSION_TABLE,
             },
           ],
         },

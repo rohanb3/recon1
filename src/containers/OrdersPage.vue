@@ -1,14 +1,15 @@
 <template>
   <div class="orders-table">
     <div class="table-toolbar">
-      <div class="table-title">{{ $t('orders') }}</div>
-      <orders-table-toolbar />
+      <div class="table-title">{{ $t('orders.select.order') }}</div>
+      <orders-table-toolbar :tableName="tableName" />
     </div>
     <wombat-table
       :items="rows"
       :columns="columns"
       :item-height="50"
       :infinite-loading="!allItemsLoaded"
+      :item-key-name="сolumnIdName"
       @bottomReached="checkAndLoadItems"
       @columnsResized="onColumnsResized"
       @columnsReordered="onColumnsReordered"
@@ -60,19 +61,27 @@
 import WombatTable from '@/components/WombatTable/Table';
 import WombatRow from '@/components/WombatTable/Row';
 import TableLoader from '@/components/TableLoader';
+
 import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
 import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
+
 import DefaultCell from '@/components/tableCells/DefaultCell';
+import OrderDifferenceCell from '@/components/tableCells/OrderDifferenceCell';
+import OrderStatusCell from '@/components/tableCells/OrderStatusCell';
+import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
+import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
+import PriceCell from '@/components/tableCells/PriceCell';
+import DisputeButtonCell from '@/components/tableCells/DisputeButtonCell';
 
 import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
 
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 
-import { ORDERS } from '@/constants/entityTypes';
+import { ENTITY_TYPES, TABLE_СOLUMN_ID_NAMES } from '@/constants';
 
 export default {
-  name: 'SelectOrderPage',
+  name: 'OrdersPage',
   components: {
     WombatTable,
     WombatRow,
@@ -81,25 +90,44 @@ export default {
     DefaultHeaderCell,
     SortingHeaderCell,
     OrdersTableToolbar,
+    OrderDifferenceCell,
+    OrderAgeCell,
+    OrderStatusCell,
+    OrderNumberCell,
+    PriceCell,
+    DisputeButtonCell,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
     return {
-      tableName: ORDERS,
+      tableName: ENTITY_TYPES.ORDERS,
       headerComponentsHash: {
         default: 'DefaultHeaderCell',
         sortingHeader: 'SortingHeaderCell',
       },
       rowComponentsHash: {
         default: 'DefaultCell',
+        orderDifference: 'OrderDifferenceCell',
+        creationAge: 'OrderAgeCell',
+        installationAge: 'OrderAgeCell',
+        orderStatus: 'OrderStatusCell',
+        orderNumber: 'OrderNumberCell',
+        price: 'PriceCell',
+        disputeButton: 'DisputeButtonCell',
       },
     };
+  },
+  computed: {
+    сolumnIdName() {
+      return TABLE_СOLUMN_ID_NAMES[this.tableName];
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins.scss';
+@import '@/assets/styles/extends.scss';
 
 .orders-table {
   @include table-base-container;
@@ -111,5 +139,21 @@ export default {
 
 .table-title {
   @include table-base-title;
+}
+
+.orders-table {
+  @extend %blurred-this;
+}
+
+.orders-table /deep/ {
+  height: 80vh;
+  margin: 20px;
+
+  .virtual-list {
+    height: 100vh;
+    max-height: calc(
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
+    );
+  }
 }
 </style>

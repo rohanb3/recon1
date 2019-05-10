@@ -1,6 +1,6 @@
 <template>
   <div class="sorting-header-cell" @click="onClickSortingHeaderCell">
-    <span>{{ column.title }}</span>
+    <span class="sorting-header-title">{{ column.title }}</span>
     <v-icon v-show="arrowDirection === true" class="sorting-header-icon" small
       >fas arrow_downward</v-icon
     >
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { ORDER_BY_DESC, ORDER_BY_ASC } from '@/constants/sortingDirection';
+import { SORTING_DIRECTION } from '@/constants';
 
 export default {
   name: 'SortingHeaderCell',
@@ -35,14 +35,14 @@ export default {
     sortDirection: {
       required: true,
       validator(value) {
-        return [ORDER_BY_DESC, ORDER_BY_ASC, null].includes(value);
+        return [SORTING_DIRECTION.DESC, SORTING_DIRECTION.ASC, null].includes(value);
       },
     },
   },
   computed: {
     arrowDirection() {
       if (this.column.sortingFieldName === this.sortingField) {
-        return this.sortDirection === ORDER_BY_ASC;
+        return this.sortDirection === SORTING_DIRECTION.ASC;
       }
       return null;
     },
@@ -82,5 +82,10 @@ export default {
     top: 17px;
     margin-right: 8px;
   }
+}
+
+.sorting-header-title {
+  margin-right: 16px;
+  overflow: hidden;
 }
 </style>

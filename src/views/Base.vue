@@ -5,6 +5,7 @@
       <router-view class="lhs" name="lhs" />
       <router-view class="app-content" name="main" />
     </div>
+    <notifications group="notifications" />
   </div>
 </template>
 
@@ -20,6 +21,7 @@ export default {
 .main-layout {
   display: flex;
   flex-flow: column;
+  min-width: 1300px;
 }
 .content-and-lhs-wrapper {
   display: flex;
@@ -32,7 +34,6 @@ export default {
 .lhs {
   flex-grow: 0;
   flex-shrink: 1;
-  width: $lhs-width;
   z-index: 1;
 }
 .app-content {

@@ -1,5 +1,5 @@
 <template>
-  <div class="companies-table-toolbar">
+  <div class="orders-table-toolbar">
     <quick-search-filter :tableName="tableName" />
     <v-spacer></v-spacer>
   </div>
@@ -7,7 +7,7 @@
 
 <script>
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
-import { ORDERS } from '@/constants/entityTypes';
+import { ENTITY_TYPES } from '@/constants';
 
 export default {
   name: 'OrdersTableToolbar',
@@ -16,7 +16,7 @@ export default {
   },
   data() {
     return {
-      tableName: ORDERS,
+      tableName: ENTITY_TYPES.ORDERS,
     };
   },
 };
@@ -25,7 +25,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/assets/styles/variables.scss';
 
-.companies-table-toolbar {
+.orders-table-toolbar {
   display: flex;
   flex: 1;
   margin-left: 20px;

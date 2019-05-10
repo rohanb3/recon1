@@ -23,7 +23,7 @@
       ref="scroller"
       :items="items"
       :item-size="50"
-      key-field="id"
+      :key-field="itemKeyName"
     >
       <slot
         slot-scope="row"
