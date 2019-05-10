@@ -30,17 +30,11 @@ export default {
   computed: {
     submitterComment: {
       get() {
-        return ((this.lastStatus || {}).dispute || {}).submitterComment;
+        return this.value.submitterComment;
       },
       set(submitterComment) {
         this.$emit('input', { ...this.value, submitterComment });
       },
-    },
-    disputeStatusHistoryList() {
-      return this.value.disputeStatusHistory || [];
-    },
-    lastStatus() {
-      return this.disputeStatusHistoryList[this.disputeStatusHistoryList.length - 1] || {};
     },
   },
   methods: {

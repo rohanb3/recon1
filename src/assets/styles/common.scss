@@ -27,6 +27,10 @@ textarea {
   display: none;
 }
 
+.application {
+  @extend %blurred-this;
+}
+
 .v-menu__content {
   @extend %thin-scrollbar;
 }

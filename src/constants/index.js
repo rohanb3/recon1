@@ -30,6 +30,10 @@ export const ORDER_STATUSES_NAME = {
   NOT_INSTALLED: 'Not Installed',
   INSTALLED: 'Installed',
   CANCELED: 'Canceled',
+  CLAIM_SUBMITTED: 'ClaimSubmitted',
+  ONLINE_ORDER: 'OnlineOrder',
+  PENDING: 'Pending',
+  CALL_IN_ORDER: 'CallInOrder',
 };
 
 export const RESPONSE_STATUSES = {
@@ -60,6 +64,7 @@ export const ENTITY_TYPES = {
 
 export const FILTER_NAMES = {
   SEARCH_ORDERS: 'Search',
+  SEARCH_DISPUTES: 'SearchPhrase',
   SORT: 'sort',
   ORDER: 'SortOrder',
 };

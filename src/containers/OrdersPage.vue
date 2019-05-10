@@ -2,7 +2,7 @@
   <div class="orders-table">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('orders.select.order') }}</div>
-      <orders-table-toolbar />
+      <orders-table-toolbar :tableName="tableName" />
     </div>
     <wombat-table
       :items="rows"
@@ -146,7 +146,7 @@ export default {
 }
 
 .orders-table /deep/ {
-  height: 95vh;
+  height: 80vh;
   margin: 20px;
 
   .virtual-list {

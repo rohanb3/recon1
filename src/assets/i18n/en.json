@@ -1,14 +1,21 @@
 {
+  "orders": "Orders",
   "orders.select.order": "Select order to create a new dispute",
   "orders.number": "Order Number",
   "orders.account.number": "Account Number",
   "orders.service.name": "Service Name",
   "orders.ordered.units": "Ordered Units",
   "orders.installed.units": "Installed Units",
+
   "orders.order.status": "Order Status",
   "orders.order.status.installed": "Installed",
   "orders.order.status.canceled": "Canceled",
   "orders.order.status.not.installed": "Not Installed",
+  "orders.order.status.claim.submitted": "ClaimSubmitted",
+  "orders.order.status.online.order": "OnlineOrder",
+  "orders.order.status.pending": "Pending",
+  "orders.order.status.call.in.order": "CallInOrder",
+
   "orders.age.after.order": "Age (after order)",
   "orders.age.after.installation": "Age (after Installation)",
   "orders.expected.comission": "Expected Comission",
@@ -78,6 +85,7 @@
   "browse.files.or.images": "Browse files or images",
   "choose.file": "Choose File",
 
+  "disputes": "Dispute List",
   "disputes.title": "Dispute List With Statuses",
   "disputes.id": "ID",
   "disputes.fiscal.period": "Fiscal Period",

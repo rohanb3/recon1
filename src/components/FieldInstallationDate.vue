@@ -4,7 +4,7 @@
       <v-text-field
         class="disput-installation-date date-field required"
         required
-        :value="prettifyDate(this.installationDate)"
+        :value="this.installationDate | dateShortDayMonthYear"
         :label="$t('dispute.installation.date')"
         :rules="installationDateRules"
         readonly
@@ -16,13 +16,15 @@
 <script>
 import FieldDateEditor from '@/components/FieldDateEditor';
 import { validateFieldCantBeEmpty } from '@/services/validators';
-import dateFormating from '@/mixins/dateFormating';
+import { dateShortDayMonthYear } from '@/filters/dateFormat';
 
 export default {
   name: 'FieldInstallationDate',
-  mixins: [dateFormating],
   components: {
     FieldDateEditor,
+  },
+  filters: {
+    dateShortDayMonthYear,
   },
   props: {
     value: {

@@ -3,6 +3,7 @@
     <div class="table-toolbar">
       <div v-if="isResubmissionTable" class="table-title">{{ $t('resubmission.table.title') }}</div>
       <div v-else class="table-title">{{ $t('disputes.title') }}</div>
+      <disputes-table-toolbar :tableName="tableName" />
     </div>
     <wombat-table
       :items="rows"
@@ -77,6 +78,8 @@ import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
 import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatusCell';
 import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
 
+import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
+
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 
@@ -105,6 +108,7 @@ export default {
     ResubmitClaimCell,
     RejectDisputeStatusCell,
     ApproveDisputeStatusCell,
+    DisputesTableToolbar,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
@@ -175,7 +179,7 @@ export default {
 }
 
 .disputes-table /deep/ {
-  height: 95vh;
+  height: 80vh;
   margin: 20px;
 
   .virtual-list {

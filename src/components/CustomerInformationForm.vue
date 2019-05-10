@@ -44,11 +44,11 @@
       </v-layout>
       <v-layout row mb-2>
         <v-flex md6>
-          <select-service-name
-            ref="selectServiceName"
-            v-model="disputeInfo"
-            :service-list="serviceList"
-          />
+          <v-text-field
+            v-model="serviceName"
+            disabled
+            :label="$t('dispute.service.name')"
+          ></v-text-field>
         </v-flex>
         <v-flex md6 ml-5>
           <v-text-field
@@ -63,7 +63,6 @@
 </template>
 
 <script>
-import SelectServiceName from '@/components/SelectServiceName';
 import FieldCustomerName from '@/components/FieldCustomerName';
 import FieldCustomerPhone from '@/components/FieldCustomerPhone';
 import FieldCity from '@/components/FieldCity';
@@ -74,7 +73,6 @@ import FieldZipCode from '@/components/FieldZipCode';
 export default {
   name: 'CustomerInformationForm',
   components: {
-    SelectServiceName,
     FieldCustomerName,
     FieldCustomerPhone,
     FieldCity,
@@ -85,10 +83,6 @@ export default {
   props: {
     value: {
       type: Object,
-      required: true,
-    },
-    serviceList: {
-      type: Array,
       required: true,
     },
   },
@@ -102,6 +96,9 @@ export default {
     legacyCompany() {
       return this.value.legacyCompany || ' ';
     },
+    serviceName() {
+      return (this.value.service || {}).bundleName || ' ';
+    },
     disputeInfo: {
       get() {
         return this.value;
@@ -114,7 +111,6 @@ export default {
   methods: {
     validate() {
       return [
-        this.$refs.selectServiceName.validate(),
         this.$refs.fieldCity.validate(),
         this.$refs.fieldCustomerPhone.validate(),
         this.$refs.fieldCustomerName.validate(),

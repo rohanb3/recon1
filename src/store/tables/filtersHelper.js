@@ -6,7 +6,9 @@ const filters = {
     [FILTER_NAMES.SORT]: TABLE_СOLUMNS_SORTED.ORDER_NUMBER,
     [FILTER_NAMES.ORDER]: SORTING_DIRECTION.ASC,
   },
-  [ENTITY_TYPES.DISPUTES]: {},
+  [ENTITY_TYPES.DISPUTES]: {
+    [FILTER_NAMES.SEARCH_DISPUTES]: '',
+  },
 };
 
 export default itemType => ({ ...filters[itemType] } || {});

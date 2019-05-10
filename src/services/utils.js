@@ -37,3 +37,17 @@ export function sortingRuleForObject(propertyName) {
     return 0;
   };
 }
+
+export function addBackgroundBlur() {
+  const applicationWrap = document.querySelector('.application--wrap');
+  if (applicationWrap) {
+    applicationWrap.classList.add('blurred');
+  }
+}
+
+export function removeBackgroundBlur() {
+  const applicationWrap = document.querySelector('.application--wrap');
+  if (applicationWrap) {
+    applicationWrap.classList.remove('blurred');
+  }
+}

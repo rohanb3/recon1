@@ -60,7 +60,7 @@ export const getOrdersTableColumns = () => [
     class: 'text',
     title: i18n.t('orders.age.after.order'),
     width: '4',
-    minWidth: '115px',
+    minWidth: '90px',
   },
   {
     name: 'installationAge',
@@ -116,7 +116,7 @@ export const getDisputesTableColumns = () => [
     class: 'text',
     title: i18n.t('disputes.id'),
     width: '4',
-    minWidth: '90px',
+    minWidth: '16px',
   },
   {
     name: 'fiscalPeriod',
@@ -124,7 +124,7 @@ export const getDisputesTableColumns = () => [
     class: 'grey-text-cell',
     title: i18n.t('disputes.fiscal.period'),
     width: '4',
-    minWidth: '90px',
+    minWidth: '16px',
   },
   {
     name: 'accountNumber',
@@ -132,7 +132,7 @@ export const getDisputesTableColumns = () => [
     class: 'text',
     title: i18n.t('disputes.account.number'),
     width: '3',
-    minWidth: '90px',
+    minWidth: '16px',
   },
   {
     name: 'expectedComission',
@@ -141,7 +141,7 @@ export const getDisputesTableColumns = () => [
     class: 'text',
     title: i18n.t('disputes.expected.comission'),
     width: '3',
-    minWidth: '90px',
+    minWidth: '16px',
   },
   {
     name: 'recievedComisson',
@@ -149,7 +149,7 @@ export const getDisputesTableColumns = () => [
     class: 'text',
     title: i18n.t('disputes.recieved.comisson'),
     width: '3',
-    minWidth: '90px',
+    minWidth: '16px',
   },
   {
     name: 'differenceComisson',
@@ -157,7 +157,7 @@ export const getDisputesTableColumns = () => [
     class: 'text',
     title: i18n.t('disputes.difference'),
     width: '4',
-    minWidth: '90px',
+    minWidth: '16px',
   },
   {
     name: 'creatorName',
@@ -165,7 +165,7 @@ export const getDisputesTableColumns = () => [
     class: 'text',
     title: i18n.t('disputes.disput.creator.name'),
     width: '4',
-    minWidth: '90px',
+    minWidth: '16px',
   },
   {
     name: 'creationDate',
@@ -174,7 +174,7 @@ export const getDisputesTableColumns = () => [
     class: 'grey-text-cell',
     title: i18n.t('disputes.disput.creation.date'),
     width: '4',
-    minWidth: '110px',
+    minWidth: '30px',
   },
   {
     name: 'serviceName',
@@ -182,7 +182,7 @@ export const getDisputesTableColumns = () => [
     class: 'text',
     title: i18n.t('disputes.service.name'),
     width: '4',
-    minWidth: '90px',
+    minWidth: '16px',
   },
   {
     name: 'disputeType',
@@ -190,7 +190,7 @@ export const getDisputesTableColumns = () => [
     class: 'text',
     title: i18n.t('disputes.dispute.type'),
     width: '4',
-    minWidth: '90px',
+    minWidth: '16px',
   },
   {
     name: 'ageAfterOrder',
@@ -199,7 +199,7 @@ export const getDisputesTableColumns = () => [
     class: 'text',
     title: i18n.t('disputes.age.after.order'),
     width: '4',
-    minWidth: '120px',
+    minWidth: '30px',
   },
   {
     name: 'ageAfterInstallation',
@@ -208,7 +208,7 @@ export const getDisputesTableColumns = () => [
     class: 'text',
     title: i18n.t('disputes.age.after.installation'),
     width: '4',
-    minWidth: '90px',
+    minWidth: '16px',
   },
   {
     name: 'ageAfterDispute',
@@ -217,7 +217,7 @@ export const getDisputesTableColumns = () => [
     class: 'text',
     title: i18n.t('disputes.age.after.disput'),
     width: '4',
-    minWidth: '120px',
+    minWidth: '30px',
   },
   {
     name: 'xyzStatus',
@@ -235,7 +235,7 @@ export const getDisputesTableColumns = () => [
     class: 'text',
     title: i18n.t('disputes.dispute.status'),
     width: '4',
-    minWidth: '110px',
+    minWidth: '30px',
   },
   {
     name: 'disputeStatusDescription',
@@ -243,7 +243,7 @@ export const getDisputesTableColumns = () => [
     class: 'text',
     title: i18n.t('disputes.dispute.status.description'),
     width: '4',
-    minWidth: '110px',
+    minWidth: '30px',
     routeName: ROUTE_NAMES.DISPUTE_LIST,
   },
   {

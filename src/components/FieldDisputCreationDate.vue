@@ -3,7 +3,7 @@
     <field-date-editor boundaries-selector=".disput-creation-date" v-model="createdOn">
       <v-text-field
         class="disput-creation-date date-field"
-        :value="prettifyDate(this.createdOn)"
+        :value="this.createdOn | dateShortDayMonthYear"
         :rules="creationDateRules"
         :label="$t('dispute.creation.date')"
         readonly
@@ -15,13 +15,15 @@
 <script>
 import FieldDateEditor from '@/components/FieldDateEditor';
 import { validateFieldCantBeEmpty } from '@/services/validators';
-import dateFormating from '@/mixins/dateFormating';
+import { dateShortDayMonthYear } from '@/filters/dateFormat';
 
 export default {
   name: 'FieldDisputCreationDate',
-  mixins: [dateFormating],
   components: {
     FieldDateEditor,
+  },
+  filters: {
+    dateShortDayMonthYear,
   },
   props: {
     value: {

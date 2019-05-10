@@ -18,6 +18,10 @@ export default {
         [ORDER_STATUSES_NAME.NOT_INSTALLED]: this.$t('orders.order.status.not.installed'),
         [ORDER_STATUSES_NAME.INSTALLED]: this.$t('orders.order.status.installed'),
         [ORDER_STATUSES_NAME.CANCELED]: this.$t('orders.order.status.canceled'),
+        [ORDER_STATUSES_NAME.CLAIM_SUBMITTED]: this.$t('orders.order.status.claim.submitted'),
+        [ORDER_STATUSES_NAME.ONLINE_ORDER]: this.$t('orders.order.status.online.order'),
+        [ORDER_STATUSES_NAME.PENDING]: this.$t('orders.order.status.pending'),
+        [ORDER_STATUSES_NAME.CALL_IN_ORDER]: this.$t('orders.order.status.call.in.order'),
       };
 
       return statusList[this.value] || statusList[ORDER_STATUSES_NAME.NOT_INSTALLED];

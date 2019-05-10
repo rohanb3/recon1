@@ -1,6 +1,6 @@
 <template>
   <v-container fluid grid-list-md class="dispute-page">
-    <div class="dispute-page-wrapper" :class="{ blurred: dialogDeleteDispute || loading }">
+    <div class="dispute-page-wrapper" :class="{ blurred: loading }">
       <div class="dispute-toolbar">
         <div class="dispute-title">{{ $t('dispute.page.title') }}</div>
       </div>
@@ -16,11 +16,7 @@
           />
         </v-flex>
         <v-flex xs12 lg6 class="customer-information-wrapper">
-          <customer-information-form
-            v-model="disputeInfo"
-            ref="customerInfo"
-            :service-list="serviceList"
-          />
+          <customer-information-form v-model="disputeInfo" ref="customerInfo" />
           <div class="save-button-wrapper">
             <v-btn small depressed class="button-cancel-dispute" @click="onCancel">{{
               $t('cancel')
@@ -38,7 +34,7 @@
     </div>
     <v-dialog v-model="dialogDeleteDispute" persistent max-width="370">
       <v-card class="dialog-delete-dispute">
-        <v-icon class="close-dialog" @click="dialogDeleteDispute = false">close</v-icon>
+        <v-icon class="close-dialog" @click="onCloseDialog">close</v-icon>
         <v-card-title class="headline">{{ $t('dispute.are.you.sure') }}</v-card-title>
         <v-card-text class="description">{{ $t('dispute.if.you.close.this.page') }}</v-card-text>
         <v-card-actions class="card-buttons">
@@ -68,6 +64,7 @@ import CustomerInformationForm from '@/components/CustomerInformationForm';
 import GeneralInformationForm from '@/components/GeneralInformationForm';
 import TableButton from '@/components/TableButton';
 import { errorMessage } from '@/services/notifications';
+import { addBackgroundBlur, removeBackgroundBlur } from '@/services/utils';
 
 import { RESPONSE_STATUSES, DISPUTE_STATUSES_ID } from '@/constants';
 
@@ -80,8 +77,6 @@ import {
   removeDisputeAttachment,
 } from '@/services/disputesRepository';
 
-import { getServiceList } from '@/services/ordersRepository';
-
 export default {
   name: 'DisputePage',
   components: {
@@ -92,12 +87,10 @@ export default {
   },
   mounted() {
     this.loadDispute();
-    this.loadServiceList();
   },
   data() {
     return {
       disputeInfo: {},
-      serviceList: [],
       disputeAttachmentList: [],
       dialogDeleteDispute: false,
       loading: true,
@@ -142,6 +135,7 @@ export default {
     },
     onSaveDraft() {
       this.disputeStatusId = DISPUTE_STATUSES_ID.DRAFT;
+      removeBackgroundBlur();
       this.onSave();
     },
     async onRemoveDraft() {
@@ -150,10 +144,17 @@ export default {
         this.$router.push({ name: 'select-order' });
       } catch {
         errorMessage();
+      } finally {
+        removeBackgroundBlur();
       }
     },
     onCancel() {
+      addBackgroundBlur();
       this.dialogDeleteDispute = true;
+    },
+    onCloseDialog() {
+      removeBackgroundBlur();
+      this.dialogDeleteDispute = false;
     },
     async loadDispute() {
       this.loading = true;
@@ -177,11 +178,6 @@ export default {
     async onCreateNewDispute() {
       this.disputeStatusId = DISPUTE_STATUSES_ID.SENT;
       this.onSave();
-    },
-    loadServiceList() {
-      getServiceList().then(data => {
-        this.serviceList = data;
-      });
     },
     async onRemoveFile(filename) {
       try {
@@ -229,8 +225,7 @@ export default {
 
 .dispute-page {
   @include table-base-container;
-  height: 95vh;
-  margin: 20px;
+  height: 80vh;
   @extend %blurred-this;
 
   .big-spinner {
@@ -325,7 +320,7 @@ export default {
 .dispute-page-wrapper {
   overflow: hidden;
   overflow-y: auto;
-  height: 90vh;
+  height: 75vh;
   @extend %thin-scrollbar;
 }
 

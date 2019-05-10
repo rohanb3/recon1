@@ -40,10 +40,18 @@
       </v-layout>
       <v-layout row mb-2>
         <v-flex md6>
-          <field-disput-creation-date ref="fieldDisputCreationDate" v-model="disputeInfo" />
+          <v-text-field
+            :value="createdOn | dateShortDayMonthYear"
+            :label="$t('dispute.creation.date')"
+            disabled
+          ></v-text-field>
         </v-flex>
         <v-flex md6 ml-5>
-          <field-installation-date ref="fieldInstallationDate" v-model="disputeInfo" />
+          <v-text-field
+            :value="installationDate | dateShortDayMonthYear"
+            :label="$t('dispute.installation.date')"
+            disabled
+          ></v-text-field>
         </v-flex>
       </v-layout>
       <v-layout row mb-2>
@@ -86,10 +94,9 @@
 import FieldAccountNumber from '@/components/FieldAccountNumber';
 import FieldOrderConfirmation from '@/components/FieldOrderConfirmation';
 import FieldWoNumber from '@/components/FieldWoNumber';
-import FieldDisputCreationDate from '@/components/FieldDisputCreationDate';
-import FieldInstallationDate from '@/components/FieldInstallationDate';
 
 import currency from '@/filters/currency';
+import { dateShortDayMonthYear } from '@/filters/dateFormat';
 import { validateFieldCantBeEmpty } from '@/services/validators';
 
 export default {
@@ -98,8 +105,6 @@ export default {
     FieldAccountNumber,
     FieldOrderConfirmation,
     FieldWoNumber,
-    FieldDisputCreationDate,
-    FieldInstallationDate,
   },
   props: {
     value: {
@@ -109,6 +114,7 @@ export default {
   },
   filters: {
     currency,
+    dateShortDayMonthYear,
   },
   data() {
     return {
@@ -137,6 +143,12 @@ export default {
     recevedСomission() {
       return this.value.recevedСomission || ' ';
     },
+    createdOn() {
+      return this.value.createdOn || ' ';
+    },
+    installationDate() {
+      return this.value.installationDate || ' ';
+    },
     disputeInfo: {
       get() {
         return this.value;
@@ -153,7 +165,6 @@ export default {
         this.$refs.fieldWoNumber.validate(),
         this.$refs.fieldOrderConfirmation.validate(),
         this.$refs.fieldAccountNumber.validate(),
-        this.$refs.fieldDisputCreationDate.validate(),
       ].every(isValidForm => isValidForm === true);
     },
   },

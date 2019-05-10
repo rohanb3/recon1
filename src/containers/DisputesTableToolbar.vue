@@ -1,22 +1,22 @@
 <template>
-  <div class="orders-table-toolbar">
-    <quick-search-filter :tableName="tableName" />
+  <div class="disputes-table-toolbar">
+    <quick-search-disputes-filter :tableName="tableName" />
     <v-spacer></v-spacer>
   </div>
 </template>
 
 <script>
-import QuickSearchFilter from '@/containers/QuickSearchFilter';
+import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
 import { ENTITY_TYPES } from '@/constants';
 
 export default {
-  name: 'OrdersTableToolbar',
+  name: 'DisputesTableToolbar',
   components: {
-    QuickSearchFilter,
+    QuickSearchDisputesFilter,
   },
   data() {
     return {
-      tableName: ENTITY_TYPES.ORDERS,
+      tableName: ENTITY_TYPES.DISPUTES,
     };
   },
 };
@@ -25,7 +25,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/assets/styles/variables.scss';
 
-.orders-table-toolbar {
+.disputes-table-toolbar {
   display: flex;
   flex: 1;
   margin-left: 20px;
