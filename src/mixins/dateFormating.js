@@ -1,11 +1,11 @@
 import moment from 'moment';
-import { SHORT_DAY_MONTH_FULL_YEAR } from '@/constants/dateFormats';
+import { DATE_FORMATS } from '@/constants';
 
 export default {
   methods: {
     prettifyDate(date) {
       if (date === '') return '';
-      return moment.utc(date).format(SHORT_DAY_MONTH_FULL_YEAR);
+      return moment.utc(date).format(DATE_FORMATS.SHORT_DAY_MONTH_FULL_YEAR);
     },
   },
 };

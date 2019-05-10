@@ -1,5 +1,5 @@
 <template>
-  <button class="table-button" :class="{ 'disabled-button': disabled }" @click="onClick">
+  <button class="table-button" :class="{ 'disabled-button': disabled }" @click.prevent="onClick">
     {{ title }}
     <v-progress-circular
       v-show="disabled"

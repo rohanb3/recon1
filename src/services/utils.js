@@ -25,3 +25,15 @@ export function getStringFromValuesByKey(itemKey, items = [], outputItems = 3) {
 
   return '';
 }
+
+export function sortingRuleForObject(propertyName) {
+  return (currentItem, nextItem) => {
+    if (currentItem[propertyName] > nextItem[propertyName]) {
+      return 1;
+    }
+    if (currentItem[propertyName] < nextItem[propertyName]) {
+      return -1;
+    }
+    return 0;
+  };
+}

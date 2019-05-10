@@ -1,18 +1,18 @@
 <template>
-  <v-form class="additional-info-block-form" ref="form">
+  <v-form class="additional-info-block-form">
     <v-layout row mb-2>
       <v-flex md6>
-        <select-dispute-type v-model="disputeType" />
-        <v-textarea
-          name="input-7-1"
-          :label="$t('dispute.submitter.comment')"
-          v-model="submiterContent"
-          :rules="submiterContentRules"
-          :validate-on-blur="true"
-        ></v-textarea>
+        <select-dispute-type v-model="disputeInfo" />
+        <textarea-submitter-comment v-model="disputeInfo" ref="textareaSubmitterComment" />
       </v-flex>
       <v-flex md6 ml-5>
-        <browse-files />
+        <browse-files
+          :attachments="attachments"
+          :linkPreview="linkPreview"
+          :loadingStatus="loadingFilesStatus"
+          @removeFile="filename => $emit('removeFile', filename)"
+          @selectedFiles="files => $emit('selectedFiles', files)"
+        />
       </v-flex>
     </v-layout>
   </v-form>
@@ -21,52 +21,46 @@
 <script>
 import BrowseFiles from '@/components/BrowseFiles/BrowseFiles';
 import SelectDisputeType from '@/components/SelectDisputeType';
+import TextareaSubmitterComment from '@/components/TextareaSubmitterComment';
 
-import { validateMaxTextLength } from '@/services/validators';
-
-const SUBMITER_CONTENT_MAX_LENGTH = 250;
+const PATH_TO_ATTACHMENT_FILES = '/api/disputs/disputeattachment/';
 
 export default {
   name: 'AdditionalInfoBlockForm',
   components: {
     SelectDisputeType,
     BrowseFiles,
+    TextareaSubmitterComment,
   },
   props: {
     value: {
       type: Object,
       required: true,
     },
-  },
-  data() {
-    return {
-      submiterContentRules: [validateMaxTextLength(SUBMITER_CONTENT_MAX_LENGTH)],
-    };
+    loadingFilesStatus: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
-    submiterContent: {
+    attachments() {
+      return this.value.attachments || [];
+    },
+    disputeInfo: {
       get() {
-        return this.value.submiterContent;
+        return this.value;
       },
-      set(submiterContent) {
-        this.$emit('input', { ...this.value, submiterContent });
+      set(disputeInfo) {
+        this.$emit('input', disputeInfo);
       },
     },
-    disputeType: {
-      get() {
-        return this.value.disputeType || {};
-      },
-      set(disputeType) {
-        this.$emit('input', {
-          ...this.value,
-          disputeType,
-        });
-      },
+    linkPreview() {
+      return `${PATH_TO_ATTACHMENT_FILES + this.value.id}?fileName=`;
     },
   },
   methods: {
     validate() {
-      return this.$refs.form.validate();
+      return this.$refs.textareaSubmitterComment.validate();
     },
   },
 };

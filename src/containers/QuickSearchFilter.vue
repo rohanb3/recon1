@@ -10,7 +10,7 @@
 
 <script>
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
-import { SEARCH_ORDERS } from '@/constants/filtersNames';
+import { FILTER_NAMES } from '@/constants';
 import QuickSearch from '@/components/QuickSearch';
 
 export default {
@@ -32,13 +32,13 @@ export default {
       return this.tableData.filters || {};
     },
     selectedPhrase() {
-      return this.filters[SEARCH_ORDERS] || '';
+      return this.filters[FILTER_NAMES.SEARCH_ORDERS] || '';
     },
   },
   methods: {
     handleQuickSearchInput(searchPhrase) {
       const filterName = {
-        name: SEARCH_ORDERS,
+        name: FILTER_NAMES.SEARCH_ORDERS,
         value: searchPhrase,
       };
       this.applyFilter(filterName);

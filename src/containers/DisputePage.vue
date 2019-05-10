@@ -7,7 +7,13 @@
       <v-layout row wrap>
         <v-flex xs12 lg6 class="general-information-form">
           <general-information-form v-model="disputeInfo" ref="generalInfo" />
-          <additional-info-block-form v-model="disputeInfo" ref="additionalInfoBlock" />
+          <additional-info-block-form
+            v-model="disputeInfo"
+            ref="additionalInfoBlock"
+            :loadingFilesStatus="loadingFilesStatus"
+            @selectedFiles="onUploadFiles"
+            @removeFile="onRemoveFile"
+          />
         </v-flex>
         <v-flex xs12 lg6 class="customer-information-wrapper">
           <customer-information-form
@@ -19,11 +25,11 @@
             <v-btn small depressed class="button-cancel-dispute" @click="onCancel">{{
               $t('cancel')
             }}</v-btn>
-            <v-btn small depressed class="button-save-dispute" @click="onSave">
+            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">
               {{ $t('save.as.draft') }}
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn small depressed class="button-create-dispute" @click="onSave">
+            <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">
               {{ $t('create.new.dispute') }}
             </v-btn>
           </div>
@@ -36,7 +42,11 @@
         <v-card-title class="headline">{{ $t('dispute.are.you.sure') }}</v-card-title>
         <v-card-text class="description">{{ $t('dispute.if.you.close.this.page') }}</v-card-text>
         <v-card-actions class="card-buttons">
-          <table-button class="button-save-draft" :title="$t('save.as.draft')" @click="onSave" />
+          <table-button
+            class="button-save-draft"
+            :title="$t('save.as.draft')"
+            @click="onSaveDraft"
+          />
           <span class="remove-draft" @click="onRemoveDraft">{{ $t('remove.draft') }}</span>
         </v-card-actions>
       </v-card>
@@ -59,12 +69,17 @@ import GeneralInformationForm from '@/components/GeneralInformationForm';
 import TableButton from '@/components/TableButton';
 import { errorMessage } from '@/services/notifications';
 
+import { RESPONSE_STATUSES, DISPUTE_STATUSES_ID } from '@/constants';
+
 import {
   getDispute,
   createDispute,
   updateDispute,
   deleteDispute,
+  uploadDisputeAttachment,
+  removeDisputeAttachment,
 } from '@/services/disputesRepository';
+
 import { getServiceList } from '@/services/ordersRepository';
 
 export default {
@@ -83,23 +98,51 @@ export default {
     return {
       disputeInfo: {},
       serviceList: [],
+      disputeAttachmentList: [],
       dialogDeleteDispute: false,
       loading: true,
+      sendingData: false,
+      loadingFilesStatus: false,
     };
+  },
+  computed: {
+    disputeId() {
+      return this.disputeInfo.id;
+    },
+    disputeStatusId: {
+      get() {
+        return (this.disputeInfo.disputeStatus || {}).id;
+      },
+      set(statusId) {
+        this.disputeInfo.disputeStatus.id = statusId;
+      },
+    },
+    disputeTypeId() {
+      return (this.disputeInfo.disputeType || {}).id;
+    },
   },
   methods: {
     async onSave() {
       if (this.validate()) {
+        this.sendingData = true;
         try {
           await updateDispute(this.disputeInfo.id, {
             ...this.disputeInfo,
-            disputeId: this.disputeInfo.id,
+            disputeId: this.disputeId,
+            disputeStatusId: this.disputeStatusId,
+            disputeTypeId: this.disputeTypeId,
           });
           this.$router.push({ name: 'select-order' });
         } catch {
           errorMessage();
+        } finally {
+          this.sendingData = false;
         }
       }
+    },
+    onSaveDraft() {
+      this.disputeStatusId = DISPUTE_STATUSES_ID.DRAFT;
+      this.onSave();
     },
     async onRemoveDraft() {
       try {
@@ -121,16 +164,53 @@ export default {
         } else {
           this.disputeInfo = await createDispute(orderId);
         }
-      } catch {
-        errorMessage();
+      } catch (e) {
+        if ((e.response || {}).status === RESPONSE_STATUSES.NOT_FOUND) {
+          this.$router.push({ name: 'main-page' });
+        } else {
+          errorMessage();
+        }
       } finally {
         this.loading = false;
       }
+    },
+    async onCreateNewDispute() {
+      this.disputeStatusId = DISPUTE_STATUSES_ID.SENT;
+      this.onSave();
     },
     loadServiceList() {
       getServiceList().then(data => {
         this.serviceList = data;
       });
+    },
+    async onRemoveFile(filename) {
+      try {
+        await removeDisputeAttachment(this.disputeInfo.id, filename);
+        await this.loadSttachments();
+      } catch {
+        errorMessage();
+      }
+    },
+    async onUploadFiles(files) {
+      this.loadingFilesStatus = true;
+      try {
+        const uploadFileList = [].map.call(files, file => {
+          const formData = new FormData();
+          formData.append('attachments', file, file.name);
+          return uploadDisputeAttachment(this.disputeInfo.id, formData);
+        });
+
+        await Promise.all(uploadFileList);
+        await this.loadSttachments();
+      } catch {
+        errorMessage();
+      } finally {
+        this.loadingFilesStatus = false;
+      }
+    },
+    async loadSttachments() {
+      const { attachments } = await getDispute(this.disputeInfo.id);
+      this.disputeInfo.attachments = attachments;
     },
     validate() {
       return [
@@ -153,56 +233,56 @@ export default {
   margin: 20px;
   @extend %blurred-this;
 
-  .dialog-delete-dispute {
-    padding: 12px;
-    max-width: 370px;
-
-    .headline {
-      font-weight: 500;
-      font-size: 20px !important;
-      padding-bottom: 0;
-    }
-
-    .close-dialog {
-      position: absolute;
-      top: 21px;
-      right: 21px;
-      cursor: pointer;
-      opacity: 0.2;
-      color: $base-text-color;
-    }
-
-    .card-buttons {
-      padding: 10px 17px 28px 17px;
-    }
-
-    .description {
-      color: $base-text-color;
-      font-size: 14px;
-      opacity: 0.5;
-      line-height: 1.36;
-      font-weight: normal;
-    }
-
-    .button-save-draft {
-      height: 28px;
-      font-size: 14px;
-      font-weight: normal;
-      padding: 0 12px;
-      margin-right: 24px;
-    }
-
-    .remove-draft {
-      font-size: 14px;
-      cursor: pointer;
-      color: $base-red;
-    }
-  }
-
   .big-spinner {
     position: absolute;
     top: 40%;
     left: 50%;
+  }
+}
+
+.dialog-delete-dispute {
+  padding: 12px;
+  max-width: 370px;
+
+  .headline {
+    font-weight: 500;
+    font-size: 20px !important;
+    padding-bottom: 0;
+  }
+
+  .close-dialog {
+    position: absolute;
+    top: 21px;
+    right: 21px;
+    cursor: pointer;
+    opacity: 0.2;
+    color: $base-text-color;
+  }
+
+  .card-buttons {
+    padding: 10px 17px 28px 17px;
+  }
+
+  .description {
+    color: $base-text-color;
+    font-size: 14px;
+    opacity: 0.5;
+    line-height: 1.36;
+    font-weight: normal;
+  }
+
+  .button-save-draft {
+    height: 28px;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 0 12px;
+    margin-right: 24px;
+  }
+
+  .remove-draft {
+    font-size: 14px;
+    cursor: pointer;
+    color: $base-red;
   }
 }
 
@@ -233,12 +313,6 @@ export default {
         color: $base-black;
       }
     }
-  }
-
-  .v-menu__content {
-    top: 0 !important;
-    left: 0 !important;
-    @extend %thin-scrollbar;
   }
 
   .v-text-field__slot {

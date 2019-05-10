@@ -1,12 +1,17 @@
 import disputesApi from '@/services/disputesApi';
 import {
   getDispute,
+  getDisputes,
   createDispute,
   updateDispute,
   deleteDispute,
+  getDisputeAttachment,
+  uploadDisputeAttachment,
+  removeDisputeAttachment,
+  changeStatusDispute,
 } from '@/services/disputesRepository';
 
-import { STATUS_OK } from '@/constants/responseStatuses';
+import { RESPONSE_STATUSES } from '@/constants';
 
 describe('disputesRepository', () => {
   describe('getDispute', () => {
@@ -20,6 +25,26 @@ describe('disputesRepository', () => {
 
       expect(response).toEqual(data);
       expect(disputesApi.get).toHaveBeenCalledWith(`/dispute/${id}`);
+    });
+  });
+
+  describe('getDisputes', () => {
+    it('should call api.get and return corect data', async () => {
+      const filters = {
+        skip: 0,
+        take: 10,
+      };
+
+      const data = { id: '777' };
+
+      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
+
+      const response = await getDisputes(filters);
+
+      expect(response).toEqual(data);
+      expect(disputesApi.get).toHaveBeenCalledWith('/dispute', {
+        params: { ...filters },
+      });
     });
   });
 
@@ -44,7 +69,7 @@ describe('disputesRepository', () => {
         id: 1,
       };
       const data = { id: 1, orderId: 3, affiliateId: 3 };
-      const status = STATUS_OK;
+      const status = RESPONSE_STATUSES.OK;
 
       disputesApi.put = jest.fn(() => Promise.resolve({ status, data }));
 
@@ -58,7 +83,7 @@ describe('disputesRepository', () => {
   describe('deleteDispute', () => {
     it('should call api.delete and return corect data', async () => {
       const disputerId = 7;
-      const status = STATUS_OK;
+      const status = RESPONSE_STATUSES.OK;
 
       disputesApi.delete = jest.fn(() => Promise.resolve({ status }));
 
@@ -66,6 +91,74 @@ describe('disputesRepository', () => {
 
       expect(response).toEqual(status);
       expect(disputesApi.delete).toHaveBeenCalledWith(`/dispute/${disputerId}`);
+    });
+  });
+
+  describe('getDisputeAttachment', () => {
+    it('should call api.get and return corect data', async () => {
+      const disputerId = 7;
+      const data = { id: 1 };
+
+      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
+
+      const response = await getDisputeAttachment(disputerId);
+
+      expect(response).toEqual(data);
+      expect(disputesApi.get).toHaveBeenCalledWith(`/disputeattachment/${disputerId}`);
+    });
+  });
+
+  describe('uploadDisputeAttachment', () => {
+    it('should call api.post and return corect data', async () => {
+      const disputerId = 7;
+      const headers = {
+        'Content-Type': 'multipart/form-data',
+      };
+      const updateData = {
+        id: 1,
+      };
+
+      disputesApi.post = jest.fn(() => Promise.resolve());
+
+      await uploadDisputeAttachment(disputerId, updateData);
+
+      expect(disputesApi.post).toHaveBeenCalledWith(
+        `/disputeattachment/${disputerId}`,
+        updateData,
+        { headers }
+      );
+    });
+  });
+
+  describe('removeDisputeAttachment', () => {
+    it('should call api.delete and return corect data', async () => {
+      const disputerId = 7;
+      const filename = 'example.txt';
+      const status = RESPONSE_STATUSES.OK;
+
+      disputesApi.delete = jest.fn(() => Promise.resolve({ status }));
+
+      const response = await removeDisputeAttachment(disputerId, filename);
+
+      expect(response).toEqual(status);
+      expect(disputesApi.delete).toHaveBeenCalledWith(
+        `/disputeattachment/${disputerId}?filename=${filename}`
+      );
+    });
+  });
+
+  describe('changeStatusDispute', () => {
+    it('should call api.patch and return corect data', async () => {
+      const disputerId = 7;
+      const statusId = '4f5yh3s257yh6';
+      const data = { id: 7 };
+
+      disputesApi.patch = jest.fn(() => Promise.resolve({ data }));
+
+      const response = await changeStatusDispute(disputerId, statusId);
+
+      expect(response).toEqual(data);
+      expect(disputesApi.patch).toHaveBeenCalledWith(`/dispute/${disputerId}?status=${statusId}`);
     });
   });
 });

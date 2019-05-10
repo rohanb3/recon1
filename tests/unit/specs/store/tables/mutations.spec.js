@@ -8,13 +8,13 @@ jest.mock('@/services/tablesColumnsList', () => ({
 
 import mutations from '@/store/tables/mutations';
 import * as types from '@/store/tables/mutationTypes';
-import { ORDERS } from '@/constants/entityTypes';
+import { ENTITY_TYPES } from '@/constants';
 
 describe('tables mutations', () => {
   describe('SET_COLUMNS', () => {
     it('should set columns by tableName', () => {
       const state = {
-        [ORDERS]: {
+        [ENTITY_TYPES.ORDERS]: {
           columns: [],
         },
       };
@@ -22,11 +22,11 @@ describe('tables mutations', () => {
       const columns = [{ name: 'operator' }, { name: 'date' }];
 
       mutations[types.SET_COLUMNS](state, {
-        tableName: ORDERS,
+        tableName: ENTITY_TYPES.ORDERS,
         columns,
       });
 
-      expect(state[ORDERS].columns).toEqual(columns);
+      expect(state[ENTITY_TYPES.ORDERS].columns).toEqual(columns);
     });
   });
 
@@ -38,7 +38,7 @@ describe('tables mutations', () => {
         { name: 'disposition' },
       ];
       const state = {
-        [ORDERS]: {
+        [ENTITY_TYPES.ORDERS]: {
           columns,
         },
       };
@@ -46,11 +46,11 @@ describe('tables mutations', () => {
       const expectedColumns = [columns[0], columns[2]];
 
       mutations[types.HIDE_COLUMN](state, {
-        tableName: ORDERS,
+        tableName: ENTITY_TYPES.ORDERS,
         columnName: 'operatorFeedback',
       });
 
-      expect(state[ORDERS].columns).toEqual(expectedColumns);
+      expect(state[ENTITY_TYPES.ORDERS].columns).toEqual(expectedColumns);
     });
   });
 
@@ -62,7 +62,7 @@ describe('tables mutations', () => {
       };
 
       const state = {
-        [ORDERS]: {
+        [ENTITY_TYPES.ORDERS]: {
           dateRange: {
             startDate: null,
             endDate: null,
@@ -71,18 +71,18 @@ describe('tables mutations', () => {
       };
 
       mutations[types.SET_DATE_RANGE](state, {
-        tableName: ORDERS,
+        tableName: ENTITY_TYPES.ORDERS,
         dateRange,
       });
 
-      expect(state[ORDERS].dateRange).toEqual(dateRange);
+      expect(state[ENTITY_TYPES.ORDERS].dateRange).toEqual(dateRange);
     });
   });
 
   describe('SET_FILTER', () => {
     it('should set filter', () => {
       const state = {
-        [ORDERS]: {
+        [ENTITY_TYPES.ORDERS]: {
           filters: {
             search: '',
           },
@@ -91,15 +91,15 @@ describe('tables mutations', () => {
       };
 
       mutations[types.SET_FILTER](state, {
-        tableName: ORDERS,
+        tableName: ENTITY_TYPES.ORDERS,
         filter: {
           name: 'search',
           value: 'aaaa',
         },
       });
 
-      expect(state[ORDERS].filters.search).toBe('aaaa');
-      expect(state[ORDERS].applyingFilters).toBeTruthy();
+      expect(state[ENTITY_TYPES.ORDERS].filters.search).toBe('aaaa');
+      expect(state[ENTITY_TYPES.ORDERS].applyingFilters).toBeTruthy();
     });
   });
 });

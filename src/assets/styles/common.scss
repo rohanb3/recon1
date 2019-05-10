@@ -3,6 +3,7 @@
 @import './table.scss';
 @import './datepicker.scss';
 @import './mixins.scss';
+@import './extends.scss';
 
 html {
   overflow: hidden;
@@ -24,4 +25,8 @@ textarea {
 
 .blur-svg {
   display: none;
+}
+
+.v-menu__content {
+  @extend %thin-scrollbar;
 }
