@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dev-reconciliation-static
+  name: dev-reconcil-static
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dev-reconciliation-static
+      app: dev-reconcil-static
   template:
     metadata:
       labels:
-        app: dev-reconciliation-static
+        app: dev-reconcil-static
     spec:
 #      nodeSelector:
 #        env: applications
       containers:
-      - name: dev-reconciliation-static
-        image: xyziesdevregistry.azurecr.io/xyzies-fe-reconciliation-dev:0.0.0.0
+      - name: dev-reconcil-static
+        image: xyziesdevregistry.azurecr.io/xyz-fe-reconciliation-dev:0.0.0.0
         resources:
           requests:
             cpu: 150m
@@ -30,7 +30,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: dev-reconciliation-static
+  name: dev-reconcil-static
 spec:
   ports:
   - protocol: "TCP"
@@ -38,5 +38,5 @@ spec:
     targetPort: 8070
     name: "http"
   selector:
-    app: dev-reconciliation-static
+    app: dev-reconcil-static
   clusterIP: 172.20.0.70
