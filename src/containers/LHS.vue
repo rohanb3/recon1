@@ -1,13 +1,14 @@
 <template>
-  <nav class="lhs">
+  <nav class="lhs" :class="{ 'lhs-menu-full-size': isTinySidebar }">
     <div class="lhs-header"></div>
+    <v-icon class="tiny-sidebar" v-show="!isTinySidebar">more_horiz</v-icon>
     <v-list>
       <template v-for="item in navigationLinks">
         <a v-if="item.url" :href="item.url" :key="item.title">
-          <lhs-item class="navigation-link" :item="item"></lhs-item>
+          <lhs-item class="navigation-link" :item="item" :visible-title="isTinySidebar"></lhs-item>
         </a>
         <router-link v-if="item.routeName" :key="item.title" :to="{ name: item.routeName }">
-          <lhs-item class="navigation-link" :item="item"></lhs-item>
+          <lhs-item class="navigation-link" :item="item" :visible-title="isTinySidebar"></lhs-item>
         </router-link>
       </template>
 
@@ -19,10 +20,15 @@
         no-action
       >
         <template v-slot:activator>
-          <lhs-item-header :item="item"></lhs-item-header>
+          <lhs-item-header :item="item" :visible-title="isTinySidebar"></lhs-item-header>
         </template>
         <div v-if="item.items">
-          <lhs-item v-for="subItem in item.items" :item="subItem" :key="subItem.title"></lhs-item>
+          <lhs-item
+            v-for="subItem in item.items"
+            :item="subItem"
+            :key="subItem.title"
+            :visible-title="isTinySidebar"
+          ></lhs-item>
         </div>
       </v-list-group>
     </v-list>
@@ -79,6 +85,9 @@ export default {
     groupOfItems() {
       return this.items.filter(item => item.items && item.items.length);
     },
+    isTinySidebar() {
+      return !this.$store.state.uiState.tinySidebarStatus;
+    },
   },
 };
 </script>
@@ -97,6 +106,10 @@ $lhs-active-group-background-color: rgba(0, 0, 0, 0.15);
     background-color: transparent;
     color: $lhs-text;
     padding: 0 10px;
+  }
+
+  .tiny-sidebar {
+    opacity: 0.6;
   }
 
   .v-icon {
@@ -147,6 +160,10 @@ $lhs-active-group-background-color: rgba(0, 0, 0, 0.15);
     padding-left: 51px !important;
   }
 
+  .v-list__tile {
+    padding: 0 10px;
+  }
+
   .v-list__tile__title {
     font-weight: 500;
     font-size: 13px;
@@ -165,8 +182,11 @@ $lhs-active-group-backgound-color: #26a69a;
   display: flex;
   flex-flow: column;
   align-items: center;
-  max-width: $lhs-width;
-  min-width: $lhs-width;
+
+  .lhs-menu-full-size {
+    max-width: $lhs-width;
+    min-width: $lhs-width;
+  }
 
   a {
     text-decoration: none;

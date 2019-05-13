@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 
 import storage from './storage';
 import tables from './tables';
+import uiState from './ui-state';
 
 Vue.use(Vuex);
 
@@ -13,5 +14,6 @@ export default new Vuex.Store({
   modules: {
     storage,
     tables,
+    uiState,
   },
 });

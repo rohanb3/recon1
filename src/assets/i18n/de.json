@@ -1,14 +1,21 @@
 {
+  "orders": "TBD Orders",
   "orders.select.order": "TBD Select order to create a new dispute",
   "orders.number": "TBD Order Number",
   "orders.account.number": "TBD Account Number",
   "orders.service.name": "TBD Service Name",
   "orders.ordered.units": "TBD Ordered Units",
   "orders.installed.units": "TBD Installed Units",
+
   "orders.order.status": "TBD Order Status",
   "orders.order.status.installed": "TBD Installed",
   "orders.order.status.canceled": "TBD Canceled",
   "orders.order.status.not.installed": "TBD Not Installed",
+  "orders.order.status.claim.submitted": "TBD ClaimSubmitted",
+  "orders.order.status.online.order": "TBD OnlineOrder",
+  "orders.order.status.pending": "TBD Pending",
+  "orders.order.status.call.in.order": "TBD CallInOrder",
+
   "orders.age.after.order": "TBD Age (after order)",
   "orders.age.after.installation": "TBD Age (after Installation)",
   "orders.expected.comission": "TBD Expected Comission",
@@ -78,6 +85,7 @@
   "browse.files.or.images": "TBD Browse files or images",
   "choose.file": "TBD Choose File",
 
+  "disputes": "TBD Dispute List",
   "disputes.title": "TBD Dispute List With Statuses",
   "disputes.id": "TBD ID",
   "disputes.fiscal.period": "TBD Fiscal Period",
@@ -94,5 +102,17 @@
   "disputes.age.after.disput": "TBD Age (after disput)",
   "disputes.xyz.status": "TBD XYZ Status",
   "disputes.dispute.status": "TBD Dispute Status",
-  "disputes.dispute.status.description": "TBD Dispute Status Description"
+  "disputes.dispute.status.description": "TBD Dispute Status Description",
+
+  "resubmission.table.title": "TBD Resubmission Table",
+  "resubmission.table.approve": "TBD Approve",
+  "resubmission.table.reject": "TBD Reject",
+  "resubmission.table.resubmit.claim": "TBD Resubmit claim",
+
+  "approve": "TBD Approve",
+  "reject": "TBD Reject",
+  "confirm": "TBD Confirm",
+  "resubmit": "TBD Resubmit",
+  "confirmed": "TBD Confirmed",
+  "resubmited": "TBD Resubmited"
 }
