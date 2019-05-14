@@ -7,24 +7,17 @@
 <script>
 import nestedFieldCell from '@/mixins/nestedFieldCell';
 
-import { ORDER_STATUSES_NAME } from '@/constants';
+import { ORDER_STATUSES_NAME, ORDER_STATUS_NAME_TRANSLATION_KEYS } from '@/constants';
 
 export default {
   name: 'OrderStatusCell',
   mixins: [nestedFieldCell],
   computed: {
     orderStatus() {
-      const statusList = {
-        [ORDER_STATUSES_NAME.NOT_INSTALLED]: this.$t('orders.order.status.not.installed'),
-        [ORDER_STATUSES_NAME.INSTALLED]: this.$t('orders.order.status.installed'),
-        [ORDER_STATUSES_NAME.CANCELED]: this.$t('orders.order.status.canceled'),
-        [ORDER_STATUSES_NAME.CLAIM_SUBMITTED]: this.$t('orders.order.status.claim.submitted'),
-        [ORDER_STATUSES_NAME.ONLINE_ORDER]: this.$t('orders.order.status.online.order'),
-        [ORDER_STATUSES_NAME.PENDING]: this.$t('orders.order.status.pending'),
-        [ORDER_STATUSES_NAME.CALL_IN_ORDER]: this.$t('orders.order.status.call.in.order'),
-      };
-
-      return statusList[this.value] || statusList[ORDER_STATUSES_NAME.NOT_INSTALLED];
+      const translationKey = ORDER_STATUS_NAME_TRANSLATION_KEYS[this.value];
+      return translationKey
+        ? this.$t(translationKey)
+        : this.$t(ORDER_STATUS_NAME_TRANSLATION_KEYS[ORDER_STATUSES_NAME.NOT_INSTALLED]);
     },
     isOrderNotInstalled() {
       return this.value === ORDER_STATUSES_NAME.NOT_INSTALLED || this.value === null;

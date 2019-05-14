@@ -1,18 +1,23 @@
 <template>
   <div class="orders-table-toolbar">
     <quick-search-filter :tableName="tableName" />
+    <div class="table-filter-container">
+      <order-status-filter :table-name="tableName" />
+    </div>
     <v-spacer></v-spacer>
   </div>
 </template>
 
 <script>
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
+import OrderStatusFilter from '@/containers/OrderStatusFilter';
 import { ENTITY_TYPES } from '@/constants';
 
 export default {
   name: 'OrdersTableToolbar',
   components: {
     QuickSearchFilter,
+    OrderStatusFilter,
   },
   data() {
     return {

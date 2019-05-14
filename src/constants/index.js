@@ -36,6 +36,16 @@ export const ORDER_STATUSES_NAME = {
   CALL_IN_ORDER: 'CallInOrder',
 };
 
+export const ORDER_STATUS_NAME_TRANSLATION_KEYS = {
+  [ORDER_STATUSES_NAME.NOT_INSTALLED]: 'orders.order.status.not.installed',
+  [ORDER_STATUSES_NAME.INSTALLED]: 'orders.order.status.installed',
+  [ORDER_STATUSES_NAME.CANCELED]: 'orders.order.status.canceled',
+  [ORDER_STATUSES_NAME.CLAIM_SUBMITTED]: 'orders.order.status.claim.submitted',
+  [ORDER_STATUSES_NAME.ONLINE_ORDER]: 'orders.order.status.online.order',
+  [ORDER_STATUSES_NAME.PENDING]: 'orders.order.status.pending',
+  [ORDER_STATUSES_NAME.CALL_IN_ORDER]: 'orders.order.status.call.in.order',
+};
+
 export const RESPONSE_STATUSES = {
   OK: 200,
   NO_CONTENT: 204,
@@ -67,6 +77,7 @@ export const FILTER_NAMES = {
   SEARCH_DISPUTES: 'SearchPhrase',
   SORT: 'sort',
   ORDER: 'SortOrder',
+  ORDER_STATUS: 'OrderStatusIds',
 };
 
 export const TABLE_СOLUMN_ID_NAMES = {
