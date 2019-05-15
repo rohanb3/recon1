@@ -51,11 +51,6 @@ export default {
       activeIndex: 0,
       items: [
         {
-          action: 'home',
-          title: 'Spectrum Dashboard',
-          url: '/Reports/Dashboard.aspx',
-        },
-        {
           action: 'play_arrow',
           title: this.$t('orders'),
           routeName: ROUTE_NAMES.SELECT_ORDER,
