@@ -233,7 +233,7 @@ export default {
 
 .dispute-page {
   @include table-base-container;
-  height: 80vh;
+  height: 100%;
   @extend %blurred-this;
 
   .big-spinner {
@@ -328,7 +328,7 @@ export default {
 .dispute-page-wrapper {
   overflow: hidden;
   overflow-y: auto;
-  height: 75vh;
+  height: 100%;
   @extend %thin-scrollbar;
 }
 

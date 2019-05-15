@@ -57,6 +57,10 @@ export default {
       type: String,
       default: null,
     },
+    loadingItems: {
+      type: Boolean,
+      required: true,
+    },
   },
   data() {
     return {
@@ -90,6 +94,11 @@ export default {
         } else {
           const el = document.querySelector('.virtual-list');
           this.scrollbar = new PerfectScrollbar(el);
+          el.addEventListener('ps-y-reach-end', () => {
+            if (!this.loadingItems) {
+              this.$emit('bottomReached');
+            }
+          });
         }
       });
     },
@@ -100,8 +109,7 @@ export default {
     scrollToPrependedItem() {
       this.scrollToPosition(0);
     },
-    infiniteHandler(stateChanger) {
-      this.$emit('bottomReached', stateChanger);
+    infiniteHandler() {
       const { scrollTop, clientHeight } = this.$refs.scroller.$el;
       this.lastScrollTop = scrollTop;
       this.lastScrollHeight = clientHeight;

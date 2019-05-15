@@ -53,9 +53,9 @@ export default {
     },
   },
   methods: {
-    checkAndLoadItems(stateChanger) {
+    checkAndLoadItems() {
       if (!this.allItemsLoaded) {
-        this.loadMoreItems(stateChanger);
+        this.loadMoreItems();
       }
     },
     loadItems() {
@@ -65,12 +65,11 @@ export default {
         this.loading = false;
       });
     },
-    loadMoreItems(stateChanger) {
+    loadMoreItems() {
       this.loading = true;
       const data = { itemType: this.tableName, filters: this.filters };
       return this.$store.dispatch(LOAD_MORE_ITEMS, data).finally(() => {
         this.loading = false;
-        stateChanger.reset();
       });
     },
     resetItems() {

@@ -10,6 +10,7 @@
       :columns="columns"
       :item-height="50"
       :infinite-loading="!allItemsLoaded"
+      :loading-items="loading"
       @bottomReached="checkAndLoadItems"
       @columnsResized="onColumnsResized"
       @columnsReordered="onColumnsReordered"
@@ -179,11 +180,7 @@ export default {
 }
 
 .disputes-table /deep/ {
-  height: 80vh;
-  margin: 20px;
-
   .virtual-list {
-    height: 100vh;
     max-height: calc(
       100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
     );
