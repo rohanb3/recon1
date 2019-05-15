@@ -35,8 +35,8 @@ export default {
     },
   },
   methods: {
-    toggleItem({ itemKeyName, itemKey }) {
-      const itemIndex = this[this.filterName].findIndex(item => item[itemKeyName] === itemKey);
+    toggleItem({ itemKeyName, itemKeyVal }) {
+      const itemIndex = this[this.filterName].findIndex(item => item[itemKeyName] === itemKeyVal);
       if (itemIndex >= 0) {
         this.selectOneItem(itemIndex, !this[this.filterName][itemIndex].selected);
         this.applyFilter(this.selectedItems);
@@ -91,7 +91,7 @@ export default {
     },
     displayPreselectItems({ itemKeyName = 'id' } = {}) {
       this.preselectedItems.forEach(item => {
-        this.toggleItem({ itemKeyName, itemKey: item });
+        this.toggleItem({ itemKeyName, itemKeyVal: item });
       });
     },
     async loadingPreselectedItems({ itemKeyName = 'id', displayedFieldName, getItemById }) {
@@ -106,7 +106,7 @@ export default {
             selected: true,
           });
         } else {
-          this.toggleItem({ itemKeyName, itemKey: itemId });
+          this.toggleItem({ itemKeyName, itemKeyVal: itemId });
         }
       }
     },

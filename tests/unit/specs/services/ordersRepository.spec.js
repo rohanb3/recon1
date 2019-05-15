@@ -1,5 +1,6 @@
 import disputesApi from '@/services/disputesApi';
-import { getOrders, getServiceList } from '@/services/ordersRepository';
+import { getOrders, getServiceList, getOrderStatusList } from '@/services/ordersRepository';
+import { paramsSerializer } from '@/services/repositoryUtils';
 
 describe('ordersRepository', () => {
   describe('getOrders', () => {
@@ -20,6 +21,7 @@ describe('ordersRepository', () => {
       expect(response).toEqual(data);
       expect(disputesApi.get).toHaveBeenCalledWith('/order', {
         params: { ...filters },
+        paramsSerializer,
       });
     });
   });
@@ -34,6 +36,19 @@ describe('ordersRepository', () => {
 
       expect(response).toEqual(data);
       expect(disputesApi.get).toHaveBeenCalledWith('/order/service');
+    });
+  });
+
+  describe('getOrderStatusList', () => {
+    it('should call api.get and return correct data', async () => {
+      const data = [{ id: 0, statusName: 'canceled' }, { id: 1, statusName: 'not_canceled' }];
+
+      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
+
+      const response = await getOrderStatusList();
+
+      expect(response).toEqual(data);
+      expect(disputesApi.get).toHaveBeenCalledWith('/order/status');
     });
   });
 });
