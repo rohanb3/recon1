@@ -42,6 +42,7 @@ export const RESPONSE_STATUSES = {
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
   NOT_FOUND: 404,
+  FORBIDDEN: 403,
   INTERNAL_SERVER_ERROR: 500,
   REQUEST_ENTITY_TOO_LARGE: 413,
 };
@@ -79,4 +80,18 @@ export const ROUTE_NAMES = {
   CREAT_DISPUTE: 'creat-dispute',
   DISPUTE_LIST: 'dispute-list',
   RESUBMISSION_TABLE: 'resubmission-table',
+  LOGIN: 'login',
+  PASSWORD_RECOVERY: 'password-recovery',
+  VERIFICATION_CODE: 'verification-code',
+  RESET_PASSWORD: 'reset-password',
+  MAIN_PAGE: 'main-page',
+};
+
+export const ROLE_TYPES = {
+  SUPER_ADMIN: 'SuperAdmin',
+  OPERATION_ADMIN: 'OperationAdmin',
+  SYSTEM_ADMIN: 'SystemAdmin',
+  ACCOUNT_ADMIN: 'AccountAdmin',
+  SUPPORT_ADMIN: 'SupportAdmin',
+  SALES_REP: 'SalesRep',
 };

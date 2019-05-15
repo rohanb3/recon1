@@ -182,8 +182,10 @@ $lhs-active-group-backgound-color: #26a69a;
   display: flex;
   flex-flow: column;
   align-items: center;
+  max-width: $lhs-tiny-width;
+  min-width: $lhs-tiny-width;
 
-  .lhs-menu-full-size {
+  &.lhs-menu-full-size {
     max-width: $lhs-width;
     min-width: $lhs-width;
   }

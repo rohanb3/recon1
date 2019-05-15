@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 export function extractPropertiesFromArrObj(dataArray, selectField = 'id') {
   try {
     return dataArray.map(item => item[selectField]);
@@ -50,4 +49,12 @@ export function removeBackgroundBlur() {
   if (applicationWrap) {
     applicationWrap.classList.remove('blurred');
   }
+}
+
+export function imageEncode(arrayBuffer) {
+  const b64encoded = btoa(
+    new Uint8Array(arrayBuffer).reduce((p, c) => p + String.fromCharCode(c), '')
+  );
+
+  return `data:image/jpeg;base64,${b64encoded}`;
 }

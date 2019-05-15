@@ -57,12 +57,17 @@
   "dispute.order.installed": "Order was installed but commision is not received",
   "dispute.are.you.sure": "Are you sure?",
   "dispute.if.you.close.this.page": "Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
-
+  
+  "file.is.too.big": "File is too big",
+  "failed.to.upload.file": "Failed to upload file",
 
   "field.cant.be.empty": "This field should be filled",
   "field.max.length": "This field can't not be longer than %{length} symbols",
+  "field.min.length": "This field can't not be less than %{length} symbols",
+  "field.should.be.length": "This field should be length %{length} symbols",
   "field.must.consist.only.letters": "This field must consist only letters",
   "field.must.consist.only.digits": "This field must consist only digits",
+  "field.must.consist.only.capital.letter": "This field must consist only capital letter",
   
 
   "cancel": "Cancel",
@@ -114,5 +119,38 @@
   "confirm": "Confirm",
   "resubmit": "Resubmit",
   "confirmed": "Confirmed",
-  "resubmited": "Resubmited"
+  "resubmited": "Resubmited",
+
+  "login": "Login",
+  "i.agree.to.the": "I agree to the ",
+  "terms.and.conditions": "Terms and Conditions",
+  "password.is.required": "Password is required",
+  "email.is.required": "Email is required",
+  "email.should.not.be.longer.than.50.symbols": "Email should not be longer than 50 symbols",
+  "email.should.be.valid": "Email should be valid",
+  "login.failed": "Login failed",
+  "login.forgot": "Forgot?",
+  "back.to.login": "Back to Login",
+  "password.recovery": "Password recovery",
+  "send.me.code": "Send code",
+  "verification.code": "Verification code",
+  "we.sended.verification.code": "We sended verification code to your email. Please enter it bellow.",
+  "code.must.be": "Code must be from 0 to 9",
+  "resend.code": "Resend code",
+  "login.submit": "Submit",
+  "reset.password": "Reset Password",
+  "new.password": "New Password",
+  "confirm.new.password": "Confirm new password",
+  "password.must.be.at.least.8.chracters": "Password must be at least 8 chracters",
+  "password.do.not.match": "Password do not match",
+  "enter.your.new.password": "Please, enter your new password and confirm it to reset",
+  "invalid.code.entered": "Invalid code entered",
+  "we.sended.verification.code.again": "We sended verification code to your email",
+  "password.must.contain.capital.letter": "Password must contain at least 1 capital letter",
+  "email.is.not.registered": "This email is not registered in this system. Please, check and try again.",
+  "password.or.email.is.incorrect": "Password or email is incorrect. Please, check and try again.",
+
+  "id": "ID",
+  "profile": "Profile",
+  "log.out": "Log Out"
 }

@@ -6,16 +6,22 @@
       </div>
       <v-icon class="toggle-menu-button" @click="toggleSidebar">menu</v-icon>
       <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-sm-and-down header-toolbar"></v-toolbar-items>
+      <v-toolbar-items class="hidden-sm-and-down header-toolbar">
+        <header-user-menu />
+      </v-toolbar-items>
     </v-toolbar>
   </div>
 </template>
 
 <script>
+import HeaderUserMenu from '@/containers/HeaderUserMenu';
 import { SET_TINY_SIDEBAR_STATUS } from '@/store/ui-state/mutationTypes';
 
 export default {
   name: 'AppHeader',
+  components: {
+    HeaderUserMenu,
+  },
   computed: {
     isTinySidebar() {
       return this.$store.state.uiState.tinySidebarStatus;
@@ -29,8 +35,13 @@ export default {
 };
 </script>
 
+<style lang="scss">
+@import '@/assets/styles/variables.scss';
+@import '@/assets/styles/popover.scss';
+</style>
+
 <style scoped lang="scss">
-@import '~@/assets/styles/variables.scss';
+@import '@/assets/styles/variables.scss';
 
 .toggle-menu-button {
   color: $base-blue;

@@ -1,5 +1,8 @@
+const packageFile = require('./package.json');
+
+process.env.VUE_APP_BUILD_VERSION = packageFile.version;
+
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/Disputes/' : '/',
   configureWebpack: {
     optimization: {
       splitChunks: {
@@ -19,6 +22,10 @@ module.exports = {
       '/api/disputs': {
         target: 'https://reviews.xyzies.ardas.biz',
         secure: true,
+        changeOrigin: true,
+      },
+      '/api/identity/api': {
+        target: 'https://reviews.xyzies.ardas.biz/',
         changeOrigin: true,
       },
     },
