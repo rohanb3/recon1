@@ -39,10 +39,10 @@
         <VuePerfectScrollbar class="scroll-area ps">
           <ul class="list-selector">
             <li
-              :class="{ selected: item.selected && searchField.length === 0 }"
+              :class="{ selected: item.selected }"
               v-for="item in optionList"
               :key="item[itemKey]"
-              @click="onClickItem(item)"
+              @click.stop="onClickItem(item)"
             >
               {{ item[name] }}
             </li>
@@ -104,16 +104,10 @@ export default {
   },
   data() {
     return {
-      searchinOptions: [],
       searchField: '',
       searchFocus: false,
       minWidthFilterEditor: 'auto',
     };
-  },
-  watch: {
-    items(newItems, oldItems) {
-      if (newItems.length !== oldItems.length) this.search();
-    },
   },
   computed: {
     optionList() {
@@ -122,8 +116,7 @@ export default {
     },
     itemDisplayed() {
       const listSize = this.listSize - this.listSizeSelectedItems;
-      const shortListUnselectedItems = this.unselectedItems.slice(0, Math.max(listSize, 0));
-
+      const shortListUnselectedItems = this.unselectedItems.slice(0, listSize > 0 ? listSize : 0);
       return this.selectedItems.concat(shortListUnselectedItems).sort(this.sortItems);
     },
     selectedItems() {
@@ -138,63 +131,66 @@ export default {
     selectedItemsForTitle() {
       return getStringFromValuesByKey(this.name, this.selectedItems, DISPLAYED_ITEMS_IN_TITLE);
     },
+    searchinOptions() {
+      return (this.exactMatchSearch() || this.occurrenceSearch() || []).slice(0, this.listSize);
+    },
   },
   methods: {
     search() {
-      if (this.searchField.length > 0) {
-        const result = this.exactMatchSearch() || this.occurrenceSearch() || [];
-        if (result.length === 0) {
-          this.$emit('notFound', {
-            itemKey: this.itemKey,
-            searchField: this.searchField,
-          });
-        }
-        this.searchinOptions = result.slice(0, this.listSize);
+      if (this.searchField.length > 0 && this.searchinOptions.length === 0) {
+        this.$emit('notFound', {
+          itemKey: this.itemKey,
+          searchField: this.searchField,
+        });
       }
     },
     exactMatchSearch() {
-      const result = this.unselectedItems.filter(option => {
+      const result = this.items.filter(option => {
         return this.compareStr(option[this.name], this.searchField);
       });
       return result.length > 0 ? result : 0;
     },
     occurrenceSearch() {
-      const result = this.unselectedItems.filter(option => {
-        return this.compareStr(option[this.name], this.searchField, true);
+      const result = this.items.filter(option => {
+        return option[this.name].toLowerCase().indexOf(this.searchField.toLowerCase()) >= 0;
       });
       return result.length > 0 ? result : 0;
     },
-    compareStr(word, searchWord, strictMode = false) {
-      if (strictMode) {
-        return word.toLowerCase().substring(0, searchWord.length) === searchWord.toLowerCase();
-      }
-      return word.toLowerCase().indexOf(searchWord.toLowerCase()) >= 0;
+    compareStr(word, searchWord) {
+      return word.toLowerCase().substring(0, searchWord.length) === searchWord.toLowerCase();
     },
     onClickItem(item) {
       this.$emit('select', {
         itemKeyName: this.itemKey,
-        itemKey: item[this.itemKey],
+        itemKeyVal: item[this.itemKey],
       });
-      this.reset();
     },
     onSelectAllItemDisplayed() {
-      this.$emit('selectAll', {
-        itemKeyName: this.itemKey,
-        items: this.itemDisplayed,
-      });
+      if (this.searchField.length) {
+        this.$emit('selectAll', {
+          itemKeyName: this.itemKey,
+          items: this.searchinOptions,
+        });
+      } else {
+        this.$emit('selectAll', {
+          itemKeyName: this.itemKey,
+          items: this.itemDisplayed,
+        });
+      }
+      this.reset();
     },
     onClearAllItemDisplayed() {
       this.$emit('clearAll', {
         itemKeyName: this.itemKey,
         items: this.itemDisplayed,
       });
+      this.reset();
     },
     reset() {
       this.searchFocus = false;
       this.searchField = '';
-      this.searchinOptions = [];
-    },
-    debounceInput: debounce(function searchInput() {
+    }, // eslint-disable-next-line func-names
+    debounceInput: debounce(function() {
       this.search();
     }, SEARCH_TIMEOUT),
     showFilter() {

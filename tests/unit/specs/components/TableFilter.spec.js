@@ -49,10 +49,8 @@ describe('TableFilter: ', () => {
     });
   });
 
-  describe('search: ', () => {
+  describe('searchinOptions: ', () => {
     it('should call exactMatchSearch', () => {
-      const listSize = 2;
-
       const stateList = [
         { id: 1, name: 'Alabama', value: 'AL' },
         { id: 2, name: 'Alaska', value: 'AK' },
@@ -61,15 +59,12 @@ describe('TableFilter: ', () => {
       ];
 
       const mockedThis = {
-        searchField: 'ar',
+        listSize: 2,
         exactMatchSearch: jest.fn(() => stateList),
         occurrenceSearch: jest.fn(() => stateList),
-        $emit: jest.fn(),
-        listSize,
-        searchinOptions: [],
       };
 
-      TableFilter.methods.search.call(mockedThis);
+      const result = TableFilter.computed.searchinOptions.call(mockedThis);
 
       const expectedSelectedItems = [
         { id: 1, name: 'Alabama', value: 'AL' },
@@ -77,76 +72,72 @@ describe('TableFilter: ', () => {
       ];
 
       expect(mockedThis.exactMatchSearch).toHaveBeenCalled();
-      expect(mockedThis.$emit).not.toHaveBeenCalledWith('notFound', 'ar');
       expect(mockedThis.occurrenceSearch).not.toHaveBeenCalled();
-      expect(expectedSelectedItems).toEqual(mockedThis.searchinOptions);
-      expect(mockedThis.searchinOptions).toHaveLength(listSize);
+      expect(result).toEqual(expectedSelectedItems);
     });
 
     it('should call exactMatchSearch and occurrenceSearch', () => {
-      const listSize = 2;
+      const stateList = [
+        { id: 1, name: 'Alabama', value: 'AL' },
+        { id: 2, name: 'Alaska', value: 'AK' },
+        { id: 3, name: 'Arizona', value: 'AZ' },
+        { id: 4, name: 'Arkansas', value: 'AR' },
+      ];
+
       const mockedThis = {
-        searchField: 'ol',
+        listSize: 2,
         exactMatchSearch: jest.fn(() => 0),
-        occurrenceSearch: jest.fn(() => [{}, {}, {}]),
-        $emit: jest.fn(),
-        listSize,
+        occurrenceSearch: jest.fn(() => stateList),
+      };
+
+      const result = TableFilter.computed.searchinOptions.call(mockedThis);
+
+      const expectedSelectedItems = [
+        { id: 1, name: 'Alabama', value: 'AL' },
+        { id: 2, name: 'Alaska', value: 'AK' },
+      ];
+
+      expect(mockedThis.exactMatchSearch).toHaveBeenCalled();
+      expect(mockedThis.occurrenceSearch).toHaveBeenCalled();
+      expect(result).toEqual(expectedSelectedItems);
+    });
+  });
+
+  describe('search: ', () => {
+    it('should call event notFound, because item not found', () => {
+      const mockedThis = {
         searchinOptions: [],
+        $emit: jest.fn(),
+        itemKey: 'name',
+        searchField: '_03',
       };
 
       TableFilter.methods.search.call(mockedThis);
 
-      expect(mockedThis.exactMatchSearch).toHaveBeenCalled();
-      expect(mockedThis.$emit).not.toHaveBeenCalledWith('notFound', 'ol');
-      expect(mockedThis.occurrenceSearch).toHaveBeenCalled();
-      expect(mockedThis.searchinOptions).toHaveLength(listSize);
+      expect(mockedThis.$emit).toHaveBeenCalledWith('notFound', {
+        itemKey: mockedThis.itemKey,
+        searchField: mockedThis.searchField,
+      });
     });
 
     it('no change because no search phrase is entered', () => {
       const mockedThis = {
+        searchinOptions: [],
+        $emit: jest.fn(),
+        itemKey: 'name',
         searchField: '',
-        exactMatchSearch: jest.fn(() => []),
-        occurrenceSearch: jest.fn(() => []),
-        $emit: jest.fn(),
-        listSize: 2,
-        searchinOptions: [],
       };
 
       TableFilter.methods.search.call(mockedThis);
 
-      expect(mockedThis.exactMatchSearch).not.toHaveBeenCalled();
-      expect(mockedThis.$emit).not.toHaveBeenCalledWith('notFound', 'ar');
-      expect(mockedThis.occurrenceSearch).not.toHaveBeenCalled();
-      expect([]).toEqual(mockedThis.searchinOptions);
-    });
-
-    it('should call event notFound, because item not found', () => {
-      const mockedThis = {
-        searchField: '123',
-        exactMatchSearch: jest.fn(() => 0),
-        occurrenceSearch: jest.fn(() => 0),
-        $emit: jest.fn(),
-        listSize: 2,
-        searchinOptions: [],
-        itemKey: 'id',
-      };
-
-      TableFilter.methods.search.call(mockedThis);
-
-      expect(mockedThis.exactMatchSearch).toHaveBeenCalled();
-      expect(mockedThis.occurrenceSearch).toHaveBeenCalled();
-      expect(mockedThis.$emit).toHaveBeenCalledWith('notFound', expect.any(Object));
-      expect([]).toEqual(mockedThis.searchinOptions);
+      expect(mockedThis.$emit).not.toHaveBeenCalled();
     });
   });
 
   describe('exactMatchSearch: ', () => {
     it('should filter data', () => {
       const mockedThis = {
-        unselectedItems: [
-          { id: 3, name: 'Arizona', value: 'AZ' },
-          { id: 4, name: 'Arkansas', value: 'AR' },
-        ],
+        items: [{ id: 3, name: 'Arizona', value: 'AZ' }, { id: 4, name: 'Arkansas', value: 'AR' }],
         name: 'name',
         searchField: 'Ariz',
         compareStr: jest.fn(() => true),
@@ -156,15 +147,12 @@ describe('TableFilter: ', () => {
 
       expect(mockedThis.compareStr).toHaveBeenCalledWith('Arizona', 'Ariz');
       expect(mockedThis.compareStr).toHaveBeenCalledWith('Arkansas', 'Ariz');
-      expect(result).toEqual(mockedThis.unselectedItems);
+      expect(result).toEqual(mockedThis.items);
     });
 
     it('should return 0 if item not found', () => {
       const mockedThis = {
-        unselectedItems: [
-          { id: 3, name: 'Arizona', value: 'AZ' },
-          { id: 4, name: 'Arkansas', value: 'AR' },
-        ],
+        items: [{ id: 3, name: 'Arizona', value: 'AZ' }, { id: 4, name: 'Arkansas', value: 'AR' }],
         name: 'name',
         searchField: 'QWERT',
         compareStr: jest.fn(() => false),
@@ -181,45 +169,37 @@ describe('TableFilter: ', () => {
   describe('occurrenceSearch: ', () => {
     it('should filter data', () => {
       const mockedThis = {
-        unselectedItems: [
+        items: [
           { id: 4, name: 'Arkansas', value: 'AR' },
           { id: 33, name: 'North Carolina', value: 'NC' },
           { id: 40, name: 'South Carolina', value: 'SC' },
         ],
         name: 'name',
         searchField: 'Ol',
-        compareStr: jest.fn(() => true),
       };
 
       const result = TableFilter.methods.occurrenceSearch.call(mockedThis);
 
-      expect(mockedThis.compareStr).toHaveBeenCalledWith(
-        mockedThis.unselectedItems[0].name,
-        mockedThis.searchField,
-        true
-      );
-      expect(result).toEqual(mockedThis.unselectedItems);
+      const expectedSelectedItems = [
+        { id: 33, name: 'North Carolina', value: 'NC' },
+        { id: 40, name: 'South Carolina', value: 'SC' },
+      ];
+
+      expect(result).toEqual(expectedSelectedItems);
     });
 
     it('should return 0 if item not found', () => {
       const mockedThis = {
-        unselectedItems: [
+        items: [
           { id: 4, name: 'Arkansas', value: 'AR' },
           { id: 33, name: 'North Carolina', value: 'NC' },
           { id: 40, name: 'South Carolina', value: 'SC' },
         ],
         name: 'name',
         searchField: '132',
-        compareStr: jest.fn(() => false),
       };
 
       const result = TableFilter.methods.occurrenceSearch.call(mockedThis);
-
-      expect(mockedThis.compareStr).toHaveBeenCalledWith(
-        mockedThis.unselectedItems[0].name,
-        mockedThis.searchField,
-        true
-      );
 
       expect(result).toEqual(0);
     });
