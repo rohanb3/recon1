@@ -16,6 +16,7 @@
 <script>
 import HeaderUserMenu from '@/containers/HeaderUserMenu';
 import { SET_TINY_SIDEBAR_STATUS } from '@/store/ui-state/mutationTypes';
+import { mapState } from 'vuex';
 
 export default {
   name: 'AppHeader',
@@ -23,9 +24,12 @@ export default {
     HeaderUserMenu,
   },
   computed: {
-    isTinySidebar() {
+    ...mapState({
+      isTinySidebar: 'uiState.tinySidebarStatus',
+    }),
+    /*  isTinySidebar() {
       return this.$store.state.uiState.tinySidebarStatus;
-    },
+    }, */
   },
   methods: {
     toggleSidebar() {

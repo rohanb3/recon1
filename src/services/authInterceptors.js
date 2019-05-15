@@ -6,6 +6,7 @@ import { RESPONSE_STATUSES, ROUTE_NAMES } from '@/constants';
 import { SET_TOKEN, SET_PROMISE_REFRESH_TOKEN } from '@/store/loggedInUser/mutationTypes';
 
 const INVALID_TOKEN = 'invalid_token';
+const SET_TOKEN_TIMEOUT = 500;
 
 function requestInterceptor(request) {
   const { token } = store.state.loggedInUser;
@@ -26,7 +27,7 @@ function isUnauthorized(status, header) {
 const debounceSetToken = debounce(function debounceSetToken(accessToken, refreshToken) {
   store.commit(SET_TOKEN, { accessToken, refreshToken });
   store.commit(SET_PROMISE_REFRESH_TOKEN, null);
-}, 500);
+}, SET_TOKEN_TIMEOUT);
 
 async function errorResponseInterceptor(data, router) {
   if (isUnauthorized(data.response.status, data.response.headers['www-authenticate'])) {

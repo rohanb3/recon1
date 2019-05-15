@@ -7,29 +7,12 @@
     :close-on-content-click="false"
   >
     <v-btn flat icon color="#b4681f" slot="activator">
-      <user-avatar
-        size="36px"
-        initialsSize="14px"
-        :backgroundColor="avatar.backgroundColor"
-        :initialsColor="avatar.initialsColor"
-        :firstName="user.givenName"
-        :lastName="user.surname"
-        :src="user.avatarLink"
-      />
+      <user-avatar :user="user" />
     </v-btn>
-
     <div class="popover">
       <div class="header">
         <div class="popper-avatar-container">
-          <user-avatar
-            size="54px"
-            initialsSize="20px"
-            :backgroundColor="avatar.backgroundColor"
-            :initialsColor="avatar.initialsColor"
-            :firstName="user.givenName"
-            :lastName="user.surname"
-            :src="user.avatarLink"
-          />
+          <user-avatar :user="user" size="54px" initialsSize="20px" />
         </div>
         <div>
           <span class="user-name">{{ `${user.givenName} ${user.surname}` }}</span>
@@ -58,9 +41,6 @@ import { GET_PROFILE_DATA, GET_PHOTO, USER_LOGOUT } from '@/store/loggedInUser/a
 import getVesrion from '@/services/appVersion';
 import { ROUTE_NAMES } from '@/constants';
 
-const AVATAR_BACKGROUND_COLOR = '#f8c37a';
-const AVATAR_INITIALS_COLOR = '#b4681f';
-
 export default {
   name: 'HeaderUserMenu',
   components: { UserAvatar },
@@ -73,15 +53,11 @@ export default {
     return {
       menu: false,
       version: getVesrion(),
-      avatar: {
-        backgroundColor: AVATAR_BACKGROUND_COLOR,
-        initialsColor: AVATAR_INITIALS_COLOR,
-      },
     };
   },
   computed: {
     user() {
-      return this.$store.state.loggedInUser.profileData;
+      return this.$store.state.loggedInUser.profileData || {};
     },
   },
   methods: {
