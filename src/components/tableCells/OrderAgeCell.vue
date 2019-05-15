@@ -44,7 +44,7 @@ export default {
 @import '~@/assets/styles/variables.scss';
 
 .order-age-cell {
-  text-align: center;
+  padding-left: 35%;
 
   .status {
     width: 10px;
