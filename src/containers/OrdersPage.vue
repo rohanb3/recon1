@@ -10,6 +10,7 @@
       :item-height="50"
       :infinite-loading="!allItemsLoaded"
       :item-key-name="сolumnIdName"
+      :loading-items="loading"
       @bottomReached="checkAndLoadItems"
       @columnsResized="onColumnsResized"
       @columnsReordered="onColumnsReordered"
@@ -146,11 +147,7 @@ export default {
 }
 
 .orders-table /deep/ {
-  height: 80vh;
-  margin: 20px;
-
   .virtual-list {
-    height: 100vh;
     max-height: calc(
       100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
     );
