@@ -8,7 +8,6 @@ const state = {
   email: null,
   resetToken: null,
   refreshTokenPromise: null,
-  resetToken2: null,
 };
 
 export default {
