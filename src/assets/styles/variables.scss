@@ -61,6 +61,8 @@ $table-filter-border-right-color: rgba(57, 143, 251, 0.2);
 $no-result-found-height: 210px;
 
 $lhs-width: 260px;
+$lhs-tiny-width: 64px;
+$lhs-shadow-color: rgba(184, 184, 184, 0.5);
 $base-text-color: #4a4a4a;
 $base-button-border-color: rgba(57, 143, 251, 0.2);
 $base-blue: #398ffb;
@@ -129,3 +131,5 @@ $no-result-found-height: 210px;
 
 $scrollbar-track-color: #f5f5f5;
 $scrollbar-thumb-color: #aaa;
+
+$login-header-color: rgba(0, 0, 0, 0.87);

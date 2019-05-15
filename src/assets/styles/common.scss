@@ -33,4 +33,5 @@ textarea {
 
 .v-menu__content {
   @extend %thin-scrollbar;
+  z-index: 100 !important;
 }

@@ -1,3 +1,7 @@
+const packageFile = require('./package.json');
+
+process.env.VUE_APP_BUILD_VERSION = packageFile.version;
+
 module.exports = {
   configureWebpack: {
     optimization: {
@@ -18,6 +22,10 @@ module.exports = {
       '/api/disputs': {
         target: 'https://reviews.xyzies.ardas.biz',
         secure: true,
+        changeOrigin: true,
+      },
+      '/api/identity/api': {
+        target: 'https://reviews.xyzies.ardas.biz/',
         changeOrigin: true,
       },
     },

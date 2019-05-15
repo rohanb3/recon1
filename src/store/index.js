@@ -1,10 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 
 import storage from './storage';
 import tables from './tables';
+import uiState from './ui-state';
+import loggedInUser from './loggedInUser';
 
 Vue.use(Vuex);
+
+const persistedStatePlugin = createPersistedState({
+  paths: ['loggedInUser'],
+});
 
 export default new Vuex.Store({
   state: {},
@@ -13,5 +20,8 @@ export default new Vuex.Store({
   modules: {
     storage,
     tables,
+    uiState,
+    loggedInUser,
   },
+  plugins: [persistedStatePlugin],
 });
