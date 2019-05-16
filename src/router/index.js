@@ -34,7 +34,7 @@ function authGuard(to, from, next) {
 
 function loginGuard(to, from, next) {
   if (store.state.loggedInUser.token) {
-    next({ path: 'admin' });
+    next({ name: ROUTE_NAMES.LOGIN });
   } else {
     next();
   }
@@ -112,6 +112,10 @@ const router = new Router({
           ],
         },
       ],
+    },
+    {
+      path: '*',
+      redirect: { name: ROUTE_NAMES.MAIN_PAGE },
     },
   ],
 });

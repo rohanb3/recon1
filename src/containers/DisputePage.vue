@@ -18,16 +18,16 @@
         <v-flex xs12 lg6 class="customer-information-wrapper">
           <customer-information-form v-model="disputeInfo" ref="customerInfo" />
           <div class="save-button-wrapper">
-            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">
-              {{ $t('cancel') }}
+            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">{{
+              $t('cancel')
+            }}</v-btn>
+            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">
+              {{ $t('save.as.draft') }}
             </v-btn>
-            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">{{
-              $t('save.as.draft')
-            }}</v-btn>
             <v-spacer></v-spacer>
-            <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">{{
-              $t('create.new.dispute')
-            }}</v-btn>
+            <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">
+              {{ $t('create.new.dispute') }}
+            </v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -97,6 +97,7 @@ export default {
       sendingData: false,
       loadingFilesStatus: false,
       savedDispute: false,
+      routeNameForRedirect: ROUTE_NAMES.SELECT_ORDER,
     };
   },
   computed: {
@@ -127,7 +128,7 @@ export default {
             disputeTypeId: this.disputeTypeId,
           });
           this.savedDispute = true;
-          this.$router.push({ name: ROUTE_NAMES.SELECT_ORDER });
+          this.$router.push({ name: this.routeNameForRedirect });
         } catch {
           errorMessage();
         } finally {
@@ -144,7 +145,7 @@ export default {
       try {
         await deleteDispute(this.disputeInfo.id);
         this.savedDispute = true;
-        this.$router.push({ name: ROUTE_NAMES.SELECT_ORDER });
+        this.$router.push({ name: this.routeNameForRedirect });
       } catch {
         errorMessage();
       } finally {
@@ -170,7 +171,7 @@ export default {
         }
       } catch (e) {
         if ((e.response || {}).status === RESPONSE_STATUSES.NOT_FOUND) {
-          this.$router.push({ name: ROUTE_NAMES.MAIN_PAGE });
+          this.$router.push({ name: this.routeNameForRedirect });
         } else {
           errorMessage();
         }
@@ -231,6 +232,7 @@ export default {
     if (this.savedDispute) {
       next();
     } else {
+      this.routeNameForRedirect = to.name;
       this.onCancel();
       next(false);
     }
