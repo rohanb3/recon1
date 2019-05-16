@@ -57,12 +57,17 @@
   "dispute.order.installed": "TBD Order was installed but commision is not received",
   "dispute.are.you.sure": "TBD Are you sure?",
   "dispute.if.you.close.this.page": "TBD Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
-
+  
+  "file.is.too.big": "TBD File is too big",
+  "failed.to.upload.file": "TBD Failed to upload file",
 
   "field.cant.be.empty": "TBD This field should be filled",
   "field.max.length": "TBD This field can't not be longer than %{length} symbols",
+  "field.min.length": "TBD This field can't not be less than %{length} symbols",
+  "field.should.be.length": "TBD This field should be length %{length} symbols",
   "field.must.consist.only.letters": "TBD This field must consist only letters",
   "field.must.consist.only.digits": "TBD This field must consist only digits",
+  "field.must.consist.only.capital.letter": "TBD This field must consist only capital letter",
   
 
   "cancel": "TBD Cancel",
@@ -114,5 +119,41 @@
   "confirm": "TBD Confirm",
   "resubmit": "TBD Resubmit",
   "confirmed": "TBD Confirmed",
-  "resubmited": "TBD Resubmited"
+  "resubmited": "TBD Resubmited",
+
+  "login": "TBD Login",
+  "i.agree.to.the": "TBD I agree to the ",
+  "terms.and.conditions": "TBD Terms and Conditions",
+  "password.is.required": "TBD Password is required",
+  "email.is.required": "TBD Email is required",
+  "email.should.not.be.longer.than.50.symbols": "TBD Email should not be longer than 50 symbols",
+  "email.should.be.valid": "TBD Email should be valid",
+  "login.failed": "TBD Login failed",
+  "login.forgot": "TBD Forgot?",
+  "back.to.login": "TBD Back to Login",
+  "password.recovery": "TBD Password recovery",
+  "send.me.code": "TBD Send code",
+  "verification.code": "TBD Verification code",
+  "we.sended.verification.code": "TBD We sended verification code to your email. Please enter it bellow.",
+  "code.must.be": "TBD Code must be from 0 to 9",
+  "resend.code": "TBD Resend code",
+  "login.submit": "TBD Submit",
+  "reset.password": "TBD Reset Password",
+  "new.password": "TBD New Password",
+  "confirm.new.password": "TBD Confirm new password",
+  "password.must.be.at.least.8.chracters": "TBD Password must be at least 8 chracters",
+  "password.do.not.match": "TBD Password do not match",
+  "enter.your.new.password": "TBD Please, enter your new password and confirm it to reset",
+  "invalid.code.entered": "TBD Invalid code entered",
+  "we.sended.verification.code.again": "TBD We sended verification code to your email",
+  "password.must.contain.capital.letter": "TBD Password must contain at least 1 capital letter",
+  "email.is.not.registered": "TBD This email is not registered in this system. Please, check and try again.",
+  "password.or.email.is.incorrect": "TBD Password or email is incorrect. Please, check and try again.",
+  "login.agree.to.continue": "TBD You must agree to continue!",
+
+  "id": "TBD ID",
+  "profile": "TBD Profile",
+  "log.out": "TBD Log Out",
+  "email": "TBD Email",
+  "password": "TBD Password"
 }
