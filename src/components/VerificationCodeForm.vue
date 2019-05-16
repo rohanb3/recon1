@@ -34,9 +34,9 @@
             <v-container fluid>
               <v-layout row mt-4 align-center justify-space-around>
                 <v-flex order-lg2>
-                  <a class="back-to-login" href="#" @click.prevent="$emit('resendCode')">{{
-                    $t('resend.code')
-                  }}</a>
+                  <a class="back-to-login" href="#" @click.prevent="$emit('resendCode')">
+                    {{ $t('resend.code') }}
+                  </a>
                 </v-flex>
                 <v-flex order-lg2>
                   <v-btn
@@ -85,15 +85,14 @@ export default {
   },
   methods: {
     onInputCode(enteredCode, numberNextField, numberPrevField) {
-      if (!numberNextField) return;
-
-      if (String(enteredCode).length === 1) {
-        this.$refs[`code${numberNextField}`].focus();
+      const index = this.indexFieldCode(enteredCode, numberNextField, numberPrevField);
+      this.$refs[`code${index}`].focus();
+    },
+    indexFieldCode(enteredCode, numberNextField, numberPrevField) {
+      if (String(enteredCode).length) {
+        return numberNextField;
       }
-
-      if (String(enteredCode).length === 0) {
-        this.$refs[`code${numberPrevField}`].focus();
-      }
+      return numberPrevField;
     },
   },
 };

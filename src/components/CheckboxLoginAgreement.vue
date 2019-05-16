@@ -11,7 +11,7 @@
 </template>
 
 <script>
-const LINK_PRIVACY_POLICY = 'https://xyzreviews.com/privacy-policy/';
+import config from '@/../config.json';
 
 export default {
   name: 'CheckboxLoginAgreement',
@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       isNotValid: false,
-      linkPrivacyPolicy: LINK_PRIVACY_POLICY,
+      linkPrivacyPolicy: config.linkPrivacyPolicy,
     };
   },
   computed: {

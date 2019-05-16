@@ -2,22 +2,28 @@
   <div class="avatar-container" :style="{ width: size, minWidth: size, height: size }">
     <template v-if="backgroundColor">
       <div :style="{ backgroundColor }" class="avatar" />
-      <span :style="{ color: initialsColor, fontSize: initialsSize }" class="initials">
-        {{ initials }}
-      </span> </template
-    >{{ avatarUrl }}
+      <span
+        v-show="!avatarUrl"
+        :style="{ color: initialsColor, fontSize: initialsSize }"
+        class="initials"
+        >{{ fullName | initials }}</span
+      >
+    </template>
     <img v-if="avatarUrl" :src="avatarUrl" class="avatar" alt="user" />
   </div>
 </template>
 
 <script>
-import { getInitials } from '@/services/utils';
+import initials from '@/filters/initials';
 
 const AVATAR_BACKGROUND_COLOR = '#f8c37a';
 const AVATAR_INITIALS_COLOR = '#b4681f';
 
 export default {
   name: 'UserAvatar',
+  filters: {
+    initials,
+  },
   props: {
     user: {
       type: Object,
@@ -47,11 +53,8 @@ export default {
     lastName() {
       return this.user.surname || '';
     },
-    initials() {
-      if (!this.avatarUrl) {
-        return getInitials(this.firstName, this.lastName);
-      }
-      return '';
+    fullName() {
+      return `${this.firstName} ${this.lastName}`;
     },
     avatarUrl() {
       return this.user.avatarLink || null;
