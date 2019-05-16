@@ -34,7 +34,7 @@ function authGuard(to, from, next) {
 
 function loginGuard(to, from, next) {
   if (store.state.loggedInUser.token) {
-    next({ name: ROUTE_NAMES.LOGIN });
+    next({ name: ROUTE_NAMES.MAIN_PAGE });
   } else {
     next();
   }
