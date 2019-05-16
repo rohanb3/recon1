@@ -1,6 +1,6 @@
 import i18n from '@/i18n';
 
-import { TABLE_СOLUMNS_SORTED, ROUTE_NAMES } from '@/constants';
+import { TABLE_COLUMNS_SORTED, ROUTE_NAMES } from '@/constants';
 
 export const getOrdersTableColumns = () => [
   {
@@ -82,8 +82,7 @@ export const getOrdersTableColumns = () => [
   },
   {
     name: 'recevedComission',
-    field: 'recevedComission',
-    fieldType: 'price',
+    fieldType: 'recievedComisson',
     class: 'text',
     title: i18n.t('orders.recieved.comisson'),
     width: '5',
@@ -91,7 +90,7 @@ export const getOrdersTableColumns = () => [
   },
   {
     name: 'orderDifference',
-    fieldType: 'orderDifference',
+    fieldType: 'differenceComisson',
     class: 'text',
     title: i18n.t('orders.difference'),
     width: '4',
@@ -104,7 +103,7 @@ export const getOrdersTableColumns = () => [
     title: i18n.t('orders.new.dispute'),
     width: '5',
     minWidth: '105px',
-    sortingFieldName: TABLE_СOLUMNS_SORTED.DISPUTE_STATUS,
+    sortingFieldName: TABLE_COLUMNS_SORTED.DISPUTE_STATUS,
     fieldHeaderType: 'sortingHeader',
   },
 ];

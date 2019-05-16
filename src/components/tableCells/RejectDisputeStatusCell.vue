@@ -7,7 +7,7 @@
       @click="onResubmit"
     />
     <span
-      v-if="!isInprogressStatus && isContainsConfirmRejectedStatus"
+      v-if="!isInprogressStatus && isContainsRejectedStatus"
       :title="rejectDate | dateDefaultFormat"
       >{{ rejectDate | dateYearMonthDay }}</span
     >
@@ -33,17 +33,17 @@ export default {
   },
   computed: {
     rejectDate() {
-      return this.getLastDisputeStatus(DISPUTE_STATUSES_ID.CONFIRM_REJECTED).timeStamp || '';
+      return this.getLastDisputeStatus(DISPUTE_STATUSES_ID.REJECTED).timeStamp || '';
     },
-    isContainsConfirmRejectedStatus() {
-      return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.CONFIRM_REJECTED);
+    isContainsRejectedStatus() {
+      return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.REJECTED);
     },
   },
   methods: {
     onResubmit() {
       this.$emit('changeDisputeStatus', {
         disputeId: this.item.id,
-        statusId: DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
+        statusId: DISPUTE_STATUSES_ID.REJECTED,
       });
     },
   },

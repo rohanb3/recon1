@@ -62,7 +62,7 @@ export const SORTING_DIRECTION = {
   ASC: 'asc',
 };
 
-export const TABLE_СOLUMNS_SORTED = {
+export const TABLE_COLUMNS_SORTED = {
   ORDER_NUMBER: 'ordernumber',
   ACCOUNT_NUMBER: 'accountnumber',
   DISPUTE_STATUS: 'disputeStatus',
@@ -81,7 +81,7 @@ export const FILTER_NAMES = {
   ORDER_STATUS: 'OrderStatusIds',
 };
 
-export const TABLE_СOLUMN_ID_NAMES = {
+export const TABLE_COLUMN_ID_NAMES = {
   [ENTITY_TYPES.ORDERS]: 'orderId',
 };
 

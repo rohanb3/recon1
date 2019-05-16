@@ -9,7 +9,7 @@
       :columns="columns"
       :item-height="50"
       :infinite-loading="!allItemsLoaded"
-      :item-key-name="сolumnIdName"
+      :item-key-name="columnIdName"
       :loading-items="loading"
       @bottomReached="checkAndLoadItems"
       @columnsResized="onColumnsResized"
@@ -67,19 +67,20 @@ import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
 import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
 
 import DefaultCell from '@/components/tableCells/DefaultCell';
-import OrderDifferenceCell from '@/components/tableCells/OrderDifferenceCell';
+import DifferenceComissonCell from '@/components/tableCells/DifferenceComissonCell';
 import OrderStatusCell from '@/components/tableCells/OrderStatusCell';
 import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
 import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
 import PriceCell from '@/components/tableCells/PriceCell';
 import DisputeButtonCell from '@/components/tableCells/DisputeButtonCell';
+import RecievedComissonCell from '@/components/tableCells/RecievedComissonCell';
 
 import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
 
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 
-import { ENTITY_TYPES, TABLE_СOLUMN_ID_NAMES } from '@/constants';
+import { ENTITY_TYPES, TABLE_COLUMN_ID_NAMES } from '@/constants';
 
 export default {
   name: 'OrdersPage',
@@ -91,12 +92,13 @@ export default {
     DefaultHeaderCell,
     SortingHeaderCell,
     OrdersTableToolbar,
-    OrderDifferenceCell,
+    DifferenceComissonCell,
     OrderAgeCell,
     OrderStatusCell,
     OrderNumberCell,
     PriceCell,
     DisputeButtonCell,
+    RecievedComissonCell,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
@@ -108,19 +110,20 @@ export default {
       },
       rowComponentsHash: {
         default: 'DefaultCell',
-        orderDifference: 'OrderDifferenceCell',
+        differenceComisson: 'DifferenceComissonCell',
         creationAge: 'OrderAgeCell',
         installationAge: 'OrderAgeCell',
         orderStatus: 'OrderStatusCell',
         orderNumber: 'OrderNumberCell',
         price: 'PriceCell',
+        recievedComisson: 'RecievedComissonCell',
         disputeButton: 'DisputeButtonCell',
       },
     };
   },
   computed: {
-    сolumnIdName() {
-      return TABLE_СOLUMN_ID_NAMES[this.tableName];
+    columnIdName() {
+      return TABLE_COLUMN_ID_NAMES[this.tableName];
     },
   },
 };

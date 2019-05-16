@@ -1,15 +1,13 @@
 <template>
   <div class="recieved-comisson-cell">
     <span
-      v-if="!isUnknowComission"
       :class="{
         'shortage-comisson': isShortageComission,
         'paid-comisson': isCommissionPaid,
         'overpaid-comisson': isCommissionOverpaid,
       }"
-      >{{ recevedСomission | currency }}</span
+      >{{ recevedComission | currency }}</span
     >
-    <span v-else>-</span>
   </div>
 </template>
 
@@ -27,23 +25,20 @@ export default {
     currency,
   },
   computed: {
-    isUnknowComission() {
-      return this.item.expectedComission === null || this.item.recevedСomission === null;
-    },
     expectedComission() {
       return this.item.expectedComission ? parseFloat(this.item.expectedComission) : 0;
     },
-    recevedСomission() {
-      return this.item.recevedСomission ? parseFloat(this.item.recevedСomission) : 0;
+    recevedComission() {
+      return this.item.recevedComission ? parseFloat(this.item.recevedComission) : 0;
     },
     isShortageComission() {
-      return this.expectedComission > this.recevedСomission;
+      return this.expectedComission > this.recevedComission;
     },
     isCommissionPaid() {
-      return this.expectedComission === this.recevedСomission;
+      return this.expectedComission === this.recevedComission;
     },
     isCommissionOverpaid() {
-      return this.recevedСomission > this.expectedComission;
+      return this.recevedComission > this.expectedComission;
     },
   },
 };

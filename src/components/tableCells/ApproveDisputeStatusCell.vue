@@ -7,7 +7,7 @@
       @click="onResubmit"
     />
     <span
-      v-if="!isInprogressStatus && isContainsConfirmApprovedStatus"
+      v-if="!isInprogressStatus && isContainsApprovedStatus"
       :title="approveDate | dateDefaultFormat"
       >{{ approveDate | dateYearMonthDay }}</span
     >
@@ -33,17 +33,17 @@ export default {
   },
   computed: {
     approveDate() {
-      return this.getLastDisputeStatus(DISPUTE_STATUSES_ID.CONFIRM_APPROVED).timeStamp || '';
+      return this.getLastDisputeStatus(DISPUTE_STATUSES_ID.APPROVED).timeStamp || '';
     },
-    isContainsConfirmApprovedStatus() {
-      return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.CONFIRM_APPROVED);
+    isContainsApprovedStatus() {
+      return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.APPROVED);
     },
   },
   methods: {
     onResubmit() {
       this.$emit('changeDisputeStatus', {
         disputeId: this.item.id,
-        statusId: DISPUTE_STATUSES_ID.CONFIRM_APPROVED,
+        statusId: DISPUTE_STATUSES_ID.APPROVED,
       });
     },
   },
