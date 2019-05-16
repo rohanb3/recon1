@@ -1,14 +1,14 @@
 <template>
-  <nav class="lhs" :class="{ 'lhs-menu-full-size': isTinySidebar }">
+  <nav class="lhs" :class="{ 'tiny-lhs-menu': isTinySidebar }">
     <div class="lhs-header"></div>
-    <v-icon class="tiny-sidebar" v-show="!isTinySidebar">more_horiz</v-icon>
+    <v-icon class="tiny-sidebar" v-show="isTinySidebar">more_horiz</v-icon>
     <v-list>
       <template v-for="item in navigationLinks">
         <a v-if="item.url" :href="item.url" :key="item.title">
-          <lhs-item class="navigation-link" :item="item" :visible-title="isTinySidebar"></lhs-item>
+          <lhs-item class="navigation-link" :item="item"></lhs-item>
         </a>
         <router-link v-if="item.routeName" :key="item.title" :to="{ name: item.routeName }">
-          <lhs-item class="navigation-link" :item="item" :visible-title="isTinySidebar"></lhs-item>
+          <lhs-item class="navigation-link" :item="item"></lhs-item>
         </router-link>
       </template>
 
@@ -20,15 +20,10 @@
         no-action
       >
         <template v-slot:activator>
-          <lhs-item-header :item="item" :visible-title="isTinySidebar"></lhs-item-header>
+          <lhs-item-header :item="item"></lhs-item-header>
         </template>
         <div v-if="item.items">
-          <lhs-item
-            v-for="subItem in item.items"
-            :item="subItem"
-            :key="subItem.title"
-            :visible-title="isTinySidebar"
-          ></lhs-item>
+          <lhs-item v-for="subItem in item.items" :item="subItem" :key="subItem.title"></lhs-item>
         </div>
       </v-list-group>
     </v-list>
@@ -39,6 +34,7 @@
 import LhsItemHeader from '@/components/LHS/LHSItemHeader';
 import LhsItem from '@/components/LHS/LHSItem';
 import { ROUTE_NAMES } from '@/constants';
+import { mapState } from 'vuex';
 
 export default {
   name: 'lhs',
@@ -74,14 +70,14 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      isTinySidebar: state => state.uiState.tinySidebarStatus,
+    }),
     navigationLinks() {
       return this.items.filter(item => item.url || item.routeName);
     },
     groupOfItems() {
       return this.items.filter(item => item.items && item.items.length);
-    },
-    isTinySidebar() {
-      return !this.$store.state.uiState.tinySidebarStatus;
     },
   },
 };
@@ -177,12 +173,20 @@ $lhs-active-group-backgound-color: #26a69a;
   display: flex;
   flex-flow: column;
   align-items: center;
-  max-width: $lhs-tiny-width;
-  min-width: $lhs-tiny-width;
+  max-width: $lhs-width;
+  min-width: $lhs-width;
 
-  &.lhs-menu-full-size {
-    max-width: $lhs-width;
-    min-width: $lhs-width;
+  &.tiny-lhs-menu {
+    max-width: $lhs-tiny-width;
+    min-width: $lhs-tiny-width;
+
+    .lhs-item-action {
+      min-width: 0;
+    }
+
+    .list-tile-content {
+      display: none;
+    }
   }
 
   a {

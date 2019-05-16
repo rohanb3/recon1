@@ -9,58 +9,34 @@
         <div>
           <v-form v-model="valid" ref="form">
             <div class="code-wrapper">
-              <v-text-field
-                class="entered-code"
+              <field-entered-code
                 v-model="code1"
+                ref="code1"
                 autofocus
-                required
-                :rules="codeRules"
-                :validate-on-blur="true"
-                ref="inputCode1"
-                maxlength="1"
-                @focus="activeField = 1"
-                @input="onInputCode"
-              ></v-text-field>
-              <v-text-field
-                class="entered-code"
+                @input="enteredCode => onInputCode(enteredCode, 2, 1)"
+              />
+              <field-entered-code
                 v-model="code2"
-                required
-                :rules="codeRules"
-                :validate-on-blur="true"
-                ref="inputCode2"
-                maxlength="1"
-                @focus="activeField = 2"
-                @input="onInputCode"
-              ></v-text-field>
-              <v-text-field
-                class="entered-code"
+                ref="code2"
+                @input="enteredCode => onInputCode(enteredCode, 3, 1)"
+              />
+              <field-entered-code
                 v-model="code3"
-                required
-                :rules="codeRules"
-                :validate-on-blur="true"
-                ref="inputCode3"
-                maxlength="1"
-                @focus="activeField = 3"
-                @input="onInputCode"
-              ></v-text-field>
-              <v-text-field
-                class="entered-code"
+                ref="code3"
+                @input="enteredCode => onInputCode(enteredCode, 4, 2)"
+              />
+              <field-entered-code
                 v-model="code4"
-                required
-                :rules="codeRules"
-                :validate-on-blur="true"
-                ref="inputCode4"
-                maxlength="1"
-                @focus="activeField = 4"
-                @input="onInputCode"
-              ></v-text-field>
+                ref="code4"
+                @input="enteredCode => onInputCode(enteredCode, 4, 3)"
+              />
             </div>
             <v-container fluid>
               <v-layout row mt-4 align-center justify-space-around>
                 <v-flex order-lg2>
-                  <a class="back-to-login" href="#" @click.prevent="$emit('resendCode')">
-                    {{ $t('resend.code') }}
-                  </a>
+                  <a class="back-to-login" href="#" @click.prevent="$emit('resendCode')">{{
+                    $t('resend.code')
+                  }}</a>
                 </v-flex>
                 <v-flex order-lg2>
                   <v-btn
@@ -80,26 +56,21 @@
 </template>
 
 <script>
-import { validateOnlyDigits, validateTextShouldBeLength } from '@/services/validators';
-
-const CODE_LENGTH = 1;
-const ONLY_DIGITS_REGEX = /^[0-9]$/;
+import FieldEnteredCode from '@/components/FieldEnteredCode';
 
 export default {
   name: 'VerificationCodeForm',
+  components: {
+    FieldEnteredCode,
+  },
   data() {
     return {
       email: '',
-      code1: null,
-      code2: null,
-      code3: null,
-      code4: null,
+      code1: '',
+      code2: '',
+      code3: '',
+      code4: '',
       valid: false,
-      activeField: null,
-      codeRules: [
-        validateOnlyDigits('code.must.be'),
-        validateTextShouldBeLength(CODE_LENGTH, 'code.must.be'),
-      ],
     };
   },
   computed: {
@@ -113,33 +84,16 @@ export default {
     },
   },
   methods: {
-    onInputCode(code) {
-      if (String(code).length === 1) {
-        switch (this.activeField) {
-          case 1:
-            this.$refs.inputCode2.focus();
-            break;
-          case 2:
-            this.$refs.inputCode3.focus();
-            break;
-          default:
-            this.$refs.form.validate();
-            this.$refs.inputCode4.focus();
-        }
+    onInputCode(enteredCode, numberNextField, numberPrevField) {
+      if (!numberNextField) return;
+
+      if (String(enteredCode).length === 1) {
+        this.$refs[`code${numberNextField}`].focus();
       }
-      if (String(code).length === 0) {
-        switch (this.activeField) {
-          case 3:
-            this.$refs.inputCode2.focus();
-            break;
-          case 4:
-            this.$refs.inputCode3.focus();
-            break;
-          default:
-            this.$refs.inputCode1.focus();
-        }
+
+      if (String(enteredCode).length === 0) {
+        this.$refs[`code${numberPrevField}`].focus();
       }
-      return ONLY_DIGITS_REGEX.test(Number(code));
     },
   },
 };

@@ -7,7 +7,7 @@
       <div>
         <v-form ref="form">
           <field-email v-model="email" @valid="isValid => (validEmail = isValid)" />
-          <field-login-password v-model="password" @valid="isValid => (validPassword = isValid)" />
+          <field-password v-model="password" @valid="isValid => (validPassword = isValid)" />
           <div class="forgot-link-wrapper">
             <router-link class="forgot-link" :to="{ name: 'password-recovery' }">{{
               $t('login.forgot')
@@ -25,14 +25,14 @@
 
 <script>
 import FieldEmail from '@/components/FieldEmail';
-import FieldLoginPassword from '@/components/FieldLoginPassword';
+import FieldPassword from '@/components/FieldPassword';
 import CheckboxLoginAgreement from '@/components/CheckboxLoginAgreement';
 
 export default {
   name: 'LoginForm',
   components: {
     FieldEmail,
-    FieldLoginPassword,
+    FieldPassword,
     CheckboxLoginAgreement,
   },
   data() {
@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      if (this.isValidForm()) {
+      if (this.isValidForm) {
         this.$emit('login', { email: this.email, password: this.password });
       }
     },

@@ -25,11 +25,8 @@ export default {
   },
   computed: {
     ...mapState({
-      isTinySidebar: 'uiState.tinySidebarStatus',
+      isTinySidebar: state => state.uiState.tinySidebarStatus,
     }),
-    /*  isTinySidebar() {
-      return this.$store.state.uiState.tinySidebarStatus;
-    }, */
   },
   methods: {
     toggleSidebar() {

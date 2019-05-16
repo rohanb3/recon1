@@ -1,35 +1,46 @@
 <template>
   <v-text-field
-    :label="$t('password')"
+    :label="label"
     class="password-input"
     name="password"
     browser-autocomplete="new-password"
     v-model="password"
     required
-    ref="fieldLoginPassword"
+    ref="fieldPassword"
     :append-icon="isShowPassword ? 'visibility' : 'visibility_off'"
     :type="isShowPassword ? 'password' : 'text'"
-    :rules="passwordRules"
+    :rules="rules"
     @input="validate"
+    @update:error="validate"
     @click:append="() => (isShowPassword = !isShowPassword)"
   ></v-text-field>
 </template>
 
 <script>
 import { validateFieldCantBeEmpty } from '@/services/validators';
+import i18n from '@/i18n';
 
 export default {
-  name: 'FieldLoginPassword',
+  name: 'FieldPassword',
   props: {
     value: {
       type: String,
       required: true,
     },
+    rules: {
+      type: Array,
+      default() {
+        return [validateFieldCantBeEmpty('password.is.required')];
+      },
+    },
+    label: {
+      type: String,
+      default: i18n.t('password'),
+    },
   },
   data() {
     return {
       isShowPassword: true,
-      passwordRules: [validateFieldCantBeEmpty('password.is.required')],
     };
   },
   computed: {
@@ -44,7 +55,7 @@ export default {
   },
   methods: {
     validate() {
-      const status = this.$refs.fieldLoginPassword.validate();
+      const status = this.$refs.fieldPassword.validate();
       this.$emit('valid', status);
       return status;
     },
