@@ -6,28 +6,21 @@
       </div>
       <div>
         <div>
-          <v-form v-model="valid" ref="form">
-            <v-text-field
-              label="Email"
-              name="email"
-              ref="emailInput"
-              v-model="email"
-              autofocus
-              required
-              class="pa-3"
-              :rules="emailRules"
-            ></v-text-field>
+          <v-form>
+            <div class="pa-3">
+              <field-email v-model="email" @valid="isValid => (validEmail = isValid)" />
+            </div>
             <v-container fluid>
               <v-layout row mt-5 align-center justify-space-around>
                 <v-flex order-lg2>
-                  <router-link class="back-to-login" :to="{ name: 'login' }">
-                    {{ $t('back.to.login') }}
-                  </router-link>
+                  <router-link class="back-to-login" :to="{ name: 'login' }">{{
+                    $t('back.to.login')
+                  }}</router-link>
                 </v-flex>
                 <v-flex order-lg2>
-                  <v-btn class="button" :disabled="!valid" @click="sendVerificationCode">{{
-                    $t('send.me.code')
-                  }}</v-btn>
+                  <v-btn class="button" :disabled="!validEmail" @click="sendVerificationCode">
+                    {{ $t('send.me.code') }}
+                  </v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -39,30 +32,22 @@
 </template>
 
 <script>
-import {
-  validateFieldCantBeEmpty,
-  validateEmail,
-  validateMaxTextLength,
-} from '@/services/validators';
-
-const MAX_EMAIL_LENGTH = 50;
+import FieldEmail from '@/components/FieldEmail';
 
 export default {
   name: 'PasswordRecoveryForm',
+  components: {
+    FieldEmail,
+  },
   data() {
     return {
-      valid: false,
+      validEmail: false,
       email: '',
-      emailRules: [
-        validateFieldCantBeEmpty('email.is.required'),
-        validateMaxTextLength(MAX_EMAIL_LENGTH, 'email.should.not.be.longer.than.50.symbols'),
-        validateEmail(),
-      ],
     };
   },
   methods: {
     sendVerificationCode() {
-      if (this.valid) {
+      if (this.validEmail) {
         this.$emit('verificationCode', this.email);
       }
     },

@@ -58,5 +58,5 @@ export const validateOnlyCapitalLetter = (message = 'field.must.consist.only.cap
 };
 
 export const validateTextShouldBeEqual = (text1, text2, message) => {
-  return () => text1 === text2 || this.$t(message);
+  return () => text1 === text2 || i18n.t(message);
 };

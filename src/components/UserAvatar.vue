@@ -2,34 +2,62 @@
   <div class="avatar-container" :style="{ width: size, minWidth: size, height: size }">
     <template v-if="backgroundColor">
       <div :style="{ backgroundColor }" class="avatar" />
-      <span :style="{ color: initialsColor, fontSize: initialsSize }" class="initials">{{
-        initials
-      }}</span>
+      <span
+        v-show="!avatarUrl"
+        :style="{ color: initialsColor, fontSize: initialsSize }"
+        class="initials"
+        >{{ fullName | initials }}</span
+      >
     </template>
-    <img v-if="src" :src="src" class="avatar" alt="user" />
+    <img v-if="avatarUrl" :src="avatarUrl" class="avatar" alt="user" />
   </div>
 </template>
 
 <script>
-import { getInitials } from '@/services/stylesHelper';
+import initials from '@/filters/initials';
+
+const AVATAR_BACKGROUND_COLOR = '#f8c37a';
+const AVATAR_INITIALS_COLOR = '#b4681f';
 
 export default {
   name: 'UserAvatar',
-  props: [
-    'src',
-    'backgroundColor',
-    'initialsColor',
-    'firstName',
-    'lastName',
-    'size',
-    'initialsSize',
-  ],
+  filters: {
+    initials,
+  },
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+    backgroundColor: {
+      type: String,
+      default: AVATAR_BACKGROUND_COLOR,
+    },
+    initialsColor: {
+      type: String,
+      default: AVATAR_INITIALS_COLOR,
+    },
+    size: {
+      type: String,
+      default: '36px',
+    },
+    initialsSize: {
+      type: String,
+      default: '14px',
+    },
+  },
   computed: {
-    initials() {
-      if (!this.src) {
-        return getInitials(this.firstName, this.lastName);
-      }
-      return '';
+    firstName() {
+      return this.user.givenName || '';
+    },
+    lastName() {
+      return this.user.surname || '';
+    },
+    fullName() {
+      return `${this.firstName} ${this.lastName}`;
+    },
+    avatarUrl() {
+      return this.user.avatarLink || null;
     },
   },
 };

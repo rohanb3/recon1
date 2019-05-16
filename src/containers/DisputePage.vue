@@ -18,16 +18,16 @@
         <v-flex xs12 lg6 class="customer-information-wrapper">
           <customer-information-form v-model="disputeInfo" ref="customerInfo" />
           <div class="save-button-wrapper">
-            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">
-              {{ $t('cancel') }}
+            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">{{
+              $t('cancel')
+            }}</v-btn>
+            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">
+              {{ $t('save.as.draft') }}
             </v-btn>
-            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">{{
-              $t('save.as.draft')
-            }}</v-btn>
             <v-spacer></v-spacer>
-            <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">{{
-              $t('create.new.dispute')
-            }}</v-btn>
+            <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">
+              {{ $t('create.new.dispute') }}
+            </v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -66,7 +66,7 @@ import TableButton from '@/components/TableButton';
 import { errorMessage } from '@/services/notifications';
 import { addBackgroundBlur, removeBackgroundBlur } from '@/services/utils';
 
-import { RESPONSE_STATUSES, DISPUTE_STATUSES_ID } from '@/constants';
+import { RESPONSE_STATUSES, DISPUTE_STATUSES_ID, ROUTE_NAMES } from '@/constants';
 
 import {
   getDispute,
@@ -125,7 +125,7 @@ export default {
             disputeStatusId: this.disputeStatusId,
             disputeTypeId: this.disputeTypeId,
           });
-          this.$router.push({ name: 'select-order' });
+          this.$router.push({ name: ROUTE_NAMES.SELECT_ORDER });
         } catch {
           errorMessage();
         } finally {
@@ -141,7 +141,7 @@ export default {
     async onRemoveDraft() {
       try {
         await deleteDispute(this.disputeInfo.id);
-        this.$router.push({ name: 'select-order' });
+        this.$router.push({ name: ROUTE_NAMES.SELECT_ORDER });
       } catch {
         errorMessage();
       } finally {
@@ -167,7 +167,7 @@ export default {
         }
       } catch (e) {
         if ((e.response || {}).status === RESPONSE_STATUSES.NOT_FOUND) {
-          this.$router.push({ name: 'main-page' });
+          this.$router.push({ name: ROUTE_NAMES.MAIN_PAGE });
         } else {
           errorMessage();
         }

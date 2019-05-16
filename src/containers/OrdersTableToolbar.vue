@@ -39,20 +39,19 @@ export default {
     flex: 0;
   }
 
-  .table-filter-container {
+  .table-filter-container /deep/ {
     display: flex;
-
-    .table-filter:first-child {
-      border-radius: 3px 0 0 3px;
-      border-right-color: $table-filter-border-right-color;
-    }
-
-    .table-filter:last-child {
-      border-radius: 0 3px 3px 0;
-    }
-
-    .table-filter:only-of-type {
-      border-radius: 3px;
+    .filter-wrapper {
+      &:first-child .table-filter {
+        border-radius: 3px 0 0 3px;
+        border-right-color: $table-filter-border-right-color;
+      }
+      &:last-child .table-filter {
+        border-radius: 0 3px 3px 0;
+      }
+      &:only-of-type .table-filter {
+        border-radius: 3px;
+      }
     }
   }
 }

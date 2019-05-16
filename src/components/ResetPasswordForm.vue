@@ -7,43 +7,32 @@
       </div>
       <div>
         <div>
-          <v-form v-model="valid" ref="form">
-            <v-text-field
-              :label="$t('new.password')"
-              class="password-input"
-              name="password"
+          <v-form>
+            <field-password
               v-model.trim="password"
-              required
-              autofocus
-              :append-icon="showPasswordFlag ? 'visibility' : 'visibility_off'"
-              :type="showPasswordFlag ? 'password' : 'text'"
+              :label="$t('new.password')"
               :rules="passwordRules"
-              @input="checkPassword"
-              @click:append="() => (showPasswordFlag = !showPasswordFlag)"
-            ></v-text-field>
-            <v-text-field
-              :label="$t('confirm.new.password')"
-              class="password-input"
-              name="confirmPassword"
+              ref="password"
+              @valid="isValid => (validPassword = isValid)"
+            />
+            <field-password
               v-model.trim="confirmPassword"
-              required
-              :append-icon="showPasswordFlag ? 'visibility' : 'visibility_off'"
-              :type="showPasswordFlag ? 'password' : 'text'"
-              :rules="passwordRules"
-              @input="checkPassword"
-              @click:append="() => (showPasswordFlag = !showPasswordFlag)"
-            ></v-text-field>
+              :label="$t('confirm.new.password')"
+              :rules="confirmPasswordRules"
+              ref="confirmPassword"
+              @valid="isValid => (validConfirmPassword = isValid)"
+            />
             <v-container fluid px-0>
               <v-layout row mt-5 px-0 align-center justify-space-around>
                 <v-flex order-lg2>
-                  <router-link class="back-to-login" :to="{ name: 'login' }">{{
-                    $t('back.to.login')
-                  }}</router-link>
+                  <router-link class="back-to-login" :to="{ name: 'login' }">
+                    {{ $t('back.to.login') }}
+                  </router-link>
                 </v-flex>
                 <v-flex order-lg2>
-                  <v-btn @click="onSubmit" class="button" :disabled="!valid">
-                    {{ $t('reset.password') }}
-                  </v-btn>
+                  <v-btn @click="onSubmit" class="button" :disabled="!valid">{{
+                    $t('reset.password')
+                  }}</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -62,35 +51,43 @@ import {
   validateTextShouldBeEqual,
 } from '@/services/validators';
 
+import FieldPassword from '@/components/FieldPassword';
+
 const PASSWORD_LENGTH = 8;
 
 export default {
   name: 'ResetPasswordForm',
+  components: {
+    FieldPassword,
+  },
   data() {
     return {
-      valid: false,
+      validPassword: false,
+      validConfirmPassword: false,
       password: '',
       confirmPassword: '',
-      showPasswordFlag: true,
       passwordRules: [
         validateFieldCantBeEmpty('password.is.required'),
         validateMinTextLength(PASSWORD_LENGTH, 'password.must.be.at.least.8.chracters'),
         validateOnlyCapitalLetter('password.must.contain.capital.letter'),
-        validateTextShouldBeEqual(this.password, this.confirmPassword, 'password.do.not.match'),
       ],
     };
   },
+  computed: {
+    valid() {
+      return this.validPassword && this.validConfirmPassword;
+    },
+    confirmPasswordRules() {
+      return this.passwordRules.concat(
+        validateTextShouldBeEqual(this.password, this.confirmPassword, 'password.do.not.match')
+      );
+    },
+  },
   methods: {
     onSubmit() {
-      if (this.valid) {
+      if (this.valid && this.comparePassword) {
         this.$emit('resetPassword', this.password);
       }
-    },
-    comparePassword() {
-      return this.password === this.confirmPassword;
-    },
-    checkPassword() {
-      this.$refs.form.validate();
     },
   },
 };
