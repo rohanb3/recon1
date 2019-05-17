@@ -11,6 +11,8 @@ export const getOrdersTableColumns = () => [
     title: i18n.t('orders.number'),
     width: '4',
     minWidth: '90px',
+    sortingFieldName: TABLE_СOLUMNS_SORTED.ORDER_NUMBER,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'accountNumber',
@@ -19,6 +21,8 @@ export const getOrdersTableColumns = () => [
     title: i18n.t('orders.account.number'),
     width: '6',
     minWidth: '70px',
+    sortingFieldName: TABLE_СOLUMNS_SORTED.ORDER_ACCOUNT_NUMBER,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'serviceName',
@@ -35,6 +39,8 @@ export const getOrdersTableColumns = () => [
     title: i18n.t('orders.ordered.units'),
     width: '4',
     minWidth: '70px',
+    sortingFieldName: TABLE_СOLUMNS_SORTED.ORDER_UNITS,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'installedUnits',
@@ -52,6 +58,8 @@ export const getOrdersTableColumns = () => [
     title: i18n.t('orders.order.status'),
     width: '5',
     minWidth: '60px',
+    sortingFieldName: TABLE_СOLUMNS_SORTED.ORDER_STATUS,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'creationAge',
@@ -61,6 +69,8 @@ export const getOrdersTableColumns = () => [
     title: i18n.t('orders.age.after.order'),
     width: '4',
     minWidth: '90px',
+    sortingFieldName: TABLE_СOLUMNS_SORTED.ORDER_AGE_AFTER,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'installationAge',
@@ -70,6 +80,8 @@ export const getOrdersTableColumns = () => [
     title: i18n.t('orders.age.after.installation'),
     width: '5',
     minWidth: '90px',
+    sortingFieldName: TABLE_СOLUMNS_SORTED.ORDER_INSTALLATION_AGE,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'expectedComission',
@@ -79,6 +91,8 @@ export const getOrdersTableColumns = () => [
     title: i18n.t('orders.expected.comission'),
     width: '5',
     minWidth: '85px',
+    sortingFieldName: TABLE_СOLUMNS_SORTED.ORDER_EXPECTED_COMISSION,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'recevedComission',
@@ -88,6 +102,8 @@ export const getOrdersTableColumns = () => [
     title: i18n.t('orders.recieved.comisson'),
     width: '5',
     minWidth: '85px',
+    sortingFieldName: TABLE_СOLUMNS_SORTED.ORDER_RECIEVED_COMISSON,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'orderDifference',
@@ -96,6 +112,8 @@ export const getOrdersTableColumns = () => [
     title: i18n.t('orders.difference'),
     width: '4',
     minWidth: '85px',
+    sortingFieldName: TABLE_СOLUMNS_SORTED.ORDER_DIFFERENCE,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'newDisputeButton',

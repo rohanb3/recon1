@@ -64,7 +64,14 @@ export const SORTING_DIRECTION = {
 
 export const TABLE_СOLUMNS_SORTED = {
   ORDER_NUMBER: 'ordernumber',
-  ACCOUNT_NUMBER: 'accountnumber',
+  ORDER_ACCOUNT_NUMBER: 'accountNumber',
+  ORDER_UNITS: 'orderedUnits',
+  ORDER_STATUS: 'statusName',
+  ORDER_AGE_AFTER: 'creationAge',
+  ORDER_INSTALLATION_AGE: 'installationAge',
+  ORDER_EXPECTED_COMISSION: 'expectedComission',
+  ORDER_RECIEVED_COMISSON: 'recevedComission',
+  ORDER_DIFFERENCE: 'difference',
   DISPUTE_STATUS: 'disputeStatus',
 };
 
@@ -76,7 +83,7 @@ export const ENTITY_TYPES = {
 export const FILTER_NAMES = {
   SEARCH_ORDERS: 'Search',
   SEARCH_DISPUTES: 'SearchPhrase',
-  SORT: 'sort',
+  SORT: 'SortBy',
   ORDER: 'SortOrder',
   ORDER_STATUS: 'OrderStatusIds',
 };
