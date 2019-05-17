@@ -37,7 +37,7 @@
 <script>
 import UserAvatar from '@/components/UserAvatar';
 import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
-import { GET_PROFILE_DATA, GET_PHOTO, USER_LOGOUT } from '@/store/loggedInUser/actionTypes';
+import { GET_PROFILE_DATA, GET_PHOTO } from '@/store/loggedInUser/actionTypes';
 import getVesrion from '@/services/appVersion';
 import { ROUTE_NAMES } from '@/constants';
 
@@ -68,8 +68,7 @@ export default {
       this.$store.dispatch(GET_PHOTO);
     },
     logout() {
-      this.$store.dispatch(USER_LOGOUT);
-      this.$router.replace({ name: ROUTE_NAMES.LOGIN });
+      this.$router.replace({ name: ROUTE_NAMES.LOGOUT });
     },
   },
 };
