@@ -229,7 +229,7 @@ export default {
     },
   },
   beforeRouteLeave(to, from, next) {
-    if (this.savedDispute || to.name === ROUTE_NAMES.LOGIN) {
+    if (this.savedDispute) {
       next();
     } else {
       this.routeNameForRedirect = to.name;
