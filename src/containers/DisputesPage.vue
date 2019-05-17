@@ -5,6 +5,7 @@
       <div v-else class="table-title">{{ $t('disputes.title') }}</div>
       <disputes-table-toolbar :tableName="tableName" />
     </div>
+    <a @click="confirmationPopup = true">234</a>
     <wombat-table
       :items="rows"
       :columns="columns"
@@ -45,7 +46,6 @@
           />
         </wombat-row>
       </div>
-
       <table-loader v-if="loading" slot="loader" />
     </wombat-table>
     <v-progress-circular
@@ -56,6 +56,7 @@
       color="blue"
       indeterminate
     ></v-progress-circular>
+    <approve-dispute-popup />
   </div>
 </template>
 
@@ -78,6 +79,8 @@ import PriceCell from '@/components/tableCells/PriceCell';
 import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
 import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatusCell';
 import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
+
+import ApproveDisputePopup from '@/components/ApproveDisputePopup';
 
 import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 
@@ -110,11 +113,13 @@ export default {
     RejectDisputeStatusCell,
     ApproveDisputeStatusCell,
     DisputesTableToolbar,
+    ApproveDisputePopup,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
     return {
       tableName: ENTITY_TYPES.DISPUTES,
+      confirmationPopup: false,
       headerComponentsHash: {
         default: 'DefaultHeaderCell',
         sortingHeader: 'SortingHeaderCell',

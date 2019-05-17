@@ -57,7 +57,7 @@
   "dispute.order.installed": "Order was installed but commision is not received",
   "dispute.are.you.sure": "Are you sure?",
   "dispute.if.you.close.this.page": "Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
-  
+
   "file.is.too.big": "File is too big",
   "failed.to.upload.file": "Failed to upload file",
 
@@ -72,6 +72,7 @@
 
   "cancel": "Cancel",
   "save.as.draft": "Save as Draft",
+  "save": "Save",
   "create.new.dispute": "Create new dispute",
   "remove.draft": "Remove Draft",
 
@@ -113,6 +114,10 @@
   "resubmission.table.approve": "Approve",
   "resubmission.table.reject": "Reject",
   "resubmission.table.resubmit.claim": "Resubmit claim",
+  "resubmission.table.reject.description": "Dispute Reject Description",
+  "resubmission.table.approve.description": "Dispute Approve Description",
+  "resubmission.table.enter.reject.comment.below": "To reject the dispute enter comment below:",
+  "resubmission.table.enter.approve.comment.below": "To approve the dispute enter comment below:",
 
   "approve": "Approve",
   "reject": "Reject",
