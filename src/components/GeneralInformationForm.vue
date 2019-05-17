@@ -23,7 +23,7 @@
           <FieldAccountNumber ref="fieldAccountNumber" v-model="disputeInfo" />
         </v-flex>
         <v-flex md6 ml-5>
-          <FieldOrderConfirmation ref="fieldOrderConfirmation" v-model="disputeInfo" />
+          <FieldOrderConfirmation v-model="disputeInfo" />
         </v-flex>
       </v-layout>
       <v-layout row mb-2>
@@ -163,7 +163,6 @@ export default {
       return [
         this.$refs.form.validate(),
         this.$refs.fieldWoNumber.validate(),
-        this.$refs.fieldOrderConfirmation.validate(),
         this.$refs.fieldAccountNumber.validate(),
       ].every(isValidForm => isValidForm === true);
     },
