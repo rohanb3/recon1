@@ -1,19 +1,8 @@
 <template>
-  <v-form ref="form">
-    <v-text-field
-      v-model="confirmationId"
-      class="required"
-      required
-      :rules="fieldCantBeEmptyRule"
-      :label="$t('dispute.order.confirmation')"
-      :validate-on-blur="true"
-    ></v-text-field>
-  </v-form>
+  <v-text-field v-model="confirmationId" :label="$t('dispute.order.confirmation')"></v-text-field>
 </template>
 
 <script>
-import { validateFieldCantBeEmpty } from '@/services/validators';
-
 export default {
   name: 'FieldOrderConfirmation',
   props: {
@@ -21,11 +10,6 @@ export default {
       type: Object,
       required: true,
     },
-  },
-  data() {
-    return {
-      fieldCantBeEmptyRule: [validateFieldCantBeEmpty()],
-    };
   },
   computed: {
     confirmationId: {
@@ -35,11 +19,6 @@ export default {
       set(confirmationId) {
         this.$emit('input', { ...this.value, confirmationId });
       },
-    },
-  },
-  methods: {
-    validate() {
-      return this.$refs.form.validate();
     },
   },
 };
