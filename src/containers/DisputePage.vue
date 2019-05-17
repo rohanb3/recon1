@@ -18,16 +18,16 @@
         <v-flex xs12 lg6 class="customer-information-wrapper">
           <customer-information-form v-model="disputeInfo" ref="customerInfo" />
           <div class="save-button-wrapper">
-            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">{{
-              $t('cancel')
+            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">
+              {{ $t('cancel') }}
+            </v-btn>
+            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">{{
+              $t('save.as.draft')
             }}</v-btn>
-            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">
-              {{ $t('save.as.draft') }}
-            </v-btn>
             <v-spacer></v-spacer>
-            <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">
-              {{ $t('create.new.dispute') }}
-            </v-btn>
+            <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">{{
+              $t('create.new.dispute')
+            }}</v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -229,7 +229,7 @@ export default {
     },
   },
   beforeRouteLeave(to, from, next) {
-    if (this.savedDispute) {
+    if (this.savedDispute || to.name === ROUTE_NAMES.LOGIN) {
       next();
     } else {
       this.routeNameForRedirect = to.name;
