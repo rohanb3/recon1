@@ -8,6 +8,7 @@ export default {
     [ENTITY_TYPES.ORDERS]: {
       items: [],
       allItemsLoaded: false,
+      syncOrdersStatus: null,
     },
     [ENTITY_TYPES.DISPUTES]: {
       items: [],

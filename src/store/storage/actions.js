@@ -1,6 +1,13 @@
 import { getEntityActions } from './repositoryHelper';
 
-import { LOAD_ITEMS, LOAD_MORE_ITEMS, CREATE_ITEM, UPDATE_ITEM, DELETE_ITEM } from './actionTypes';
+import {
+  LOAD_ITEMS,
+  LOAD_MORE_ITEMS,
+  CREATE_ITEM,
+  UPDATE_ITEM,
+  DELETE_ITEM,
+  SYNC_ORDERS,
+} from './actionTypes';
 
 import {
   INSERT_ITEMS,
@@ -9,9 +16,17 @@ import {
   SET_ALL_ITEMS_LOADED,
   SET_ITEMS_TOTAL,
   RESET_ITEMS,
+  SET_SYNC_ORDERS_STATUS,
 } from './mutationTypes';
 
 import { ITEMS_TO_LOAD } from './constants';
+
+import { ORDER_SYNC_STATUS, ENTITY_TYPES } from '@/constants';
+
+import { orderSync, checkOrderSync } from '@/services/ordersRepository';
+
+const ORDER_SYNC_POLLING_TIMEOUT = 5000;
+let syncOrdersIntervalId = null;
 
 async function loadItems({ commit, state }, { itemType, filters = {} }, resetPrevious) {
   const { items } = state[itemType];
@@ -36,6 +51,23 @@ async function loadItems({ commit, state }, { itemType, filters = {} }, resetPre
   }
 }
 
+async function pollingOrderSync({ taskId, commit, dispatch, rootState }) {
+  try {
+    const status = await checkOrderSync(taskId);
+    if (status === ORDER_SYNC_STATUS.FINISHED) {
+      clearInterval(syncOrdersIntervalId);
+      await dispatch(LOAD_ITEMS, {
+        itemType: ENTITY_TYPES.ORDERS,
+        filters: rootState.tables[ENTITY_TYPES.ORDERS].filters,
+      });
+      commit(SET_SYNC_ORDERS_STATUS, ORDER_SYNC_STATUS.FINISHED);
+    }
+  } catch {
+    clearInterval(syncOrdersIntervalId);
+    commit(SET_SYNC_ORDERS_STATUS, ORDER_SYNC_STATUS.ERROR);
+  }
+}
+
 export default {
   [LOAD_ITEMS](store, data) {
     return loadItems(store, data, true);
@@ -57,5 +89,20 @@ export default {
     const { delete: deleteItem } = getEntityActions(itemType);
     await deleteItem(id);
     commit(REMOVE_ITEM, { itemType, id });
+  },
+  async [SYNC_ORDERS]({ commit, dispatch, rootState }, dateRange) {
+    commit(SET_SYNC_ORDERS_STATUS, ORDER_SYNC_STATUS.WORKING);
+    try {
+      const taskId = await orderSync(dateRange);
+      syncOrdersIntervalId = setInterval(pollingOrderSync, ORDER_SYNC_POLLING_TIMEOUT, {
+        taskId,
+        commit,
+        dispatch,
+        rootState,
+      });
+    } catch {
+      clearInterval(syncOrdersIntervalId);
+      commit(SET_SYNC_ORDERS_STATUS, ORDER_SYNC_STATUS.ERROR);
+    }
   },
 };

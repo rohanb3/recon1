@@ -2,7 +2,7 @@
   <div class="orders-table">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('orders.select.order') }}</div>
-      <orders-table-toolbar :tableName="tableName" />
+      <orders-table-toolbar :tableName="tableName" @syncOrders="onSyncOrders" />
     </div>
     <wombat-table
       :items="rows"
@@ -81,6 +81,13 @@ import lazyLoadTable from '@/mixins/lazyLoadTable';
 
 import { ENTITY_TYPES, TABLE_СOLUMN_ID_NAMES } from '@/constants';
 
+import { SYNC_ORDERS } from '@/store/storage/actionTypes';
+
+import { successMessage } from '@/services/notifications';
+import moment from 'moment';
+
+const LAST_SIX_MONTHS = 6;
+
 export default {
   name: 'OrdersPage',
   components: {
@@ -121,6 +128,22 @@ export default {
   computed: {
     сolumnIdName() {
       return TABLE_СOLUMN_ID_NAMES[this.tableName];
+    },
+  },
+  methods: {
+    onSyncOrders() {
+      this.$store.dispatch(SYNC_ORDERS, {
+        syncOrderFromDate: moment
+          .utc()
+          .subtract(LAST_SIX_MONTHS, 'month')
+          .startOf('day')
+          .format(),
+        syncOrderToDate: moment
+          .utc()
+          .endOf('day')
+          .format(),
+      });
+      successMessage('sync.started', 'sync.info');
     },
   },
 };

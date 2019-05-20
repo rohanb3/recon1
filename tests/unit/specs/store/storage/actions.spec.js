@@ -9,15 +9,22 @@ import {
   CREATE_ITEM,
   UPDATE_ITEM,
   DELETE_ITEM,
+  SYNC_ORDERS,
 } from '@/store/storage/actionTypes';
+
 import {
   INSERT_ITEMS,
   RESET_ITEMS,
   SET_ALL_ITEMS_LOADED,
   CHANGE_ITEM,
   REMOVE_ITEM,
+  SET_SYNC_ORDERS_STATUS,
 } from '@/store/storage/mutationTypes';
+
 import * as repositoryHelper from '@/store/storage/repositoryHelper';
+import * as ordersRepository from '@/services/ordersRepository';
+
+import { ORDER_SYNC_STATUS } from '@/constants';
 
 const itemType = 'SOME_TYPE';
 
@@ -184,6 +191,35 @@ describe('storage actions: ', () => {
         itemType,
         id,
       });
+    });
+  });
+
+  describe('SYNC_ORDERS: ', () => {
+    it('should sync start', async () => {
+      const fakeStore = {
+        commit: jest.fn(),
+      };
+
+      const dateRange = {
+        syncOrderFromDate: '2018-11-20T00:00:00Z',
+        syncOrderToDate: '2019-05-20T23:59:59Z',
+      };
+
+      const taskId = '28fec555-817d-4ded-a3cf-1f74c01dcb30';
+
+      ordersRepository.orderSync = jest.fn(() => Promise.resolve({ data: taskId }));
+
+      await actions[SYNC_ORDERS](fakeStore, dateRange);
+
+      expect(ordersRepository.orderSync).toHaveBeenCalledWith(dateRange);
+      expect(fakeStore.commit).toHaveBeenCalledWith(
+        SET_SYNC_ORDERS_STATUS,
+        ORDER_SYNC_STATUS.WORKING
+      );
+      expect(fakeStore.commit).not.toHaveBeenCalledWith(
+        SET_SYNC_ORDERS_STATUS,
+        ORDER_SYNC_STATUS.ERROR
+      );
     });
   });
 });

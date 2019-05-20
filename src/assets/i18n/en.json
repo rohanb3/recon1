@@ -16,6 +16,12 @@
   "orders.order.status.pending": "Pending",
   "orders.order.status.call.in.order": "CallInOrder",
 
+  "sync.orders": "Sync orders",
+  "sync.started": "Sync successfully initiated",
+  "sync.orders.completed": "Sync orders completed",
+  "sync.info": "Synchronization may take a few minutes...",
+  "no.sync.occurred": "No sync occurred",
+
   "orders.age.after.order": "Age (after order)",
   "orders.age.after.installation": "Age (after Installation)",
   "orders.expected.comission": "Expected Comission",

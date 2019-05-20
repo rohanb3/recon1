@@ -107,3 +107,11 @@ export const ROLE_TYPES = {
   SUPPORT_ADMIN: 'SupportAdmin',
   SALES_REP: 'SalesRep',
 };
+
+export const ORDER_SYNC_STATUS = {
+  HAVENT: 'Havent',
+  POSTED: 'Posted',
+  WORKING: 'Working',
+  FINISHED: 'Finished',
+  ERROR: 'Error',
+};

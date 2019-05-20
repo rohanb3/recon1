@@ -5,24 +5,39 @@
       <order-status-filter :table-name="tableName" />
     </div>
     <v-spacer></v-spacer>
+    <table-button
+      :disabled="isOrdersSyncing"
+      :title="$t('sync.orders')"
+      @click="$emit('syncOrders')"
+    />
   </div>
 </template>
 
 <script>
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import OrderStatusFilter from '@/containers/OrderStatusFilter';
-import { ENTITY_TYPES } from '@/constants';
+import TableButton from '@/components/TableButton';
+import { ENTITY_TYPES, ORDER_SYNC_STATUS } from '@/constants';
 
 export default {
   name: 'OrdersTableToolbar',
   components: {
     QuickSearchFilter,
     OrderStatusFilter,
+    TableButton,
   },
   data() {
     return {
       tableName: ENTITY_TYPES.ORDERS,
     };
+  },
+  computed: {
+    storageData() {
+      return this.$store.state.storage[this.tableName] || {};
+    },
+    isOrdersSyncing() {
+      return this.storageData.syncOrdersStatus === ORDER_SYNC_STATUS.WORKING;
+    },
   },
 };
 </script>
