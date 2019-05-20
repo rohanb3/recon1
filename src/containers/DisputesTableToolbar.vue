@@ -2,17 +2,20 @@
   <div class="disputes-table-toolbar">
     <quick-search-disputes-filter :tableName="tableName" />
     <v-spacer></v-spacer>
+    <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
   </div>
 </template>
 
 <script>
 import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
+import TableButton from '@/components/TableButton';
 import { ENTITY_TYPES } from '@/constants';
 
 export default {
   name: 'DisputesTableToolbar',
   components: {
     QuickSearchDisputesFilter,
+    TableButton,
   },
   data() {
     return {

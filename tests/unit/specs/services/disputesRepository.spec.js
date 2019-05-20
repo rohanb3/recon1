@@ -9,6 +9,7 @@ import {
   uploadDisputeAttachment,
   removeDisputeAttachment,
   changeStatusDispute,
+  getDisputesCsvFile,
 } from '@/services/disputesRepository';
 
 import { RESPONSE_STATUSES } from '@/constants';
@@ -159,6 +160,25 @@ describe('disputesRepository', () => {
 
       expect(response).toEqual(data);
       expect(disputesApi.patch).toHaveBeenCalledWith(`/dispute/${disputerId}?status=${statusId}`);
+    });
+  });
+
+  describe('getDisputesCsvFile', () => {
+    it('should call api.get and return corect data', async () => {
+      const filters = {
+        offset: 0,
+        limit: 10,
+        dateFrom: '2018-01-01T00:00:00Z',
+        dateTo: '2019-03-22T23:59:59Z',
+      };
+
+      const data = { id: '777' };
+      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
+
+      const response = await getDisputesCsvFile(filters);
+
+      expect(response).toEqual(data);
+      expect(disputesApi.get).toHaveBeenCalledWith('/dispute/csv', expect.any(Object));
     });
   });
 });
