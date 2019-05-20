@@ -1,14 +1,13 @@
 <template>
   <div class="dispute-button-cell">
-    <template v-if="!isSentOrInProgressStatus">
-      <template v-if="isApprovedOrRejectedStatus">
-        <table-button class="disput-button button-blue" :title="$t('confirm')" @click="onConfirm" />
-        <table-button class="disput-button" :title="$t('resubmit')" @click="onResubmit" />
-      </template>
-      <span v-show="isConfirmApprovedStatus" class="confirmed-status">{{ $t('confirmed') }}</span>
-      <span v-show="isConfirmRejectedStatus" class="rejected-status">{{ $t('rejected') }}</span>
-      <span v-show="isResentStatus" class="resubmited-status">{{ $t('resubmited') }}</span>
+    <template v-if="isApprovedOrRejectedStatus">
+      <table-button class="disput-button button-blue" :title="$t('confirm')" @click="onConfirm" />
+      <table-button class="disput-button" :title="$t('resubmit')" @click="onResubmit" />
     </template>
+    <span v-show="isConfirmApprovedStatus" class="confirmed-status">{{ $t('confirmed') }}</span>
+    <span v-show="isConfirmRejectedStatus" class="confirmed-status">{{ $t('confirmed') }}</span>
+    <span v-show="isResentStatus" class="resubmited-status">{{ $t('resubmited') }}</span>
+    <span v-show="isSentOrInProgressStatus">{{ $t('pending') }}</span>
   </div>
 </template>
 
@@ -34,7 +33,7 @@ export default {
       return (this.item.disputeStatus || {}).id;
     },
     isSentOrInProgressStatus() {
-      return this.isSentStatus || this.isInProgressStatus;
+      return this.isSentStatus || this.isInprogressStatus;
     },
     isApprovedStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.APPROVED;

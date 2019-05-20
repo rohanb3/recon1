@@ -120,12 +120,14 @@
   "resubmission.table.enter.approve.comment.below": "To approve the dispute enter comment below:",
 
   "approve": "Approve",
+  "approved": "Approved",
   "reject": "Reject",
   "confirm": "Confirm",
   "resubmit": "Resubmit",
   "confirmed": "Confirmed",
   "resubmited": "Resubmited",
   "rejected": "Rejected",
+  "pending": "Pending",
 
   "login": "Login",
   "i.agree.to.the": "I agree to the ",

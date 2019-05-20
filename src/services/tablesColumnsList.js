@@ -230,7 +230,7 @@ export const getDisputesTableColumns = () => [
   },
   {
     name: 'disputeStatus',
-    field: 'disputeStatus.name',
+    fieldType: 'disputeStatus',
     class: 'text',
     title: i18n.t('disputes.dispute.status'),
     width: '4',

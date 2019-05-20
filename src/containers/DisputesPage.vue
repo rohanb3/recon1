@@ -84,6 +84,7 @@ import PriceCell from '@/components/tableCells/PriceCell';
 import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
 import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatusCell';
 import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
+import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
 
 import ConfirmDisputePopup from '@/components/ConfirmDisputePopup';
 
@@ -121,6 +122,7 @@ export default {
     ApproveDisputeStatusCell,
     DisputesTableToolbar,
     ConfirmDisputePopup,
+    DisputeStatusCell,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
@@ -147,6 +149,7 @@ export default {
         resubmitClaim: 'ResubmitClaimCell',
         rejectDisputeStatus: 'RejectDisputeStatusCell',
         approveDisputeStatus: 'ApproveDisputeStatusCell',
+        disputeStatus: 'DisputeStatusCell',
       },
     };
   },
