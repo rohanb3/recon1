@@ -5,7 +5,6 @@
       <div v-else class="table-title">{{ $t('disputes.title') }}</div>
       <disputes-table-toolbar :tableName="tableName" />
     </div>
-    <a @click="confirmationPopup = true">234</a>
     <wombat-table
       :items="rows"
       :columns="columns"
@@ -43,6 +42,7 @@
             :item="rowCell.item"
             :column="rowCell.column"
             @changeDisputeStatus="onChangeDisputeStatus"
+            @confirmDisputeStatus="onConfirmDisputeStatus"
           />
         </wombat-row>
       </div>
@@ -56,7 +56,12 @@
       color="blue"
       indeterminate
     ></v-progress-circular>
-    <approve-dispute-popup />
+    <confirm-dispute-popup
+      :visible-popup="isShowConfirmationPopup"
+      :dispute-info="selectedDispute"
+      @save="onChangeDisputeStatus"
+      @close="isShowConfirmationPopup = false"
+    />
   </div>
 </template>
 
@@ -80,7 +85,7 @@ import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
 import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatusCell';
 import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
 
-import ApproveDisputePopup from '@/components/ApproveDisputePopup';
+import ConfirmDisputePopup from '@/components/ConfirmDisputePopup';
 
 import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 
@@ -92,6 +97,8 @@ import { ENTITY_TYPES, ROUTE_NAMES } from '@/constants';
 import { changeStatusDispute, getDispute } from '@/services/disputesRepository';
 import { errorMessage } from '@/services/notifications';
 import { CHANGE_ITEM } from '@/store/storage/mutationTypes';
+
+import { mapState } from 'vuex';
 
 export default {
   name: 'DisputesPage',
@@ -113,13 +120,15 @@ export default {
     RejectDisputeStatusCell,
     ApproveDisputeStatusCell,
     DisputesTableToolbar,
-    ApproveDisputePopup,
+    ConfirmDisputePopup,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
     return {
       tableName: ENTITY_TYPES.DISPUTES,
-      confirmationPopup: false,
+      isShowConfirmationPopup: false,
+      disputeStatusId: false,
+      selectedDispute: {},
       headerComponentsHash: {
         default: 'DefaultHeaderCell',
         sortingHeader: 'SortingHeaderCell',
@@ -142,6 +151,12 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      profileData: state => state.loggedInUser.profileData || {},
+    }),
+    displayName() {
+      return this.profileData.displayName || '';
+    },
     columns() {
       return this.tableData.columns.filter(
         column => !column.routeName || column.routeName === this.$route.name
@@ -152,9 +167,13 @@ export default {
     },
   },
   methods: {
-    async onChangeDisputeStatus({ disputeId, statusId }) {
+    async onChangeDisputeStatus({ disputeId, statusId, comments }) {
+      this.isShowConfirmationPopup = false;
+      const userName = this.displayName;
+      const status = statusId;
+
       try {
-        await changeStatusDispute(disputeId, statusId);
+        await changeStatusDispute({ disputeId, status, userName, comments });
         const disputeInfo = await getDispute(disputeId);
         this.$store.commit(CHANGE_ITEM, {
           itemType: this.tableName,
@@ -164,6 +183,10 @@ export default {
       } catch {
         errorMessage();
       }
+    },
+    onConfirmDisputeStatus({ disputeId, statusId }) {
+      this.selectedDispute = { disputeId, statusId };
+      this.isShowConfirmationPopup = true;
     },
   },
 };

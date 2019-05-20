@@ -1,3 +1,4 @@
+import qs from 'qs';
 import apiDisputes from './disputesApi';
 
 export const getDispute = id => {
@@ -42,6 +43,7 @@ export const removeDisputeAttachment = (id, filename) => {
     .then(({ status }) => status);
 };
 
-export const changeStatusDispute = (disputeId, statusId) => {
-  return apiDisputes.patch(`/dispute/${disputeId}?status=${statusId}`).then(({ data }) => data);
+export const changeStatusDispute = ({ disputeId, ...params }) => {
+  const queryString = qs.stringify(params);
+  return apiDisputes.patch(`/dispute/${disputeId}?${queryString}`).then(({ data }) => data);
 };
