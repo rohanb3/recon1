@@ -16,7 +16,7 @@
   "orders.order.status.pending": "Pending",
   "orders.order.status.call.in.order": "CallInOrder",
 
-  "sync.orders": "Sync orders",
+  "sync.orders": "Sync orders for last 6 months",
   "sync.started": "Sync successfully initiated",
   "sync.orders.completed": "Sync orders completed",
   "sync.info": "Synchronization may take a few minutes...",

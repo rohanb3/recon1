@@ -16,7 +16,7 @@
   "orders.order.status.pending": "TBD Pending",
   "orders.order.status.call.in.order": "TBD CallInOrder",
 
-  "sync.orders": "TBD Sync orders",
+  "sync.orders": "TBD Sync orders for last 6 months",
   "sync.started": "TBD Sync successfully initiated",
   "sync.orders.completed": "TBD Sync orders completed",
   "sync.info": "TBD Synchronization may take a few minutes...",
