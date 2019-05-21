@@ -42,7 +42,8 @@
             :item="rowCell.item"
             :column="rowCell.column"
             @changeDisputeStatus="onChangeDisputeStatus"
-            @confirmDisputeStatus="onConfirmDisputeStatus"
+            @confirmApproveDisputeStatus="onConfirmApproveDisputeStatus"
+            @confirmRejectDisputeStatus="onConfirmRejectDisputeStatus"
           />
         </wombat-row>
       </div>
@@ -56,11 +57,17 @@
       color="blue"
       indeterminate
     ></v-progress-circular>
-    <confirm-dispute-popup
-      :visible-popup="isShowConfirmationPopup"
+    <confirm-approve-dispute-popup
+      :visible-popup="isShowApproveConfirmationPopup"
       :dispute-info="selectedDispute"
       @save="onChangeDisputeStatus"
-      @close="isShowConfirmationPopup = false"
+      @close="isShowApproveConfirmationPopup = false"
+    />
+    <confirm-reject-dispute-popup
+      :visible-popup="isShowRejectConfirmationPopup"
+      :dispute-info="selectedDispute"
+      @save="onChangeDisputeStatus"
+      @close="isShowRejectConfirmationPopup = false"
     />
   </div>
 </template>
@@ -86,7 +93,8 @@ import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatus
 import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
 import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
 
-import ConfirmDisputePopup from '@/components/ConfirmDisputePopup';
+import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
+import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmRejectDisputePopup';
 
 import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 
@@ -121,14 +129,16 @@ export default {
     RejectDisputeStatusCell,
     ApproveDisputeStatusCell,
     DisputesTableToolbar,
-    ConfirmDisputePopup,
+    ConfirmApproveDisputePopup,
+    ConfirmRejectDisputePopup,
     DisputeStatusCell,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
     return {
       tableName: ENTITY_TYPES.DISPUTES,
-      isShowConfirmationPopup: false,
+      isShowApproveConfirmationPopup: false,
+      isShowRejectConfirmationPopup: false,
       disputeStatusId: false,
       selectedDispute: {},
       headerComponentsHash: {
@@ -171,7 +181,8 @@ export default {
   },
   methods: {
     async onChangeDisputeStatus({ disputeId, statusId, comments }) {
-      this.isShowConfirmationPopup = false;
+      this.isShowApproveConfirmationPopup = false;
+      this.isShowRejectConfirmationPopup = false;
       const userName = this.displayName;
       const status = statusId;
 
@@ -187,9 +198,13 @@ export default {
         errorMessage();
       }
     },
-    onConfirmDisputeStatus({ disputeId, statusId }) {
+    onConfirmApproveDisputeStatus({ disputeId, statusId }) {
       this.selectedDispute = { disputeId, statusId };
-      this.isShowConfirmationPopup = true;
+      this.isShowApproveConfirmationPopup = true;
+    },
+    onConfirmRejectDisputeStatus({ disputeId, statusId }) {
+      this.selectedDispute = { disputeId, statusId };
+      this.isShowRejectConfirmationPopup = true;
     },
   },
 };

@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     onResubmit() {
-      this.$emit('confirmDisputeStatus', {
+      this.$emit('confirmApproveDisputeStatus', {
         disputeId: this.item.id,
         statusId: DISPUTE_STATUSES_ID.APPROVED,
       });
