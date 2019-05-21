@@ -3,7 +3,6 @@
     <table-filter
       :title="$t('disputes.dispute.type')"
       boundaries-selector=".disputes-table"
-      name="name"
       :items="disputeTypeList"
       :useQuickBtn="false"
       :useSearchField="false"
@@ -14,7 +13,7 @@
 
 <script>
 import TableFilter from '@/components/TableFilter';
-import { FILTER_NAMES, DISPUTE_TYPES_ID, DISPUTE_TYPES_NAME_TRANSLATION_KEYS } from '@/constants';
+import { FILTER_NAMES, DISPUTE_TYPES_ID } from '@/constants';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
 
 export default {
@@ -29,28 +28,28 @@ export default {
   components: {
     TableFilter,
   },
-  mounted() {
-    this[this.filterName] = this.initDisputeTypeList;
-  },
   data() {
     return {
       filterName: FILTER_NAMES.DISPUTE_TYPE_IDS,
-      [FILTER_NAMES.DISPUTE_TYPE_IDS]: [],
+      [FILTER_NAMES.DISPUTE_TYPE_IDS]: [
+        {
+          id: DISPUTE_TYPES_ID.ORDER_INSTALLED,
+          name: this.$t('dispute.order.installed'),
+        },
+        {
+          id: DISPUTE_TYPES_ID.EXPECTED_COMMISION,
+          name: this.$t('dispute.expected.commision'),
+        },
+        {
+          id: DISPUTE_TYPES_ID.MISSING_TRANSACTION,
+          name: this.$t('dispute.missing.transaction'),
+        },
+      ],
     };
   },
   computed: {
     disputeTypeList() {
       return this[this.filterName];
-    },
-    initDisputeTypeList() {
-      return Object.values(DISPUTE_TYPES_ID).map(id => {
-        const translationKey = DISPUTE_TYPES_NAME_TRANSLATION_KEYS[id];
-        return {
-          id,
-          name: this.$t(translationKey),
-          selected: false,
-        };
-      });
     },
   },
 };

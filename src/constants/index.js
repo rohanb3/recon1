@@ -26,12 +26,6 @@ export const DISPUTE_TYPES_ID = {
   MISSING_TRANSACTION: 'e0e82612-96d7-4602-bc24-56436a25240c',
 };
 
-export const DISPUTE_TYPES_NAME_TRANSLATION_KEYS = {
-  [DISPUTE_TYPES_ID.ORDER_INSTALLED]: 'dispute.order.installed',
-  [DISPUTE_TYPES_ID.EXPECTED_COMMISION]: 'dispute.expected.commision',
-  [DISPUTE_TYPES_ID.MISSING_TRANSACTION]: 'dispute.missing.transaction',
-};
-
 export const ORDER_STATUSES_NAME = {
   NOT_INSTALLED: 'Not Installed',
   INSTALLED: 'Installed',
