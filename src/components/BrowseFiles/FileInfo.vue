@@ -5,9 +5,7 @@
       <v-icon class="file-icon" v-if="!pictureLink">attach_file</v-icon>
     </div>
     <div class="file-info-describe">
-      <span class="file-info-describe-name" :title="filename | decodeURI">{{
-        filename | decodeURI
-      }}</span>
+      <span class="file-info-describe-name" :title="filename | URL">{{ filename | URL }}</span>
       <span class="file-info-describe-size" v-show="fileSize">{{ fileSize }}</span>
     </div>
     <v-icon
@@ -22,7 +20,7 @@
 </template>
 
 <script>
-import decodeURI from '@/filters/decodeURI';
+import URL from '@/filters/URL';
 
 export default {
   name: 'FileInfo',
@@ -40,7 +38,7 @@ export default {
     },
   },
   filters: {
-    decodeURI,
+    URL,
   },
   data() {
     return {
