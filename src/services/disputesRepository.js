@@ -1,4 +1,5 @@
 import apiDisputes from './disputesApi';
+import { paramsSerializer } from '@/services/repositoryUtils';
 
 export const getDispute = id => {
   return apiDisputes.get(`/dispute/${id}`).then(({ data }) => data);
@@ -6,7 +7,7 @@ export const getDispute = id => {
 
 export const getDisputes = filters => {
   const params = { ...filters };
-  return apiDisputes.get('/dispute', { params }).then(({ data }) => data);
+  return apiDisputes.get('/dispute', { params, paramsSerializer }).then(({ data }) => data);
 };
 
 export const createDispute = orderId => {

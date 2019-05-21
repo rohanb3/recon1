@@ -1,18 +1,23 @@
 <template>
   <div class="disputes-table-toolbar">
     <quick-search-disputes-filter :tableName="tableName" />
+    <div class="table-filter-container">
+      <dispute-type-filter :tableName="tableName" />
+    </div>
     <v-spacer></v-spacer>
   </div>
 </template>
 
 <script>
 import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
+import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
 import { ENTITY_TYPES } from '@/constants';
 
 export default {
   name: 'DisputesTableToolbar',
   components: {
     QuickSearchDisputesFilter,
+    DisputeTypeFilter,
   },
   data() {
     return {
@@ -23,7 +28,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/styles/variables.scss';
+@import '@/assets/styles/variables.scss';
+@import '@/assets/styles/mixins.scss';
 
 .disputes-table-toolbar {
   display: flex;
@@ -50,5 +56,9 @@ export default {
       border-radius: 3px;
     }
   }
+}
+
+.table-filter-container /deep/ {
+  @include table-filter-container;
 }
 </style>

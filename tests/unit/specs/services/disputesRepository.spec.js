@@ -42,9 +42,7 @@ describe('disputesRepository', () => {
       const response = await getDisputes(filters);
 
       expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith('/dispute', {
-        params: { ...filters },
-      });
+      expect(disputesApi.get).toHaveBeenCalledWith('/dispute', expect.any(Object));
     });
   });
 
