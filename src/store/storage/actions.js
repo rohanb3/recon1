@@ -85,12 +85,9 @@ export default {
     try {
       if (!syncOrdersIntervalId) {
         const taskId = await orderSync(dateRange);
-        syncOrdersIntervalId = setInterval(
-          dispatch,
-          config.orderSyncPollingTimeout,
-          POLLING_ORDER_SYNC,
-          taskId
-        );
+        syncOrdersIntervalId = setInterval(() => {
+          dispatch(POLLING_ORDER_SYNC, taskId);
+        }, config.orderSyncPollingTimeout);
       }
     } catch {
       commit(SET_SYNC_ORDERS_STATUS, ORDER_SYNC_STATUS.ERROR);
