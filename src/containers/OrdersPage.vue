@@ -88,12 +88,9 @@ import { getOrdersCsvFile } from '@/services/ordersRepository';
 import { ENTITY_TYPES, TABLE_СOLUMN_ID_NAMES } from '@/constants';
 import { generateCSVFile } from '@/services/utils';
 
-import { SYNC_ORDERS } from '@/store/storage/actionTypes';
+import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
 
 import { successMessage } from '@/services/notifications';
-import moment from 'moment';
-
-const LAST_SIX_MONTHS = 6;
 
 export default {
   name: 'OrdersPage',
@@ -139,17 +136,7 @@ export default {
   },
   methods: {
     onSyncOrders() {
-      this.$store.dispatch(SYNC_ORDERS, {
-        syncOrderFromDate: moment
-          .utc()
-          .subtract(LAST_SIX_MONTHS, 'month')
-          .startOf('day')
-          .format(),
-        syncOrderToDate: moment
-          .utc()
-          .endOf('day')
-          .format(),
-      });
+      this.$store.dispatch(START_SYNC_ORDERS);
       successMessage('sync.started', 'sync.info');
     },
     async onExportToCsvFile() {

@@ -1,5 +1,5 @@
 <template>
-  <div>{{ syncOrderStatus }}fff</div>
+  <div>{{ syncOrderStatus }}</div>
 </template>
 
 <script>

@@ -10,6 +10,8 @@ import {
   UPDATE_ITEM,
   DELETE_ITEM,
   SYNC_ORDERS,
+  POLLING_ORDER_SYNC,
+  START_SYNC_ORDERS,
 } from '@/store/storage/actionTypes';
 
 import {
@@ -24,7 +26,7 @@ import {
 import * as repositoryHelper from '@/store/storage/repositoryHelper';
 import * as ordersRepository from '@/services/ordersRepository';
 
-import { ORDER_SYNC_STATUS } from '@/constants';
+import { ORDER_SYNC_STATUS, ENTITY_TYPES } from '@/constants';
 
 const itemType = 'SOME_TYPE';
 
@@ -220,6 +222,52 @@ describe('storage actions: ', () => {
         SET_SYNC_ORDERS_STATUS,
         ORDER_SYNC_STATUS.ERROR
       );
+    });
+  });
+
+  describe('POLLING_ORDER_SYNC: ', () => {
+    it('should start polling and check status order sync', async () => {
+      const taskId = '28fec555-817d-4ded-a3cf-1f74c01dcb30';
+      const fakeStore = {
+        commit: jest.fn(),
+        dispatch: jest.fn(),
+        rootState: {
+          tables: {
+            [ENTITY_TYPES.ORDERS]: {
+              filters: {},
+            },
+          },
+        },
+      };
+
+      ordersRepository.checkOrderSync = jest.fn(() => Promise.resolve(ORDER_SYNC_STATUS.FINISHED));
+
+      const clearIntervalSpy = jest.spyOn(window, 'clearInterval');
+
+      await actions[POLLING_ORDER_SYNC](fakeStore, taskId);
+
+      expect(fakeStore.dispatch).toHaveBeenCalledWith(LOAD_ITEMS, {
+        itemType: ENTITY_TYPES.ORDERS,
+        filters: fakeStore.rootState.tables[ENTITY_TYPES.ORDERS].filters,
+      });
+      expect(ordersRepository.checkOrderSync).toHaveBeenCalledWith(taskId);
+      expect(fakeStore.commit).toHaveBeenCalledWith(
+        SET_SYNC_ORDERS_STATUS,
+        ORDER_SYNC_STATUS.FINISHED
+      );
+      expect(clearIntervalSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('START_SYNC_ORDERS', () => {
+    it('should start status sync orders', async () => {
+      const fakeStore = {
+        dispatch: jest.fn(),
+      };
+
+      await actions[START_SYNC_ORDERS](fakeStore);
+
+      expect(fakeStore.dispatch).toHaveBeenCalledWith(SYNC_ORDERS, expect.any(Object));
     });
   });
 });
