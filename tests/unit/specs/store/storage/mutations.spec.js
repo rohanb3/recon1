@@ -7,6 +7,7 @@ import {
   SET_ALL_ITEMS_LOADED,
   CHANGE_ITEM,
   REMOVE_ITEM,
+  SET_SYNC_ORDERS_STATUS,
 } from '@/store/storage/mutationTypes';
 import { ENTITY_TYPES } from '@/constants';
 
@@ -174,6 +175,18 @@ describe('storage mutations: ', () => {
       mutations[REMOVE_ITEM](state, { itemType: ENTITY_TYPES.ORDERS, id: 20 });
 
       expect(vueSpy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('SET_SYNC_ORDERS_STATUS: ', () => {
+    it('should set sync review status', () => {
+      const state = {
+        [ENTITY_TYPES.ORDERS]: {
+          syncOrdersStatus: null,
+        },
+      };
+      mutations[SET_SYNC_ORDERS_STATUS](state, true);
+      expect(state[ENTITY_TYPES.ORDERS].syncOrdersStatus).toBeTruthy();
     });
   });
 });

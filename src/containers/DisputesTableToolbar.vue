@@ -5,12 +5,14 @@
       <dispute-type-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
+    <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
   </div>
 </template>
 
 <script>
 import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
+import TableButton from '@/components/TableButton';
 import { ENTITY_TYPES } from '@/constants';
 
 export default {
@@ -18,6 +20,7 @@ export default {
   components: {
     QuickSearchDisputesFilter,
     DisputeTypeFilter,
+    TableButton,
   },
   data() {
     return {

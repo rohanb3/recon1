@@ -46,3 +46,8 @@ export const removeDisputeAttachment = (id, filename) => {
 export const changeStatusDispute = (disputeId, statusId) => {
   return apiDisputes.patch(`/dispute/${disputeId}?status=${statusId}`).then(({ data }) => data);
 };
+
+export const getDisputesCsvFile = filters => {
+  const params = { ...filters };
+  return apiDisputes.get('/dispute/csv', { params, paramsSerializer }).then(({ data }) => data);
+};
