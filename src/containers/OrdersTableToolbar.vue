@@ -5,12 +5,14 @@
       <order-status-filter :table-name="tableName" />
     </div>
     <v-spacer></v-spacer>
+    <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
   </div>
 </template>
 
 <script>
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import OrderStatusFilter from '@/containers/OrderStatusFilter';
+import TableButton from '@/components/TableButton';
 import { ENTITY_TYPES } from '@/constants';
 
 export default {
@@ -18,6 +20,7 @@ export default {
   components: {
     QuickSearchFilter,
     OrderStatusFilter,
+    TableButton,
   },
   data() {
     return {
