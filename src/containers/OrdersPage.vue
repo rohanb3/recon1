@@ -2,7 +2,11 @@
   <div class="orders-table">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('orders.select.order') }}</div>
-      <orders-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
+      <orders-table-toolbar
+        :tableName="tableName"
+        @exportToCsvFile="onExportToCsvFile"
+        @syncOrders="onSyncOrders"
+      />
     </div>
     <wombat-table
       :items="rows"
@@ -84,6 +88,10 @@ import { getOrdersCsvFile } from '@/services/ordersRepository';
 import { ENTITY_TYPES, TABLE_СOLUMN_ID_NAMES } from '@/constants';
 import { generateCSVFile } from '@/services/utils';
 
+import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
+
+import { successMessage } from '@/services/notifications';
+
 export default {
   name: 'OrdersPage',
   components: {
@@ -127,6 +135,10 @@ export default {
     },
   },
   methods: {
+    onSyncOrders() {
+      this.$store.dispatch(START_SYNC_ORDERS);
+      successMessage('sync.started', 'sync.info');
+    },
     async onExportToCsvFile() {
       const CSVFile = await getOrdersCsvFile(this.filters);
       generateCSVFile(CSVFile, this.tableName);

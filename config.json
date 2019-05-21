@@ -1,3 +1,4 @@
 {
-  "linkPrivacyPolicy":"https://xyzreviews.com/privacy-policy/"
+  "linkPrivacyPolicy":"https://xyzreviews.com/privacy-policy/",
+  "orderSyncPollingTimeout": 5000
 }
