@@ -2,7 +2,11 @@
   <div class="orders-table">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('orders.select.order') }}</div>
-      <orders-table-toolbar :tableName="tableName" @syncOrders="onSyncOrders" />
+      <orders-table-toolbar
+        :tableName="tableName"
+        @exportToCsvFile="onExportToCsvFile"
+        @syncOrders="onSyncOrders"
+      />
     </div>
     <wombat-table
       :items="rows"
@@ -79,7 +83,10 @@ import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 
+import { getOrdersCsvFile } from '@/services/ordersRepository';
+
 import { ENTITY_TYPES, TABLE_СOLUMN_ID_NAMES } from '@/constants';
+import { generateCSVFile } from '@/services/utils';
 
 import { SYNC_ORDERS } from '@/store/storage/actionTypes';
 
@@ -144,6 +151,10 @@ export default {
           .format(),
       });
       successMessage('sync.started', 'sync.info');
+    },
+    async onExportToCsvFile() {
+      const CSVFile = await getOrdersCsvFile(this.filters);
+      generateCSVFile(CSVFile, this.tableName);
     },
   },
 };

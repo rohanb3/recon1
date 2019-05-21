@@ -5,6 +5,7 @@ import {
   getOrderStatusList,
   orderSync,
   checkOrderSync,
+  getOrdersCsvFile,
 } from '@/services/ordersRepository';
 import { paramsSerializer } from '@/services/repositoryUtils';
 
@@ -86,6 +87,25 @@ describe('ordersRepository', () => {
 
       expect(response).toEqual(taskId);
       expect(disputesApi.get).toHaveBeenCalledWith(`/ordersync/${taskId}`);
+    });
+  });
+
+  describe('getOrdersCsvFile', () => {
+    it('should call api.get and return corect data', async () => {
+      const filters = {
+        offset: 0,
+        limit: 10,
+        dateFrom: '2018-01-01T00:00:00Z',
+        dateTo: '2019-03-22T23:59:59Z',
+      };
+
+      const data = { id: '777' };
+      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
+
+      const response = await getOrdersCsvFile(filters);
+
+      expect(response).toEqual(data);
+      expect(disputesApi.get).toHaveBeenCalledWith('/order/csv', expect.any(Object));
     });
   });
 });

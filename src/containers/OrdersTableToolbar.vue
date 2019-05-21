@@ -10,6 +10,7 @@
       :title="$t('sync.orders')"
       @click="$emit('syncOrders')"
     />
+    <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
   </div>
 </template>
 

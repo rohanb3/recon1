@@ -21,3 +21,8 @@ export const orderSync = dateRange => {
 export const checkOrderSync = taskId => {
   return apiDisputes.get(`/ordersync/${taskId}`).then(({ data }) => data);
 };
+
+export const getOrdersCsvFile = filters => {
+  const params = { ...filters };
+  return apiDisputes.get('/order/csv', { params, paramsSerializer }).then(({ data }) => data);
+};
