@@ -3,7 +3,7 @@
     <div class="table-toolbar">
       <div v-if="isResubmissionTable" class="table-title">{{ $t('resubmission.table.title') }}</div>
       <div v-else class="table-title">{{ $t('disputes.title') }}</div>
-      <disputes-table-toolbar :tableName="tableName" />
+      <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
     </div>
     <wombat-table
       :items="rows"
@@ -103,9 +103,10 @@ import lazyLoadTable from '@/mixins/lazyLoadTable';
 
 import { ENTITY_TYPES, ROUTE_NAMES } from '@/constants';
 
-import { changeStatusDispute, getDispute } from '@/services/disputesRepository';
+import { changeStatusDispute, getDispute, getDisputesCsvFile } from '@/services/disputesRepository';
 import { errorMessage } from '@/services/notifications';
 import { CHANGE_ITEM } from '@/store/storage/mutationTypes';
+import { generateCSVFile } from '@/services/utils';
 
 import { mapState } from 'vuex';
 
@@ -205,6 +206,10 @@ export default {
     onConfirmRejectDisputeStatus({ disputeId, statusId }) {
       this.selectedDispute = { disputeId, statusId };
       this.isShowRejectConfirmationPopup = true;
+    },
+    async onExportToCsvFile() {
+      const CSVFile = await getDisputesCsvFile(this.filters);
+      generateCSVFile(CSVFile, this.tableName);
     },
   },
 };

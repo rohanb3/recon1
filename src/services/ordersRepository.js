@@ -13,3 +13,8 @@ export const getServiceList = () => {
 export const getOrderStatusList = () => {
   return apiDisputes.get('/order/status').then(({ data }) => data);
 };
+
+export const getOrdersCsvFile = filters => {
+  const params = { ...filters };
+  return apiDisputes.get('/order/csv', { params, paramsSerializer }).then(({ data }) => data);
+};

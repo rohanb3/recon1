@@ -1,5 +1,6 @@
 import qs from 'qs';
 import apiDisputes from './disputesApi';
+import { paramsSerializer } from '@/services/repositoryUtils';
 
 export const getDispute = id => {
   return apiDisputes.get(`/dispute/${id}`).then(({ data }) => data);
@@ -46,4 +47,9 @@ export const removeDisputeAttachment = (id, filename) => {
 export const changeStatusDispute = ({ disputeId, ...params }) => {
   const queryString = qs.stringify(params);
   return apiDisputes.patch(`/dispute/${disputeId}?${queryString}`).then(({ data }) => data);
+};
+
+export const getDisputesCsvFile = filters => {
+  const params = { ...filters };
+  return apiDisputes.get('/dispute/csv', { params, paramsSerializer }).then(({ data }) => data);
 };

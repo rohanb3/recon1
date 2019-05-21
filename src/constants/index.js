@@ -92,6 +92,7 @@ export const ROUTE_NAMES = {
   DISPUTE_LIST: 'dispute-list',
   RESUBMISSION_TABLE: 'resubmission-table',
   LOGIN: 'login',
+  LOGOUT: 'logout',
   PASSWORD_RECOVERY: 'password-recovery',
   VERIFICATION_CODE: 'verification-code',
   RESET_PASSWORD: 'reset-password',
