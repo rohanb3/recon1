@@ -4,6 +4,7 @@
     <div class="table-filter-container">
       <order-status-filter :table-name="tableName" />
     </div>
+    <order-age-filter :table-name="tableName" />
     <v-spacer></v-spacer>
   </div>
 </template>
@@ -11,6 +12,7 @@
 <script>
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import OrderStatusFilter from '@/containers/OrderStatusFilter';
+import OrderAgeFilter from './OrderAgeFilter';
 import { ENTITY_TYPES } from '@/constants';
 
 export default {
@@ -18,6 +20,7 @@ export default {
   components: {
     QuickSearchFilter,
     OrderStatusFilter,
+    OrderAgeFilter,
   },
   data() {
     return {

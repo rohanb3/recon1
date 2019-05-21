@@ -57,7 +57,7 @@
   "dispute.order.installed": "TBD Order was installed but commision is not received",
   "dispute.are.you.sure": "TBD Are you sure?",
   "dispute.if.you.close.this.page": "TBD Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
-  
+
   "file.is.too.big": "TBD File is too big",
   "failed.to.upload.file": "TBD Failed to upload file",
 
@@ -68,7 +68,6 @@
   "field.must.consist.only.letters": "TBD This field must consist only letters",
   "field.must.consist.only.digits": "TBD This field must consist only digits",
   "field.must.consist.only.capital.letter": "TBD This field must consist only capital letter",
-  
 
   "cancel": "TBD Cancel",
   "save.as.draft": "TBD Save as Draft",
@@ -121,6 +120,9 @@
   "confirmed": "TBD Confirmed",
   "resubmited": "TBD Resubmited",
 
+  "validation.rule.rage.negative": "TBD To value should be greater that from",
+  "validation.rule.number.too.small": "TBD Value should be greater than %{min}",
+
   "login": "TBD Login",
   "i.agree.to.the": "TBD I agree to the ",
   "terms.and.conditions": "TBD Terms and Conditions",
@@ -155,5 +157,7 @@
   "profile": "TBD Profile",
   "log.out": "TBD Log Out",
   "email": "TBD Email",
-  "password": "TBD Password"
+  "password": "TBD Password",
+  "from": "TBD from",
+  "to": "TBD to"
 }

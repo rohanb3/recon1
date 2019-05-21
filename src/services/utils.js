@@ -58,3 +58,7 @@ export function imageEncode(arrayBuffer) {
 
   return `data:image/jpeg;base64,${b64encoded}`;
 }
+
+export function notEmpty(value) {
+  return value !== undefined && value !== null && value !== '';
+}

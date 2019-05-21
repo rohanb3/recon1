@@ -57,7 +57,7 @@
   "dispute.order.installed": "Order was installed but commision is not received",
   "dispute.are.you.sure": "Are you sure?",
   "dispute.if.you.close.this.page": "Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
-  
+
   "file.is.too.big": "File is too big",
   "failed.to.upload.file": "Failed to upload file",
 
@@ -68,7 +68,6 @@
   "field.must.consist.only.letters": "This field must consist only letters",
   "field.must.consist.only.digits": "This field must consist only digits",
   "field.must.consist.only.capital.letter": "This field must consist only capital letter",
-  
 
   "cancel": "Cancel",
   "save.as.draft": "Save as Draft",
@@ -121,6 +120,9 @@
   "confirmed": "Confirmed",
   "resubmited": "Resubmited",
 
+  "validation.rule.rage.negative": "To value should be greater that from",
+  "validation.rule.number.too.small": "Value should be greater than %{min}",
+
   "login": "Login",
   "i.agree.to.the": "I agree to the ",
   "terms.and.conditions": "Terms and Conditions",
@@ -155,5 +157,7 @@
   "profile": "Profile",
   "log.out": "Log Out",
   "email": "Email",
-  "password": "Password"
+  "password": "Password",
+  "from": "from",
+  "to": "to"
 }
