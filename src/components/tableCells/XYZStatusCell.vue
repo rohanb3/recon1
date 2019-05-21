@@ -4,8 +4,9 @@
       <table-button class="disput-button button-blue" :title="$t('confirm')" @click="onConfirm" />
       <table-button class="disput-button" :title="$t('resubmit')" @click="onResubmit" />
     </template>
-    <span v-show="isConfirmApprovedStatus" class="confirmed-status">{{ $t('confirmed') }}</span>
-    <span v-show="isConfirmRejectedStatus" class="confirmed-status">{{ $t('confirmed') }}</span>
+    <span v-show="isConfirmRejectedOrConfirmApprovedStatus" class="confirmed-status">{{
+      $t('confirmed')
+    }}</span>
     <span v-show="isResentStatus" class="resubmited-status">{{ $t('resubmited') }}</span>
     <span v-show="isSentOrInProgressStatus">{{ $t('pending') }}</span>
   </div>
@@ -49,6 +50,9 @@ export default {
         return DISPUTE_STATUSES_ID.CONFIRM_APPROVED;
       }
       return DISPUTE_STATUSES_ID.CONFIRM_REJECTED;
+    },
+    isConfirmRejectedOrConfirmApprovedStatus() {
+      return this.isConfirmApprovedStatus || this.isConfirmRejectedStatus;
     },
   },
   methods: {
