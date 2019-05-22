@@ -44,7 +44,7 @@ export default () => [
   },
   {
     name: 'orderStatus',
-    field: 'status.statusName',
+    field: 'status.orderStatusName',
     fieldType: 'orderStatus',
     class: 'text',
     title: i18n.t('orders.order.status'),
