@@ -6,7 +6,10 @@ import {
   RESET_ITEMS,
   SET_ALL_ITEMS_LOADED,
   SET_ITEMS_TOTAL,
+  SET_SYNC_ORDERS_STATUS,
 } from './mutationTypes';
+
+import { ENTITY_TYPES } from '@/constants';
 
 export default {
   /* eslint-disable no-param-reassign */
@@ -35,6 +38,9 @@ export default {
   },
   [SET_ITEMS_TOTAL](state, { itemType, total = 0 }) {
     state[itemType].total = total;
+  },
+  [SET_SYNC_ORDERS_STATUS](state, status) {
+    state[ENTITY_TYPES.ORDERS].syncOrdersStatus = status;
   },
   /* eslint-enable no-param-reassign */
 };

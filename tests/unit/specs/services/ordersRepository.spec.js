@@ -3,6 +3,8 @@ import {
   getOrders,
   getServiceList,
   getOrderStatusList,
+  orderSync,
+  checkOrderSync,
   getOrdersCsvFile,
 } from '@/services/ordersRepository';
 import { paramsSerializer } from '@/services/repositoryUtils';
@@ -54,6 +56,37 @@ describe('ordersRepository', () => {
 
       expect(response).toEqual(data);
       expect(disputesApi.get).toHaveBeenCalledWith('/order/status');
+    });
+  });
+
+  describe('orderSync', () => {
+    it('should call api.post and return correct data', async () => {
+      const dateRange = {
+        syncOrderFromDate: '2018-11-20T00:00:00Z',
+        syncOrderToDate: '2019-05-20T23:59:59Z',
+      };
+
+      const taskId = '28fec555-817d-4ded-a3cf-1f74c01dcb30';
+
+      disputesApi.post = jest.fn(() => Promise.resolve({ data: taskId }));
+
+      const response = await orderSync(dateRange);
+
+      expect(response).toEqual(taskId);
+      expect(disputesApi.post).toHaveBeenCalledWith('/ordersync', dateRange);
+    });
+  });
+
+  describe('checkOrderSync', () => {
+    it('should call api.get and return correct data', async () => {
+      const taskId = '28fec555-817d-4ded-a3cf-1f74c01dcb30';
+
+      disputesApi.get = jest.fn(() => Promise.resolve({ data: taskId }));
+
+      const response = await checkOrderSync(taskId);
+
+      expect(response).toEqual(taskId);
+      expect(disputesApi.get).toHaveBeenCalledWith(`/ordersync/${taskId}`);
     });
   });
 

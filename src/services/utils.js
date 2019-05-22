@@ -60,8 +60,12 @@ export function imageEncode(arrayBuffer) {
 }
 
 export function generateCSVFile(CSVFile, fileName = 'report') {
-  const download = document.createElement('a');
-  download.setAttribute('href', `data:text/csv;charset=utf-8,${encodeURIComponent(CSVFile)}`);
-  download.setAttribute('download', `${fileName}.csv`);
-  download.click();
+  const csvData = new Blob([CSVFile], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(csvData);
+  link.setAttribute('download', `${fileName}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  URL.revokeObjectURL(link.href);
+  document.body.removeChild(link);
 }

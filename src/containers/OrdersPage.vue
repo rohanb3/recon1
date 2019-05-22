@@ -2,7 +2,11 @@
   <div class="orders-table">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('orders.select.order') }}</div>
-      <orders-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
+      <orders-table-toolbar
+        :tableName="tableName"
+        @exportToCsvFile="onExportToCsvFile"
+        @syncOrders="onSyncOrders"
+      />
     </div>
     <wombat-table
       :items="rows"
@@ -84,6 +88,10 @@ import { ENTITY_TYPES, TABLE_COLUMN_ID_NAMES } from '@/constants';
 import { getOrdersCsvFile } from '@/services/ordersRepository';
 import { generateCSVFile } from '@/services/utils';
 
+import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
+
+import { successMessage } from '@/services/notifications';
+
 export default {
   name: 'OrdersPage',
   components: {
@@ -120,6 +128,7 @@ export default {
         price: 'PriceCell',
         recievedComisson: 'RecievedComissonCell',
         disputeButton: 'DisputeButtonCell',
+        orderDifference: 'DifferenceComissonCell',
       },
     };
   },
@@ -129,6 +138,10 @@ export default {
     },
   },
   methods: {
+    onSyncOrders() {
+      this.$store.dispatch(START_SYNC_ORDERS);
+      successMessage('sync.started', 'sync.info');
+    },
     async onExportToCsvFile() {
       const CSVFile = await getOrdersCsvFile(this.filters);
       generateCSVFile(CSVFile, this.tableName);
@@ -159,6 +172,7 @@ export default {
 
 .orders-table /deep/ {
   .virtual-list {
+    height: 100vh;
     max-height: calc(
       100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
     );

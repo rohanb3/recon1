@@ -1,114 +1,7 @@
 import i18n from '@/i18n';
+import { TABLE_DISPUTE_СOLUMNS_SORTED, ROUTE_NAMES } from '@/constants';
 
-import { TABLE_COLUMNS_SORTED, ROUTE_NAMES } from '@/constants';
-
-export const getOrdersTableColumns = () => [
-  {
-    name: 'ordersNumber',
-    field: 'orderNumber',
-    fieldType: 'orderNumber',
-    class: 'text',
-    title: i18n.t('orders.number'),
-    width: '4',
-    minWidth: '90px',
-  },
-  {
-    name: 'accountNumber',
-    field: 'accountNumber',
-    class: 'text',
-    title: i18n.t('orders.account.number'),
-    width: '6',
-    minWidth: '70px',
-  },
-  {
-    name: 'serviceName',
-    field: 'sevice.bundleName',
-    class: 'text',
-    title: i18n.t('orders.service.name'),
-    width: '15',
-    minWidth: '65px',
-  },
-  {
-    name: 'orderedUnits',
-    field: 'orderedUnits',
-    class: 'text',
-    title: i18n.t('orders.ordered.units'),
-    width: '4',
-    minWidth: '70px',
-  },
-  {
-    name: 'installedUnits',
-    field: 'installedUnits',
-    class: 'text',
-    title: i18n.t('orders.installed.units'),
-    width: '4',
-    minWidth: '75px',
-  },
-  {
-    name: 'orderStatus',
-    field: 'status.statusName',
-    fieldType: 'orderStatus',
-    class: 'text',
-    title: i18n.t('orders.order.status'),
-    width: '5',
-    minWidth: '60px',
-  },
-  {
-    name: 'creationAge',
-    field: 'creationAge',
-    fieldType: 'creationAge',
-    class: 'text',
-    title: i18n.t('orders.age.after.order'),
-    width: '4',
-    minWidth: '90px',
-  },
-  {
-    name: 'installationAge',
-    field: 'installationAge',
-    fieldType: 'installationAge',
-    class: 'text',
-    title: i18n.t('orders.age.after.installation'),
-    width: '5',
-    minWidth: '90px',
-  },
-  {
-    name: 'expectedComission',
-    field: 'expectedComission',
-    fieldType: 'price',
-    class: 'text',
-    title: i18n.t('orders.expected.comission'),
-    width: '5',
-    minWidth: '85px',
-  },
-  {
-    name: 'recevedComission',
-    fieldType: 'recievedComisson',
-    class: 'text',
-    title: i18n.t('orders.recieved.comisson'),
-    width: '5',
-    minWidth: '85px',
-  },
-  {
-    name: 'orderDifference',
-    fieldType: 'differenceComisson',
-    class: 'text',
-    title: i18n.t('orders.difference'),
-    width: '4',
-    minWidth: '85px',
-  },
-  {
-    name: 'newDisputeButton',
-    fieldType: 'disputeButton',
-    class: 'text',
-    title: i18n.t('orders.new.dispute'),
-    width: '5',
-    minWidth: '105px',
-    sortingFieldName: TABLE_COLUMNS_SORTED.DISPUTE_STATUS,
-    fieldHeaderType: 'sortingHeader',
-  },
-];
-
-export const getDisputesTableColumns = () => [
+export default () => [
   {
     name: 'disputesId',
     field: 'id',
@@ -116,6 +9,8 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.id'),
     width: '4',
     minWidth: '16px',
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.ID,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'fiscalPeriod',
@@ -124,6 +19,8 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.fiscal.period'),
     width: '4',
     minWidth: '16px',
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.FISCAL_PERIOD,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'accountNumber',
@@ -132,6 +29,8 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.account.number'),
     width: '3',
     minWidth: '16px',
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.ACCOUNT_NUMBER,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'expectedComission',
@@ -141,6 +40,8 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.expected.comission'),
     width: '3',
     minWidth: '16px',
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.EXPECTED_COMISSION,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'recievedComisson',
@@ -149,6 +50,8 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.recieved.comisson'),
     width: '3',
     minWidth: '16px',
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.RECEIVED_COMISSION,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'differenceComisson',
@@ -157,6 +60,8 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.difference'),
     width: '4',
     minWidth: '16px',
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.DIFFERENCE,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'creatorName',
@@ -165,6 +70,8 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.disput.creator.name'),
     width: '4',
     minWidth: '16px',
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.CREATOR_NAME,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'creationDate',
@@ -174,6 +81,8 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.disput.creation.date'),
     width: '4',
     minWidth: '30px',
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.CREATION_DATE,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'serviceName',
@@ -182,6 +91,8 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.service.name'),
     width: '4',
     minWidth: '16px',
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.SERVICE_NAME,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'disputeType',
@@ -190,6 +101,8 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.dispute.type'),
     width: '4',
     minWidth: '16px',
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.TYPE,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'ageAfterOrder',
@@ -199,6 +112,8 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.age.after.order'),
     width: '4',
     minWidth: '30px',
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.AGE_AFTER_ORDER,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'ageAfterInstallation',
@@ -208,6 +123,8 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.age.after.installation'),
     width: '4',
     minWidth: '16px',
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.AGE_AFTER_INSTALLATION,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'ageAfterDispute',
@@ -217,6 +134,8 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.age.after.disput'),
     width: '4',
     minWidth: '30px',
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.AGE_AFTER_DISPUT,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'xyzStatus',
@@ -235,6 +154,8 @@ export const getDisputesTableColumns = () => [
     title: i18n.t('disputes.dispute.status'),
     width: '4',
     minWidth: '30px',
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.STATUS,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'disputeStatusDescription',
@@ -244,6 +165,8 @@ export const getDisputesTableColumns = () => [
     width: '4',
     minWidth: '30px',
     routeName: ROUTE_NAMES.DISPUTE_LIST,
+    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.STATUS_DESCRIPTION,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'resubmitClaim',
