@@ -62,10 +62,36 @@ export const SORTING_DIRECTION = {
   ASC: 'asc',
 };
 
-export const TABLE_СOLUMNS_SORTED = {
-  ORDER_NUMBER: 'ordernumber',
+export const TABLE_ORDER_СOLUMNS_SORTED = {
+  NUMBER: 'ordernumber',
   ACCOUNT_NUMBER: 'accountnumber',
   DISPUTE_STATUS: 'disputeStatus',
+  UNITS: 'orderedUnits',
+  STATUS: 'statusName',
+  AGE_AFTER: 'creationAge',
+  INSTALLATION_AGE: 'installationAge',
+  EXPECTED_COMISSION: 'expectedComission',
+  RECIEVED_COMISSON: 'recevedComission',
+  DIFFERENCE: 'difference',
+};
+
+export const TABLE_DISPUTE_СOLUMNS_SORTED = {
+  ID: 'id',
+  FISCAL_PERIOD: 'fiscalPeriod',
+  ACCOUNT_NUMBER: 'accountNumber',
+  EXPECTED_COMISSION: 'expectedcomission',
+  RECEIVED_COMISSION: 'recevedСomission',
+  DIFFERENCE: 'difference',
+  CREATOR_NAME: 'creatorName',
+  CREATION_DATE: 'disputecreationdate',
+  SERVICE_NAME: 'serviceName',
+  TYPE: 'disputeType',
+  AGE_AFTER_ORDER: 'ageAfterOrder',
+  AGE_AFTER_INSTALLATION: 'ageAfterInstallation',
+  AGE_AFTER_DISPUT: 'ageAfterDispute',
+  XYZ_STATUS: 'xyzStatus',
+  STATUS: 'disputeStatus',
+  STATUS_DESCRIPTION: 'disputeStatusDescription',
 };
 
 export const ENTITY_TYPES = {
@@ -76,7 +102,7 @@ export const ENTITY_TYPES = {
 export const FILTER_NAMES = {
   SEARCH_ORDERS: 'Search',
   SEARCH_DISPUTES: 'SearchPhrase',
-  SORT: 'sort',
+  SORT: 'SortBy',
   ORDER: 'SortOrder',
   ORDER_STATUS: 'OrderStatusIds',
   DISPUTE_TYPE_IDS: 'DisputeTypeIds',
