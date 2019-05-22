@@ -1,15 +1,13 @@
 <template>
   <div class="difference-comisson-cell">
     <span
-      v-if="!isUnknowComission"
       :class="{
         'positive-difference': isPositiveDifference,
         'negative-difference': isNegativeDifference,
         'equal-zero-difference': isEqualZeroDifference,
       }"
-      >{{ unsignedDifferenceСomission | currency }}</span
+      >{{ unsignedDifferenceComission | currency }}</span
     >
-    <span v-else>-</span>
   </div>
 </template>
 
@@ -27,29 +25,26 @@ export default {
     currency,
   },
   computed: {
-    isUnknowComission() {
-      return this.item.expectedComission === null || this.item.recevedСomission === null;
-    },
     expectedComission() {
       return this.item.expectedComission ? parseFloat(this.item.expectedComission) : 0;
     },
-    recevedСomission() {
-      return this.item.recevedСomission ? parseFloat(this.item.recevedСomission) : 0;
+    recevedComission() {
+      return this.item.recevedComission ? parseFloat(this.item.recevedComission) : 0;
     },
-    unsignedDifferenceСomission() {
-      return Math.abs(this.differenceСomission);
+    unsignedDifferenceComission() {
+      return Math.abs(this.differenceComission);
     },
-    differenceСomission() {
-      return this.expectedComission - this.recevedСomission;
+    differenceComission() {
+      return this.expectedComission - this.recevedComission;
     },
     isPositiveDifference() {
-      return this.differenceСomission > 0;
+      return this.differenceComission > 0;
     },
     isEqualZeroDifference() {
-      return this.differenceСomission === 0;
+      return this.differenceComission === 0;
     },
     isNegativeDifference() {
-      return this.differenceСomission < 0;
+      return this.differenceComission < 0;
     },
   },
 };

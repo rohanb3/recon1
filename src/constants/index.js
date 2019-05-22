@@ -108,7 +108,7 @@ export const FILTER_NAMES = {
   DISPUTE_TYPE_IDS: 'DisputeTypeIds',
 };
 
-export const TABLE_СOLUMN_ID_NAMES = {
+export const TABLE_COLUMN_ID_NAMES = {
   [ENTITY_TYPES.ORDERS]: 'orderId',
 };
 

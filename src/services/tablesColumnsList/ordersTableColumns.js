@@ -81,7 +81,7 @@ export default () => [
   {
     name: 'recevedComission',
     field: 'recevedComission',
-    fieldType: 'price',
+    fieldType: 'recievedComisson',
     class: 'text',
     title: i18n.t('orders.recieved.comisson'),
     width: '5',

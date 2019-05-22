@@ -42,10 +42,11 @@
             :item="rowCell.item"
             :column="rowCell.column"
             @changeDisputeStatus="onChangeDisputeStatus"
+            @confirmApproveDisputeStatus="onConfirmApproveDisputeStatus"
+            @confirmRejectDisputeStatus="onConfirmRejectDisputeStatus"
           />
         </wombat-row>
       </div>
-
       <table-loader v-if="loading" slot="loader" />
     </wombat-table>
     <v-progress-circular
@@ -56,6 +57,18 @@
       color="blue"
       indeterminate
     ></v-progress-circular>
+    <confirm-approve-dispute-popup
+      :visible-popup="isShowApproveConfirmationPopup"
+      :dispute-info="selectedDispute"
+      @save="onChangeDisputeStatus"
+      @close="isShowApproveConfirmationPopup = false"
+    />
+    <confirm-reject-dispute-popup
+      :visible-popup="isShowRejectConfirmationPopup"
+      :dispute-info="selectedDispute"
+      @save="onChangeDisputeStatus"
+      @close="isShowRejectConfirmationPopup = false"
+    />
   </div>
 </template>
 
@@ -78,6 +91,10 @@ import PriceCell from '@/components/tableCells/PriceCell';
 import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
 import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatusCell';
 import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
+import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
+
+import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
+import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmRejectDisputePopup';
 
 import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 
@@ -90,6 +107,8 @@ import { changeStatusDispute, getDispute, getDisputesCsvFile } from '@/services/
 import { errorMessage } from '@/services/notifications';
 import { CHANGE_ITEM } from '@/store/storage/mutationTypes';
 import { generateCSVFile } from '@/services/utils';
+
+import { mapState } from 'vuex';
 
 export default {
   name: 'DisputesPage',
@@ -111,11 +130,18 @@ export default {
     RejectDisputeStatusCell,
     ApproveDisputeStatusCell,
     DisputesTableToolbar,
+    ConfirmApproveDisputePopup,
+    ConfirmRejectDisputePopup,
+    DisputeStatusCell,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
     return {
       tableName: ENTITY_TYPES.DISPUTES,
+      isShowApproveConfirmationPopup: false,
+      isShowRejectConfirmationPopup: false,
+      disputeStatusId: false,
+      selectedDispute: {},
       headerComponentsHash: {
         default: 'DefaultHeaderCell',
         sortingHeader: 'SortingHeaderCell',
@@ -134,10 +160,17 @@ export default {
         resubmitClaim: 'ResubmitClaimCell',
         rejectDisputeStatus: 'RejectDisputeStatusCell',
         approveDisputeStatus: 'ApproveDisputeStatusCell',
+        disputeStatus: 'DisputeStatusCell',
       },
     };
   },
   computed: {
+    ...mapState({
+      profileData: state => state.loggedInUser.profileData || {},
+    }),
+    displayName() {
+      return this.profileData.displayName || '';
+    },
     columns() {
       return this.tableData.columns.filter(
         column => !column.routeName || column.routeName === this.$route.name
@@ -148,9 +181,14 @@ export default {
     },
   },
   methods: {
-    async onChangeDisputeStatus({ disputeId, statusId }) {
+    async onChangeDisputeStatus({ disputeId, statusId, comments }) {
+      this.isShowApproveConfirmationPopup = false;
+      this.isShowRejectConfirmationPopup = false;
+      const userName = this.displayName;
+      const status = statusId;
+
       try {
-        await changeStatusDispute(disputeId, statusId);
+        await changeStatusDispute({ disputeId, status, userName, comments });
         const disputeInfo = await getDispute(disputeId);
         this.$store.commit(CHANGE_ITEM, {
           itemType: this.tableName,
@@ -160,6 +198,14 @@ export default {
       } catch {
         errorMessage();
       }
+    },
+    onConfirmApproveDisputeStatus({ disputeId, statusId }) {
+      this.selectedDispute = { disputeId, statusId };
+      this.isShowApproveConfirmationPopup = true;
+    },
+    onConfirmRejectDisputeStatus({ disputeId, statusId }) {
+      this.selectedDispute = { disputeId, statusId };
+      this.isShowRejectConfirmationPopup = true;
     },
     async onExportToCsvFile() {
       const CSVFile = await getDisputesCsvFile(this.filters);
