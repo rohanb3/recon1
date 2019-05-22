@@ -9,6 +9,7 @@ const filters = {
   },
   [ENTITY_TYPES.DISPUTES]: {
     [FILTER_NAMES.SEARCH_DISPUTES]: '',
+    [FILTER_NAMES.DISPUTE_TYPE_IDS]: null,
   },
 };
 

@@ -1,6 +1,9 @@
 <template>
   <div class="disputes-table-toolbar">
     <quick-search-disputes-filter :tableName="tableName" />
+    <div class="table-filter-container">
+      <dispute-type-filter :tableName="tableName" />
+    </div>
     <v-spacer></v-spacer>
     <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
   </div>
@@ -8,6 +11,7 @@
 
 <script>
 import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
+import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
 import TableButton from '@/components/TableButton';
 import { ENTITY_TYPES } from '@/constants';
 
@@ -15,6 +19,7 @@ export default {
   name: 'DisputesTableToolbar',
   components: {
     QuickSearchDisputesFilter,
+    DisputeTypeFilter,
     TableButton,
   },
   data() {
@@ -26,7 +31,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/styles/variables.scss';
+@import '@/assets/styles/variables.scss';
+@import '@/assets/styles/mixins.scss';
 
 .disputes-table-toolbar {
   display: flex;
@@ -53,5 +59,9 @@ export default {
       border-radius: 3px;
     }
   }
+}
+
+.table-filter-container /deep/ {
+  @include table-filter-container;
 }
 </style>

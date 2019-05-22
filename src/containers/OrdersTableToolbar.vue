@@ -44,7 +44,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/assets/styles/variables.scss';
+@import '@/assets/styles/variables.scss';
+@import '@/assets/styles/mixins.scss';
 
 .orders-table-toolbar {
   display: flex;
@@ -54,21 +55,9 @@ export default {
   .quick-search {
     flex: 0;
   }
+}
 
-  .table-filter-container /deep/ {
-    display: flex;
-    .filter-wrapper {
-      &:first-child .table-filter {
-        border-radius: 3px 0 0 3px;
-        border-right-color: $table-filter-border-right-color;
-      }
-      &:last-child .table-filter {
-        border-radius: 0 3px 3px 0;
-      }
-      &:only-of-type .table-filter {
-        border-radius: 3px;
-      }
-    }
-  }
+.table-filter-container /deep/ {
+  @include table-filter-container;
 }
 </style>

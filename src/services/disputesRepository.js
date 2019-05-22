@@ -7,7 +7,7 @@ export const getDispute = id => {
 
 export const getDisputes = filters => {
   const params = { ...filters };
-  return apiDisputes.get('/dispute', { params }).then(({ data }) => data);
+  return apiDisputes.get('/dispute', { params, paramsSerializer }).then(({ data }) => data);
 };
 
 export const createDispute = orderId => {

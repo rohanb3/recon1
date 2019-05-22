@@ -79,6 +79,7 @@ export const FILTER_NAMES = {
   SORT: 'sort',
   ORDER: 'SortOrder',
   ORDER_STATUS: 'OrderStatusIds',
+  DISPUTE_TYPE_IDS: 'DisputeTypeIds',
 };
 
 export const TABLE_СOLUMN_ID_NAMES = {
