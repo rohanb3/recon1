@@ -80,6 +80,7 @@ export const FILTER_NAMES = {
   ORDER: 'SortOrder',
   ORDER_STATUS: 'OrderStatusIds',
   DISPUTE_TYPE_IDS: 'DisputeTypeIds',
+  DISPUTE_STATUS_IDS: 'DisputeStatusIds',
 };
 
 export const TABLE_СOLUMN_ID_NAMES = {

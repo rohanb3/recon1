@@ -3,6 +3,7 @@
     <quick-search-disputes-filter :tableName="tableName" />
     <div class="table-filter-container">
       <dispute-type-filter :tableName="tableName" />
+      <dispute-status-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
     <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
@@ -12,6 +13,7 @@
 <script>
 import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
+import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
 import TableButton from '@/components/TableButton';
 import { ENTITY_TYPES } from '@/constants';
 
@@ -21,6 +23,7 @@ export default {
     QuickSearchDisputesFilter,
     DisputeTypeFilter,
     TableButton,
+    DisputeStatusFilter,
   },
   data() {
     return {

@@ -1,0 +1,60 @@
+<template>
+  <div class="filter-wrapper">
+    <table-filter
+      :title="$t('disputes.dispute.status')"
+      boundaries-selector=".disputes-table"
+      :items="disputeStatusList"
+      :useQuickBtn="false"
+      :useSearchField="false"
+      @select="toggleItem"
+    />
+  </div>
+</template>
+
+<script>
+import TableFilter from '@/components/TableFilter';
+import { FILTER_NAMES, DISPUTE_STATUSES_ID } from '@/constants';
+import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
+
+export default {
+  name: 'DisputeStatusFilter',
+  mixins: [tableFilterAutocomplete],
+  props: {
+    tableName: {
+      type: String,
+      required: true,
+    },
+  },
+  components: {
+    TableFilter,
+  },
+  data() {
+    return {
+      filterName: FILTER_NAMES.DISPUTE_STATUS_IDS,
+      [FILTER_NAMES.DISPUTE_STATUS_IDS]: [
+        {
+          id: DISPUTE_STATUSES_ID.APPROVED,
+          name: this.$t('approved'),
+        },
+        {
+          id: DISPUTE_STATUSES_ID.RE_SENT,
+          name: this.$t('resent'),
+        },
+        {
+          id: DISPUTE_STATUSES_ID.SENT,
+          name: this.$t('sent'),
+        },
+        {
+          id: DISPUTE_STATUSES_ID.SENT,
+          name: this.$t('sent'),
+        },
+      ],
+    };
+  },
+  computed: {
+    disputeStatusList() {
+      return this[this.filterName];
+    },
+  },
+};
+</script>
