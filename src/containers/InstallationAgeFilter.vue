@@ -1,12 +1,12 @@
 <template>
   <div class="filter-wrapper">
     <table-boundaries-filter
-      :title="$t('orders.age.after.order')"
+      :title="$t('orders.age.after.installation')"
       :from-placeholder="$t('from')"
       :to-placeholder="$t('to')"
       :min="0"
       boundaries-selector=".reviews-table"
-      name="creationAge"
+      name="installationAge"
       v-model="age"
     />
   </div>
@@ -18,7 +18,7 @@ import { FILTER_NAMES } from '@/constants';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 
 export default {
-  name: 'OrderAgeFilter',
+  name: 'InstalationFilter',
   props: {
     tableName: {
       type: String,
@@ -48,11 +48,11 @@ export default {
         tableName: this.tableName,
         filters: [
           {
-            name: FILTER_NAMES.CREATION_AGE_FROM,
+            name: FILTER_NAMES.INSTALLATION_AGE_FROM,
             value: from,
           },
           {
-            name: FILTER_NAMES.CREATION_AGE_TO,
+            name: FILTER_NAMES.INSTALLATION_AGE_TO,
             value: to,
           },
         ],

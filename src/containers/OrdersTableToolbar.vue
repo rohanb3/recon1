@@ -5,6 +5,7 @@
       <order-status-filter :table-name="tableName" />
     </div>
     <order-age-filter :table-name="tableName" />
+    <installation-age-filter :table-name="tableName" />
     <v-spacer></v-spacer>
   </div>
 </template>
@@ -13,6 +14,7 @@
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import OrderStatusFilter from '@/containers/OrderStatusFilter';
 import OrderAgeFilter from './OrderAgeFilter';
+import InstallationAgeFilter from './InstallationAgeFilter';
 import { ENTITY_TYPES } from '@/constants';
 
 export default {
@@ -21,6 +23,7 @@ export default {
     QuickSearchFilter,
     OrderStatusFilter,
     OrderAgeFilter,
+    InstallationAgeFilter,
   },
   data() {
     return {
