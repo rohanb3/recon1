@@ -111,6 +111,7 @@ export default {
       const status = await checkOrderSync(taskId);
       if (status === ORDER_SYNC_STATUS.FINISHED) {
         clearInterval(syncOrdersIntervalId);
+        syncOrdersIntervalId = null;
         await dispatch(LOAD_ITEMS, {
           itemType: ENTITY_TYPES.ORDERS,
           filters: rootState.tables[ENTITY_TYPES.ORDERS].filters,
@@ -119,6 +120,7 @@ export default {
       }
     } catch {
       clearInterval(syncOrdersIntervalId);
+      syncOrdersIntervalId = null;
       commit(SET_SYNC_ORDERS_STATUS, ORDER_SYNC_STATUS.ERROR);
     }
   },
