@@ -45,8 +45,20 @@ export default {
           name: this.$t('sent'),
         },
         {
-          id: DISPUTE_STATUSES_ID.SENT,
-          name: this.$t('sent'),
+          id: DISPUTE_STATUSES_ID.REJECTED,
+          name: this.$t('rejected'),
+        },
+        {
+          id: DISPUTE_STATUSES_ID.IN_PROGRESS,
+          name: this.$t('in.progress'),
+        },
+        {
+          id: DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
+          name: this.$t('confirm.rejected'),
+        },
+        {
+          id: DISPUTE_STATUSES_ID.CONFIRM_APPROVED,
+          name: this.$t('confirm.approved'),
         },
       ],
     };
