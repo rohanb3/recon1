@@ -62,7 +62,7 @@ export const SORTING_DIRECTION = {
   ASC: 'asc',
 };
 
-export const TABLE_ORDER_СOLUMNS_SORTED = {
+export const TABLE_ORDER_COLUMNS_SORTED = {
   NUMBER: 'ordernumber',
   ACCOUNT_NUMBER: 'accountnumber',
   DISPUTE_STATUS: 'disputeStatus',
@@ -75,12 +75,12 @@ export const TABLE_ORDER_СOLUMNS_SORTED = {
   DIFFERENCE: 'difference',
 };
 
-export const TABLE_DISPUTE_СOLUMNS_SORTED = {
+export const TABLE_DISPUTE_COLUMNS_SORTED = {
   ID: 'id',
   FISCAL_PERIOD: 'fiscalPeriod',
   ACCOUNT_NUMBER: 'accountNumber',
   EXPECTED_COMISSION: 'expectedcomission',
-  RECEIVED_COMISSION: 'recevedСomission',
+  RECEIVED_COMISSION: 'recevedComission',
   DIFFERENCE: 'difference',
   CREATOR_NAME: 'creatorName',
   CREATION_DATE: 'disputecreationdate',
