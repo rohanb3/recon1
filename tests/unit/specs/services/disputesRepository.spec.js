@@ -9,6 +9,7 @@ import {
   uploadDisputeAttachment,
   removeDisputeAttachment,
   changeStatusDispute,
+  getDisputesCsvFile,
 } from '@/services/disputesRepository';
 
 import { RESPONSE_STATUSES } from '@/constants';
@@ -42,9 +43,7 @@ describe('disputesRepository', () => {
       const response = await getDisputes(filters);
 
       expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith('/dispute', {
-        params: { ...filters },
-      });
+      expect(disputesApi.get).toHaveBeenCalledWith('/dispute', expect.any(Object));
     });
   });
 
@@ -149,16 +148,46 @@ describe('disputesRepository', () => {
 
   describe('changeStatusDispute', () => {
     it('should call api.patch and return corect data', async () => {
-      const disputerId = 7;
-      const statusId = '4f5yh3s257yh6';
+      const disputeId = 7;
+      const status = '4f5yh3s257yh6';
+      const userName = 'Dmitry';
+      const comments = 'test1234';
+
+      const params = {
+        disputeId,
+        status,
+        userName,
+        comments,
+      };
+
       const data = { id: 7 };
 
       disputesApi.patch = jest.fn(() => Promise.resolve({ data }));
 
-      const response = await changeStatusDispute(disputerId, statusId);
+      const response = await changeStatusDispute(params);
+      expect(response).toEqual(data);
+      expect(disputesApi.patch).toHaveBeenCalledWith(
+        `/dispute/${disputeId}?status=${status}&userName=${userName}&comments=${comments}`
+      );
+    });
+  });
+
+  describe('getDisputesCsvFile', () => {
+    it('should call api.get and return corect data', async () => {
+      const filters = {
+        offset: 0,
+        limit: 10,
+        dateFrom: '2018-01-01T00:00:00Z',
+        dateTo: '2019-03-22T23:59:59Z',
+      };
+
+      const data = { id: '777' };
+      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
+
+      const response = await getDisputesCsvFile(filters);
 
       expect(response).toEqual(data);
-      expect(disputesApi.patch).toHaveBeenCalledWith(`/dispute/${disputerId}?status=${statusId}`);
+      expect(disputesApi.get).toHaveBeenCalledWith('/dispute/csv', expect.any(Object));
     });
   });
 });

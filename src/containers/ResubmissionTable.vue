@@ -1,8 +1,8 @@
 <template>
   <div class="disputes-table">
     <div class="table-toolbar">
-      <div class="table-title">{{ $t('disputes.title') }}</div>
-      <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
+      <div class="table-title">{{ $t('resubmission.table.title') }}</div>
+      <resubmission-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
     </div>
     <wombat-table
       :items="rows"
@@ -95,7 +95,7 @@ import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
 import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
 import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmRejectDisputePopup';
 
-import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
+import ResubmissionTableToolbar from '@/containers/ResubmissionTableToolbar';
 
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
@@ -110,7 +110,7 @@ import { generateCSVFile } from '@/services/utils';
 import { mapState } from 'vuex';
 
 export default {
-  name: 'DisputesPage',
+  name: 'ResubmissionTable',
   components: {
     WombatTable,
     WombatRow,
@@ -128,7 +128,7 @@ export default {
     ResubmitClaimCell,
     RejectDisputeStatusCell,
     ApproveDisputeStatusCell,
-    DisputesTableToolbar,
+    ResubmissionTableToolbar,
     ConfirmApproveDisputePopup,
     ConfirmRejectDisputePopup,
     DisputeStatusCell,
@@ -136,7 +136,7 @@ export default {
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
     return {
-      tableName: ENTITY_TYPES.DISPUTES,
+      tableName: ENTITY_TYPES.RESUBMISSION,
       isShowApproveConfirmationPopup: false,
       isShowRejectConfirmationPopup: false,
       disputeStatusId: false,

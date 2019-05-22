@@ -87,7 +87,7 @@ export default {
     },
     name: {
       type: String,
-      required: true,
+      default: 'name',
     },
     listSize: {
       type: Number,

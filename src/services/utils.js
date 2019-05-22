@@ -58,3 +58,14 @@ export function imageEncode(arrayBuffer) {
 
   return `data:image/jpeg;base64,${b64encoded}`;
 }
+
+export function generateCSVFile(CSVFile, fileName = 'report') {
+  const csvData = new Blob([CSVFile], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(csvData);
+  link.setAttribute('download', `${fileName}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  URL.revokeObjectURL(link.href);
+  document.body.removeChild(link);
+}

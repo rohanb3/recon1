@@ -1,4 +1,5 @@
 import apiDisputes from './disputesApi';
+import { paramsSerializer } from '@/services/repositoryUtils';
 
 export const getDispute = id => {
   return apiDisputes.get(`/dispute/${id}`).then(({ data }) => data);
@@ -6,7 +7,7 @@ export const getDispute = id => {
 
 export const getDisputes = filters => {
   const params = { ...filters };
-  return apiDisputes.get('/dispute', { params }).then(({ data }) => data);
+  return apiDisputes.get('/dispute', { params, paramsSerializer }).then(({ data }) => data);
 };
 
 export const createDispute = orderId => {
@@ -42,6 +43,11 @@ export const removeDisputeAttachment = (id, filename) => {
     .then(({ status }) => status);
 };
 
-export const changeStatusDispute = (disputeId, statusId) => {
-  return apiDisputes.patch(`/dispute/${disputeId}?status=${statusId}`).then(({ data }) => data);
+export const changeStatusDispute = ({ disputeId, ...params }) => {
+  return apiDisputes.patch(`/dispute/${disputeId}`, null, { params }).then(({ data }) => data);
+};
+
+export const getDisputesCsvFile = filters => {
+  const params = { ...filters };
+  return apiDisputes.get('/dispute/csv', { params, paramsSerializer }).then(({ data }) => data);
 };
