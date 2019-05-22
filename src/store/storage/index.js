@@ -14,6 +14,10 @@ export default {
       items: [],
       allItemsLoaded: false,
     },
+    [ENTITY_TYPES.RESUBMISSION]: {
+      items: [],
+      allItemsLoaded: false,
+    },
   },
   getters,
   actions,

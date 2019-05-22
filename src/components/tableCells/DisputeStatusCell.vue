@@ -20,7 +20,7 @@ export default {
       return this.disputeStatus.id;
     },
     disputeStatusName() {
-      return this.disputeStatus.name;
+      return this.disputeStatus.disputeStatusName;
     },
     status() {
       if (this.disputeStatusId === DISPUTE_STATUSES_ID.CONFIRM_APPROVED) {

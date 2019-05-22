@@ -9,6 +9,9 @@ const handlers = {
   [ENTITY_TYPES.DISPUTES]: {
     getAll: getDisputes,
   },
+  [ENTITY_TYPES.RESUBMISSION]: {
+    getAll: getDisputes,
+  },
 };
 
 const defaultHandler = itemType => () => {

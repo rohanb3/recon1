@@ -97,6 +97,7 @@ export const TABLE_DISPUTE_СOLUMNS_SORTED = {
 export const ENTITY_TYPES = {
   ORDERS: 'ORDERS',
   DISPUTES: 'DISPUTES',
+  RESUBMISSION: 'RESUBMISSION',
 };
 
 export const FILTER_NAMES = {
