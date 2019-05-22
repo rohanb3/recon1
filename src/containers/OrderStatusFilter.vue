@@ -44,11 +44,11 @@ export default {
   },
   computed: {
     statusList() {
-      return this[this.filterName].map(({ id, statusName, selected }) => {
-        const translationKey = ORDER_STATUS_NAME_TRANSLATION_KEYS[statusName];
+      return this[this.filterName].map(({ id, orderStatusName, selected }) => {
+        const translationKey = ORDER_STATUS_NAME_TRANSLATION_KEYS[orderStatusName];
         return {
           id,
-          name: translationKey ? this.$t(translationKey) : statusName,
+          name: translationKey ? this.$t(translationKey) : orderStatusName,
           selected,
         };
       });
