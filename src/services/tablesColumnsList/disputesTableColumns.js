@@ -146,8 +146,6 @@ export default () => [
     width: '5',
     minWidth: '170px',
     routeName: ROUTE_NAMES.DISPUTE_LIST,
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.XYZ_STATUS,
-    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'disputeStatus',
