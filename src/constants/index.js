@@ -105,6 +105,7 @@ export const FILTER_NAMES = {
   SORT: 'SortBy',
   ORDER: 'SortOrder',
   ORDER_STATUS: 'OrderStatusIds',
+  DISPUTE_TYPE_IDS: 'DisputeTypeIds',
 };
 
 export const TABLE_СOLUMN_ID_NAMES = {
@@ -118,6 +119,7 @@ export const ROUTE_NAMES = {
   DISPUTE_LIST: 'dispute-list',
   RESUBMISSION_TABLE: 'resubmission-table',
   LOGIN: 'login',
+  LOGOUT: 'logout',
   PASSWORD_RECOVERY: 'password-recovery',
   VERIFICATION_CODE: 'verification-code',
   RESET_PASSWORD: 'reset-password',
@@ -131,4 +133,12 @@ export const ROLE_TYPES = {
   ACCOUNT_ADMIN: 'AccountAdmin',
   SUPPORT_ADMIN: 'SupportAdmin',
   SALES_REP: 'SalesRep',
+};
+
+export const ORDER_SYNC_STATUS = {
+  HAVENT: 'Havent',
+  POSTED: 'Posted',
+  WORKING: 'Working',
+  FINISHED: 'Finished',
+  ERROR: 'Error',
 };

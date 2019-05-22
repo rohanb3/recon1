@@ -3,7 +3,7 @@
     <div class="table-toolbar">
       <div v-if="isResubmissionTable" class="table-title">{{ $t('resubmission.table.title') }}</div>
       <div v-else class="table-title">{{ $t('disputes.title') }}</div>
-      <disputes-table-toolbar :tableName="tableName" />
+      <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
     </div>
     <wombat-table
       :items="rows"
@@ -86,9 +86,10 @@ import lazyLoadTable from '@/mixins/lazyLoadTable';
 
 import { ENTITY_TYPES, ROUTE_NAMES } from '@/constants';
 
-import { changeStatusDispute, getDispute } from '@/services/disputesRepository';
+import { changeStatusDispute, getDispute, getDisputesCsvFile } from '@/services/disputesRepository';
 import { errorMessage } from '@/services/notifications';
 import { CHANGE_ITEM } from '@/store/storage/mutationTypes';
+import { generateCSVFile } from '@/services/utils';
 
 export default {
   name: 'DisputesPage',
@@ -160,6 +161,10 @@ export default {
         errorMessage();
       }
     },
+    async onExportToCsvFile() {
+      const CSVFile = await getDisputesCsvFile(this.filters);
+      generateCSVFile(CSVFile, this.tableName);
+    },
   },
 };
 </script>
@@ -181,6 +186,7 @@ export default {
 
 .disputes-table /deep/ {
   .virtual-list {
+    height: 100vh;
     max-height: calc(
       100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
     );
