@@ -44,3 +44,11 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.inline-datepicker /deep/ {
+  .asd__day--hovered {
+    background: transparent !important;
+  }
+}
+</style>
