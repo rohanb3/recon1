@@ -74,7 +74,6 @@
   "field.must.consist.only.letters": "This field must consist only letters",
   "field.must.consist.only.digits": "This field must consist only digits",
   "field.must.consist.only.capital.letter": "This field must consist only capital letter",
-  
 
   "cancel": "Cancel",
   "save.as.draft": "Save as Draft",
@@ -135,6 +134,9 @@
   "rejected": "Rejected",
   "pending": "Pending",
 
+  "validation.rule.rage.negative": "To value should be greater that from",
+  "validation.rule.number.too.small": "Value should be greater than %{min}",
+
   "login": "Login",
   "i.agree.to.the": "I agree to the ",
   "terms.and.conditions": "Terms and Conditions",
@@ -169,5 +171,7 @@
   "profile": "Profile",
   "log.out": "Log Out",
   "email": "Email",
-  "password": "Password"
+  "password": "Password",
+  "from": "from",
+  "to": "to"
 }

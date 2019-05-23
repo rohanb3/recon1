@@ -106,6 +106,10 @@ export const FILTER_NAMES = {
   SORT: 'SortBy',
   ORDER: 'SortOrder',
   ORDER_STATUS: 'OrderStatusIds',
+  ORDER_AGE_FROM: 'OrderAgeFrom',
+  ORDER_AGE_TO: 'OrderAgeTo',
+  INSTALLATION_AGE_FROM: 'InstallationAgeFrom',
+  INSTALLATION_AGE_TO: 'InstallationAgeTo',
   DISPUTE_TYPE_IDS: 'DisputeTypeIds',
 };
 
