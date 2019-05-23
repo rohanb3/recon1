@@ -50,6 +50,7 @@ import filters, { OPERATORS } from '@/services/customFilters/index';
 import boundaries from '@/filters/boundaries';
 
 const filter = filters.range.get(OPERATORS.BETWEEN);
+const INPUT_DELAY = 500;
 
 export default {
   name: 'TableBoundariesFilter',
@@ -80,14 +81,7 @@ export default {
         to: null,
       }),
     },
-    filterType: {
-      type: String,
-      default: 'number',
-    },
     min: {
-      type: Number,
-    },
-    max: {
       type: Number,
     },
   },
@@ -134,7 +128,7 @@ export default {
 
       const data = filter.apply(this.range);
       this.$emit('input', data);
-    }, 500),
+    }, INPUT_DELAY),
   },
 };
 </script>
@@ -161,31 +155,6 @@ export default {
 .messages-wrapper {
   color: $base-red;
 }
-.selected-rule /deep/ {
-  .v-input__append-inner {
-    margin-top: 4px;
-  }
-  .v-select__selection {
-    display: inline;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 140px;
-  }
-  .v-select__slot .v-select__selections {
-    padding-top: 0;
-  }
-  .v-select__selections {
-    position: absolute;
-  }
-  .v-input__slot,
-  .v-input__slot:hover {
-    min-height: 0;
-    border: 1px solid $base-grey !important;
-  }
-  .v-text-field__details {
-    display: none;
-  }
-}
 #app .popper {
   display: flex;
   flex-flow: column nowrap;
@@ -199,7 +168,7 @@ export default {
   border-left: none;
   transform: rotate(45deg);
   margin: -4px 0 0 5px;
-} //messages-wrapper
+}
 .number-field /deep/ {
   font-size: 14px;
   .v-input__slot,

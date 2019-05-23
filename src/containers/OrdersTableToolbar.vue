@@ -3,9 +3,9 @@
     <quick-search-filter :tableName="tableName" />
     <div class="table-filter-container">
       <order-status-filter :table-name="tableName" />
+      <order-age-filter :table-name="tableName" />
+      <installation-age-filter :table-name="tableName" />
     </div>
-    <order-age-filter :table-name="tableName" />
-    <installation-age-filter :table-name="tableName" />
     <v-spacer></v-spacer>
   </div>
 </template>

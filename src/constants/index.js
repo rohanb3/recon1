@@ -79,8 +79,8 @@ export const FILTER_NAMES = {
   SORT: 'sort',
   ORDER: 'SortOrder',
   ORDER_STATUS: 'OrderStatusIds',
-  CREATION_AGE_FROM: 'CreationAgeFrom',
-  CREATION_AGE_TO: 'CreationAgeTo',
+  ORDER_AGE_FROM: 'OrderAgeFrom',
+  ORDER_AGE_TO: 'OrderAgeTo',
   INSTALLATION_AGE_FROM: 'InstallationAgeFrom',
   INSTALLATION_AGE_TO: 'InstallationAgeTo',
 };

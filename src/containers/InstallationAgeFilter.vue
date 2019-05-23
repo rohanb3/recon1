@@ -34,9 +34,6 @@ export default {
     tableData() {
       return this.$store.state.tables[this.tableName] || {};
     },
-    filters() {
-      return this.tableData.filters || {};
-    },
   },
   components: {
     TableBoundariesFilter,

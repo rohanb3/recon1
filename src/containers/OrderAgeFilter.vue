@@ -34,9 +34,6 @@ export default {
     tableData() {
       return this.$store.state.tables[this.tableName] || {};
     },
-    filters() {
-      return this.tableData.filters || {};
-    },
   },
   components: {
     TableBoundariesFilter,
@@ -48,11 +45,11 @@ export default {
         tableName: this.tableName,
         filters: [
           {
-            name: FILTER_NAMES.CREATION_AGE_FROM,
+            name: FILTER_NAMES.ORDER_AGE_FROM,
             value: from,
           },
           {
-            name: FILTER_NAMES.CREATION_AGE_TO,
+            name: FILTER_NAMES.ORDER_AGE_TO,
             value: to,
           },
         ],
