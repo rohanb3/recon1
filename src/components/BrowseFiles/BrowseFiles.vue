@@ -72,6 +72,13 @@ export default {
       this.$emit('selectedFiles', event.target.files);
     },
   },
+  watch: {
+    loadingStatus(newStatus, oldStatus) {
+      if (!newStatus && oldStatus) {
+        this.$refs.attachedFileField.value = null;
+      }
+    },
+  },
 };
 </script>
 
