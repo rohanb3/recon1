@@ -41,8 +41,6 @@
             :item="rowCell.item"
             :column="rowCell.column"
             @changeDisputeStatus="onChangeDisputeStatus"
-            @confirmApproveDisputeStatus="onConfirmApproveDisputeStatus"
-            @confirmRejectDisputeStatus="onConfirmRejectDisputeStatus"
           />
         </wombat-row>
       </div>
@@ -56,18 +54,6 @@
       color="blue"
       indeterminate
     ></v-progress-circular>
-    <confirm-approve-dispute-popup
-      :visible-popup="isShowApproveConfirmationPopup"
-      :dispute-info="selectedDispute"
-      @save="onChangeDisputeStatus"
-      @close="isShowApproveConfirmationPopup = false"
-    />
-    <confirm-reject-dispute-popup
-      :visible-popup="isShowRejectConfirmationPopup"
-      :dispute-info="selectedDispute"
-      @save="onChangeDisputeStatus"
-      @close="isShowRejectConfirmationPopup = false"
-    />
   </div>
 </template>
 
@@ -87,13 +73,10 @@ import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
 import XYZStatusCell from '@/components/tableCells/XYZStatusCell';
 import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
 import PriceCell from '@/components/tableCells/PriceCell';
-import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
 import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatusCell';
 import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
+import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
 import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
-
-import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
-import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmRejectDisputePopup';
 
 import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 
@@ -129,17 +112,12 @@ export default {
     RejectDisputeStatusCell,
     ApproveDisputeStatusCell,
     DisputesTableToolbar,
-    ConfirmApproveDisputePopup,
-    ConfirmRejectDisputePopup,
     DisputeStatusCell,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
     return {
       tableName: ENTITY_TYPES.DISPUTES,
-      isShowApproveConfirmationPopup: false,
-      isShowRejectConfirmationPopup: false,
-      disputeStatusId: false,
       selectedDispute: {},
       headerComponentsHash: {
         default: 'DefaultHeaderCell',
@@ -173,8 +151,6 @@ export default {
   },
   methods: {
     async onChangeDisputeStatus({ disputeId, statusId, comments }) {
-      this.isShowApproveConfirmationPopup = false;
-      this.isShowRejectConfirmationPopup = false;
       const userName = this.displayName;
       const status = statusId;
 
@@ -189,14 +165,6 @@ export default {
       } catch {
         errorMessage();
       }
-    },
-    onConfirmApproveDisputeStatus({ disputeId, statusId }) {
-      this.selectedDispute = { disputeId, statusId };
-      this.isShowApproveConfirmationPopup = true;
-    },
-    onConfirmRejectDisputeStatus({ disputeId, statusId }) {
-      this.selectedDispute = { disputeId, statusId };
-      this.isShowRejectConfirmationPopup = true;
     },
     async onExportToCsvFile() {
       const CSVFile = await getDisputesCsvFile(this.filters);

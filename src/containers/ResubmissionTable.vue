@@ -139,7 +139,6 @@ export default {
       tableName: ENTITY_TYPES.RESUBMISSION,
       isShowApproveConfirmationPopup: false,
       isShowRejectConfirmationPopup: false,
-      disputeStatusId: false,
       selectedDispute: {},
       headerComponentsHash: {
         default: 'DefaultHeaderCell',
