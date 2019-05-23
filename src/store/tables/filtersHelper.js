@@ -30,6 +30,8 @@ const filters = {
     [FILTER_NAMES.DISPUTE_TYPE_IDS]: null,
     [FILTER_NAMES.CREATED_FROM]: '',
     [FILTER_NAMES.CREATED_TO]: '',
+    [FILTER_NAMES.FISCAL_PERIOD_FROM]: '',
+    [FILTER_NAMES.FISCAL_PERIOD_TO]: '',
   },
 };
 
