@@ -2,11 +2,13 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import store from '@/store';
 
-import Base from '@/views/Base';
-import AppContent from '@/views/AppContent';
+import Base from '@/containers/Base';
+import AppContent from '@/containers/AppContent';
 import OrdersPage from '@/containers/OrdersPage';
 import DisputePage from '@/containers/DisputePage';
 import DisputesPage from '@/containers/DisputesPage';
+import ResubmissionTable from '@/containers/ResubmissionTable';
+import SyncNotifier from '@/containers/SyncNotifier';
 
 import LoginPage from '@/containers/LoginPage';
 import PasswordRecoveryPage from '@/containers/PasswordRecoveryPage';
@@ -91,6 +93,7 @@ const router = new Router({
             header: AppHeader,
             lhs: LHS,
             main: AppContent,
+            syncNotifier: SyncNotifier,
           },
           children: [
             {
@@ -115,7 +118,7 @@ const router = new Router({
             },
             {
               path: 'resubmission-table',
-              component: DisputesPage,
+              component: ResubmissionTable,
               name: ROUTE_NAMES.RESUBMISSION_TABLE,
             },
           ],

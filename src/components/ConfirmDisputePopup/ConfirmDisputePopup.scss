@@ -1,0 +1,18 @@
+@import '@/assets/styles/variables.scss';
+
+.button {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.button-save {
+  color: $base-white;
+  background-color: $base-green !important;
+}
+
+.button-cancel {
+  font-size: 14px;
+  opacity: 0.5;
+  background-color: transparent !important;
+  color: $base-text-color;
+}

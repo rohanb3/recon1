@@ -62,30 +62,58 @@ export const SORTING_DIRECTION = {
   ASC: 'asc',
 };
 
-export const TABLE_СOLUMNS_SORTED = {
-  ORDER_NUMBER: 'ordernumber',
+export const TABLE_ORDER_СOLUMNS_SORTED = {
+  NUMBER: 'ordernumber',
   ACCOUNT_NUMBER: 'accountnumber',
   DISPUTE_STATUS: 'disputeStatus',
+  UNITS: 'orderedUnits',
+  STATUS: 'statusName',
+  AGE_AFTER: 'creationAge',
+  INSTALLATION_AGE: 'installationAge',
+  EXPECTED_COMISSION: 'expectedComission',
+  RECIEVED_COMISSON: 'recevedComission',
+  DIFFERENCE: 'difference',
+};
+
+export const TABLE_DISPUTE_СOLUMNS_SORTED = {
+  ID: 'id',
+  FISCAL_PERIOD: 'fiscalPeriod',
+  ACCOUNT_NUMBER: 'accountNumber',
+  EXPECTED_COMISSION: 'expectedcomission',
+  RECEIVED_COMISSION: 'recevedСomission',
+  DIFFERENCE: 'difference',
+  CREATOR_NAME: 'creatorName',
+  CREATION_DATE: 'disputecreationdate',
+  SERVICE_NAME: 'serviceName',
+  TYPE: 'disputeType',
+  AGE_AFTER_ORDER: 'ageAfterOrder',
+  AGE_AFTER_INSTALLATION: 'ageAfterInstallation',
+  AGE_AFTER_DISPUT: 'ageAfterDispute',
+  XYZ_STATUS: 'xyzStatus',
+  STATUS: 'disputeStatus',
+  STATUS_DESCRIPTION: 'disputeStatusDescription',
 };
 
 export const ENTITY_TYPES = {
   ORDERS: 'ORDERS',
   DISPUTES: 'DISPUTES',
+  RESUBMISSION: 'RESUBMISSION',
 };
 
 export const FILTER_NAMES = {
   SEARCH_ORDERS: 'Search',
   SEARCH_DISPUTES: 'SearchPhrase',
-  SORT: 'sort',
+  SORT: 'SortBy',
   ORDER: 'SortOrder',
   ORDER_STATUS: 'OrderStatusIds',
   ORDER_AGE_FROM: 'OrderAgeFrom',
   ORDER_AGE_TO: 'OrderAgeTo',
   INSTALLATION_AGE_FROM: 'InstallationAgeFrom',
   INSTALLATION_AGE_TO: 'InstallationAgeTo',
+  DISPUTE_TYPE_IDS: 'DisputeTypeIds',
 };
 
-export const TABLE_СOLUMN_ID_NAMES = {
+export const TABLE_COLUMN_ID_NAMES = {
   [ENTITY_TYPES.ORDERS]: 'orderId',
 };
 
@@ -110,4 +138,12 @@ export const ROLE_TYPES = {
   ACCOUNT_ADMIN: 'AccountAdmin',
   SUPPORT_ADMIN: 'SupportAdmin',
   SALES_REP: 'SalesRep',
+};
+
+export const ORDER_SYNC_STATUS = {
+  HAVENT: 'Havent',
+  POSTED: 'Posted',
+  WORKING: 'Working',
+  FINISHED: 'Finished',
+  ERROR: 'Error',
 };

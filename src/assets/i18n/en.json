@@ -16,6 +16,12 @@
   "orders.order.status.pending": "Pending",
   "orders.order.status.call.in.order": "CallInOrder",
 
+  "sync.orders": "Sync orders for last 6 months",
+  "sync.started": "Sync successfully initiated",
+  "sync.orders.completed": "Sync orders completed",
+  "sync.info": "Synchronization may take a few minutes...",
+  "no.sync.occurred": "No sync occurred",
+
   "orders.age.after.order": "Age (after order)",
   "orders.age.after.installation": "Age (after Installation)",
   "orders.expected.comission": "Expected Comission",
@@ -71,6 +77,7 @@
 
   "cancel": "Cancel",
   "save.as.draft": "Save as Draft",
+  "save": "Save",
   "create.new.dispute": "Create new dispute",
   "remove.draft": "Remove Draft",
 
@@ -112,13 +119,20 @@
   "resubmission.table.approve": "Approve",
   "resubmission.table.reject": "Reject",
   "resubmission.table.resubmit.claim": "Resubmit claim",
+  "resubmission.table.reject.description": "Dispute Reject Description",
+  "resubmission.table.approve.description": "Dispute Approve Description",
+  "resubmission.table.enter.reject.comment.below": "To reject the dispute enter comment below:",
+  "resubmission.table.enter.approve.comment.below": "To approve the dispute enter comment below:",
 
   "approve": "Approve",
+  "approved": "Approved",
   "reject": "Reject",
   "confirm": "Confirm",
   "resubmit": "Resubmit",
   "confirmed": "Confirmed",
   "resubmited": "Resubmited",
+  "rejected": "Rejected",
+  "pending": "Pending",
 
   "validation.rule.rage.negative": "To value should be greater that from",
   "validation.rule.number.too.small": "Value should be greater than %{min}",

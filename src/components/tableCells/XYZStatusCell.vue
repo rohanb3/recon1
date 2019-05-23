@@ -1,13 +1,14 @@
 <template>
   <div class="dispute-button-cell">
-    <template v-if="!isSentOrInProgressStatus">
-      <template v-if="isConfirmApprovedOrRejectedStatus">
-        <table-button class="disput-button button-blue" :title="$t('confirm')" @click="onConfirm" />
-        <table-button class="disput-button" :title="$t('resubmit')" @click="onResubmit" />
-      </template>
-      <span v-show="isApprovedStatus" class="confirmed-status">{{ $t('confirmed') }}</span>
-      <span v-show="isResentStatus" class="resubmited-status">{{ $t('resubmited') }}</span>
+    <template v-if="isApprovedOrRejectedStatus">
+      <table-button class="disput-button button-blue" :title="$t('confirm')" @click="onConfirm" />
+      <table-button class="disput-button" :title="$t('resubmit')" @click="onResubmit" />
     </template>
+    <span v-show="isConfirmRejectedOrConfirmApprovedStatus" class="confirmed-status">{{
+      $t('confirmed')
+    }}</span>
+    <span v-show="isResentStatus" class="resubmited-status">{{ $t('resubmited') }}</span>
+    <span v-show="isSentOrInProgressStatus">{{ $t('pending') }}</span>
   </div>
 </template>
 
@@ -33,12 +34,24 @@ export default {
       return (this.item.disputeStatus || {}).id;
     },
     isSentOrInProgressStatus() {
-      return this.isSentStatus || this.isInProgressStatus;
+      return this.isSentStatus || this.isInprogressStatus;
     },
     isApprovedStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.APPROVED;
     },
-    isConfirmApprovedOrRejectedStatus() {
+    isRejectedStatus() {
+      return this.disputeStatusId === DISPUTE_STATUSES_ID.REJECTED;
+    },
+    isApprovedOrRejectedStatus() {
+      return this.isApprovedStatus || this.isRejectedStatus;
+    },
+    statusIdForConfirmDispute() {
+      if (this.isApprovedStatus) {
+        return DISPUTE_STATUSES_ID.CONFIRM_APPROVED;
+      }
+      return DISPUTE_STATUSES_ID.CONFIRM_REJECTED;
+    },
+    isConfirmRejectedOrConfirmApprovedStatus() {
       return this.isConfirmApprovedStatus || this.isConfirmRejectedStatus;
     },
   },
@@ -52,7 +65,7 @@ export default {
     onConfirm() {
       this.$emit('changeDisputeStatus', {
         disputeId: this.item.id,
-        statusId: DISPUTE_STATUSES_ID.APPROVED,
+        statusId: this.statusIdForConfirmDispute,
       });
     },
   },
@@ -76,7 +89,8 @@ export default {
     color: $base-orange;
   }
 
-  .approved-dispute {
+  .approved-dispute,
+  .rejected-status {
     color: $base-red;
     font-weight: 500;
   }

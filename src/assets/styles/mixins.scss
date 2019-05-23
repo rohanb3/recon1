@@ -54,3 +54,19 @@
     background-color: $base-blue;
   }
 }
+
+@mixin table-filter-container {
+  display: flex;
+  .filter-wrapper {
+    &:first-child .table-filter {
+      border-radius: 3px 0 0 3px;
+      border-right-color: $table-filter-border-right-color;
+    }
+    &:last-child .table-filter {
+      border-radius: 0 3px 3px 0;
+    }
+    &:only-of-type .table-filter {
+      border-radius: 3px;
+    }
+  }
+}

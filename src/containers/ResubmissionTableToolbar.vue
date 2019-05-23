@@ -16,7 +16,7 @@ import TableButton from '@/components/TableButton';
 import { ENTITY_TYPES } from '@/constants';
 
 export default {
-  name: 'DisputesTableToolbar',
+  name: 'ResubmissionTableToolbar',
   components: {
     QuickSearchDisputesFilter,
     DisputeTypeFilter,
@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      tableName: ENTITY_TYPES.DISPUTES,
+      tableName: ENTITY_TYPES.RESUBMISSION,
     };
   },
 };

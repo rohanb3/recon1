@@ -3,3 +3,6 @@ export const LOAD_MORE_ITEMS = 'LOAD_MORE_ITEMS';
 export const CREATE_ITEM = 'CREATE_ITEM';
 export const UPDATE_ITEM = 'UPDATE_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';
+export const SYNC_ORDERS = 'SYNC_ORDERS';
+export const START_SYNC_ORDERS = 'START_SYNC_ORDERS';
+export const POLLING_ORDER_SYNC = 'POLLING_ORDER_SYNC';

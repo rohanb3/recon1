@@ -16,6 +16,12 @@
   "orders.order.status.pending": "TBD Pending",
   "orders.order.status.call.in.order": "TBD CallInOrder",
 
+  "sync.orders": "TBD Sync orders for last 6 months",
+  "sync.started": "TBD Sync successfully initiated",
+  "sync.orders.completed": "TBD Sync orders completed",
+  "sync.info": "TBD Synchronization may take a few minutes...",
+  "no.sync.occurred": "TBD No sync occurred",
+
   "orders.age.after.order": "TBD Age (after order)",
   "orders.age.after.installation": "TBD Age (after Installation)",
   "orders.expected.comission": "TBD Expected Comission",
@@ -119,6 +125,7 @@
   "resubmit": "TBD Resubmit",
   "confirmed": "TBD Confirmed",
   "resubmited": "TBD Resubmited",
+  "rejected": "TBD Rejected",
 
   "validation.rule.rage.negative": "TBD To value should be greater that from",
   "validation.rule.number.too.small": "TBD Value should be greater than %{min}",
