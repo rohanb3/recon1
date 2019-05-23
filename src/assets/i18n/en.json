@@ -169,5 +169,12 @@
   "profile": "Profile",
   "log.out": "Log Out",
   "email": "Email",
-  "password": "Password"
+  "password": "Password",
+
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "last.7.days": "Last 7 days",
+  "last.30.days": "Last 30 days",
+  "all.time": "All time",
+  "apply": "Apply"
 }

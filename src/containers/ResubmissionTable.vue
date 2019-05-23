@@ -2,7 +2,7 @@
   <div class="disputes-table">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('resubmission.table.title') }}</div>
-      <resubmission-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
+      <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
     </div>
     <wombat-table
       :items="rows"
@@ -95,7 +95,7 @@ import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
 import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
 import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmRejectDisputePopup';
 
-import ResubmissionTableToolbar from '@/containers/ResubmissionTableToolbar';
+import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
@@ -128,7 +128,7 @@ export default {
     ResubmitClaimCell,
     RejectDisputeStatusCell,
     ApproveDisputeStatusCell,
-    ResubmissionTableToolbar,
+    DisputesTableToolbar,
     ConfirmApproveDisputePopup,
     ConfirmRejectDisputePopup,
     DisputeStatusCell,

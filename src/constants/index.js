@@ -107,6 +107,10 @@ export const FILTER_NAMES = {
   ORDER: 'SortOrder',
   ORDER_STATUS: 'OrderStatusIds',
   DISPUTE_TYPE_IDS: 'DisputeTypeIds',
+  CREATED_FROM: 'CreatedFrom',
+  CREATED_TO: 'CreatedTo',
+  FISCAL_PERIOD_FROM: 'FiscalPeriodFrom',
+  FISCAL_PERIOD_TO: 'FiscalPeriodTo',
 };
 
 export const TABLE_COLUMN_ID_NAMES = {

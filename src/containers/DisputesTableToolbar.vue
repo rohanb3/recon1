@@ -5,15 +5,16 @@
       <dispute-type-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
+    <custome-range-filter :tableName="tableName" />
     <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
   </div>
 </template>
 
 <script>
 import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
+import CustomeRangeFilter from '@/containers/CustomeRangeFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
 import TableButton from '@/components/TableButton';
-import { ENTITY_TYPES } from '@/constants';
 
 export default {
   name: 'DisputesTableToolbar',
@@ -21,11 +22,13 @@ export default {
     QuickSearchDisputesFilter,
     DisputeTypeFilter,
     TableButton,
+    CustomeRangeFilter,
   },
-  data() {
-    return {
-      tableName: ENTITY_TYPES.DISPUTES,
-    };
+  props: {
+    tableName: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>
