@@ -135,6 +135,8 @@ export default {
 
 <style scoped lang="scss">
 @import '~@/assets/styles/variables.scss';
+@import '~@/assets/styles/popper.scss';
+
 .title-rule {
   text-align: left;
   padding: 10px 10px 0 10px;
