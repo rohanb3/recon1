@@ -118,14 +118,16 @@ export default {
   },
   methods: {
     applyDateRange() {
-      const startDate = moment
-        .utc(this.formattedStartDate)
+      const startDate = moment(this.formattedStartDate)
         .startOf('day')
+        .utc()
         .format();
-      const endDate = moment
-        .utc(this.formattedEndDate)
+
+      const endDate = moment(this.formattedEndDate)
         .endOf('day')
+        .utc()
         .format();
+
       this.$emit('applyDateRange', { startDate, endDate });
       this.hide();
     },

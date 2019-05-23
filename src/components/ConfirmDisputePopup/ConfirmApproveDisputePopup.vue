@@ -2,7 +2,7 @@
   <confirm-popup
     :visible-popup="visiblePopup"
     :title="$t('resubmission.table.approve.description')"
-    @close="$emit('close', false)"
+    @close="onClose"
   >
     <v-form ref="form">
       <comment-field
@@ -13,7 +13,7 @@
 
     <template v-slot:buttons>
       <v-btn small depressed class="button button-save" @click="onSave">{{ $t('save') }}</v-btn>
-      <v-btn small depressed class="button button-cancel" @click="$emit('close', false)">
+      <v-btn small depressed class="button button-cancel" @click="onClose">
         {{ $t('cancel') }}
       </v-btn>
     </template>
@@ -51,6 +51,10 @@ export default {
         this.$emit('save', { ...this.disputeInfo, comments: this.comment });
         this.comment = '';
       }
+    },
+    onClose() {
+      this.$emit('close', false);
+      this.comment = '';
     },
   },
 };
