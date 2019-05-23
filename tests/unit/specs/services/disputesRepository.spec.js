@@ -148,16 +148,27 @@ describe('disputesRepository', () => {
 
   describe('changeStatusDispute', () => {
     it('should call api.patch and return corect data', async () => {
-      const disputerId = 7;
-      const statusId = '4f5yh3s257yh6';
+      const disputeId = 7;
+      const status = '4f5yh3s257yh6';
+      const userName = 'Dmitry';
+      const comments = 'test1234';
+
+      const params = {
+        disputeId,
+        status,
+        userName,
+        comments,
+      };
+
       const data = { id: 7 };
 
       disputesApi.patch = jest.fn(() => Promise.resolve({ data }));
 
-      const response = await changeStatusDispute(disputerId, statusId);
-
+      const response = await changeStatusDispute(params);
       expect(response).toEqual(data);
-      expect(disputesApi.patch).toHaveBeenCalledWith(`/dispute/${disputerId}?status=${statusId}`);
+      expect(disputesApi.patch).toHaveBeenCalledWith(
+        `/dispute/${disputeId}?status=${status}&userName=${userName}&comments=${comments}`
+      );
     });
   });
 

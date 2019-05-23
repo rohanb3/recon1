@@ -96,6 +96,7 @@ export const TABLE_DISPUTE_СOLUMNS_SORTED = {
 export const ENTITY_TYPES = {
   ORDERS: 'ORDERS',
   DISPUTES: 'DISPUTES',
+  RESUBMISSION: 'RESUBMISSION',
 };
 
 export const FILTER_NAMES = {
@@ -108,7 +109,7 @@ export const FILTER_NAMES = {
   DISPUTE_STATUS_IDS: 'DisputeStatusIds',
 };
 
-export const TABLE_СOLUMN_ID_NAMES = {
+export const TABLE_COLUMN_ID_NAMES = {
   [ENTITY_TYPES.ORDERS]: 'orderId',
 };
 

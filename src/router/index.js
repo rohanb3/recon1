@@ -7,6 +7,7 @@ import AppContent from '@/containers/AppContent';
 import OrdersPage from '@/containers/OrdersPage';
 import DisputePage from '@/containers/DisputePage';
 import DisputesPage from '@/containers/DisputesPage';
+import ResubmissionTable from '@/containers/ResubmissionTable';
 import SyncNotifier from '@/containers/SyncNotifier';
 
 import LoginPage from '@/containers/LoginPage';
@@ -117,7 +118,7 @@ const router = new Router({
             },
             {
               path: 'resubmission-table',
-              component: DisputesPage,
+              component: ResubmissionTable,
               name: ROUTE_NAMES.RESUBMISSION_TABLE,
             },
           ],

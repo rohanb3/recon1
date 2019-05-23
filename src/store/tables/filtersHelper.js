@@ -19,6 +19,12 @@ const filters = {
     [FILTER_NAMES.ORDER]: SORTING_DIRECTION.ASC,
     [FILTER_NAMES.DISPUTE_TYPE_IDS]: null,
   },
+  [ENTITY_TYPES.RESUBMISSION]: {
+    [FILTER_NAMES.SEARCH_DISPUTES]: '',
+    [FILTER_NAMES.SORT]: TABLE_DISPUTE_СOLUMNS_SORTED.ID,
+    [FILTER_NAMES.ORDER]: SORTING_DIRECTION.ASC,
+    [FILTER_NAMES.DISPUTE_TYPE_IDS]: null,
+  },
 };
 
 export default itemType => ({ ...filters[itemType] } || {});
