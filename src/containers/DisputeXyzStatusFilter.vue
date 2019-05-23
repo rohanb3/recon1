@@ -34,27 +34,30 @@ export default {
       [FILTER_NAMES.DISPUTE_STATUS_IDS]: [
         {
           id: DISPUTE_STATUSES_ID.SENT,
-          ids: [DISPUTE_STATUSES_ID.SENT, DISPUTE_STATUSES_ID.IN_PROGRESS],
+          [this.sendFieldName]: [DISPUTE_STATUSES_ID.SENT, DISPUTE_STATUSES_ID.IN_PROGRESS],
           name: this.$t('pending'),
         },
         {
           id: DISPUTE_STATUSES_ID.CONFIRM_APPROVED,
-          ids: [DISPUTE_STATUSES_ID.CONFIRM_APPROVED, DISPUTE_STATUSES_ID.CONFIRM_REJECTED],
+          [this.sendFieldName]: [
+            DISPUTE_STATUSES_ID.CONFIRM_APPROVED,
+            DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
+          ],
           name: this.$t('confirmed'),
         },
         {
           id: DISPUTE_STATUSES_ID.RE_SENT,
-          ids: DISPUTE_STATUSES_ID.RE_SENT,
+          [this.sendFieldName]: [DISPUTE_STATUSES_ID.RE_SENT],
           name: this.$t('resubmited'),
         },
         {
           id: DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
-          ids: DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
+          [this.sendFieldName]: [DISPUTE_STATUSES_ID.CONFIRM_REJECTED],
           name: this.$t('rejected'),
         },
         {
           id: DISPUTE_STATUSES_ID.APPROVED,
-          ids: [DISPUTE_STATUSES_ID.APPROVED, DISPUTE_STATUSES_ID.REJECTED],
+          [this.sendFieldName]: [DISPUTE_STATUSES_ID.APPROVED, DISPUTE_STATUSES_ID.REJECTED],
           name: this.$t('waiting.for.answer'),
         },
       ],
