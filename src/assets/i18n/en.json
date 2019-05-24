@@ -83,7 +83,7 @@
   "remove.draft": "Remove Draft",
 
   "choose.fiscal.period": "Choose fiscal period",
-  "selected.date.range": "Selected date range",
+  "selected.date.range": "Selected date range: from %{dateFrom} to %{dateTo}",
   "quick.search": "Search query…",
   "orders.status": "Order status",
   "export": "Export",

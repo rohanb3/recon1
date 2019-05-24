@@ -70,3 +70,10 @@
     }
   }
 }
+
+@mixin selected-date-range {
+  margin: 0 0 10px 50px;
+  font-size: 14px;
+  font-weight: bold;
+  color: $base-text-color;
+}

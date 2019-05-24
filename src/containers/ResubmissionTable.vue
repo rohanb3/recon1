@@ -4,6 +4,11 @@
       <div class="table-title">{{ $t('resubmission.table.title') }}</div>
       <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
     </div>
+    <div class="selected-date-range" v-show="isSelectedDateRange">
+      {{
+        $t('selected.date.range', { dateFrom: selectedDateRangeFrom, dateTo: selectedDateRangeTo })
+      }}
+    </div>
     <wombat-table
       :items="rows"
       :columns="columns"
@@ -234,5 +239,9 @@ export default {
     color: $base-text-color;
     opacity: 0.6;
   }
+}
+
+.selected-date-range {
+  @include selected-date-range;
 }
 </style>
