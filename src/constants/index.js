@@ -72,7 +72,7 @@ export const TABLE_СOLUMNS_SORTED = {
   ORDER_EXPECTED_COMISSION: 'expectedComission',
   ORDER_RECIEVED_COMISSON: 'recevedComission',
   ORDER_DIFFERENCE: 'difference',
-  DISPUTE_STATUS: 'disputeStatus',
+  DISPUTE_STATUS: 'disputeStatusName',
 };
 
 export const ENTITY_TYPES = {
