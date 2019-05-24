@@ -96,6 +96,8 @@ export default {
       loading: true,
       sendingData: false,
       loadingFilesStatus: false,
+      savedDispute: false,
+      routeNameForRedirect: ROUTE_NAMES.SELECT_ORDER,
     };
   },
   computed: {
@@ -113,24 +115,30 @@ export default {
     disputeTypeId() {
       return (this.disputeInfo.disputeType || {}).id;
     },
+    isDisputeStatusSent() {
+      return this.disputeStatusId === DISPUTE_STATUSES_ID.SENT;
+    },
   },
   methods: {
     async onSave() {
-      if (this.validate()) {
-        this.sendingData = true;
-        try {
-          await updateDispute(this.disputeInfo.id, {
-            ...this.disputeInfo,
-            disputeId: this.disputeId,
-            disputeStatusId: this.disputeStatusId,
-            disputeTypeId: this.disputeTypeId,
-          });
-          this.$router.push({ name: ROUTE_NAMES.SELECT_ORDER });
-        } catch {
-          errorMessage();
-        } finally {
-          this.sendingData = false;
-        }
+      if (this.isDisputeStatusSent && !this.validate()) {
+        return;
+      }
+
+      this.sendingData = true;
+      try {
+        await updateDispute(this.disputeInfo.id, {
+          ...this.disputeInfo,
+          disputeId: this.disputeId,
+          disputeStatusId: this.disputeStatusId,
+          disputeTypeId: this.disputeTypeId,
+        });
+        this.savedDispute = true;
+        this.$router.push({ name: this.routeNameForRedirect });
+      } catch {
+        errorMessage();
+      } finally {
+        this.sendingData = false;
       }
     },
     onSaveDraft() {
@@ -141,7 +149,8 @@ export default {
     async onRemoveDraft() {
       try {
         await deleteDispute(this.disputeInfo.id);
-        this.$router.push({ name: ROUTE_NAMES.SELECT_ORDER });
+        this.savedDispute = true;
+        this.$router.push({ name: this.routeNameForRedirect });
       } catch {
         errorMessage();
       } finally {
@@ -167,7 +176,7 @@ export default {
         }
       } catch (e) {
         if ((e.response || {}).status === RESPONSE_STATUSES.NOT_FOUND) {
-          this.$router.push({ name: ROUTE_NAMES.MAIN_PAGE });
+          this.$router.push({ name: this.routeNameForRedirect });
         } else {
           errorMessage();
         }
@@ -223,6 +232,15 @@ export default {
         this.$refs.customerInfo.validate(),
       ].every(isValidForm => isValidForm === true);
     },
+  },
+  beforeRouteLeave(to, from, next) {
+    if (this.savedDispute) {
+      next();
+    } else {
+      this.routeNameForRedirect = to.name;
+      this.onCancel();
+      next(false);
+    }
   },
 };
 </script>

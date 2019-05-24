@@ -23,7 +23,7 @@
           <FieldAccountNumber ref="fieldAccountNumber" v-model="disputeInfo" />
         </v-flex>
         <v-flex md6 ml-5>
-          <FieldOrderConfirmation ref="fieldOrderConfirmation" v-model="disputeInfo" />
+          <FieldOrderConfirmation v-model="disputeInfo" />
         </v-flex>
       </v-layout>
       <v-layout row mb-2>
@@ -80,7 +80,7 @@
         </v-flex>
         <v-flex md6 ml-5>
           <v-text-field
-            :value="recevedСomission | currency"
+            :value="recevedComission | currency"
             disabled
             :label="$t('dispute.recived.comission.difference')"
           ></v-text-field>
@@ -140,8 +140,8 @@ export default {
     expectedComission() {
       return this.value.expectedComission || ' ';
     },
-    recevedСomission() {
-      return this.value.recevedСomission || ' ';
+    recevedComission() {
+      return this.value.recevedComission || ' ';
     },
     createdOn() {
       return this.value.createdOn || ' ';
@@ -163,7 +163,6 @@ export default {
       return [
         this.$refs.form.validate(),
         this.$refs.fieldWoNumber.validate(),
-        this.$refs.fieldOrderConfirmation.validate(),
         this.$refs.fieldAccountNumber.validate(),
       ].every(isValidForm => isValidForm === true);
     },
