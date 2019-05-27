@@ -136,7 +136,10 @@ export default {
         .format(this.dateRangeFormat);
     },
     formatDayForDatePicker(date) {
-      return moment.utc(date || moment()).format(DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY);
+      return moment
+        .utc(date || moment())
+        .local()
+        .format(DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY);
     },
     setToday() {
       const today = moment.utc();
@@ -147,34 +150,31 @@ export default {
       this.setRange(yesterday);
     },
     setLastSevenDays() {
-      const startDate = moment.utc().subtract(7, 'day');
-      const endDate = moment.utc().subtract(1, 'day');
+      const startDate = moment().subtract(6, 'day');
+      const endDate = moment();
       this.setRange(startDate, endDate);
     },
     setLastThirtyDays() {
-      const startDate = moment.utc().subtract(30, 'day');
-      const endDate = moment.utc().subtract(1, 'day');
+      const startDate = moment().subtract(29, 'day');
+      const endDate = moment();
       this.setRange(startDate, endDate);
     },
     setPreviousMonth() {
-      const startDate = moment
-        .utc()
+      const startDate = moment()
         .subtract(1, 'month')
         .startOf('month');
-      const endDate = moment
-        .utc()
+      const endDate = moment()
         .subtract(1, 'month')
         .endOf('month');
       this.setRange(startDate, endDate);
     },
     setPreviousPreviousMonth() {
-      const startDate = moment
-        .utc()
+      const startDate = moment()
         .subtract(2, 'month')
         .startOf('month');
-      const endDate = moment
-        .utc()
+      const endDate = moment()
         .subtract(2, 'month')
+
         .endOf('month');
       this.setRange(startDate, endDate);
     },

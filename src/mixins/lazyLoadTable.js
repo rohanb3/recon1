@@ -60,6 +60,12 @@ export default {
     selectedDateRangeTo() {
       return moment(this.filters[FILTER_NAMES.CREATED_TO]).format(DATE_FORMATS.MONTH_DAY_FULL_YEAR);
     },
+    selectedDateRange() {
+      return {
+        from: this.selectedDateRangeFrom,
+        to: this.selectedDateRangeTo,
+      };
+    },
     isSelectedDateRange() {
       return this.filters[FILTER_NAMES.CREATED_FROM] && this.filters[FILTER_NAMES.CREATED_TO];
     },

@@ -5,9 +5,7 @@
       <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
     </div>
     <div class="selected-date-range" v-show="isSelectedDateRange">
-      {{
-        $t('selected.date.range', { dateFrom: selectedDateRangeFrom, dateTo: selectedDateRangeTo })
-      }}
+      {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
     </div>
     <wombat-table
       :items="rows"
@@ -90,6 +88,7 @@ import { errorMessage } from '@/services/notifications';
 import { CHANGE_ITEM } from '@/store/storage/mutationTypes';
 import { generateCSVFile } from '@/services/utils';
 import { mapState } from 'vuex';
+import dateRange from '@/filters/boundaries';
 
 export default {
   name: 'DisputesPage',
@@ -112,6 +111,9 @@ export default {
     ApproveDisputeStatusCell,
     DisputesTableToolbar,
     DisputeStatusCell,
+  },
+  filters: {
+    dateRange,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
