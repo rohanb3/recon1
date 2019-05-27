@@ -28,6 +28,7 @@ import moment from 'moment';
 import chunk from 'lodash.chunk';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import { range } from '@/services/numberHelper';
+import { setTimeout } from 'timers';
 
 export default {
   name: 'YearList',
@@ -49,9 +50,17 @@ export default {
     swiper,
     swiperSlide,
   },
+  mounted() {
+    setTimeout(() => {
+      this.initSwiper();
+    }, 1000);
+  },
   data() {
     return {
       swiperOption: {
+        pagination: {
+          el: '.swiper-pagination',
+        },
         navigation: {
           nextEl: '.swiper-next-years',
           prevEl: '.swiper-prev-years',
@@ -105,14 +114,19 @@ export default {
         this.$emit('input', year);
       }
     },
-  },
-  watch: {
-    listOfYears() {
+    initSwiper() {
+      console.log('ff');
+      this.$refs.mySwiper.swiper.update();
       if (this.indexSlideWhereSelectedYear >= 0) {
         this.$refs.mySwiper.swiper.slideTo(this.indexSlideWhereSelectedYear);
       } else {
         this.$refs.mySwiper.swiper.slideTo(this.numberOfSlides);
       }
+    },
+  },
+  watch: {
+    listOfYears() {
+      this.initSwiper();
     },
   },
 };
@@ -158,6 +172,11 @@ export default {
   .year {
     margin: 5px;
     cursor: pointer;
+    color: $base-text-color;
+
+    &.selected-year {
+      color: $base-blue;
+    }
 
     &.future-year {
       color: $base-red;
@@ -165,9 +184,5 @@ export default {
       cursor: default;
     }
   }
-}
-
-.selected-year {
-  color: $base-blue;
 }
 </style>

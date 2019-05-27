@@ -2,7 +2,7 @@
   <div class="fiscal-period-filter">
     <table-fiscal-period-filter
       :title="$t('choose.fiscal.period')"
-      :items="fiscalPeriodList"
+      :items="fiscalPeriodListWithSelected"
       :loading-status="loading"
       boundariesSelector=".disputes-table"
       @selectFiscalPeriod="handleFiscalPeriod"
@@ -35,6 +35,25 @@ export default {
       loading: false,
       fiscalPeriodList: [],
     };
+  },
+  computed: {
+    fiscalPeriodListWithSelected() {
+      return this.fiscalPeriodList.map(fiscalPeriod => {
+        if (fiscalPeriod.id === this.fiscalPeriodId) {
+          return { ...fiscalPeriod, selected: true };
+        }
+        return fiscalPeriod;
+      });
+    },
+    tableData() {
+      return this.$store.state.tables[this.tableName] || {};
+    },
+    filters() {
+      return this.tableData.filters || {};
+    },
+    fiscalPeriodId() {
+      return this.filters[FILTER_NAMES.FISCAL_PERIOD_ID];
+    },
   },
   methods: {
     loadFiscalPeriodList() {

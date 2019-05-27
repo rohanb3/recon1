@@ -1,5 +1,5 @@
 <template>
-  <div class="fiscal-period-filter" @click.stop="showFilter">
+  <div class="fiscal-period-filter" @click="showFilter">
     <div
       class="fiscal-period-filter-editor"
       ref="tableFilter"
@@ -51,6 +51,8 @@ import YearList from './YearList';
 import moment from 'moment';
 import { warnMessage } from '@/services/notifications';
 
+const FOUR_DIGITS_REGEX = /\d{4}/;
+
 export default {
   name: 'TableFiscalPeriodFilter',
   mixins: [tableToolbarBalloon],
@@ -89,15 +91,25 @@ export default {
         ) || {}
       ).id;
     },
+    selectedFiscalPeriod() {
+      return this.items.find(fiscalPeriod => fiscalPeriod.selected);
+    },
+    preselectedYear() {
+      return ((this.selectedFiscalPeriod || {}).name || '').split(' ').pop() || '';
+    },
+    preselectedMonth() {
+      return ((this.selectedFiscalPeriod || {}).name || '').split(' ').shift() || '';
+    },
     listOfYears() {
-      return Array.from(new Set(this.items.map(year => Number(year.name.split(' ').pop())).sort()));
+      return Array.from(
+        new Set(this.items.map(year => Number(year.name.split(' ').pop())).sort())
+      ).filter(year => FOUR_DIGITS_REGEX.test(year));
     },
     isNotSelectedMonthOrYear() {
       return !this.selectedYear || !this.selectedMonth;
     },
     selectedFiscalPeriodForTitle() {
-      if (this.isNotSelectedMonthOrYear) return '';
-      return `: ${this.selectedMonth} ${this.selectedYear}`;
+      return `: ${this.preselectedMonth} ${this.preselectedYear}`;
     },
   },
   methods: {

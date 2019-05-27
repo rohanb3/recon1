@@ -1,5 +1,5 @@
 <template>
-  <div class="table-dates-editor" @click.stop="checkAndShow">
+  <div class="table-dates-editor" @click="checkAndShow">
     <div class="date-range">{{ title }}{{ dateRange }}</div>
     <popper
       class="popper-datepicker"
