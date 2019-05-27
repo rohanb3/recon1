@@ -6,13 +6,13 @@ export const DATE_FORMATS = {
   SHORT_DAY_SHORT_MONTH_FULL_YEAR: 'DD MMM YYYY',
   SHORT_DAY_MONTH_FULL_YEAR: 'DD MMMM YYYY',
   MONTH_FULL_YEAR: 'MMMM YYYY',
+  MONTH_DAY_FULL_YEAR: 'MM-DD-YYYY',
 };
 
 export const DISPUTE_STATUSES_ID = {
   APPROVED: '0d3bf7cc-ba34-4c1e-afe1-1a7076bca43c',
   RE_SENT: '64592b25-cd4e-4cc5-973b-38ca6845066b',
   SENT: 'd0aa7b12-4b6a-40a2-9032-9ee04e4bf32d',
-  PRE_LOAD: '549faa27-5aa5-41d7-9404-1e60100f46d2',
   DRAFT: '75274550-87ff-454b-a80e-7d6d8a2f567e',
   REJECTED: 'cd795072-c46c-4a67-8e5b-3f5de946b16c',
   IN_PROGRESS: '82404a5d-966c-4ca9-b714-a039a8176b07',
@@ -114,6 +114,11 @@ export const FILTER_NAMES = {
   CREATED_FROM: 'CreatedFrom',
   CREATED_TO: 'CreatedTo',
   FISCAL_PERIOD_ID: 'FiscalPeriodId',
+  FISCAL_PERIOD_FROM: 'FiscalPeriodFrom',
+  FISCAL_PERIOD_TO: 'FiscalPeriodTo',
+  DISPUTE_AGE_FROM: 'DisputeAgeFrom',
+  DISPUTE_AGE_TO: 'DisputeAgeTo',
+  DISPUTE_STATUS_IDS: 'DisputeStatusIds',
 };
 
 export const TABLE_COLUMN_ID_NAMES = {

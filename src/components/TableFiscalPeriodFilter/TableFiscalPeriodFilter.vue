@@ -1,5 +1,5 @@
 <template>
-  <div class="fiscal-period-filter" @click="showFilter">
+  <div class="fiscal-period-filter" @click.stop="showFilter">
     <div
       class="fiscal-period-filter-editor"
       ref="tableFilter"
