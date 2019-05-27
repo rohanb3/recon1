@@ -23,7 +23,7 @@
             depressed
             :disabled="isNotSelectedMonthOrYear"
             class="button button-apply"
-            @click="onApply"
+            @click.stop="onApply"
             >{{ $t('apply') }}</v-btn
           >
         </div>
@@ -141,11 +141,12 @@ export default {
   font-size: 12px;
   color: $table-toolbar-section-color;
   font-weight: 500;
+  border-radius: 3px;
 }
 
 .fiscal-period-filter-editor {
   overflow: hidden;
-  max-width: 150px;
+  max-width: 210px;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
