@@ -6,6 +6,7 @@
     </div>
     <v-spacer></v-spacer>
     <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
+    <fiscal-period-filter :tableName="tableName" />
   </div>
 </template>
 
@@ -13,6 +14,7 @@
 import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
 import TableButton from '@/components/TableButton';
+import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import { ENTITY_TYPES } from '@/constants';
 
 export default {
@@ -21,6 +23,7 @@ export default {
     QuickSearchDisputesFilter,
     DisputeTypeFilter,
     TableButton,
+    FiscalPeriodFilter,
   },
   data() {
     return {

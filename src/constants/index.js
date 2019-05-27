@@ -111,6 +111,9 @@ export const FILTER_NAMES = {
   INSTALLATION_AGE_FROM: 'InstallationAgeFrom',
   INSTALLATION_AGE_TO: 'InstallationAgeTo',
   DISPUTE_TYPE_IDS: 'DisputeTypeIds',
+  CREATED_FROM: 'CreatedFrom',
+  CREATED_TO: 'CreatedTo',
+  FISCAL_PERIOD_ID: 'FiscalPeriodId',
 };
 
 export const TABLE_COLUMN_ID_NAMES = {

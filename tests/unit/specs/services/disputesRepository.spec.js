@@ -154,7 +154,6 @@ describe('disputesRepository', () => {
       const comments = 'test1234';
 
       const params = {
-        disputeId,
         status,
         userName,
         comments,
@@ -164,11 +163,9 @@ describe('disputesRepository', () => {
 
       disputesApi.patch = jest.fn(() => Promise.resolve({ data }));
 
-      const response = await changeStatusDispute(params);
+      const response = await changeStatusDispute({ disputeId, ...params });
       expect(response).toEqual(data);
-      expect(disputesApi.patch).toHaveBeenCalledWith(
-        `/dispute/${disputeId}?status=${status}&userName=${userName}&comments=${comments}`
-      );
+      expect(disputesApi.patch).toHaveBeenCalledWith(`/dispute/${disputeId}`, null, { params });
     });
   });
 
