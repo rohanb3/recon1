@@ -63,7 +63,7 @@
   "dispute.order.installed": "TBD Order was installed but commision is not received",
   "dispute.are.you.sure": "TBD Are you sure?",
   "dispute.if.you.close.this.page": "TBD Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
-  
+
   "file.is.too.big": "TBD File is too big",
   "failed.to.upload.file": "TBD Failed to upload file",
 
@@ -74,10 +74,10 @@
   "field.must.consist.only.letters": "TBD This field must consist only letters",
   "field.must.consist.only.digits": "TBD This field must consist only digits",
   "field.must.consist.only.capital.letter": "TBD This field must consist only capital letter",
-  
 
   "cancel": "TBD Cancel",
   "save.as.draft": "TBD Save as Draft",
+  "save": "TBD Save",
   "create.new.dispute": "TBD Create new dispute",
   "remove.draft": "TBD Remove Draft",
 
@@ -119,14 +119,29 @@
   "resubmission.table.approve": "TBD Approve",
   "resubmission.table.reject": "TBD Reject",
   "resubmission.table.resubmit.claim": "TBD Resubmit claim",
+  "resubmission.table.reject.description": "TBD Dispute Reject Description",
+  "resubmission.table.approve.description": "TBD Dispute Approve Description",
+  "resubmission.table.enter.reject.comment.below": "TBD To reject the dispute enter comment below:",
+  "resubmission.table.enter.approve.comment.below": "TBD To approve the dispute enter comment below:",
 
   "approve": "TBD Approve",
+  "approved": "TBD Approved",
   "reject": "TBD Reject",
   "confirm": "TBD Confirm",
   "resubmit": "TBD Resubmit",
   "confirmed": "TBD Confirmed",
   "resubmited": "TBD Resubmited",
+  "confirm.rejected": "TBD Confirm Rejected",
+  "confirm.approved": "TBD Confirm Approved",
+  "in.progress": "TBD In progress",
+  "sent": "TBD Sent",
+  "draft": "TBD Draft",
   "rejected": "TBD Rejected",
+  "resent": "TBD Re-sent",
+  "pending": "TBD Pending",
+
+  "validation.rule.rage.negative": "TBD To value should be greater that from",
+  "validation.rule.number.too.small": "TBD Value should be greater than %{min}",
 
   "login": "TBD Login",
   "i.agree.to.the": "TBD I agree to the ",
@@ -162,5 +177,7 @@
   "profile": "TBD Profile",
   "log.out": "TBD Log Out",
   "email": "TBD Email",
-  "password": "TBD Password"
+  "password": "TBD Password",
+  "from": "TBD from",
+  "to": "TBD to"
 }

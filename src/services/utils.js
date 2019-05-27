@@ -59,6 +59,10 @@ export function imageEncode(arrayBuffer) {
   return `data:image/jpeg;base64,${b64encoded}`;
 }
 
+export function notEmpty(value) {
+  return value !== undefined && value !== null && value !== '';
+}
+
 export function generateCSVFile(CSVFile, fileName = 'report') {
   const csvData = new Blob([CSVFile], { type: 'text/csv;charset=utf-8;' });
   const link = document.createElement('a');

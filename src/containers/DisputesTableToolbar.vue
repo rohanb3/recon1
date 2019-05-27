@@ -4,6 +4,7 @@
     <div class="table-filter-container">
       <dispute-type-filter :tableName="tableName" />
       <dispute-xyz-status-filter :tableName="tableName" send-field-name="ids" />
+      <dispute-status-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
     <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
@@ -14,6 +15,7 @@
 import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
 import DisputeXyzStatusFilter from '@/containers/DisputeXyzStatusFilter';
+import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
 import TableButton from '@/components/TableButton';
 import { ENTITY_TYPES } from '@/constants';
 
@@ -24,6 +26,7 @@ export default {
     DisputeTypeFilter,
     TableButton,
     DisputeXyzStatusFilter,
+    DisputeStatusFilter,
   },
   data() {
     return {
