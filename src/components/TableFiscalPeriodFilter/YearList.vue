@@ -7,7 +7,7 @@
       >
       <v-icon class="nav-btn swiper-next-years">arrow_right</v-icon>
     </div>
-    <swiper :options="swiperOption" ref="mySwiper">
+    <swiper :options="swiperOption" ref="swiperYears" @slideChange="onSlideChange">
       <swiper-slide class="list-of-years years" v-for="(years, index) in allYears" :key="index">
         <span
           class="year"
@@ -18,7 +18,6 @@
           >{{ year }}</span
         >
       </swiper-slide>
-      <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
   </div>
 </template>
@@ -28,7 +27,6 @@ import moment from 'moment';
 import chunk from 'lodash.chunk';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import { range } from '@/services/numberHelper';
-import { setTimeout } from 'timers';
 
 export default {
   name: 'YearList',
@@ -50,23 +48,20 @@ export default {
     swiper,
     swiperSlide,
   },
-  mounted() {
-    setTimeout(() => {
-      this.initSwiper();
-    }, 1000);
-  },
   data() {
     return {
       swiperOption: {
-        pagination: {
-          el: '.swiper-pagination',
-        },
+        initialSlide: 0,
+        slidesPerView: 1,
         navigation: {
           nextEl: '.swiper-next-years',
           prevEl: '.swiper-prev-years',
         },
       },
     };
+  },
+  mounted() {
+    this.swiper.slideTo(3, 1000, false);
   },
   computed: {
     allYears() {
@@ -92,6 +87,9 @@ export default {
     indexSlideWhereSelectedYear() {
       return this.allYears.findIndex(years => years.find(year => year === this.value));
     },
+    swiper() {
+      return (this.$refs.swiperYears || {}).swiper;
+    },
   },
   methods: {
     maxDisplayedYear() {
@@ -101,7 +99,7 @@ export default {
       return Math.min.apply(null, this.allYears[this.indexDisplayedSlide()]);
     },
     indexDisplayedSlide() {
-      return ((this.$refs.mySwiper || {}).swiper || {}).activeIndex || 0;
+      return (this.swiper || {}).activeIndex || 0;
     },
     isFutureYear(year) {
       return moment().year() < year;
@@ -115,13 +113,14 @@ export default {
       }
     },
     initSwiper() {
-      console.log('ff');
-      this.$refs.mySwiper.swiper.update();
       if (this.indexSlideWhereSelectedYear >= 0) {
-        this.$refs.mySwiper.swiper.slideTo(this.indexSlideWhereSelectedYear);
+        this.swiper.slideTo(this.indexSlideWhereSelectedYear);
       } else {
-        this.$refs.mySwiper.swiper.slideTo(this.numberOfSlides);
+        this.swiper.slideTo(this.numberOfSlides);
       }
+    },
+    onSlideChange(w) {
+      console.log(w);
     },
   },
   watch: {
