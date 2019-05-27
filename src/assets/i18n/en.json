@@ -131,7 +131,13 @@
   "resubmit": "Resubmit",
   "confirmed": "Confirmed",
   "resubmited": "Resubmited",
+  "confirm.rejected": "Confirm Rejected",
+  "confirm.approved": "Confirm Approved",
+  "in.progress": "In progress",
+  "sent": "Sent",
+  "draft": "Draft",
   "rejected": "Rejected",
+  "resent": "Re-sent",
   "pending": "Pending",
 
   "validation.rule.rage.negative": "To value should be greater that from",
