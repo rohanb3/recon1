@@ -12,7 +12,6 @@ export const DISPUTE_STATUSES_ID = {
   APPROVED: '0d3bf7cc-ba34-4c1e-afe1-1a7076bca43c',
   RE_SENT: '64592b25-cd4e-4cc5-973b-38ca6845066b',
   SENT: 'd0aa7b12-4b6a-40a2-9032-9ee04e4bf32d',
-  PRE_LOAD: '549faa27-5aa5-41d7-9404-1e60100f46d2',
   DRAFT: '75274550-87ff-454b-a80e-7d6d8a2f567e',
   REJECTED: 'cd795072-c46c-4a67-8e5b-3f5de946b16c',
   IN_PROGRESS: '82404a5d-966c-4ca9-b714-a039a8176b07',
@@ -62,12 +61,12 @@ export const SORTING_DIRECTION = {
   ASC: 'asc',
 };
 
-export const TABLE_ORDER_СOLUMNS_SORTED = {
+export const TABLE_ORDER_COLUMNS_SORTED = {
   NUMBER: 'ordernumber',
   ACCOUNT_NUMBER: 'accountnumber',
-  DISPUTE_STATUS: 'disputeStatus',
+  DISPUTE_STATUS: 'disputeStatusName',
   UNITS: 'orderedUnits',
-  STATUS: 'statusName',
+  STATUS: 'orderStatusName',
   AGE_AFTER: 'creationAge',
   INSTALLATION_AGE: 'installationAge',
   EXPECTED_COMISSION: 'expectedComission',
@@ -75,12 +74,12 @@ export const TABLE_ORDER_СOLUMNS_SORTED = {
   DIFFERENCE: 'difference',
 };
 
-export const TABLE_DISPUTE_СOLUMNS_SORTED = {
+export const TABLE_DISPUTE_COLUMNS_SORTED = {
   ID: 'id',
   FISCAL_PERIOD: 'fiscalPeriod',
   ACCOUNT_NUMBER: 'accountNumber',
   EXPECTED_COMISSION: 'expectedcomission',
-  RECEIVED_COMISSION: 'recevedСomission',
+  RECEIVED_COMISSION: 'recevedComission',
   DIFFERENCE: 'difference',
   CREATOR_NAME: 'creatorName',
   CREATION_DATE: 'disputecreationdate',
@@ -113,6 +112,7 @@ export const FILTER_NAMES = {
   DISPUTE_TYPE_IDS: 'DisputeTypeIds',
   DISPUTE_AGE_FROM: 'DisputeAgeFrom',
   DISPUTE_AGE_TO: 'DisputeAgeTo',
+  DISPUTE_STATUS_IDS: 'DisputeStatusIds',
 };
 
 export const TABLE_COLUMN_ID_NAMES = {
