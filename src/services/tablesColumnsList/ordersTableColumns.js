@@ -1,4 +1,5 @@
 import i18n from '@/i18n';
+import { TABLE_ORDER_COLUMNS_SORTED } from '@/constants';
 
 export default () => [
   {
@@ -9,6 +10,8 @@ export default () => [
     title: i18n.t('orders.number'),
     width: '4',
     minWidth: '90px',
+    sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.NUMBER,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'accountNumber',
@@ -17,6 +20,8 @@ export default () => [
     title: i18n.t('orders.account.number'),
     width: '6',
     minWidth: '70px',
+    sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.ACCOUNT_NUMBER,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'serviceName',
@@ -33,6 +38,8 @@ export default () => [
     title: i18n.t('orders.ordered.units'),
     width: '4',
     minWidth: '70px',
+    sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.UNITS,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'installedUnits',
@@ -50,6 +57,8 @@ export default () => [
     title: i18n.t('orders.order.status'),
     width: '5',
     minWidth: '60px',
+    sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.STATUS,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'creationAge',
@@ -59,6 +68,8 @@ export default () => [
     title: i18n.t('orders.age.after.order'),
     width: '4',
     minWidth: '90px',
+    sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.AGE_AFTER,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'installationAge',
@@ -68,6 +79,8 @@ export default () => [
     title: i18n.t('orders.age.after.installation'),
     width: '5',
     minWidth: '90px',
+    sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.INSTALLATION_AGE,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'expectedComission',
@@ -77,6 +90,8 @@ export default () => [
     title: i18n.t('orders.expected.comission'),
     width: '5',
     minWidth: '85px',
+    sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.EXPECTED_COMISSION,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'recevedComission',
@@ -86,6 +101,8 @@ export default () => [
     title: i18n.t('orders.recieved.comisson'),
     width: '5',
     minWidth: '85px',
+    sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.RECIEVED_COMISSON,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'orderDifference',
@@ -94,6 +111,8 @@ export default () => [
     title: i18n.t('orders.difference'),
     width: '4',
     minWidth: '85px',
+    sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.DIFFERENCE,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'newDisputeButton',
@@ -102,5 +121,7 @@ export default () => [
     title: i18n.t('orders.new.dispute'),
     width: '5',
     minWidth: '105px',
+    sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.DISPUTE_STATUS,
+    fieldHeaderType: 'sortingHeader',
   },
 ];

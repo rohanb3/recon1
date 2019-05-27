@@ -3,6 +3,8 @@
     <quick-search-filter :tableName="tableName" />
     <div class="table-filter-container">
       <order-status-filter :table-name="tableName" />
+      <order-age-filter :table-name="tableName" />
+      <installation-age-filter :table-name="tableName" />
     </div>
     <v-spacer></v-spacer>
     <table-button
@@ -17,6 +19,8 @@
 <script>
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import OrderStatusFilter from '@/containers/OrderStatusFilter';
+import OrderAgeFilter from './OrderAgeFilter';
+import InstallationAgeFilter from './InstallationAgeFilter';
 import TableButton from '@/components/TableButton';
 import { ENTITY_TYPES, ORDER_SYNC_STATUS } from '@/constants';
 
@@ -25,6 +29,8 @@ export default {
   components: {
     QuickSearchFilter,
     OrderStatusFilter,
+    OrderAgeFilter,
+    InstallationAgeFilter,
     TableButton,
   },
   data() {
