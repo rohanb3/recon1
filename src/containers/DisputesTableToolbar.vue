@@ -3,6 +3,9 @@
     <quick-search-disputes-filter :tableName="tableName" />
     <div class="table-filter-container">
       <dispute-type-filter :tableName="tableName" />
+      <order-age-filter :table-name="tableName" />
+      <installation-age-filter :table-name="tableName" />
+      <disput-age-filter :table-name="tableName" />
       <dispute-xyz-status-filter :tableName="tableName" send-field-name="ids" />
       <dispute-status-filter :tableName="tableName" />
     </div>
@@ -14,10 +17,12 @@
 <script>
 import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
+import OrderAgeFilter from '@/containers/OrderAgeFilter';
+import DisputAgeFilter from '@/containers/DisputAgeFilter';
+import InstallationAgeFilter from '@/containers/InstallationAgeFilter';
 import DisputeXyzStatusFilter from '@/containers/DisputeXyzStatusFilter';
 import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
 import TableButton from '@/components/TableButton';
-import { ENTITY_TYPES } from '@/constants';
 
 export default {
   name: 'DisputesTableToolbar',
@@ -25,13 +30,17 @@ export default {
     QuickSearchDisputesFilter,
     DisputeTypeFilter,
     TableButton,
+    OrderAgeFilter,
+    InstallationAgeFilter,
+    DisputAgeFilter,
     DisputeXyzStatusFilter,
     DisputeStatusFilter,
   },
-  data() {
-    return {
-      tableName: ENTITY_TYPES.DISPUTES,
-    };
+  props: {
+    tableName: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>
@@ -47,23 +56,6 @@ export default {
 
   .quick-search {
     flex: 0;
-  }
-
-  .table-filter-container {
-    display: flex;
-
-    .table-filter:first-child {
-      border-radius: 3px 0 0 3px;
-      border-right-color: $table-filter-border-right-color;
-    }
-
-    .table-filter:last-child {
-      border-radius: 0 3px 3px 0;
-    }
-
-    .table-filter:only-of-type {
-      border-radius: 3px;
-    }
   }
 }
 

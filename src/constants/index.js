@@ -110,6 +110,8 @@ export const FILTER_NAMES = {
   INSTALLATION_AGE_FROM: 'InstallationAgeFrom',
   INSTALLATION_AGE_TO: 'InstallationAgeTo',
   DISPUTE_TYPE_IDS: 'DisputeTypeIds',
+  DISPUTE_AGE_FROM: 'DisputeAgeFrom',
+  DISPUTE_AGE_TO: 'DisputeAgeTo',
   DISPUTE_STATUS_IDS: 'DisputeStatusIds',
 };
 
