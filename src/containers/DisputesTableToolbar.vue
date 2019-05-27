@@ -3,6 +3,7 @@
     <quick-search-disputes-filter :tableName="tableName" />
     <div class="table-filter-container">
       <dispute-type-filter :tableName="tableName" />
+      <dispute-xyz-status-filter :tableName="tableName" send-field-name="ids" />
       <dispute-status-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
@@ -13,6 +14,7 @@
 <script>
 import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
+import DisputeXyzStatusFilter from '@/containers/DisputeXyzStatusFilter';
 import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
 import TableButton from '@/components/TableButton';
 import { ENTITY_TYPES } from '@/constants';
@@ -23,6 +25,7 @@ export default {
     QuickSearchDisputesFilter,
     DisputeTypeFilter,
     TableButton,
+    DisputeXyzStatusFilter,
     DisputeStatusFilter,
   },
   data() {

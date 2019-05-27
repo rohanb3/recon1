@@ -139,6 +139,7 @@
   "rejected": "Rejected",
   "resent": "Re-sent",
   "pending": "Pending",
+  "waiting.for.answer": "Waiting for answer",
 
   "validation.rule.rage.negative": "To value should be greater that from",
   "validation.rule.number.too.small": "Value should be greater than %{min}",
