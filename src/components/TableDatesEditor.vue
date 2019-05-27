@@ -21,7 +21,6 @@
             <li class="range-value" @click="setPreviousPreviousMonth">
               {{ previousPreviousMonthName }}
             </li>
-            <li class="range-value" @click="setAllTime">{{ $t('all.time') }}</li>
           </ul>
           <v-btn
             class="apply-button"
@@ -56,7 +55,6 @@ import InlineDatepicker from '@/components/InlineDatepicker';
 import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
 import { DATE_FORMATS } from '@/constants';
 
-const START_OF_TIME = '2018-01-01';
 export default {
   name: 'TableDatesEditor',
   components: {
@@ -132,16 +130,13 @@ export default {
       this.hide();
     },
     prettifyDate(date) {
-      return moment.utc(date).format(this.dateRangeFormat);
+      return moment
+        .utc(date)
+        .local()
+        .format(this.dateRangeFormat);
     },
     formatDayForDatePicker(date) {
-      if (date === '') {
-        return moment
-          .utc()
-          .endOf('day')
-          .format(DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY);
-      }
-      return moment.utc(date).format(DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY);
+      return moment.utc(date || moment()).format(DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY);
     },
     setToday() {
       const today = moment.utc();
@@ -153,12 +148,12 @@ export default {
     },
     setLastSevenDays() {
       const startDate = moment.utc().subtract(7, 'day');
-      const endDate = moment.utc();
+      const endDate = moment.utc().subtract(1, 'day');
       this.setRange(startDate, endDate);
     },
     setLastThirtyDays() {
       const startDate = moment.utc().subtract(30, 'day');
-      const endDate = moment.utc();
+      const endDate = moment.utc().subtract(1, 'day');
       this.setRange(startDate, endDate);
     },
     setPreviousMonth() {
@@ -181,11 +176,6 @@ export default {
         .utc()
         .subtract(2, 'month')
         .endOf('month');
-      this.setRange(startDate, endDate);
-    },
-    setAllTime() {
-      const startDate = moment.utc(START_OF_TIME);
-      const endDate = moment.utc();
       this.setRange(startDate, endDate);
     },
     setRange(startDate, endDate) {
