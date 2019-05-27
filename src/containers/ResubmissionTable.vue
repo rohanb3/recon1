@@ -4,6 +4,11 @@
       <div class="table-title">{{ $t('resubmission.table.title') }}</div>
       <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
     </div>
+    <div class="selected-date-range" v-show="isSelectedDateRange">
+      {{
+        $t('selected.date.range', { dateFrom: selectedDateRangeFrom, dateTo: selectedDateRangeTo })
+      }}
+    </div>
     <wombat-table
       :items="rows"
       :columns="columns"
@@ -91,7 +96,9 @@ import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStat
 import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
 import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
 import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmRejectDisputePopup';
+
 import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
+
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 import { ENTITY_TYPES } from '@/constants';
@@ -220,5 +227,9 @@ export default {
     color: $base-text-color;
     opacity: 0.6;
   }
+}
+
+.selected-date-range {
+  @include selected-date-range;
 }
 </style>

@@ -6,6 +6,7 @@ export const DATE_FORMATS = {
   SHORT_DAY_SHORT_MONTH_FULL_YEAR: 'DD MMM YYYY',
   SHORT_DAY_MONTH_FULL_YEAR: 'DD MMMM YYYY',
   MONTH_FULL_YEAR: 'MMMM YYYY',
+  MONTH_DAY_FULL_YEAR: 'MM-DD-YYYY',
 };
 
 export const DISPUTE_STATUSES_ID = {
@@ -110,6 +111,10 @@ export const FILTER_NAMES = {
   INSTALLATION_AGE_FROM: 'InstallationAgeFrom',
   INSTALLATION_AGE_TO: 'InstallationAgeTo',
   DISPUTE_TYPE_IDS: 'DisputeTypeIds',
+  CREATED_FROM: 'CreatedFrom',
+  CREATED_TO: 'CreatedTo',
+  FISCAL_PERIOD_FROM: 'FiscalPeriodFrom',
+  FISCAL_PERIOD_TO: 'FiscalPeriodTo',
   DISPUTE_AGE_FROM: 'DisputeAgeFrom',
   DISPUTE_AGE_TO: 'DisputeAgeTo',
   DISPUTE_STATUS_IDS: 'DisputeStatusIds',

@@ -4,6 +4,9 @@
       <div class="table-title">{{ $t('disputes.title') }}</div>
       <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
     </div>
+    <div class="selected-date-range" v-show="isSelectedDateRange">
+      {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
+    </div>
     <wombat-table
       :items="rows"
       :columns="columns"
@@ -75,6 +78,7 @@ import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatus
 import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
 import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
 import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
+
 import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
@@ -84,6 +88,7 @@ import { errorMessage } from '@/services/notifications';
 import { CHANGE_ITEM } from '@/store/storage/mutationTypes';
 import { generateCSVFile } from '@/services/utils';
 import { mapState } from 'vuex';
+import dateRange from '@/filters/boundaries';
 
 export default {
   name: 'DisputesPage',
@@ -106,6 +111,9 @@ export default {
     ApproveDisputeStatusCell,
     DisputesTableToolbar,
     DisputeStatusCell,
+  },
+  filters: {
+    dateRange,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
@@ -190,5 +198,9 @@ export default {
     color: $base-text-color;
     opacity: 0.6;
   }
+}
+
+.selected-date-range {
+  @include selected-date-range;
 }
 </style>
