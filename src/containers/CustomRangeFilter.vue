@@ -14,7 +14,7 @@ import { FILTER_NAMES } from '@/constants';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 
 export default {
-  name: 'CustomeRangeFilter',
+  name: 'CustomRangeFilter',
   components: {
     TableDatesEditor,
   },

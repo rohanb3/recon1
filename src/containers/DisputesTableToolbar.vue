@@ -10,14 +10,14 @@
       <dispute-status-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
-    <custome-range-filter :tableName="tableName" />
+    <custom-range-filter :tableName="tableName" />
     <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
   </div>
 </template>
 
 <script>
 import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
-import CustomeRangeFilter from '@/containers/CustomeRangeFilter';
+import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
 import OrderAgeFilter from '@/containers/OrderAgeFilter';
 import DisputAgeFilter from '@/containers/DisputAgeFilter';
@@ -32,7 +32,7 @@ export default {
     QuickSearchDisputesFilter,
     DisputeTypeFilter,
     TableButton,
-    CustomeRangeFilter,
+    CustomRangeFilter,
     OrderAgeFilter,
     InstallationAgeFilter,
     DisputAgeFilter,
