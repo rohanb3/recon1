@@ -49,6 +49,9 @@ const filters = {
     [FILTER_NAMES.ORDER_AGE_TO]: null,
     [FILTER_NAMES.ORDER_AGE_FROM]: null,
   },
+  [ENTITY_TYPES.DISPUTE_HISTORY]: {
+    [FILTER_NAMES.DISPUTE_ID]: '1c466b3f-ca6c-4fcd-aea6-af55a451a75d',
+  },
 };
 
 export default itemType => ({ ...filters[itemType] } || {});

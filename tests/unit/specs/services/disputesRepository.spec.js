@@ -10,6 +10,7 @@ import {
   removeDisputeAttachment,
   changeStatusDispute,
   getDisputesCsvFile,
+  getDisputeHistory,
 } from '@/services/disputesRepository';
 
 import { RESPONSE_STATUSES } from '@/constants';
@@ -154,7 +155,6 @@ describe('disputesRepository', () => {
       const comments = 'test1234';
 
       const params = {
-        disputeId,
         status,
         userName,
         comments,
@@ -164,11 +164,9 @@ describe('disputesRepository', () => {
 
       disputesApi.patch = jest.fn(() => Promise.resolve({ data }));
 
-      const response = await changeStatusDispute(params);
+      const response = await changeStatusDispute({ disputeId, ...params });
       expect(response).toEqual(data);
-      expect(disputesApi.patch).toHaveBeenCalledWith(
-        `/dispute/${disputeId}?status=${status}&userName=${userName}&comments=${comments}`
-      );
+      expect(disputesApi.patch).toHaveBeenCalledWith(`/dispute/${disputeId}`, null, { params });
     });
   });
 
@@ -188,6 +186,25 @@ describe('disputesRepository', () => {
 
       expect(response).toEqual(data);
       expect(disputesApi.get).toHaveBeenCalledWith('/dispute/csv', expect.any(Object));
+    });
+  });
+
+  describe('getDisputeHistory', () => {
+    it('should call api.get and return corect data', async () => {
+      const disputeId = '4hfysb547fj347sh278rf';
+
+      const params = {
+        Skip: 0,
+        Take: 10,
+      };
+
+      const data = { id: '777' };
+      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
+
+      const response = await getDisputeHistory({ disputeId, ...params });
+
+      expect(response).toEqual(data);
+      expect(disputesApi.get).toHaveBeenCalledWith(`/dispute/${disputeId}/history`, { params });
     });
   });
 });

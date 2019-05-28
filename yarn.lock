@@ -10616,6 +10616,11 @@ v-click-outside@^2.0.1:
   resolved "https://registry.yarnpkg.com/v-click-outside/-/v-click-outside-2.1.1.tgz#5af80b68a1c82eac89c597890434fa3994b42ed1"
   integrity sha512-2yxCuF2u9edQBHPn88YYaHqOFqOqoJ7y91pSrpx+j5IdGa2I2ZrKNx58G2Vc0Kntz1cJvye8ony8XTuw3zo4JA==
 
+v-hotkey@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/v-hotkey/-/v-hotkey-0.4.0.tgz#05ff5616fa2d10538abb5dfd0f753e7f733f6351"
+  integrity sha512-7TUv3ux6HLqBDxUXqvQdMDzSo5HN+A6HW0RwK66Z216yVe4NRsKYsChUnc24tGkifGjFzJgI8baPGLw3Dx+zrw==
+
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/validate-npm-package-license/-/validate-npm-package-license-3.0.4.tgz#fc91f6b9c7ba15c857f4cb2c5defeec39d4f410a"

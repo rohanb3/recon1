@@ -44,6 +44,7 @@
             :item="rowCell.item"
             :column="rowCell.column"
             @changeDisputeStatus="onChangeDisputeStatus"
+            @selectId="onSelectIdDispute"
           />
         </wombat-row>
       </div>
@@ -57,6 +58,7 @@
       color="blue"
       indeterminate
     ></v-progress-circular>
+    <dispute-history v-if="disputeHistoryShown" @close="disputeHistoryShown = false" />
   </div>
 </template>
 
@@ -64,6 +66,7 @@
 import WombatTable from '@/components/WombatTable/Table';
 import WombatRow from '@/components/WombatTable/Row';
 import TableLoader from '@/components/TableLoader';
+
 import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
 import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
 import DefaultCell from '@/components/tableCells/DefaultCell';
@@ -78,7 +81,9 @@ import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatus
 import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
 import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
 import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
+import IdCell from '@/components/tableCells/IdCell';
 
+import DisputeHistory from '@/containers/DisputeHistory';
 import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
@@ -111,6 +116,8 @@ export default {
     ApproveDisputeStatusCell,
     DisputesTableToolbar,
     DisputeStatusCell,
+    DisputeHistory,
+    IdCell,
   },
   filters: {
     dateRange,
@@ -119,7 +126,6 @@ export default {
   data() {
     return {
       tableName: ENTITY_TYPES.DISPUTES,
-      selectedDispute: {},
       headerComponentsHash: {
         default: 'DefaultHeaderCell',
         sortingHeader: 'SortingHeaderCell',
@@ -139,7 +145,9 @@ export default {
         rejectDisputeStatus: 'RejectDisputeStatusCell',
         approveDisputeStatus: 'ApproveDisputeStatusCell',
         disputeStatus: 'DisputeStatusCell',
+        disputeId: 'IdCell',
       },
+      disputeHistoryShown: false,
     };
   },
   computed: {
@@ -169,6 +177,9 @@ export default {
     async onExportToCsvFile() {
       const CSVFile = await getDisputesCsvFile(this.filters);
       generateCSVFile(CSVFile, this.tableName);
+    },
+    async onSelectIdDispute() {
+      this.disputeHistoryShown = true;
     },
   },
 };

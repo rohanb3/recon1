@@ -98,6 +98,7 @@ export const ENTITY_TYPES = {
   ORDERS: 'ORDERS',
   DISPUTES: 'DISPUTES',
   RESUBMISSION: 'RESUBMISSION',
+  DISPUTE_HISTORY: 'DISPUTE_HISTORY',
 };
 
 export const FILTER_NAMES = {
@@ -118,6 +119,7 @@ export const FILTER_NAMES = {
   DISPUTE_AGE_FROM: 'DisputeAgeFrom',
   DISPUTE_AGE_TO: 'DisputeAgeTo',
   DISPUTE_STATUS_IDS: 'DisputeStatusIds',
+  DISPUTE_ID: 'disputeId',
 };
 
 export const TABLE_COLUMN_ID_NAMES = {

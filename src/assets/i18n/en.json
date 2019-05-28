@@ -187,5 +187,10 @@
   "all.time": "All time",
   "apply": "Apply",
   "from": "from",
-  "to": "to"
+  "to": "to",
+
+  "dispute.history.datetime": "Datetime",
+  "dispute.history.author": "Author",
+  "dispute.history.status": "Set Status",
+  "dispute.history.status.description": "Status Description"
 }
