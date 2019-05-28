@@ -90,3 +90,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.fiscal-period-filter {
+  margin-right: 5px;
+}
+</style>

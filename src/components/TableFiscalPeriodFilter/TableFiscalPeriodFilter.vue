@@ -45,10 +45,11 @@
 </template>
 
 <script>
+import moment from 'moment';
 import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
 import MonthList from './MonthList';
 import YearList from './YearList';
-import moment from 'moment';
+
 import { warnMessage } from '@/services/notifications';
 
 const FOUR_DIGITS_REGEX = /\d{4}/;
@@ -106,10 +107,10 @@ export default {
       ).filter(year => FOUR_DIGITS_REGEX.test(year));
     },
     isNotSelectedMonthOrYear() {
-      return !this.selectedYear || !this.selectedMonth;
+      return !!this.selectedYear && this.selectedMonth === '';
     },
     selectedFiscalPeriodForTitle() {
-      return `: ${this.preselectedMonth} ${this.preselectedYear}`;
+      return !this.preselectedMonth ? '' : `: ${this.preselectedMonth} ${this.preselectedYear}`;
     },
   },
   methods: {
@@ -133,6 +134,10 @@ export default {
   watch: {
     selectedYear() {
       this.selectedMonth = '';
+    },
+    selectedFiscalPeriodName() {
+      this.selectedYear = Number(this.preselectedYear);
+      this.selectedMonth = this.preselectedMonth;
     },
   },
 };

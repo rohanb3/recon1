@@ -10,9 +10,9 @@
       <dispute-status-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
-    <custom-range-filter :tableName="tableName" />
     <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
     <fiscal-period-filter :tableName="tableName" />
+    <custom-range-filter :tableName="tableName" />
   </div>
 </template>
 
