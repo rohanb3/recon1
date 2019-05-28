@@ -62,6 +62,7 @@
   "dispute.expected.commision": "Expected commision is more then received comission",
   "dispute.order.installed": "Order was installed but commision is not received",
   "dispute.are.you.sure": "Are you sure?",
+  "dispute.orders.number": "Order Number",
   "dispute.if.you.close.this.page": "Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
 
   "file.is.too.big": "File is too big",
@@ -98,7 +99,7 @@
 
   "disputes": "Dispute List",
   "disputes.title": "Dispute List With Statuses",
-  "disputes.id": "ID",
+  "disputes.id": "Dispute ID",
   "disputes.fiscal.period": "Fiscal Period",
   "disputes.account.number": "Account Number",
   "disputes.expected.comission": "Expected Comission",

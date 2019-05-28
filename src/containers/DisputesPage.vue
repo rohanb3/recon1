@@ -78,6 +78,7 @@ import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatus
 import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
 import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
 import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
+import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
 
 import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
@@ -111,6 +112,7 @@ export default {
     ApproveDisputeStatusCell,
     DisputesTableToolbar,
     DisputeStatusCell,
+    OrderNumberCell,
   },
   filters: {
     dateRange,
@@ -139,6 +141,7 @@ export default {
         rejectDisputeStatus: 'RejectDisputeStatusCell',
         approveDisputeStatus: 'ApproveDisputeStatusCell',
         disputeStatus: 'DisputeStatusCell',
+        orderNumber: 'OrderNumberCell',
       },
     };
   },
