@@ -91,14 +91,14 @@ export default {
         ) || {}
       ).id;
     },
-    selectedFiscalPeriod() {
-      return this.items.find(fiscalPeriod => fiscalPeriod.selected);
+    selectedFiscalPeriodName() {
+      return (this.items.find(fiscalPeriod => fiscalPeriod.selected) || {}).name || '';
     },
     preselectedYear() {
-      return ((this.selectedFiscalPeriod || {}).name || '').split(' ').pop() || '';
+      return this.selectedFiscalPeriodName.split(' ').pop() || '';
     },
     preselectedMonth() {
-      return ((this.selectedFiscalPeriod || {}).name || '').split(' ').shift() || '';
+      return this.selectedFiscalPeriodName.split(' ').shift() || '';
     },
     listOfYears() {
       return Array.from(
@@ -208,5 +208,6 @@ export default {
 .year-list-wrapper {
   margin-top: 10px;
   width: 350px;
+  margin: 10px 20px 0 20px;
 }
 </style>

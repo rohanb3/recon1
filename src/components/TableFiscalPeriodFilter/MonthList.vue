@@ -2,10 +2,10 @@
   <div class="months">
     <div
       class="month"
-      v-for="(month, index) in monthList"
+      v-for="(month, index) in translationMonthList"
       :key="month"
       :class="{ active: value === month, disabled: isDisabledMonth(month) }"
-      @click="onSelectMonth(monthsEn[index])"
+      @click="onSelectMonth(monthList[index])"
     >
       {{ month }}
     </div>
@@ -28,13 +28,13 @@ export default {
     },
   },
   computed: {
-    monthsEn() {
+    monthList() {
       return moment()
         .locale('en')
         .localeData()
         .months();
     },
-    monthList() {
+    translationMonthList() {
       return moment.months();
     },
   },

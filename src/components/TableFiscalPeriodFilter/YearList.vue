@@ -1,14 +1,18 @@
 <template>
   <div class="year-list">
     <div class="navigation-years" v-show="listOfYears.length">
-      <v-icon class="nav-btn swiper-prev-years">arrow_left</v-icon>
-      <span class="displayed-range-of-years"
-        >{{ minDisplayedYear() }} – {{ maxDisplayedYear() }}</span
-      >
-      <v-icon class="nav-btn swiper-next-years">arrow_right</v-icon>
+      <v-icon class="nav-btn" @click="onPrevSlide">arrow_left</v-icon>
+      <span class="displayed-range-of-years">{{ minDisplayedYear }} – {{ maxDisplayedYear }}</span>
+      <v-icon class="nav-btn" @click="onNextSlide">arrow_right</v-icon>
     </div>
-    <swiper :options="swiperOption" ref="swiperYears" @slideChange="onSlideChange">
-      <swiper-slide class="list-of-years years" v-for="(years, index) in allYears" :key="index">
+    <slider
+      :autoplay="false"
+      :control-btn="false"
+      :indicators="false"
+      height="230px"
+      v-model="sliderIndex"
+    >
+      <slider-item class="list-of-years years" v-for="(years, index) in allYears" :key="index">
         <span
           class="year"
           :class="{ 'future-year': isFutureYear(year), 'selected-year': isSelectedYear(year) }"
@@ -17,15 +21,15 @@
           @click="onSelectYear(year)"
           >{{ year }}</span
         >
-      </swiper-slide>
-    </swiper>
+      </slider-item>
+    </slider>
   </div>
 </template>
 
 <script>
 import moment from 'moment';
 import chunk from 'lodash.chunk';
-import { swiper, swiperSlide } from 'vue-awesome-swiper';
+import { Slider, SliderItem } from 'vue-easy-slider';
 import { range } from '@/services/numberHelper';
 
 export default {
@@ -45,23 +49,16 @@ export default {
     },
   },
   components: {
-    swiper,
-    swiperSlide,
+    Slider,
+    SliderItem,
   },
   data() {
     return {
-      swiperOption: {
-        initialSlide: 0,
-        slidesPerView: 1,
-        navigation: {
-          nextEl: '.swiper-next-years',
-          prevEl: '.swiper-prev-years',
-        },
-      },
+      sliderIndex: 0,
     };
   },
   mounted() {
-    this.swiper.slideTo(3, 1000, false);
+    this.initSlider();
   },
   computed: {
     allYears() {
@@ -87,20 +84,14 @@ export default {
     indexSlideWhereSelectedYear() {
       return this.allYears.findIndex(years => years.find(year => year === this.value));
     },
-    swiper() {
-      return (this.$refs.swiperYears || {}).swiper;
+    maxDisplayedYear() {
+      return Math.max.apply(null, this.allYears[this.sliderIndex]);
+    },
+    minDisplayedYear() {
+      return Math.min.apply(null, this.allYears[this.sliderIndex]);
     },
   },
   methods: {
-    maxDisplayedYear() {
-      return Math.max.apply(null, this.allYears[this.indexDisplayedSlide()]);
-    },
-    minDisplayedYear() {
-      return Math.min.apply(null, this.allYears[this.indexDisplayedSlide()]);
-    },
-    indexDisplayedSlide() {
-      return (this.swiper || {}).activeIndex || 0;
-    },
     isFutureYear(year) {
       return moment().year() < year;
     },
@@ -112,20 +103,27 @@ export default {
         this.$emit('input', year);
       }
     },
-    initSwiper() {
+    initSlider() {
       if (this.indexSlideWhereSelectedYear >= 0) {
-        this.swiper.slideTo(this.indexSlideWhereSelectedYear);
+        this.sliderIndex = this.indexSlideWhereSelectedYear;
       } else {
-        this.swiper.slideTo(this.numberOfSlides);
+        this.sliderIndex = this.numberOfSlides - 1;
       }
     },
-    onSlideChange(w) {
-      console.log(w);
+    onNextSlide() {
+      if (this.sliderIndex < this.numberOfSlides - 1) {
+        this.sliderIndex += 1;
+      }
+    },
+    onPrevSlide() {
+      if (this.sliderIndex > 0) {
+        this.sliderIndex -= 1;
+      }
     },
   },
   watch: {
     listOfYears() {
-      this.initSwiper();
+      this.initSlider();
     },
   },
 };
@@ -133,10 +131,8 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
-@import '~swiper/dist/css/swiper.css';
 
 .year-list {
-  min-height: 220px;
   user-select: none;
 }
 
@@ -144,7 +140,6 @@ export default {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 220px;
 }
 
 .navigation-years {
@@ -169,7 +164,7 @@ export default {
   flex-wrap: wrap;
 
   .year {
-    margin: 5px;
+    margin: 5px 10px;
     cursor: pointer;
     color: $base-text-color;
 
