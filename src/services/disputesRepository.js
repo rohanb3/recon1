@@ -51,8 +51,3 @@ export const getDisputesCsvFile = filters => {
   const params = { ...filters };
   return apiDisputes.get('/dispute/csv', { params, paramsSerializer }).then(({ data }) => data);
 };
-
-export const getDisputeHistory = filters => {
-  const { disputeId, ...params } = filters;
-  return apiDisputes.get(`/dispute/${disputeId}/history`, { params }).then(({ data }) => data);
-};

@@ -118,9 +118,6 @@ export default {
         });
         commit(SET_SYNC_ORDERS_STATUS, ORDER_SYNC_STATUS.FINISHED);
       }
-      if (status === ORDER_SYNC_STATUS.ERROR) {
-        throw new Error();
-      }
     } catch {
       clearInterval(syncOrdersIntervalId);
       syncOrdersIntervalId = null;

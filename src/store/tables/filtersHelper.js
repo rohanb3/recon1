@@ -49,9 +49,6 @@ const filters = {
     [FILTER_NAMES.ORDER_AGE_TO]: null,
     [FILTER_NAMES.ORDER_AGE_FROM]: null,
   },
-  [ENTITY_TYPES.DISPUTE_HISTORY]: {
-    [FILTER_NAMES.DISPUTE_ID]: null,
-  },
 };
 
 export default itemType => ({ ...filters[itemType] } || {});
