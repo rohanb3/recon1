@@ -2,7 +2,12 @@
   <div class="disputes-table">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('resubmission.table.title') }}</div>
-      <resubmission-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
+      <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
+    </div>
+    <div class="selected-date-range" v-show="isSelectedDateRange">
+      {{
+        $t('selected.date.range', { dateFrom: selectedDateRangeFrom, dateTo: selectedDateRangeTo })
+      }}
     </div>
     <wombat-table
       :items="rows"
@@ -75,10 +80,8 @@
 import WombatTable from '@/components/WombatTable/Table';
 import WombatRow from '@/components/WombatTable/Row';
 import TableLoader from '@/components/TableLoader';
-
 import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
 import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
-
 import DefaultCell from '@/components/tableCells/DefaultCell';
 import DateMonthYearCell from '@/components/tableCells/DateMonthYearCell';
 import RecievedComissonCell from '@/components/tableCells/RecievedComissonCell';
@@ -91,22 +94,18 @@ import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
 import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatusCell';
 import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
 import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
-
 import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
 import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmRejectDisputePopup';
 
-import ResubmissionTableToolbar from '@/containers/ResubmissionTableToolbar';
+import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
-
 import { ENTITY_TYPES } from '@/constants';
-
 import { changeStatusDispute, getDispute, getDisputesCsvFile } from '@/services/disputesRepository';
 import { errorMessage } from '@/services/notifications';
 import { CHANGE_ITEM } from '@/store/storage/mutationTypes';
 import { generateCSVFile } from '@/services/utils';
-
 import { mapState } from 'vuex';
 
 export default {
@@ -128,7 +127,7 @@ export default {
     ResubmitClaimCell,
     RejectDisputeStatusCell,
     ApproveDisputeStatusCell,
-    ResubmissionTableToolbar,
+    DisputesTableToolbar,
     ConfirmApproveDisputePopup,
     ConfirmRejectDisputePopup,
     DisputeStatusCell,
@@ -139,7 +138,6 @@ export default {
       tableName: ENTITY_TYPES.RESUBMISSION,
       isShowApproveConfirmationPopup: false,
       isShowRejectConfirmationPopup: false,
-      disputeStatusId: false,
       selectedDispute: {},
       headerComponentsHash: {
         default: 'DefaultHeaderCell',
@@ -177,7 +175,6 @@ export default {
       this.isShowRejectConfirmationPopup = false;
       const userName = this.displayName;
       const status = statusId;
-
       try {
         await changeStatusDispute({ disputeId, status, userName, comments });
         const disputeInfo = await getDispute(disputeId);
@@ -208,19 +205,15 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins.scss';
-
 .disputes-table {
   @include table-base-container;
 }
-
 .table-toolbar {
   @include table-base-toolbar;
 }
-
 .table-title {
   @include table-base-title;
 }
-
 .disputes-table /deep/ {
   .virtual-list {
     height: 100vh;
@@ -229,11 +222,14 @@ export default {
     );
   }
 }
-
 .grey-text-cell {
   .row-cell {
     color: $base-text-color;
     opacity: 0.6;
   }
+}
+
+.selected-date-range {
+  @include selected-date-range;
 }
 </style>

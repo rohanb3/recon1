@@ -1,5 +1,5 @@
 import i18n from '@/i18n';
-import { TABLE_DISPUTE_СOLUMNS_SORTED } from '@/constants';
+import { TABLE_DISPUTE_COLUMNS_SORTED } from '@/constants';
 
 export default () => [
   {
@@ -9,7 +9,7 @@ export default () => [
     title: i18n.t('disputes.id'),
     width: '4',
     minWidth: '16px',
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.ID,
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.ID,
     fieldHeaderType: 'sortingHeader',
   },
   {
@@ -19,7 +19,7 @@ export default () => [
     title: i18n.t('disputes.fiscal.period'),
     width: '4',
     minWidth: '16px',
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.FISCAL_PERIOD,
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.FISCAL_PERIOD,
     fieldHeaderType: 'sortingHeader',
   },
   {
@@ -29,7 +29,7 @@ export default () => [
     title: i18n.t('disputes.account.number'),
     width: '3',
     minWidth: '16px',
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.ACCOUNT_NUMBER,
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.ACCOUNT_NUMBER,
     fieldHeaderType: 'sortingHeader',
   },
   {
@@ -40,7 +40,7 @@ export default () => [
     title: i18n.t('disputes.expected.comission'),
     width: '3',
     minWidth: '16px',
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.EXPECTED_COMISSION,
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.EXPECTED_COMISSION,
     fieldHeaderType: 'sortingHeader',
   },
   {
@@ -50,7 +50,7 @@ export default () => [
     title: i18n.t('disputes.recieved.comisson'),
     width: '3',
     minWidth: '16px',
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.RECEIVED_COMISSION,
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.RECEIVED_COMISSION,
     fieldHeaderType: 'sortingHeader',
   },
   {
@@ -60,7 +60,7 @@ export default () => [
     title: i18n.t('disputes.difference'),
     width: '4',
     minWidth: '16px',
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.DIFFERENCE,
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.DIFFERENCE,
     fieldHeaderType: 'sortingHeader',
   },
   {
@@ -70,7 +70,7 @@ export default () => [
     title: i18n.t('disputes.disput.creator.name'),
     width: '4',
     minWidth: '16px',
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.CREATOR_NAME,
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.CREATOR_NAME,
     fieldHeaderType: 'sortingHeader',
   },
   {
@@ -81,7 +81,7 @@ export default () => [
     title: i18n.t('disputes.disput.creation.date'),
     width: '4',
     minWidth: '30px',
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.CREATION_DATE,
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.CREATION_DATE,
     fieldHeaderType: 'sortingHeader',
   },
   {
@@ -91,7 +91,7 @@ export default () => [
     title: i18n.t('disputes.service.name'),
     width: '4',
     minWidth: '16px',
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.SERVICE_NAME,
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.SERVICE_NAME,
     fieldHeaderType: 'sortingHeader',
   },
   {
@@ -101,7 +101,7 @@ export default () => [
     title: i18n.t('disputes.dispute.type'),
     width: '4',
     minWidth: '16px',
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.TYPE,
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.TYPE,
     fieldHeaderType: 'sortingHeader',
   },
   {
@@ -112,7 +112,7 @@ export default () => [
     title: i18n.t('disputes.age.after.order'),
     width: '4',
     minWidth: '30px',
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.AGE_AFTER_ORDER,
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.AGE_AFTER_ORDER,
     fieldHeaderType: 'sortingHeader',
   },
   {
@@ -123,7 +123,7 @@ export default () => [
     title: i18n.t('disputes.age.after.installation'),
     width: '4',
     minWidth: '16px',
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.AGE_AFTER_INSTALLATION,
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.AGE_AFTER_INSTALLATION,
     fieldHeaderType: 'sortingHeader',
   },
   {
@@ -134,7 +134,7 @@ export default () => [
     title: i18n.t('disputes.age.after.disput'),
     width: '4',
     minWidth: '30px',
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.AGE_AFTER_DISPUT,
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.AGE_AFTER_DISPUT,
     fieldHeaderType: 'sortingHeader',
   },
   {
@@ -144,7 +144,7 @@ export default () => [
     title: i18n.t('disputes.dispute.status'),
     width: '4',
     minWidth: '30px',
-    sortingFieldName: TABLE_DISPUTE_СOLUMNS_SORTED.STATUS,
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.STATUS,
     fieldHeaderType: 'sortingHeader',
   },
   {

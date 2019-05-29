@@ -2,7 +2,8 @@ import { RESET_ITEMS } from '@/store/storage/mutationTypes';
 import { LOAD_ITEMS, LOAD_MORE_ITEMS } from '@/store/storage/actionTypes';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 import { RESET_FILTERS } from '@/store/tables/mutationTypes';
-import { FILTER_NAMES, SORTING_DIRECTION } from '@/constants';
+import { FILTER_NAMES, SORTING_DIRECTION, DATE_FORMATS } from '@/constants';
+import moment from 'moment';
 
 export default {
   data() {
@@ -50,6 +51,23 @@ export default {
     },
     usersDashboardStatistics() {
       return this.storageData.usersDashboardStatistics || {};
+    },
+    selectedDateRangeFrom() {
+      return moment(this.filters[FILTER_NAMES.CREATED_FROM]).format(
+        DATE_FORMATS.MONTH_DAY_FULL_YEAR
+      );
+    },
+    selectedDateRangeTo() {
+      return moment(this.filters[FILTER_NAMES.CREATED_TO]).format(DATE_FORMATS.MONTH_DAY_FULL_YEAR);
+    },
+    selectedDateRange() {
+      return {
+        from: this.selectedDateRangeFrom,
+        to: this.selectedDateRangeTo,
+      };
+    },
+    isSelectedDateRange() {
+      return this.filters[FILTER_NAMES.CREATED_FROM] && this.filters[FILTER_NAMES.CREATED_TO];
     },
   },
   methods: {
