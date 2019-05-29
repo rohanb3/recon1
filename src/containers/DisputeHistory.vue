@@ -1,5 +1,9 @@
 <template>
   <table-full-height-balloon class="dispute-history" @close="close">
+    <div class="additional-info">
+      <span class="dispute-id">{{ $t('dispute.id') }}: {{ disputeId }}</span>
+      <span class="order-number">{{ $t('orders.number') }}: {{ orderId }}</span>
+    </div>
     <div class="inputs-wrapper">
       <wombat-table
         :items="rows"
@@ -51,10 +55,11 @@ import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
 import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
 import DefaultCell from '@/components/tableCells/DefaultCell';
 import DayMonthYearTimeCell from '@/components/tableCells/DayMonthYearTimeCell';
+import StatusDescriptionCell from '@/components/tableCells/StatusDescriptionCell';
 
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
-import { ENTITY_TYPES } from '@/constants';
+import { ENTITY_TYPES, FILTER_NAMES } from '@/constants';
 
 export default {
   name: 'DisputeHistory',
@@ -67,6 +72,13 @@ export default {
     SortingHeaderCell,
     TableFullHeightBalloon,
     DayMonthYearTimeCell,
+    StatusDescriptionCell,
+  },
+  props: {
+    parentTableName: {
+      type: String,
+      required: true,
+    },
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
@@ -78,8 +90,20 @@ export default {
       rowComponentsHash: {
         default: 'DefaultCell',
         dayMonthYearTime: 'DayMonthYearTimeCell',
+        statusDescription: 'StatusDescriptionCell',
       },
     };
+  },
+  computed: {
+    disputeId() {
+      return this.filters[FILTER_NAMES.DISPUTE_ID];
+    },
+    selectedDispute() {
+      return this.$store.getters.getItemById(this.disputeId, this.parentTableName) || {};
+    },
+    orderId() {
+      return this.selectedDispute.orderNumber;
+    },
   },
   methods: {
     close() {
@@ -97,7 +121,6 @@ export default {
   display: flex;
   flex-flow: column;
   align-items: stretch;
-  padding: 20px;
   color: $base-text-color;
   font-size: 14px;
   font-weight: 500;
@@ -105,6 +128,25 @@ export default {
   .text-style-italic-cell {
     font-style: italic;
     color: $base-text-color;
+  }
+
+  .additional-info {
+    display: flex;
+    font-size: 14px;
+    font-weight: bold;
+    height: 51px;
+
+    .dispute-id,
+    .order-number {
+      background: $base-blue;
+      color: $base-white;
+      line-height: 51px;
+      padding: 0 12px;
+    }
+
+    .order-number {
+      margin-left: 12px;
+    }
   }
 }
 

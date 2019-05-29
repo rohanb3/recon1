@@ -63,6 +63,7 @@
   "dispute.order.installed": "Order was installed but commision is not received",
   "dispute.are.you.sure": "Are you sure?",
   "dispute.if.you.close.this.page": "Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
+  "dispute.id": "Dispute ID",
 
   "file.is.too.big": "File is too big",
   "failed.to.upload.file": "Failed to upload file",

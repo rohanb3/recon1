@@ -63,6 +63,7 @@
   "dispute.order.installed": "TBD Order was installed but commision is not received",
   "dispute.are.you.sure": "TBD Are you sure?",
   "dispute.if.you.close.this.page": "TBD Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
+  "dispute.id": "TBD Dispute ID",
 
   "file.is.too.big": "TBD File is too big",
   "failed.to.upload.file": "TBD Failed to upload file",
@@ -139,6 +140,7 @@
   "rejected": "TBD Rejected",
   "resent": "TBD Re-sent",
   "pending": "TBD Pending",
+  "waiting.for.answer": "TBD Waiting for answer",
 
   "validation.rule.rage.negative": "TBD To value should be greater that from",
   "validation.rule.number.too.small": "TBD Value should be greater than %{min}",
@@ -178,6 +180,18 @@
   "log.out": "TBD Log Out",
   "email": "TBD Email",
   "password": "TBD Password",
+
+  "today": "TBD Today",
+  "yesterday": "TBD Yesterday",
+  "last.7.days": "TBD Last 7 days",
+  "last.30.days": "TBD Last 30 days",
+  "all.time": "TBD All time",
+  "apply": "TBD Apply",
   "from": "TBD from",
-  "to": "TBD to"
+  "to": "TBD to",
+
+  "dispute.history.datetime": "TBD Datetime",
+  "dispute.history.author": "TBD Author",
+  "dispute.history.status": "TBD Set Status",
+  "dispute.history.status.description": "TBD Status Description"
 }

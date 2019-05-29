@@ -20,7 +20,7 @@ export default () => [
   },
   {
     name: 'setStatus',
-    field: 'status.name',
+    field: 'status.disputeStatusName',
     class: 'text',
     title: i18n.t('dispute.history.status'),
     width: '3',
@@ -29,7 +29,8 @@ export default () => [
   {
     name: 'statusDescription',
     field: 'submitterComment',
-    class: 'text-style-italic-cell',
+    fieldType: 'statusDescription',
+    class: 'text',
     title: i18n.t('dispute.history.status.description'),
     width: '3',
     minWidth: '16px',

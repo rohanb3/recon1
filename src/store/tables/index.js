@@ -30,7 +30,7 @@ const state = {
   [ENTITY_TYPES.DISPUTE_HISTORY]: {
     columns: getDisputeHistoryTableColumns(),
     filters: getDefaultFilters(ENTITY_TYPES.DISPUTE_HISTORY),
-    applyingFilters: false,
+    applyingFilters: true,
   },
 };
 
