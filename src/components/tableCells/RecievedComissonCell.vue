@@ -6,7 +6,7 @@
         'paid-comisson': isCommissionPaid,
         'overpaid-comisson': isCommissionOverpaid,
       }"
-      >{{ recevedComission | currency }}</span
+      >{{ receivedCommission | currency }}</span
     >
   </div>
 </template>
@@ -28,17 +28,17 @@ export default {
     expectedComission() {
       return this.item.expectedComission ? parseFloat(this.item.expectedComission) : 0;
     },
-    recevedComission() {
-      return this.item.recevedComission ? parseFloat(this.item.recevedComission) : 0;
+    receivedCommission() {
+      return this.item.receivedCommission ? parseFloat(this.item.receivedCommission) : 0;
     },
     isShortageComission() {
-      return this.expectedComission > this.recevedComission;
+      return this.expectedComission > this.receivedCommission;
     },
     isCommissionPaid() {
-      return this.expectedComission === this.recevedComission;
+      return this.expectedComission === this.receivedCommission;
     },
     isCommissionOverpaid() {
-      return this.recevedComission > this.expectedComission;
+      return this.receivedCommission > this.expectedComission;
     },
   },
 };

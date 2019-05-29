@@ -57,6 +57,7 @@ export default {
   display: flex;
   flex: 1;
   margin-left: 20px;
+  align-items: center;
 
   .quick-search {
     flex: 0;
@@ -65,5 +66,6 @@ export default {
 
 .table-filter-container /deep/ {
   @include table-filter-container;
+  flex-wrap: wrap;
 }
 </style>
