@@ -29,6 +29,9 @@ export default {
       if (this.disputeStatusId === DISPUTE_STATUSES_ID.CONFIRM_REJECTED) {
         return this.$t('rejected');
       }
+      if (this.disputeStatusId === DISPUTE_STATUSES_ID.SENT) {
+        return this.$t('new');
+      }
       return this.disputeStatusName;
     },
   },

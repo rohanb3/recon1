@@ -42,7 +42,7 @@ export default {
         },
         {
           id: DISPUTE_STATUSES_ID.SENT,
-          name: this.$t('sent'),
+          name: this.$t('new'),
         },
         {
           id: DISPUTE_STATUSES_ID.REJECTED,

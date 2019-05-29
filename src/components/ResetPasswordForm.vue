@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      if (this.valid && this.comparePassword) {
+      if (this.valid) {
         this.$emit('resetPassword', this.password);
       }
     },

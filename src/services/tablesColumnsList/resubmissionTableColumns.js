@@ -13,6 +13,15 @@ export default () => [
     fieldHeaderType: 'sortingHeader',
   },
   {
+    name: 'orderNumber',
+    field: 'orderNumber',
+    class: 'text',
+    fieldType: 'orderNumber',
+    title: i18n.t('dispute.orders.number'),
+    width: '4',
+    minWidth: '16px',
+  },
+  {
     name: 'fiscalPeriod',
     field: 'fiscalPeriod.name',
     class: 'grey-text-cell',

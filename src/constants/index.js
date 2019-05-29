@@ -92,6 +92,7 @@ export const TABLE_DISPUTE_COLUMNS_SORTED = {
   XYZ_STATUS: 'xyzStatus',
   STATUS: 'disputeStatus',
   STATUS_DESCRIPTION: 'disputeStatusDescription',
+  ORDER_NUMBER: 'ordernumber',
 };
 
 export const ENTITY_TYPES = {
