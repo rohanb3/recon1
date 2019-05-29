@@ -73,7 +73,7 @@
       <v-layout row mb-2>
         <v-flex md6>
           <v-text-field
-            :value="expectedComission"
+            :value="expectedComission | currency"
             disabled
             :label="$t('dispute.expected.comission')"
           ></v-text-field>
