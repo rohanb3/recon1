@@ -44,6 +44,7 @@
             :item="rowCell.item"
             :column="rowCell.column"
             @changeDisputeStatus="onChangeDisputeStatus"
+            @selectId="onSelectIdDispute"
           />
         </wombat-row>
       </div>
@@ -57,119 +58,35 @@
       color="blue"
       indeterminate
     ></v-progress-circular>
+    <dispute-history
+      v-if="disputeHistoryShown"
+      :parent-table-name="tableName"
+      @close="disputeHistoryShown = false"
+    />
   </div>
 </template>
 
 <script>
-import WombatTable from '@/components/WombatTable/Table';
-import WombatRow from '@/components/WombatTable/Row';
-import TableLoader from '@/components/TableLoader';
-import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
-import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
-import DefaultCell from '@/components/tableCells/DefaultCell';
-import DateMonthYearCell from '@/components/tableCells/DateMonthYearCell';
-import RecievedComissonCell from '@/components/tableCells/RecievedComissonCell';
-import DifferenceComissonCell from '@/components/tableCells/DifferenceComissonCell';
-import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
-import XYZStatusCell from '@/components/tableCells/XYZStatusCell';
-import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
-import PriceCell from '@/components/tableCells/PriceCell';
-import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatusCell';
-import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
-import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
-import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
-
-import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
+import disputeTableAutocomplete from '@/mixins/disputeTableAutocomplete';
+import XYZStatusCell from '@/components/tableCells/XYZStatusCell';
+
 import { ENTITY_TYPES } from '@/constants';
-import { changeStatusDispute, getDispute, getDisputesCsvFile } from '@/services/disputesRepository';
-import { errorMessage } from '@/services/notifications';
-import { CHANGE_ITEM } from '@/store/storage/mutationTypes';
-import { generateCSVFile } from '@/services/utils';
-import { mapState } from 'vuex';
-import dateRange from '@/filters/boundaries';
 
 export default {
   name: 'DisputesPage',
   components: {
-    WombatTable,
-    WombatRow,
-    TableLoader,
-    DefaultCell,
-    DateMonthYearCell,
-    RecievedComissonCell,
-    DifferenceComissonCell,
-    DateYearMonthDayCell,
-    OrderAgeCell,
     XYZStatusCell,
-    PriceCell,
-    DefaultHeaderCell,
-    SortingHeaderCell,
-    ResubmitClaimCell,
-    RejectDisputeStatusCell,
-    ApproveDisputeStatusCell,
-    DisputesTableToolbar,
-    DisputeStatusCell,
   },
-  filters: {
-    dateRange,
-  },
-  mixins: [configurableColumnsTable, lazyLoadTable],
+  mixins: [configurableColumnsTable, lazyLoadTable, disputeTableAutocomplete],
   data() {
     return {
       tableName: ENTITY_TYPES.DISPUTES,
-      selectedDispute: {},
-      headerComponentsHash: {
-        default: 'DefaultHeaderCell',
-        sortingHeader: 'SortingHeaderCell',
-      },
       rowComponentsHash: {
-        default: 'DefaultCell',
-        dateMonthYear: 'DateMonthYearCell',
-        price: 'PriceCell',
-        recievedComisson: 'RecievedComissonCell',
-        differenceComisson: 'DifferenceComissonCell',
-        dateYearMonthDay: 'DateYearMonthDayCell',
-        ageAfterOrder: 'OrderAgeCell',
-        ageAfterInstallation: 'OrderAgeCell',
-        ageAfterDispute: 'OrderAgeCell',
         xyzStatus: 'XYZStatusCell',
-        resubmitClaim: 'ResubmitClaimCell',
-        rejectDisputeStatus: 'RejectDisputeStatusCell',
-        approveDisputeStatus: 'ApproveDisputeStatusCell',
-        disputeStatus: 'DisputeStatusCell',
       },
     };
-  },
-  computed: {
-    ...mapState({
-      profileData: state => state.loggedInUser.profileData || {},
-    }),
-    displayName() {
-      return this.profileData.displayName || '';
-    },
-  },
-  methods: {
-    async onChangeDisputeStatus({ disputeId, statusId, comments }) {
-      const userName = this.displayName;
-      const status = statusId;
-      try {
-        await changeStatusDispute({ disputeId, status, userName, comments });
-        const disputeInfo = await getDispute(disputeId);
-        this.$store.commit(CHANGE_ITEM, {
-          itemType: this.tableName,
-          id: disputeId,
-          ...disputeInfo,
-        });
-      } catch {
-        errorMessage();
-      }
-    },
-    async onExportToCsvFile() {
-      const CSVFile = await getDisputesCsvFile(this.filters);
-      generateCSVFile(CSVFile, this.tableName);
-    },
   },
 };
 </script>
