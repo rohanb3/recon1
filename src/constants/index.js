@@ -71,7 +71,7 @@ export const TABLE_ORDER_COLUMNS_SORTED = {
   AGE_AFTER: 'creationAge',
   INSTALLATION_AGE: 'installationAge',
   EXPECTED_COMISSION: 'expectedComission',
-  RECIEVED_COMISSON: 'recevedComission',
+  RECIEVED_COMISSON: 'receivedCommission',
   DIFFERENCE: 'difference',
 };
 
@@ -80,7 +80,7 @@ export const TABLE_DISPUTE_COLUMNS_SORTED = {
   FISCAL_PERIOD: 'fiscalPeriod',
   ACCOUNT_NUMBER: 'accountNumber',
   EXPECTED_COMISSION: 'expectedcomission',
-  RECEIVED_COMISSION: 'recevedComission',
+  RECEIVED_COMISSION: 'receivedCommission',
   DIFFERENCE: 'difference',
   CREATOR_NAME: 'creatorName',
   CREATION_DATE: 'disputecreationdate',

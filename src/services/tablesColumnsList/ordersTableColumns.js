@@ -94,8 +94,8 @@ export default () => [
     fieldHeaderType: 'sortingHeader',
   },
   {
-    name: 'recevedComission',
-    field: 'recevedComission',
+    name: 'receivedCommission',
+    field: 'receivedCommission',
     fieldType: 'recievedComisson',
     class: 'text',
     title: i18n.t('orders.recieved.comisson'),

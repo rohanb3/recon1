@@ -28,14 +28,14 @@ export default {
     expectedComission() {
       return this.item.expectedComission ? parseFloat(this.item.expectedComission) : 0;
     },
-    recevedComission() {
-      return this.item.recevedComission ? parseFloat(this.item.recevedComission) : 0;
+    receivedCommission() {
+      return this.item.receivedCommission ? parseFloat(this.item.receivedCommission) : 0;
     },
     unsignedDifferenceComission() {
       return Math.abs(this.differenceComission);
     },
     differenceComission() {
-      return this.expectedComission - this.recevedComission;
+      return this.expectedComission - this.receivedCommission;
     },
     isPositiveDifference() {
       return this.differenceComission > 0;

@@ -57,6 +57,7 @@
 
 @mixin table-filter-container {
   display: flex;
+  flex-wrap: wrap;
   .filter-wrapper {
     &:first-child .table-filter {
       border-radius: 3px 0 0 3px;

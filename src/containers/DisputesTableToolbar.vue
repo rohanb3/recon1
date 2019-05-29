@@ -56,6 +56,7 @@ export default {
   display: flex;
   flex: 1;
   margin-left: 20px;
+  align-items: center;
 
   .quick-search {
     flex: 0;
