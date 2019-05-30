@@ -26,6 +26,10 @@ const state = {
     filters: getDefaultFilters(ENTITY_TYPES.RESUBMISSION),
     applyingFilters: false,
   },
+  [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
+    filters: getDefaultFilters(ENTITY_TYPES.DISPUTES_DASHBOARD),
+    applyingFilters: false,
+  },
 };
 
 export default {

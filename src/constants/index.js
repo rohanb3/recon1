@@ -99,6 +99,7 @@ export const ENTITY_TYPES = {
   ORDERS: 'ORDERS',
   DISPUTES: 'DISPUTES',
   RESUBMISSION: 'RESUBMISSION',
+  DISPUTES_DASHBOARD: 'DISPUTES_DASHBOARD',
 };
 
 export const FILTER_NAMES = {
@@ -138,6 +139,7 @@ export const ROUTE_NAMES = {
   VERIFICATION_CODE: 'verification-code',
   RESET_PASSWORD: 'reset-password',
   MAIN_PAGE: 'main-page',
+  DISPUTES_DASHBOARD: 'disputes-dashboard',
 };
 
 export const ROLE_TYPES = {

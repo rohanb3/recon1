@@ -115,6 +115,7 @@
   "disputes.xyz.status": "XYZ Status",
   "disputes.dispute.status": "Spectrum Dispute status",
   "disputes.dispute.status.description": "Dispute Status Description",
+  "disputes.dashboard": "Disputes Dashboard",
 
   "resubmission.table.title": "Resubmission Table",
   "resubmission.table.approve": "Approve",

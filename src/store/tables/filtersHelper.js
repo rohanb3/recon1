@@ -51,6 +51,7 @@ const filters = {
     [FILTER_NAMES.ORDER_AGE_TO]: null,
     [FILTER_NAMES.ORDER_AGE_FROM]: null,
   },
+  [ENTITY_TYPES.DISPUTES_DASHBOARD]: {},
 };
 
 export default itemType => ({ ...filters[itemType] } || {});

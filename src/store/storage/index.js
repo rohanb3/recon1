@@ -18,6 +18,10 @@ export default {
       items: [],
       allItemsLoaded: false,
     },
+    [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
+      items: [],
+      allItemsLoaded: false,
+    },
   },
   getters,
   actions,
