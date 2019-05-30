@@ -170,7 +170,7 @@
   "password.do.not.match": "TBD Password do not match",
   "enter.your.new.password": "TBD Please, enter your new password and confirm it to reset",
   "invalid.code.entered": "TBD Invalid code entered",
-  "we.sended.verification.code.again": "TBD We sended verification code to your email",
+  "we.sended.verification.code.again": "TBD We have sent a new verification code to your email",
   "password.must.contain.capital.letter": "TBD Password must contain at least 1 capital letter",
   "email.is.not.registered": "TBD This email is not registered in this system. Please, check and try again.",
   "password.or.email.is.incorrect": "TBD Password or email is incorrect. Please, check and try again.",

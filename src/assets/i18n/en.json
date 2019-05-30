@@ -170,7 +170,7 @@
   "password.do.not.match": "Password do not match",
   "enter.your.new.password": "Please, enter your new password and confirm it to reset",
   "invalid.code.entered": "Invalid code entered",
-  "we.sended.verification.code.again": "We sended verification code to your email",
+  "we.sended.verification.code.again": "We have sent a new verification code to your email",
   "password.must.contain.capital.letter": "Password must contain at least 1 capital letter",
   "email.is.not.registered": "This email is not registered in this system. Please, check and try again.",
   "password.or.email.is.incorrect": "Password or email is incorrect. Please, check and try again.",
