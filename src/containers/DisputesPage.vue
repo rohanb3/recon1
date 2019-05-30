@@ -67,9 +67,10 @@
 </template>
 
 <script>
+import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
-import disputeTableAutocomplete from '@/mixins/disputeTableAutocomplete';
+import disputeCommonTable from '@/mixins/disputeCommonTable';
 import XYZStatusCell from '@/components/tableCells/XYZStatusCell';
 
 import { ENTITY_TYPES } from '@/constants';
@@ -77,9 +78,10 @@ import { ENTITY_TYPES } from '@/constants';
 export default {
   name: 'DisputesPage',
   components: {
+    DisputesTableToolbar,
     XYZStatusCell,
   },
-  mixins: [configurableColumnsTable, lazyLoadTable, disputeTableAutocomplete],
+  mixins: [configurableColumnsTable, lazyLoadTable, disputeCommonTable],
   data() {
     return {
       tableName: ENTITY_TYPES.DISPUTES,
@@ -103,6 +105,7 @@ export default {
   @include table-base-title;
 }
 .disputes-table /deep/ {
+  height: 100%;
   .virtual-list {
     height: 100vh;
     max-height: calc(

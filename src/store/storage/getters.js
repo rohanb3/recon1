@@ -1,5 +1,5 @@
 export default {
-  getItemById: state => (itemId, tableName, itemKeyName = 'id') => {
-    return state[tableName].items.find(item => item[itemKeyName] === itemId);
+  getItemById: state => (itemId, tableName, getItemId) => {
+    return state[tableName].items.find(item => getItemId(item) === itemId);
   },
 };

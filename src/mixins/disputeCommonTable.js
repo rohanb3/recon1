@@ -24,7 +24,6 @@ import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStat
 import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
 import IdCell from '@/components/tableCells/IdCell';
 
-import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 import DisputeHistory from '@/containers/DisputeHistory';
 
 import dateRange from '@/filters/boundaries';
@@ -46,7 +45,6 @@ export default {
     ResubmitClaimCell,
     RejectDisputeStatusCell,
     ApproveDisputeStatusCell,
-    DisputesTableToolbar,
     DisputeStatusCell,
     IdCell,
     DisputeHistory,

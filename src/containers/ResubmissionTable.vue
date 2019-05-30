@@ -2,7 +2,7 @@
   <div class="disputes-table">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('resubmission.table.title') }}</div>
-      <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
+      <resubmission-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
     </div>
     <div class="selected-date-range" v-show="isSelectedDateRange">
       {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
@@ -81,12 +81,14 @@
 </template>
 
 <script>
+import ResubmissionTableToolbar from '@/containers/ResubmissionTableToolbar';
+
 import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
 import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmRejectDisputePopup';
 
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
-import disputeTableAutocomplete from '@/mixins/disputeTableAutocomplete';
+import disputeCommonTable from '@/mixins/disputeCommonTable';
 
 import { ENTITY_TYPES } from '@/constants';
 
@@ -95,8 +97,9 @@ export default {
   components: {
     ConfirmApproveDisputePopup,
     ConfirmRejectDisputePopup,
+    ResubmissionTableToolbar,
   },
-  mixins: [configurableColumnsTable, lazyLoadTable, disputeTableAutocomplete],
+  mixins: [configurableColumnsTable, lazyLoadTable, disputeCommonTable],
   data() {
     return {
       tableName: ENTITY_TYPES.RESUBMISSION,
@@ -140,6 +143,7 @@ export default {
   @include table-base-title;
 }
 .disputes-table /deep/ {
+  height: 100%;
   .virtual-list {
     height: 100vh;
     max-height: calc(

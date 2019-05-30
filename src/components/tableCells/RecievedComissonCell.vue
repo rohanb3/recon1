@@ -25,20 +25,20 @@ export default {
     currency,
   },
   computed: {
-    expectedComission() {
-      return this.item.expectedComission ? parseFloat(this.item.expectedComission) : 0;
+    expectedCommission() {
+      return this.item.expectedCommission ? parseFloat(this.item.expectedCommission) : 0;
     },
     receivedCommission() {
       return this.item.receivedCommission ? parseFloat(this.item.receivedCommission) : 0;
     },
     isShortageComission() {
-      return this.expectedComission > this.receivedCommission;
+      return this.expectedCommission > this.receivedCommission;
     },
     isCommissionPaid() {
-      return this.expectedComission === this.receivedCommission;
+      return this.expectedCommission === this.receivedCommission;
     },
     isCommissionOverpaid() {
-      return this.receivedCommission > this.expectedComission;
+      return this.receivedCommission > this.expectedCommission;
     },
   },
 };
