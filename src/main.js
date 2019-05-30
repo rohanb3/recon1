@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import VueHotKey from 'v-hotkey';
 import 'vuetify/dist/vuetify.min.css';
 import 'vue-popperjs/dist/vue-popper.css';
 import Notifications from 'vue-notification';
@@ -27,6 +28,7 @@ Vue.use(Vuetify, {
 
 Vue.use(AirbnbStyleDatepicker, datepickerOptions);
 Vue.use(Notifications);
+Vue.use(VueHotKey);
 
 new Vue({
   router,

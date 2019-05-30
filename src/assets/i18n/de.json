@@ -64,6 +64,7 @@
   "dispute.are.you.sure": "TBD Are you sure?",
   "dispute.orders.number": "TBD Order Number",
   "dispute.if.you.close.this.page": "TBD Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
+  "dispute.id": "TBD Dispute ID",
 
   "file.is.too.big": "TBD File is too big",
   "failed.to.upload.file": "TBD Failed to upload file",
@@ -189,5 +190,10 @@
   "all.time": "TBD All time",
   "apply": "TBD Apply",
   "from": "TBD from",
-  "to": "TBD to"
+  "to": "TBD to",
+
+  "dispute.history.datetime": "TBD Datetime",
+  "dispute.history.author": "TBD Author",
+  "dispute.history.status": "TBD Set Status",
+  "dispute.history.status.description": "TBD Status Description"
 }

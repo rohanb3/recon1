@@ -2,11 +2,15 @@
   <div class="disputes-table-toolbar">
     <quick-search-disputes-filter :tableName="tableName" />
     <div class="table-filter-container">
-      <dispute-type-filter :tableName="tableName" />
       <order-age-filter :table-name="tableName" />
       <installation-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
-      <dispute-xyz-status-filter :tableName="tableName" send-field-name="ids" />
+      <dispute-type-filter :tableName="tableName" />
+      <dispute-xyz-status-filter
+        v-if="isDisputesTable"
+        :tableName="tableName"
+        send-field-name="ids"
+      />
       <dispute-status-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
@@ -25,6 +29,7 @@ import InstallationAgeFilter from '@/containers/InstallationAgeFilter';
 import DisputeXyzStatusFilter from '@/containers/DisputeXyzStatusFilter';
 import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
 import TableButton from '@/components/TableButton';
+import { ENTITY_TYPES } from '@/constants';
 
 export default {
   name: 'DisputesTableToolbar',
@@ -43,6 +48,11 @@ export default {
     tableName: {
       type: String,
       required: true,
+    },
+  },
+  computed: {
+    isDisputesTable() {
+      return ENTITY_TYPES.DISPUTES === this.tableName;
     },
   },
 };
