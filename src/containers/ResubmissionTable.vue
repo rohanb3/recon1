@@ -92,6 +92,7 @@ import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
 import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatusCell';
 import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
 import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
+import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
 import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
 import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmRejectDisputePopup';
 
@@ -130,6 +131,7 @@ export default {
     ConfirmApproveDisputePopup,
     ConfirmRejectDisputePopup,
     DisputeStatusCell,
+    OrderNumberCell,
   },
   filters: {
     dateRange,
@@ -160,6 +162,7 @@ export default {
         rejectDisputeStatus: 'RejectDisputeStatusCell',
         approveDisputeStatus: 'ApproveDisputeStatusCell',
         disputeStatus: 'DisputeStatusCell',
+        orderNumber: 'OrderNumberCell',
       },
     };
   },

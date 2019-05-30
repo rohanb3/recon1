@@ -66,5 +66,6 @@ export default {
 
 .table-filter-container /deep/ {
   @include table-filter-container;
+  flex-wrap: wrap;
 }
 </style>

@@ -37,7 +37,7 @@ export default {
       return (this.item.disputeStatus || {}).id;
     },
     isDisputed() {
-      return this.statusId === DISPUTE_STATUSES_ID.SENT;
+      return !this.isDraftDispute && this.statusId;
     },
     isDraftDispute() {
       return this.statusId === DISPUTE_STATUSES_ID.DRAFT;

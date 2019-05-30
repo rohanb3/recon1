@@ -73,14 +73,14 @@
       <v-layout row mb-2>
         <v-flex md6>
           <v-text-field
-            :value="expectedComission"
+            :value="expectedComission | currency"
             disabled
             :label="$t('dispute.expected.comission')"
           ></v-text-field>
         </v-flex>
         <v-flex md6 ml-5>
           <v-text-field
-            :value="recevedComission | currency"
+            :value="receivedCommission | currency"
             disabled
             :label="$t('dispute.recived.comission.difference')"
           ></v-text-field>
@@ -140,8 +140,8 @@ export default {
     expectedComission() {
       return this.value.expectedComission || ' ';
     },
-    recevedComission() {
-      return this.value.recevedComission || ' ';
+    receivedCommission() {
+      return this.value.receivedCommission || ' ';
     },
     createdOn() {
       return this.value.createdOn || ' ';
