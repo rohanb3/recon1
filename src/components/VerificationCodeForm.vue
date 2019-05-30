@@ -31,12 +31,17 @@
                 @input="enteredCode => onInputCode(enteredCode, 4, 3)"
               />
             </div>
+            <div class="resend-code-wrapper">
+              <a class="resend-link" href="#" @click.prevent="$emit('resendCode')">
+                {{ $t('resend.code') }}
+              </a>
+            </div>
             <v-container fluid>
               <v-layout row mt-4 align-center justify-space-around>
                 <v-flex order-lg2>
-                  <a class="back-to-login" href="#" @click.prevent="$emit('resendCode')">
-                    {{ $t('resend.code') }}
-                  </a>
+                  <router-link class="back-to-login" :to="{ name: 'login' }">
+                    {{ $t('back.to.login') }}
+                  </router-link>
                 </v-flex>
                 <v-flex order-lg2>
                   <v-btn
@@ -151,6 +156,17 @@ export default {
     box-shadow: none;
     text-transform: initial;
     font-weight: 550;
+  }
+
+  .resend-code-wrapper {
+    text-align: right;
+    margin-bottom: 30px;
+    margin-right: 10px;
+    font-size: 12px;
+
+    .resend-link {
+      text-decoration: none;
+    }
   }
 }
 </style>

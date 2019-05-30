@@ -73,7 +73,7 @@
       <v-layout row mb-2>
         <v-flex md6>
           <v-text-field
-            :value="expectedComission | currency"
+            :value="expectedCommission | currency"
             disabled
             :label="$t('dispute.expected.comission')"
           ></v-text-field>
@@ -137,8 +137,8 @@ export default {
     installationAge() {
       return this.value.installationAge || ' ';
     },
-    expectedComission() {
-      return this.value.expectedComission || ' ';
+    expectedCommission() {
+      return this.value.expectedCommission || ' ';
     },
     receivedCommission() {
       return this.value.receivedCommission || ' ';
