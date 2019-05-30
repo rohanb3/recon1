@@ -189,6 +189,7 @@ export default {
   @include table-base-title;
 }
 .disputes-table /deep/ {
+  height: 100%;
   .virtual-list {
     height: 100vh;
     max-height: calc(

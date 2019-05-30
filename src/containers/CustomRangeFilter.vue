@@ -59,6 +59,10 @@ export default {
             name: FILTER_NAMES.FISCAL_PERIOD_TO,
             value: '',
           },
+          {
+            name: FILTER_NAMES.FISCAL_PERIOD_ID,
+            value: null,
+          },
         ],
       };
       this.$store.dispatch(APPLY_FILTERS, data);

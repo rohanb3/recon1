@@ -10,8 +10,9 @@
       <dispute-status-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
-    <custom-range-filter :tableName="tableName" />
     <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
+    <fiscal-period-filter :tableName="tableName" />
+    <custom-range-filter :tableName="tableName" />
   </div>
 </template>
 
@@ -25,6 +26,7 @@ import InstallationAgeFilter from '@/containers/InstallationAgeFilter';
 import DisputeXyzStatusFilter from '@/containers/DisputeXyzStatusFilter';
 import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
 import TableButton from '@/components/TableButton';
+import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 
 export default {
   name: 'DisputesTableToolbar',
@@ -32,6 +34,7 @@ export default {
     QuickSearchDisputesFilter,
     DisputeTypeFilter,
     TableButton,
+    FiscalPeriodFilter,
     CustomRangeFilter,
     OrderAgeFilter,
     InstallationAgeFilter,

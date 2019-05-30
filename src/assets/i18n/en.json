@@ -189,5 +189,8 @@
   "all.time": "All time",
   "apply": "Apply",
   "from": "from",
-  "to": "to"
+  "to": "to",
+  "apply": "Apply",
+
+  "fiscal.period.not.found": "Fiscal period not found"
 }

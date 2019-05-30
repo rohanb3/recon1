@@ -26,3 +26,7 @@ export const getOrdersCsvFile = filters => {
   const params = { ...filters };
   return apiDisputes.get('/order/csv', { params, paramsSerializer }).then(({ data }) => data);
 };
+
+export const getFiscalPeriods = () => {
+  return apiDisputes.get('/order/fiscalperiod').then(({ data }) => data);
+};
