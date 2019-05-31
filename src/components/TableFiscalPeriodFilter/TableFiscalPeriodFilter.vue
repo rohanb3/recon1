@@ -96,7 +96,6 @@ export default {
       return (this.items.find(fiscalPeriod => fiscalPeriod.selected) || {}).name || '';
     },
     preselectedYear() {
-      console.log(this.selectedFiscalPeriodName);
       return this.selectedFiscalPeriodName.split(' ').pop() || '';
     },
     preselectedMonth() {

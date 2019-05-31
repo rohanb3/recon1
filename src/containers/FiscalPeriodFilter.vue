@@ -43,7 +43,6 @@ export default {
   computed: {
     fiscalPeriodListWithSelected() {
       return this.fiscalPeriodList.map(fiscalPeriod => {
-        console.log(this.fiscalPeriodId, fiscalPeriod.id === this.fiscalPeriodId);
         if (fiscalPeriod.id === this.fiscalPeriodId) {
           return { ...fiscalPeriod, selected: true };
         }
