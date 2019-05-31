@@ -42,8 +42,8 @@ export default () => [
     fieldHeaderType: 'sortingHeader',
   },
   {
-    name: 'expectedComission',
-    field: 'expectedComission',
+    name: 'expectedCommission',
+    field: 'expectedCommission',
     fieldType: 'price',
     class: 'text',
     title: i18n.t('disputes.expected.comission'),
