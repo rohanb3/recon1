@@ -70,7 +70,7 @@ export const TABLE_ORDER_COLUMNS_SORTED = {
   STATUS: 'orderStatusName',
   AGE_AFTER: 'creationAge',
   INSTALLATION_AGE: 'installationAge',
-  EXPECTED_COMISSION: 'expectedComission',
+  EXPECTED_COMISSION: 'expectedCommission',
   RECIEVED_COMISSON: 'receivedCommission',
   DIFFERENCE: 'difference',
 };
