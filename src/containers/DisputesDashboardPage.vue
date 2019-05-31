@@ -1,7 +1,7 @@
 <template>
   <div class="disputes-dashboard-page">
     <Disputes-Dashboard-Toolbar />
-    <disput-statistic />
+    <disput-statistic :title="$t('disputes.dashboard.total.statistic')" :statistics="rows" />
   </div>
 </template>
 

@@ -116,6 +116,7 @@
   "disputes.dispute.status": "Spectrum Dispute status",
   "disputes.dispute.status.description": "Dispute Status Description",
   "disputes.dashboard": "Disputes Dashboard",
+  "disputes.dashboard.total.statistic": "Total Disputes Statistic",
 
   "resubmission.table.title": "Resubmission Table",
   "resubmission.table.approve": "Approve",
@@ -191,7 +192,6 @@
   "apply": "Apply",
   "from": "from",
   "to": "to",
-  "apply": "Apply",
 
   "fiscal.period.not.found": "Fiscal period not found"
 }

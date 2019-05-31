@@ -2,40 +2,38 @@
   <v-container fluid class="disput-statistic">
     <v-layout row>
       <v-flex>
-        <p class="table-name">Total Disputes Statistic</p>
+        <p class="table-name">{{ title }}</p>
       </v-flex>
     </v-layout>
     <v-layout class="statistic" fluid>
       <div class="table-wrapper">
         <div class="table-header">
           <v-layout row>
-            <v-flex>Total Disputes</v-flex>
+            <v-flex>{{ totalDisputesStatistics.sectionName }}</v-flex>
             <v-flex>
-              <div class="label">Total quantity</div>
-              <p>80</p>
+              <div class="table-header-label">Total quantity</div>
+              <p>{{ totalDisputesStatistics.totalQuantity }}</p>
             </v-flex>
             <v-flex>
-              <div>Percentage</div>
-              <p>80%</p>
+              <div class="table-header-label">Percentage</div>
+              <p>{{ totalDisputesStatistics.Percent }}</p>
             </v-flex>
             <v-flex>
-              <div>Total comission difference</div>
-              <p>1200</p>
+              <div class="table-header-label">Total comission difference</div>
+              <p>{{ totalDisputesStatistics.Commission }}</p>
             </v-flex>
           </v-layout>
         </div>
         <div class="table-body">
-          <v-layout row>
-            <v-flex> <span class="mark-status green"></span> Waited Spectrum answer </v-flex>
-            <v-flex>80</v-flex>
-            <v-flex>80%</v-flex>
-            <v-flex>1200</v-flex>
-          </v-layout>
-          <v-layout row>
-            <v-flex> <span class="mark-status blue"></span> Waited Spectrum answer </v-flex>
-            <v-flex>80</v-flex>
-            <v-flex>80%</v-flex>
-            <v-flex>1200</v-flex>
+          {{ specificStatistics }}
+          <v-layout row v-for="statistic in specificStatistics" :key="statistic.sectionName">
+            <v-flex>
+              <span class="mark-status green"></span>
+              {{ statistic.sectionName }}
+            </v-flex>
+            <v-flex>{{ statistic.totalQuantity }}</v-flex>
+            <v-flex>{{ statistic.Percent }}</v-flex>
+            <v-flex>{{ statistic.Commission }}</v-flex>
           </v-layout>
         </div>
       </div>
@@ -47,6 +45,34 @@
 <script>
 export default {
   name: 'DisputStatistic',
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    statistics: {
+      type: Array,
+      required: true,
+    },
+  },
+  computed: {
+    totalDisputesStatistics() {
+      return this.parseStatistics(this.statistics[0]);
+    },
+    specificStatistics() {
+      return this.statistics.slice(1).map(statistics => this.parseStatistics(statistics));
+    },
+  },
+  methods: {
+    parseStatistics(statistics) {
+      const {
+        sectionName,
+        data: { total: totalQuantity, rows: { Percent, Commission } = {} } = {},
+      } = statistics;
+
+      return { sectionName, totalQuantity, Percent, Commission };
+    },
+  },
 };
 </script>
 
@@ -102,6 +128,12 @@ export default {
       width: 30%;
     }
   }
+}
+
+.table-header-label {
+  font-weight: normal;
+  font-style: italic;
+  margin-bottom: 5px;
 }
 
 .table-body {
