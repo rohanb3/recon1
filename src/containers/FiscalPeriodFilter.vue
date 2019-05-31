@@ -4,7 +4,7 @@
       :title="$t('choose.fiscal.period')"
       :items="fiscalPeriodListWithSelected"
       :loading-status="loading"
-      boundariesSelector=".disputes-table"
+      :boundariesSelector="boundariesSelector"
       @selectFiscalPeriod="handleFiscalPeriod"
     />
   </div>
@@ -26,6 +26,10 @@ export default {
       type: String,
       required: true,
     },
+    boundariesSelector: {
+      type: String,
+      required: true,
+    },
   },
   mounted() {
     this.loadFiscalPeriodList();
@@ -39,6 +43,7 @@ export default {
   computed: {
     fiscalPeriodListWithSelected() {
       return this.fiscalPeriodList.map(fiscalPeriod => {
+        console.log(this.fiscalPeriodId, fiscalPeriod.id === this.fiscalPeriodId);
         if (fiscalPeriod.id === this.fiscalPeriodId) {
           return { ...fiscalPeriod, selected: true };
         }
