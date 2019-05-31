@@ -15,6 +15,8 @@
 <script>
 import moment from 'moment';
 
+const FISCAL_PERIOD_START = 22;
+
 export default {
   name: 'MonthList',
   props: {
@@ -50,8 +52,16 @@ export default {
         .format('MM');
     },
     isDisabledMonth(month) {
+      if (moment().date() < FISCAL_PERIOD_START) {
+        return moment(`${this.activeYear}-${this.numberMonth(month)}-01`).isAfter(
+          moment().format('YYYY-MM-DD'),
+          'month'
+        );
+      }
       return moment(`${this.activeYear}-${this.numberMonth(month)}-01`).isAfter(
-        moment().format('YYYY-MM-DD'),
+        moment()
+          .add('1', 'month')
+          .format(),
         'month'
       );
     },
