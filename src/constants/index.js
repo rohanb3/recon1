@@ -73,6 +73,8 @@ export const TABLE_ORDER_COLUMNS_SORTED = {
   EXPECTED_COMISSION: 'expectedCommission',
   RECIEVED_COMISSON: 'receivedCommission',
   DIFFERENCE: 'difference',
+  BUNDLE_NAME: 'bundleName',
+  INSTALLED_UNITS: 'installedUnits',
 };
 
 export const TABLE_DISPUTE_COLUMNS_SORTED = {
