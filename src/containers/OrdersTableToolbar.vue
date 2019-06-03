@@ -13,6 +13,7 @@
       @click="$emit('syncOrders')"
     />
     <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
+    <fiscal-period-filter :tableName="tableName" />
   </div>
 </template>
 
@@ -23,6 +24,7 @@ import OrderAgeFilter from './OrderAgeFilter';
 import InstallationAgeFilter from './InstallationAgeFilter';
 import TableButton from '@/components/TableButton';
 import { ENTITY_TYPES, ORDER_SYNC_STATUS } from '@/constants';
+import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 
 export default {
   name: 'OrdersTableToolbar',
@@ -32,6 +34,7 @@ export default {
     OrderAgeFilter,
     InstallationAgeFilter,
     TableButton,
+    FiscalPeriodFilter,
   },
   data() {
     return {
