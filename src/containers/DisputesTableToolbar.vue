@@ -11,7 +11,7 @@
     </div>
     <v-spacer></v-spacer>
     <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
-    <fiscal-period-filter :tableName="tableName" :boundariesSelector="'.disputes-table'" />
+    <fiscal-period-filter :tableName="tableName" />
     <custom-range-filter :tableName="tableName" />
   </div>
 </template>

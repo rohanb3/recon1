@@ -13,7 +13,7 @@
       @click="$emit('syncOrders')"
     />
     <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
-    <fiscal-period-filter :tableName="tableName" :boundariesSelector="'.orders-table'" />
+    <fiscal-period-filter :tableName="tableName" />
   </div>
 </template>
 
