@@ -1,14 +1,16 @@
 import i18n from '@/i18n';
+import dashForEmptyValue from '@/filters/dashForEmptyValue';
+import { dateDefaultFormat } from '@/filters/dateFormat';
 
 export default () => [
   {
     name: 'datetime',
     field: 'timeStamp',
-    fieldType: 'dayMonthYearTime',
-    class: 'text',
+    class: 'date-cell',
     title: i18n.t('dispute.history.datetime'),
     width: '4',
     minWidth: '16px',
+    filter: dateDefaultFormat,
   },
   {
     name: 'userName',
@@ -29,10 +31,10 @@ export default () => [
   {
     name: 'statusDescription',
     field: 'submitterComment',
-    fieldType: 'statusDescription',
-    class: 'text',
+    class: 'text-italic',
     title: i18n.t('dispute.history.status.description'),
     width: '3',
     minWidth: '16px',
+    filter: dashForEmptyValue,
   },
 ];

@@ -6,13 +6,8 @@ import { CHANGE_ITEM } from '@/store/storage/mutationTypes';
 import { changeStatusDispute, getDispute, getDisputesCsvFile } from '@/services/disputesRepository';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 
-import WombatTable from '@/components/WombatTable/Table';
-import WombatRow from '@/components/WombatTable/Row';
-import TableLoader from '@/components/TableLoader';
-import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
-import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
+import LazyLoadTable from '@/containers/LazyLoadTable';
 import DefaultCell from '@/components/tableCells/DefaultCell';
-import DateMonthYearCell from '@/components/tableCells/DateMonthYearCell';
 import RecievedComissonCell from '@/components/tableCells/RecievedComissonCell';
 import DifferenceComissonCell from '@/components/tableCells/DifferenceComissonCell';
 import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
@@ -28,20 +23,17 @@ import DisputeHistory from '@/containers/DisputeHistory';
 
 import dateRange from '@/filters/boundaries';
 
+import tableDateRange from '@/mixins/tableDateRange';
+
 export default {
   components: {
-    WombatTable,
-    WombatRow,
-    TableLoader,
+    LazyLoadTable,
     DefaultCell,
-    DateMonthYearCell,
     RecievedComissonCell,
     DifferenceComissonCell,
     DateYearMonthDayCell,
     OrderAgeCell,
     PriceCell,
-    DefaultHeaderCell,
-    SortingHeaderCell,
     ResubmitClaimCell,
     RejectDisputeStatusCell,
     ApproveDisputeStatusCell,
@@ -49,18 +41,14 @@ export default {
     IdCell,
     DisputeHistory,
   },
+  mixins: [tableDateRange],
   filters: {
     dateRange,
   },
   data() {
     return {
-      headerComponentsHash: {
-        default: 'DefaultHeaderCell',
-        sortingHeader: 'SortingHeaderCell',
-      },
       rowComponentsHash: {
         default: 'DefaultCell',
-        dateMonthYear: 'DateMonthYearCell',
         price: 'PriceCell',
         recievedComisson: 'RecievedComissonCell',
         differenceComisson: 'DifferenceComissonCell',

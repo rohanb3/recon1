@@ -1,7 +1,7 @@
 import disputesTableColumns from './disputesTableColumns';
 import ordersTableColumns from './ordersTableColumns';
 import resubmissionTableColumns from './resubmissionTableColumns';
-import disputeHistoryTableColumns from './DisputeHistoryTableColumns';
+import disputeHistoryTableColumns from './disputeHistoryTableColumns';
 
 export const getDisputesTableColumns = disputesTableColumns;
 export const getOrdersTableColumns = ordersTableColumns;
