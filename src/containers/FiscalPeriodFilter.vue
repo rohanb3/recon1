@@ -4,7 +4,7 @@
       :title="$t('choose.fiscal.period')"
       :items="fiscalPeriodListWithSelected"
       :loading-status="loading"
-      boundariesSelector=".disputes-table"
+      :boundariesSelector="`.${getTableName}-table`"
       @selectFiscalPeriod="handleFiscalPeriod"
     />
   </div>
@@ -53,6 +53,9 @@ export default {
     },
     fiscalPeriodId() {
       return this.filters[FILTER_NAMES.FISCAL_PERIOD_ID];
+    },
+    getTableName() {
+      return this.tableName.toLowerCase();
     },
   },
   methods: {
