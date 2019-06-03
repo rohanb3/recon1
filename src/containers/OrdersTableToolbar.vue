@@ -7,13 +7,15 @@
       <installation-age-filter :table-name="tableName" />
     </div>
     <v-spacer></v-spacer>
-    <table-button
-      :disabled="isOrdersSyncing"
-      :title="$t('sync.orders')"
-      @click="$emit('syncOrders')"
-    />
-    <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
-    <fiscal-period-filter :tableName="tableName" />
+    <div class="table-filter-container">
+      <table-button
+        :disabled="isOrdersSyncing"
+        :title="$t('sync.orders')"
+        @click="$emit('syncOrders')"
+      />
+      <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
+      <fiscal-period-filter :tableName="tableName" />
+    </div>
   </div>
 </template>
 
