@@ -9,31 +9,29 @@
       <div class="table-wrapper">
         <div class="table-header">
           <v-layout row>
-            <v-flex>{{ totalDisputesStatistics.sectionName }}</v-flex>
+            <v-flex>{{ $t('total.disputes') }}</v-flex>
             <v-flex>
-              <div class="table-header-label">Total quantity</div>
-              <p>{{ totalDisputesStatistics.totalQuantity }}</p>
+              <div class="table-header-label">{{ $t('total.quantity') }}</div>
+              <p>{{ totalQuantity }}</p>
             </v-flex>
             <v-flex>
-              <div class="table-header-label">Percentage</div>
-              <p>{{ totalDisputesStatistics.Percent }}</p>
+              <div class="table-header-label header-precentage">{{ $t('percentage') }}</div>
             </v-flex>
             <v-flex>
-              <div class="table-header-label">Total comission difference</div>
-              <p>{{ totalDisputesStatistics.Commission }}</p>
+              <div class="table-header-label">{{ $t('total.comission.difference') }}</div>
+              <p>{{ totalComissionDifference }}</p>
             </v-flex>
           </v-layout>
         </div>
         <div class="table-body">
-          {{ specificStatistics }}
-          <v-layout row v-for="statistic in specificStatistics" :key="statistic.sectionName">
+          <v-layout row v-for="(statistic, index) in statistics" :key="statistic.sectionName">
             <v-flex>
-              <span class="mark-status green"></span>
+              <span class="mark-status" :class="markerClassList[index]"></span>
               {{ statistic.sectionName }}
             </v-flex>
             <v-flex>{{ statistic.totalQuantity }}</v-flex>
-            <v-flex>{{ statistic.Percent }}</v-flex>
-            <v-flex>{{ statistic.Commission }}</v-flex>
+            <v-flex>{{ statistic.percent | addPercent }}</v-flex>
+            <v-flex>{{ statistic.commissionDifference }}</v-flex>
           </v-layout>
         </div>
       </div>
@@ -43,6 +41,8 @@
 </template>
 
 <script>
+import { addPercent } from '@/filters/numberFormat';
+
 export default {
   name: 'DisputStatistic',
   props: {
@@ -55,22 +55,20 @@ export default {
       required: true,
     },
   },
-  computed: {
-    totalDisputesStatistics() {
-      return this.parseStatistics(this.statistics[0]);
-    },
-    specificStatistics() {
-      return this.statistics.slice(1).map(statistics => this.parseStatistics(statistics));
-    },
+  filters: {
+    addPercent,
   },
-  methods: {
-    parseStatistics(statistics) {
-      const {
-        sectionName,
-        data: { total: totalQuantity, rows: { Percent, Commission } = {} } = {},
-      } = statistics;
-
-      return { sectionName, totalQuantity, Percent, Commission };
+  data() {
+    return {
+      markerClassList: ['green', 'blue', 'orange', 'grey'],
+    };
+  },
+  computed: {
+    totalQuantity() {
+      return this.statistics.reduce((sum, statistic) => sum + statistic.totalQuantity, 0);
+    },
+    totalComissionDifference() {
+      return this.statistics.reduce((sum, statistic) => sum + statistic.commissionDifference, 0);
     },
   },
 };
@@ -84,7 +82,7 @@ export default {
   @include table-base-container;
 
   background-color: #fff;
-  margin-top: 30px;
+  margin-bottom: 30px;
   padding: 12px 20px;
 
   .table-name {
@@ -134,6 +132,10 @@ export default {
   font-weight: normal;
   font-style: italic;
   margin-bottom: 5px;
+}
+
+.header-precentage {
+  height: 36px;
 }
 
 .table-body {

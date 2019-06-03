@@ -116,7 +116,20 @@
   "disputes.dispute.status": "Spectrum Dispute status",
   "disputes.dispute.status.description": "Dispute Status Description",
   "disputes.dashboard": "Disputes Dashboard",
+
   "disputes.dashboard.total.statistic": "Total Disputes Statistic",
+  "disputes.dashboard.total.spectrum.statistic": "Total Spectrum Dispute Info",
+  "disputes.dashboard.total.xyz.statistic": "Total XYZ Disputes info",
+
+  "total.comission.difference": "Total comission difference",
+  "percentage": "Percentage",
+  "total.quantity": "Total quantity",
+  "total.disputes": "Total Disputes",
+
+  "disputes.statistic.spectrum.answer": "Waited Spectrum answer",
+  "disputes.statistic.xyz.answer": "Waited XYZ answer",
+  "disputes.statistic.approved.for.pay": "Approved for pay",
+  "disputes.statistic.deny.for.pay": "Deny for pay",
 
   "resubmission.table.title": "Resubmission Table",
   "resubmission.table.approve": "Approve",
@@ -144,6 +157,9 @@
   "resent": "Re-sent",
   "pending": "Pending",
   "waiting.for.answer": "Waiting for answer",
+  "answered": "Answered",
+  "confirm.approved.disputes": "Confirm approved disputes",
+  "confirm.rejected.disputes": "Confirm rejected disputes",
 
   "validation.rule.rage.negative": "To value should be greater that from",
   "validation.rule.number.too.small": "Value should be greater than %{min}",
