@@ -82,7 +82,7 @@ export default {
   @include table-base-container;
 
   background-color: #fff;
-  margin-bottom: 30px;
+  margin-bottom: 8px;
   padding: 12px 20px;
 
   .table-name {
