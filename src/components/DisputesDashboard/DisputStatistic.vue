@@ -26,7 +26,7 @@
         <div class="table-body">
           <v-layout row v-for="(statistic, index) in statistics" :key="statistic.sectionName">
             <v-flex>
-              <span class="mark-status" :style="{'background': markerColorList[index]}"></span>
+              <span class="mark-status" :style="{ background: markerColorList[index] }"></span>
               {{ statistic.sectionName }}
             </v-flex>
             <v-flex>{{ statistic.totalQuantity }}</v-flex>
@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="pie-chart-wrapper">
-        <table-pie-chart class="pie-chart" :datasets="chartData"/>
+        <table-pie-chart class="pie-chart" :datasets="chartData" />
       </div>
     </v-layout>
   </v-container>
@@ -91,7 +91,7 @@ export default {
         data: [
           {
             label: this.$t('percentage'),
-            value: statistic.percent + '%',
+            value: `${statistic.percent}%`,
           },
           {
             label: this.$t('quantity'),
@@ -105,16 +105,10 @@ export default {
       }));
     },
     totalQuantity() {
-      return this.statistics.reduce(
-        (sum, statistic) => sum + statistic.totalQuantity,
-        0
-      );
+      return this.statistics.reduce((sum, statistic) => sum + statistic.totalQuantity, 0);
     },
     totalComissionDifference() {
-      return this.statistics.reduce(
-        (sum, statistic) => sum + statistic.commissionDifference,
-        0
-      );
+      return this.statistics.reduce((sum, statistic) => sum + statistic.commissionDifference, 0);
     },
   },
 };

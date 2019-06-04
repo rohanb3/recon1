@@ -27,18 +27,16 @@ export default {
         tooltips: {
           enabled: false,
           callbacks: {
-            label: function(tooltipItem) {
+            label(tooltipItem) {
               return tooltipItem.index + 1;
             },
           },
           custom: (() => {
-            let self = this;
+            const self = this;
             return function(tooltipModel) {
               let tooltipEl = document.getElementById('chartjs-tooltip');
 
-              const datasetIndex = (
-                ((tooltipModel.body || []).pop() || {}).lines || []
-              ).pop();
+              const datasetIndex = (((tooltipModel.body || []).pop() || {}).lines || []).pop();
 
               // Create element on first render
               if (!tooltipEl) {
@@ -68,15 +66,12 @@ export default {
 
               // Set Text
               if (tooltipModel.body) {
-                var tableRoot = tooltipEl.querySelector('table');
+                const tableRoot = tooltipEl.querySelector('table');
                 const t = self.datasets.tooltip[datasetIndex - 1].data.reduce(
                   (span, label) =>
-                    span +
-                    '<div>' +
-                    label.label +
-                    '<span class="tooltip-value">' +
-                    label.value +
-                    '</span></div>',
+                    `${span}<div>${label.label}<span class="tooltip-value">${
+                      label.value
+                    }</span></div>`,
                   ''
                 );
                 tableRoot.innerHTML = `<div class="tooltip"><div class="tooltip-header">${
@@ -85,20 +80,19 @@ export default {
               }
 
               // `this` will be the overall tooltip
-              var position = this._chart.canvas.getBoundingClientRect();
+              const position = this._chart.canvas.getBoundingClientRect();
 
               // Display, position, and set styles for font
               tooltipEl.style.opacity = 1;
               tooltipEl.style.position = 'absolute';
-              tooltipEl.style.left =
-                position.left + window.pageXOffset + tooltipModel.caretX + 'px';
-              tooltipEl.style.top =
-                position.top + window.pageYOffset + tooltipModel.caretY + 'px';
+              tooltipEl.style.left = `${position.left +
+                window.pageXOffset +
+                tooltipModel.caretX}px`;
+              tooltipEl.style.top = `${position.top + window.pageYOffset + tooltipModel.caretY}px`;
               tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily;
-              tooltipEl.style.fontSize = tooltipModel.bodyFontSize + 'px';
+              tooltipEl.style.fontSize = `${tooltipModel.bodyFontSize}px`;
               tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle;
-              tooltipEl.style.padding =
-                tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
+              tooltipEl.style.padding = `${tooltipModel.yPadding}px ${tooltipModel.xPadding}px`;
               tooltipEl.style.pointerEvents = 'none';
             };
           })(),
