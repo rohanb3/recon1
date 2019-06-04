@@ -11,7 +11,7 @@ describe('statisticsRepository', () => {
 
       const data = { id: '777' };
 
-      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
+      disputesApi.get = jest.fn(() => Promise.resolve({ ...data }));
 
       const response = await getDisputes(params);
 
