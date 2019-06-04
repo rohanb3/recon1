@@ -51,7 +51,13 @@ const filters = {
     [FILTER_NAMES.ORDER_AGE_TO]: null,
     [FILTER_NAMES.ORDER_AGE_FROM]: null,
   },
-  [ENTITY_TYPES.DISPUTES_DASHBOARD]: {},
+  [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
+    [FILTER_NAMES.FISCAL_PERIOD_ID]: null,
+    [FILTER_NAMES.CREATED_FROM]: '',
+    [FILTER_NAMES.CREATED_TO]: '',
+    [FILTER_NAMES.FISCAL_PERIOD_FROM]: '',
+    [FILTER_NAMES.FISCAL_PERIOD_TO]: '',
+  },
 };
 
 export default itemType => ({ ...filters[itemType] } || {});
