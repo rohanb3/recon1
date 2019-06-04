@@ -192,5 +192,23 @@
   "to": "to",
   "apply": "Apply",
 
-  "fiscal.period.not.found": "Fiscal period not found"
+  "fiscal.period.not.found": "Fiscal period not found",
+
+  "disputes.statistics.by.submitters": "Disputes statistics by submitters",
+  "disputes.by.submitters": "Disputes by Submitters",
+  "dispute.creator.name": "Dispute creator name",
+  "opened.disputes": "Opened Disputes",
+  "number.of.units": "Number of Units",
+  "closed.disputes": "Closed Disputes",
+  "closed.disputes.in": "Closed Disputes in %",
+  "rejected.by.xyz": "Rejected by XYZ",
+  "rejected.by.xyz.in": "Rejected by XYZ in %",
+  "approved.by.xyz": "Approved by XYZ",
+  "approved.by.xyz.in": "Approved by XYZ in %",
+  "approved.commission": "Approved Commission",
+  "waiting.for.spectrum.answer": "Waiting for Spectrum Answer",
+  "waiting.for.spectrum.answer.in": "Waiting for Spectrum Answer in %",
+  "pending.commission": "Pending Commission",
+  "number.of.resubmitted": "Number of Resubmitted",
+  "number.of.resubmitted.in": "Number of Resubmitted in %"
 }

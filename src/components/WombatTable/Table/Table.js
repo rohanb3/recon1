@@ -83,6 +83,7 @@ export default {
       return this.items.length;
     },
     scrollbarShown() {
+      console.log('here', { 1: this.items.length, 2: this.infiniteLoading });
       return this.items.length || this.infiniteLoading;
     },
   },

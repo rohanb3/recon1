@@ -9,6 +9,7 @@ import DisputePage from '@/containers/DisputePage';
 import DisputesPage from '@/containers/DisputesPage';
 import ResubmissionTable from '@/containers/ResubmissionTable';
 import SyncNotifier from '@/containers/SyncNotifier';
+import DisputesBySubmittersTable from '@/containers/DisputesBySubmittersTable';
 
 import LoginPage from '@/containers/LoginPage';
 import PasswordRecoveryPage from '@/containers/PasswordRecoveryPage';
@@ -115,6 +116,11 @@ const router = new Router({
               path: 'dispute-list',
               component: DisputesPage,
               name: ROUTE_NAMES.DISPUTE_LIST,
+            },
+            {
+              path: 'disputes-by-submitters',
+              component: DisputesBySubmittersTable,
+              name: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
             },
             {
               path: 'resubmission-table',

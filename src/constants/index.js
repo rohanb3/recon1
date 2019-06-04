@@ -95,10 +95,28 @@ export const TABLE_DISPUTE_COLUMNS_SORTED = {
   ORDER_NUMBER: 'ordernumber',
 };
 
+export const TABLE_DISPUTES_BY_SUBMITTERS_COLUMNS_SORTED = {
+  CREATOR: 'creatorName',
+  ENTERED: 'entered',
+  UNITS: 'units',
+  CLOSED: 'closed',
+  CLOSED_PERCENT: 'closedPercent',
+  APPROVED: 'approved',
+  APPROVED_PERCENT: 'approvedPercent',
+  REJECTED: 'rejected',
+  REJECTED_PERCENT: 'rejectedPercent',
+  APPROVED_COMMISSION: 'approvedComission',
+  RESUBMITTED: 'resubmited',
+  RESUBMITTED_PERCENT: 'resubmitedPercent',
+  PENDING: 'pending',
+  PENDING_PERCENT: 'pendingPercent',
+};
+
 export const ENTITY_TYPES = {
   ORDERS: 'ORDERS',
   DISPUTES: 'DISPUTES',
   RESUBMISSION: 'RESUBMISSION',
+  DISPUTES_BY_SUBMITTERS: 'DISPUTES_BY_SUBMITTERS',
 };
 
 export const FILTER_NAMES = {
@@ -131,6 +149,7 @@ export const ROUTE_NAMES = {
   EDIT_DISPUTE: 'edit-dispute',
   CREAT_DISPUTE: 'creat-dispute',
   DISPUTE_LIST: 'dispute-list',
+  DISPUTES_BY_SUBMITTERS: 'disputes-by-submitters',
   RESUBMISSION_TABLE: 'resubmission-table',
   LOGIN: 'login',
   LOGOUT: 'logout',

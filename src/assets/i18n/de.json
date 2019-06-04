@@ -189,5 +189,23 @@
   "all.time": "TBD All time",
   "apply": "TBD Apply",
   "from": "TBD from",
-  "to": "TBD to"
+  "to": "TBD to",
+
+  "disputes.by.submitters": "TBD Disputes by Submitters",
+  "disputes.statistics.by.submitters": "TBD Disputes statistics by submitters",
+  "dispute.creator.name": "TBD Dispute creator name",
+  "opened.disputes": "TBD Opened Disputes",
+  "number.of.units": "TBD Number of Units",
+  "closed.disputes": "TBD Closed Disputes",
+  "closed.disputes.in": "TBD Closed Disputes in %",
+  "rejected.by.xyz": "TBD Rejected by XYZ",
+  "rejected.by.xyz.in": "TBD Rejected by XYZ in %",
+  "approved.by.xyz": "TBD Approved by XYZ",
+  "approved.by.xyz.in": "TBD Approved by XYZ in %",
+  "approved.commission": "TBD Approved Commission",
+  "waiting.for.spectrum.answer": "TBD Waiting for Spectrum Answer",
+  "waiting.for.spectrum.answer.in": "TBD Waiting for Spectrum Answer in %",
+  "pending.commission": "TBD Pending Commission",
+  "number.of.resubmitted": "TBD Number of Resubmitted",
+  "number.of.resubmitted.in": "TBD Number of Resubmitted in %"
 }

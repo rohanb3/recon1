@@ -29,6 +29,7 @@ export default {
       return this.storageData.items || [];
     },
     allItemsLoaded() {
+      console.log('3', this.storageData.allItemsLoaded);
       return this.storageData.allItemsLoaded;
     },
     totalItems() {
