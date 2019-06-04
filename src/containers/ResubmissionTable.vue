@@ -2,7 +2,7 @@
   <div class="disputes-table">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('resubmission.table.title') }}</div>
-      <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
+      <resubmission-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
     </div>
     <div class="selected-date-range" v-show="isSelectedDateRange">
       {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
@@ -96,7 +96,7 @@ import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
 import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
 import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmRejectDisputePopup';
 
-import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
+import ResubmissionTableToolbar from '@/containers/ResubmissionTableToolbar';
 
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
@@ -127,7 +127,7 @@ export default {
     ResubmitClaimCell,
     RejectDisputeStatusCell,
     ApproveDisputeStatusCell,
-    DisputesTableToolbar,
+    ResubmissionTableToolbar,
     ConfirmApproveDisputePopup,
     ConfirmRejectDisputePopup,
     DisputeStatusCell,
