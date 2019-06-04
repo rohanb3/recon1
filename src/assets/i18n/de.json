@@ -11,10 +11,10 @@
   "orders.order.status.installed": "TBD Installed",
   "orders.order.status.canceled": "TBD Canceled",
   "orders.order.status.not.installed": "TBD Not Installed",
-  "orders.order.status.claim.submitted": "TBD ClaimSubmitted",
-  "orders.order.status.online.order": "TBD OnlineOrder",
+  "orders.order.status.claim.submitted": "TBD Claim Submitted",
+  "orders.order.status.online.order": "TBD Online Order",
   "orders.order.status.pending": "TBD Pending",
-  "orders.order.status.call.in.order": "TBD CallInOrder",
+  "orders.order.status.call.in.order": "TBD Call In Order",
 
   "sync.orders": "TBD Sync orders for last 6 months",
   "sync.started": "TBD Sync successfully initiated",

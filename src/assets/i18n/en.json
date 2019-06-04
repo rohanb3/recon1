@@ -11,10 +11,10 @@
   "orders.order.status.installed": "Installed",
   "orders.order.status.canceled": "Canceled",
   "orders.order.status.not.installed": "Not Installed",
-  "orders.order.status.claim.submitted": "ClaimSubmitted",
-  "orders.order.status.online.order": "OnlineOrder",
+  "orders.order.status.claim.submitted": "Claim Submitted",
+  "orders.order.status.online.order": "Online Order",
   "orders.order.status.pending": "Pending",
-  "orders.order.status.call.in.order": "CallInOrder",
+  "orders.order.status.call.in.order": "Call In Order",
 
   "sync.orders": "Sync orders for last 6 months",
   "sync.started": "Sync successfully initiated",
