@@ -26,7 +26,7 @@
         <div class="table-body">
           <v-layout row v-for="(statistic, index) in statistics" :key="statistic.sectionName">
             <v-flex>
-              <span class="mark-status" :class="markerClassList[index]"></span>
+              <span class="mark-status" :style="{'background': markerColorList[index]}"></span>
               {{ statistic.sectionName }}
             </v-flex>
             <v-flex>{{ statistic.totalQuantity }}</v-flex>
@@ -35,16 +35,27 @@
           </v-layout>
         </div>
       </div>
-      <div class="pie-chart"></div>
+      <div class="pie-chart-wrapper">
+        <table-pie-chart class="pie-chart" :datasets="chartData"/>
+      </div>
     </v-layout>
   </v-container>
 </template>
 
 <script>
 import { addPercent } from '@/filters/numberFormat';
+import TablePieChart from '@/components/charts/TablePieChart/TablePieChart';
+
+const GREEN_COLOR = '#7ed321';
+const BLUE_COLOR = '#398ffb';
+const ORANGE_COLOR = '#ff941b';
+const GREY_COLOR = '#d8d8d8';
 
 export default {
   name: 'DisputStatistic',
+  components: {
+    TablePieChart,
+  },
   props: {
     title: {
       type: String,
@@ -60,15 +71,50 @@ export default {
   },
   data() {
     return {
-      markerClassList: ['green', 'blue', 'orange', 'grey'],
+      markerColorList: [GREEN_COLOR, BLUE_COLOR, ORANGE_COLOR, GREY_COLOR],
     };
   },
   computed: {
+    chartData() {
+      return {
+        backgroundColor: this.markerColorList,
+        data: this.percentList,
+        tooltip: this.tooltip,
+      };
+    },
+    percentList() {
+      return this.statistics.map(statistic => statistic.percent);
+    },
+    tooltip() {
+      return this.statistics.map(statistic => ({
+        title: statistic.sectionName,
+        data: [
+          {
+            label: this.$t('percentage'),
+            value: statistic.percent + '%',
+          },
+          {
+            label: this.$t('quantity'),
+            value: statistic.totalQuantity,
+          },
+          {
+            label: this.$t('comission.difference'),
+            value: statistic.commissionDifference,
+          },
+        ],
+      }));
+    },
     totalQuantity() {
-      return this.statistics.reduce((sum, statistic) => sum + statistic.totalQuantity, 0);
+      return this.statistics.reduce(
+        (sum, statistic) => sum + statistic.totalQuantity,
+        0
+      );
     },
     totalComissionDifference() {
-      return this.statistics.reduce((sum, statistic) => sum + statistic.commissionDifference, 0);
+      return this.statistics.reduce(
+        (sum, statistic) => sum + statistic.commissionDifference,
+        0
+      );
     },
   },
 };
@@ -159,27 +205,19 @@ export default {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-
-      &.green {
-        background: $base-green;
-      }
-
-      &.orange {
-        background: $base-orange;
-      }
-
-      &.blue {
-        background: $base-blue;
-      }
-
-      &.grey {
-        background: $table-disabled-row-color;
-      }
     }
   }
 }
 
-.pie-chart {
+.pie-chart-wrapper {
+  display: flex;
   width: 250px;
+  justify-content: center;
+  align-items: center;
+
+  .pie-chart {
+    width: 150px;
+    height: 150px;
+  }
 }
 </style>

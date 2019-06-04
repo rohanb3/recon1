@@ -122,8 +122,10 @@
   "disputes.dashboard.total.xyz.statistic": "Total XYZ Disputes info",
 
   "total.comission.difference": "Total comission difference",
+  "comission.difference": "Comission difference",
   "percentage": "Percentage",
   "total.quantity": "Total quantity",
+  "quantity": "Quantity",
   "total.disputes": "Total Disputes",
 
   "disputes.statistic.spectrum.answer": "Waited Spectrum answer",
