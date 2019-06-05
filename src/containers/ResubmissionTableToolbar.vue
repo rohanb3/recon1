@@ -6,7 +6,6 @@
       <installation-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
       <dispute-type-filter :tableName="tableName" />
-      <dispute-xyz-status-filter :tableName="tableName" send-field-name="ids" />
       <dispute-status-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
@@ -23,13 +22,12 @@ import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
 import OrderAgeFilter from '@/containers/OrderAgeFilter';
 import DisputAgeFilter from '@/containers/DisputAgeFilter';
 import InstallationAgeFilter from '@/containers/InstallationAgeFilter';
-import DisputeXyzStatusFilter from '@/containers/DisputeXyzStatusFilter';
 import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
 import TableButton from '@/components/TableButton';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 
 export default {
-  name: 'DisputesTableToolbar',
+  name: 'ResubmissionTableToolbar',
   components: {
     QuickSearchDisputesFilter,
     DisputeTypeFilter,
@@ -39,7 +37,6 @@ export default {
     OrderAgeFilter,
     InstallationAgeFilter,
     DisputAgeFilter,
-    DisputeXyzStatusFilter,
     DisputeStatusFilter,
   },
   props: {
