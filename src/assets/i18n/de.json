@@ -11,10 +11,11 @@
   "orders.order.status.installed": "TBD Installed",
   "orders.order.status.canceled": "TBD Canceled",
   "orders.order.status.not.installed": "TBD Not Installed",
-  "orders.order.status.claim.submitted": "TBD ClaimSubmitted",
-  "orders.order.status.online.order": "TBD OnlineOrder",
+  "orders.order.status.claim.submitted": "TBD Claim Submitted",
+  "orders.order.status.online.order": "TBD Online Order",
   "orders.order.status.pending": "TBD Pending",
-  "orders.order.status.call.in.order": "TBD CallInOrder",
+  "orders.order.status.call.in.order": "TBD Call In Order",
+  "orders.creation.date": "TBD Order Creation Date",
 
   "sync.orders": "TBD Sync orders for last 6 months",
   "sync.started": "TBD Sync successfully initiated",
@@ -64,6 +65,7 @@
   "dispute.are.you.sure": "TBD Are you sure?",
   "dispute.orders.number": "TBD Order Number",
   "dispute.if.you.close.this.page": "TBD Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
+  "dispute.order.comment": "TBD Order Comment",
 
   "file.is.too.big": "TBD File is too big",
   "failed.to.upload.file": "TBD Failed to upload file",
@@ -115,6 +117,7 @@
   "disputes.xyz.status": "TBD XYZ Status",
   "disputes.dispute.status": "TBD Spectrum Dispute status",
   "disputes.dispute.status.description": "TBD Dispute Status Description",
+  "disputes.order.creation.date": "TBD Order Creation Date",
 
   "resubmission.table.title": "TBD Resubmission Table",
   "resubmission.table.approve": "TBD Approve",
@@ -189,5 +192,7 @@
   "all.time": "TBD All time",
   "apply": "TBD Apply",
   "from": "TBD from",
-  "to": "TBD to"
+  "to": "TBD to",
+
+  "fiscal.period.not.found": "TBD Fiscal period not found"
 }

@@ -82,8 +82,6 @@ import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
 import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
 import DefaultCell from '@/components/tableCells/DefaultCell';
 import DateMonthYearCell from '@/components/tableCells/DateMonthYearCell';
-import RecievedComissonCell from '@/components/tableCells/RecievedComissonCell';
-import DifferenceComissonCell from '@/components/tableCells/DifferenceComissonCell';
 import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
 import XYZStatusCell from '@/components/tableCells/XYZStatusCell';
 import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
@@ -116,8 +114,6 @@ export default {
     TableLoader,
     DefaultCell,
     DateMonthYearCell,
-    RecievedComissonCell,
-    DifferenceComissonCell,
     DateYearMonthDayCell,
     OrderAgeCell,
     XYZStatusCell,
@@ -151,8 +147,6 @@ export default {
         default: 'DefaultCell',
         dateMonthYear: 'DateMonthYearCell',
         price: 'PriceCell',
-        recievedComisson: 'RecievedComissonCell',
-        differenceComisson: 'DifferenceComissonCell',
         dateYearMonthDay: 'DateYearMonthDayCell',
         ageAfterOrder: 'OrderAgeCell',
         ageAfterInstallation: 'OrderAgeCell',
