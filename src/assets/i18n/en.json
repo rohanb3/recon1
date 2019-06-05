@@ -11,10 +11,11 @@
   "orders.order.status.installed": "Installed",
   "orders.order.status.canceled": "Canceled",
   "orders.order.status.not.installed": "Not Installed",
-  "orders.order.status.claim.submitted": "ClaimSubmitted",
-  "orders.order.status.online.order": "OnlineOrder",
+  "orders.order.status.claim.submitted": "Claim Submitted",
+  "orders.order.status.online.order": "Online Order",
   "orders.order.status.pending": "Pending",
-  "orders.order.status.call.in.order": "CallInOrder",
+  "orders.order.status.call.in.order": "Call In Order",
+  "orders.creation.date": "Order Creation Date",
 
   "sync.orders": "Sync orders for last 6 months",
   "sync.started": "Sync successfully initiated",
@@ -64,6 +65,8 @@
   "dispute.are.you.sure": "Are you sure?",
   "dispute.orders.number": "Order Number",
   "dispute.if.you.close.this.page": "Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
+  "dispute.order.comment": "Order Comment",
+  "dispute.id": "Dispute ID",
 
   "file.is.too.big": "File is too big",
   "failed.to.upload.file": "Failed to upload file",
@@ -115,6 +118,7 @@
   "disputes.xyz.status": "XYZ Status",
   "disputes.dispute.status": "Spectrum Dispute status",
   "disputes.dispute.status.description": "Dispute Status Description",
+  "disputes.order.creation.date": "Order Creation Date",
 
   "resubmission.table.title": "Resubmission Table",
   "resubmission.table.approve": "Approve",
@@ -170,7 +174,7 @@
   "password.do.not.match": "Password do not match",
   "enter.your.new.password": "Please, enter your new password and confirm it to reset",
   "invalid.code.entered": "Invalid code entered",
-  "we.sended.verification.code.again": "We sended verification code to your email",
+  "we.sended.verification.code.again": "We have sent a new verification code to your email",
   "password.must.contain.capital.letter": "Password must contain at least 1 capital letter",
   "email.is.not.registered": "This email is not registered in this system. Please, check and try again.",
   "password.or.email.is.incorrect": "Password or email is incorrect. Please, check and try again.",
@@ -189,5 +193,12 @@
   "all.time": "All time",
   "apply": "Apply",
   "from": "from",
-  "to": "to"
+  "to": "to",
+
+  "dispute.history.datetime": "Datetime",
+  "dispute.history.author": "Author",
+  "dispute.history.status": "Set Status",
+  "dispute.history.status.description": "Status Description",
+
+  "fiscal.period.not.found": "Fiscal period not found"
 }

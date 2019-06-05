@@ -6,6 +6,7 @@ import {
   orderSync,
   checkOrderSync,
   getOrdersCsvFile,
+  getFiscalPeriods,
 } from '@/services/ordersRepository';
 import { paramsSerializer } from '@/services/repositoryUtils';
 
@@ -107,5 +108,23 @@ describe('ordersRepository', () => {
       expect(response).toEqual(data);
       expect(disputesApi.get).toHaveBeenCalledWith('/order/csv', expect.any(Object));
     });
+  });
+});
+
+describe('getFiscalPeriods', () => {
+  it('should call api.get and return corect data', async () => {
+    const data = [
+      {
+        id: '4c7c60d3-e46b-4120-9df6-1116ccaf2e9a',
+        name: 'July 2019',
+      },
+    ];
+
+    disputesApi.get = jest.fn(() => Promise.resolve({ data }));
+
+    const response = await getFiscalPeriods();
+
+    expect(response).toEqual(data);
+    expect(disputesApi.get).toHaveBeenCalledWith('/order/fiscalperiod');
   });
 });
