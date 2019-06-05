@@ -31,6 +31,7 @@ import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
 import PriceCell from '@/components/tableCells/PriceCell';
 import DisputeButtonCell from '@/components/tableCells/DisputeButtonCell';
 import RecievedComissonCell from '@/components/tableCells/RecievedComissonCell';
+import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
 
 import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
 
@@ -55,6 +56,7 @@ export default {
     PriceCell,
     DisputeButtonCell,
     RecievedComissonCell,
+    DateYearMonthDayCell,
   },
   data() {
     return {
@@ -70,6 +72,7 @@ export default {
         recievedComisson: 'RecievedComissonCell',
         disputeButton: 'DisputeButtonCell',
         orderDifference: 'DifferenceComissonCell',
+        dateYearMonthDay: 'DateYearMonthDayCell',
       },
     };
   },
@@ -118,6 +121,13 @@ export default {
     max-height: calc(
       100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
     );
+  }
+}
+
+.grey-text-cell {
+  .row-cell {
+    color: $base-text-color;
+    opacity: 0.6;
   }
 }
 </style>

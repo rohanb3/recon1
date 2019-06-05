@@ -1,20 +1,10 @@
 <template>
   <v-form ref="form">
-    <v-text-field
-      value
-      class="required"
-      required
-      v-model="woNumber"
-      :rules="fieldCantBeEmptyRule"
-      :label="$t('dispute.wo.number')"
-      :validate-on-blur="true"
-    ></v-text-field>
+    <v-text-field value v-model="woNumber" :label="$t('dispute.wo.number')"></v-text-field>
   </v-form>
 </template>
 
 <script>
-import { validateFieldCantBeEmpty } from '@/services/validators';
-
 export default {
   name: 'FieldWoNumber',
   props: {
@@ -22,11 +12,6 @@ export default {
       type: Object,
       required: true,
     },
-  },
-  data() {
-    return {
-      fieldCantBeEmptyRule: [validateFieldCantBeEmpty()],
-    };
   },
   computed: {
     woNumber: {
