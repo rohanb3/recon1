@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="pie-chart-wrapper">
-        <table-pie-chart class="pie-chart" :datasets="chartData" />
+        <table-pie-chart :datasets="chartData" />
       </div>
     </v-layout>
   </v-container>
@@ -121,7 +121,7 @@ export default {
 .disput-statistic {
   @include table-base-container;
 
-  background-color: #fff;
+  background-color: $base-white;
   margin-bottom: 8px;
   padding: 12px 20px;
 
@@ -208,10 +208,5 @@ export default {
   width: 250px;
   justify-content: center;
   align-items: center;
-
-  .pie-chart {
-    width: 150px;
-    height: 150px;
-  }
 }
 </style>

@@ -1,9 +1,11 @@
-import { Pie } from 'vue-chartjs';
+import { Pie, mixins } from 'vue-chartjs';
+import ChartjsLabels from 'chartjs-plugin-labels';
 
 export default {
   extends: Pie,
+  mixins: [mixins.reactiveProp],
   props: {
-    data: {
+    chartData: {
       type: Object,
       required: true,
     },
@@ -12,12 +14,8 @@ export default {
       required: true,
     },
   },
-  watch: {
-    data: {
-      handler() {
-        this.renderChart(this.data, this.options);
-      },
-      deep: true,
-    },
+  mounted() {
+    this.addPlugin(ChartjsLabels);
+    this.renderChart(this.chartData, this.options);
   },
 };

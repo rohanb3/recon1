@@ -1,14 +1,26 @@
 <template>
-  <pie-chart :data="chartData" :options="options"></pie-chart>
+  <div @mousemove="onCursorPosition">
+    <pie-chart class="pie-chart" :chartData="chartData" :options="options"></pie-chart>
+    <tooltip v-show="showTooltip" :title="tooltipTitle" :x="cursorPositionX" :y="cursorPositionY">
+      <div class="tooltip-row" v-for="data in tooltipData" :key="data.label">
+        <span>{{ data.label }}</span>
+        <span class="tooltip-value">{{ data.value }}</span>
+      </div>
+    </tooltip>
+  </div>
 </template>
 
 <script>
 import PieChart from './PieChart';
+import Tooltip from '@/components/Tooltip';
+
+const LABEL_CHART_COLOR = '#fff';
 
 export default {
   name: 'TablePieChart',
   components: {
     PieChart,
+    Tooltip,
   },
   props: {
     datasets: {
@@ -18,7 +30,19 @@ export default {
   },
   data() {
     return {
+      cursorPositionX: 0,
+      cursorPositionY: 0,
+      titleTooltip: '',
+      showTooltip: false,
+      indexSection: 0,
       options: {
+        plugins: {
+          labels: {
+            render: 'percentage',
+            fontColor: LABEL_CHART_COLOR,
+            fontSize: 14,
+          },
+        },
         responsive: true,
         maintainAspectRatio: false,
         legend: {
@@ -34,66 +58,17 @@ export default {
           custom: (() => {
             const self = this;
             return function(tooltipModel) {
-              let tooltipEl = document.getElementById('chartjs-tooltip');
-
               const datasetIndex = (((tooltipModel.body || []).pop() || {}).lines || []).pop();
 
-              // Create element on first render
-              if (!tooltipEl) {
-                tooltipEl = document.createElement('div');
-                tooltipEl.id = 'chartjs-tooltip';
-                tooltipEl.innerHTML = '<table></table>';
-                document.body.appendChild(tooltipEl);
-              }
-
-              // Hide if no tooltip
               if (tooltipModel.opacity === 0) {
-                tooltipEl.style.opacity = 0;
+                self.showTooltip = false;
                 return;
               }
 
-              // Set caret Position
-              tooltipEl.classList.remove('above', 'below', 'no-transform');
-              if (tooltipModel.yAlign) {
-                tooltipEl.classList.add(tooltipModel.yAlign);
-              } else {
-                tooltipEl.classList.add('no-transform');
-              }
-
-              function getBody(bodyItem) {
-                return bodyItem.lines;
-              }
-
-              // Set Text
               if (tooltipModel.body) {
-                const tableRoot = tooltipEl.querySelector('table');
-                const t = self.datasets.tooltip[datasetIndex - 1].data.reduce(
-                  (span, label) =>
-                    `${span}<div>${label.label}<span class="tooltip-value">${
-                      label.value
-                    }</span></div>`,
-                  ''
-                );
-                tableRoot.innerHTML = `<div class="tooltip"><div class="tooltip-header">${
-                  self.datasets.tooltip[datasetIndex - 1].title
-                }</div><div class="tooltip-body">${t}</div></div>`;
+                self.indexSection = datasetIndex - 1;
               }
-
-              // `this` will be the overall tooltip
-              const position = this._chart.canvas.getBoundingClientRect();
-
-              // Display, position, and set styles for font
-              tooltipEl.style.opacity = 1;
-              tooltipEl.style.position = 'absolute';
-              tooltipEl.style.left = `${position.left +
-                window.pageXOffset +
-                tooltipModel.caretX}px`;
-              tooltipEl.style.top = `${position.top + window.pageYOffset + tooltipModel.caretY}px`;
-              tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily;
-              tooltipEl.style.fontSize = `${tooltipModel.bodyFontSize}px`;
-              tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle;
-              tooltipEl.style.padding = `${tooltipModel.yPadding}px ${tooltipModel.xPadding}px`;
-              tooltipEl.style.pointerEvents = 'none';
+              self.showTooltip = true;
             };
           })(),
         },
@@ -111,36 +86,25 @@ export default {
         ],
       };
     },
+    tooltipTitle() {
+      return this.datasets.tooltip[this.indexSection].title;
+    },
+    tooltipData() {
+      return this.datasets.tooltip[this.indexSection].data;
+    },
+  },
+  methods: {
+    onCursorPosition(event) {
+      this.cursorPositionX = event.clientX;
+      this.cursorPositionY = event.clientY;
+    },
   },
 };
 </script>
 
-<style lang="scss">
-#chartjs-tooltip {
-  .tooltip {
-    min-width: 132px;
-    padding: 8px;
-    background: #ffffff;
-    color: #5f5f5f;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
-    line-height: 20px;
-  }
-
-  .tooltip-header {
-    font-weight: bold;
-  }
-
-  .tooltip-body {
-    div {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-    }
-
-    .tooltip-value {
-      color: #ff941b;
-    }
-  }
+<style lang="scss" scoped>
+.pie-chart {
+  width: 150px;
+  height: 150px;
 }
 </style>
