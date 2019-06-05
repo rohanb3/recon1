@@ -5,6 +5,7 @@ export default () => [
   {
     name: 'disputesId',
     field: 'id',
+    fieldType: 'disputeId',
     class: 'text',
     title: i18n.t('disputes.id'),
     width: '4',

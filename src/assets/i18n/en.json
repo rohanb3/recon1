@@ -64,6 +64,7 @@
   "dispute.are.you.sure": "Are you sure?",
   "dispute.orders.number": "Order Number",
   "dispute.if.you.close.this.page": "Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
+  "dispute.id": "Dispute ID",
 
   "file.is.too.big": "File is too big",
   "failed.to.upload.file": "Failed to upload file",
@@ -190,7 +191,11 @@
   "apply": "Apply",
   "from": "from",
   "to": "to",
-  "apply": "Apply",
+
+  "dispute.history.datetime": "Datetime",
+  "dispute.history.author": "Author",
+  "dispute.history.status": "Set Status",
+  "dispute.history.status.description": "Status Description",
 
   "fiscal.period.not.found": "Fiscal period not found"
 }
