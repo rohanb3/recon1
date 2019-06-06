@@ -4,16 +4,18 @@
     <v-spacer />
     <div class="table-filter-container">
       <fiscal-period-filter :tableName="tableName" />
+      <custom-range-filter :tableName="tableName" />
     </div>
   </v-container>
 </template>
 
 <script>
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
+import CustomRangeFilter from '@/containers/CustomRangeFilter';
 
 export default {
   name: 'DisputesDashboardToolbar',
-  components: { FiscalPeriodFilter },
+  components: { FiscalPeriodFilter, CustomRangeFilter },
   props: {
     tableName: {
       type: String,
