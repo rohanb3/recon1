@@ -1,12 +1,14 @@
 <template>
   <disput-statistic
     :title="$t('disputes.dashboard.total.xyz.statistic')"
+    :total-statistics="totalStatistics"
     :statistics="disputeStatistics"
+    :marker-color-list="markerColorList"
   />
 </template>
 
 <script>
-import DisputStatistic from './DisputStatistic';
+import DisputStatistic from './DisputStatistic/DisputStatistic';
 import { DISPUTE_STATUSES_NAME } from '@/constants';
 import disputesDashboard from '@/mixins/disputesDashboard';
 

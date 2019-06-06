@@ -12,63 +12,52 @@
             <v-flex>{{ $t('total.disputes') }}</v-flex>
             <v-flex>
               <div class="table-header-label">{{ $t('total.quantity') }}</div>
-              <p>{{ totalQuantity }}</p>
+              <p>{{ totalStatistics.totalQuantity }}</p>
             </v-flex>
             <v-flex>
               <div class="table-header-label header-precentage">{{ $t('percentage') }}</div>
             </v-flex>
             <v-flex>
               <div class="table-header-label">{{ $t('total.comission.difference') }}</div>
-              <p>{{ totalComissionDifference }}</p>
+              <p>{{ totalStatistics.Commission }}</p>
             </v-flex>
           </v-layout>
         </div>
-        <div class="table-body">
-          <v-layout row v-for="(statistic, index) in statistics" :key="statistic.sectionName">
-            <v-flex>
-              <span class="mark-status" :class="markerClassList[index]"></span>
-              {{ statistic.sectionName }}
-            </v-flex>
-            <v-flex>{{ statistic.totalQuantity }}</v-flex>
-            <v-flex>{{ statistic.percent | addPercent }}</v-flex>
-            <v-flex>{{ statistic.commissionDifference }}</v-flex>
-          </v-layout>
-        </div>
+        <section-statistics :statistics="statistics" :marker-color-list="markerColorList" />
       </div>
-      <div class="pie-chart"></div>
+      <div class="pie-chart-wrapper">
+        <disput-chart :marker-color-list="markerColorList" :statistics="statistics" />
+      </div>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import { addPercent } from '@/filters/numberFormat';
+import DisputChart from './DisputChart';
+import SectionStatistics from './SectionStatistics';
 
 export default {
   name: 'DisputStatistic',
+  components: {
+    DisputChart,
+    SectionStatistics,
+  },
   props: {
     title: {
       type: String,
+      required: true,
+    },
+    totalStatistics: {
+      type: Object,
       required: true,
     },
     statistics: {
       type: Array,
       required: true,
     },
-  },
-  filters: {
-    addPercent,
-  },
-  data() {
-    return {
-      markerClassList: ['green', 'blue', 'orange', 'grey'],
-    };
-  },
-  computed: {
-    totalQuantity() {
-      return this.statistics.reduce((sum, statistic) => sum + statistic.totalQuantity, 0);
-    },
-    totalComissionDifference() {
-      return this.statistics.reduce((sum, statistic) => sum + statistic.commissionDifference, 0);
+    markerColorList: {
+      type: Array,
+      required: true,
     },
   },
 };
@@ -81,7 +70,7 @@ export default {
 .disput-statistic {
   @include table-base-container;
 
-  background-color: #fff;
+  background-color: $base-white;
   margin-bottom: 8px;
   padding: 12px 20px;
 
@@ -138,48 +127,10 @@ export default {
   height: 36px;
 }
 
-.table-body {
-  .flex {
-    color: $table-statistic-body-color;
-    font-size: 14px;
-    padding: 8px 0;
-
-    &:not(:first-child) {
-      border-left: 1px solid $table-statistic-separator-color;
-      border-right: 1px solid $table-statistic-separator-color;
-      text-align: center;
-      width: 20%;
-    }
-    &:first-child {
-      width: 30%;
-    }
-
-    .mark-status {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-
-      &.green {
-        background: $base-green;
-      }
-
-      &.orange {
-        background: $base-orange;
-      }
-
-      &.blue {
-        background: $base-blue;
-      }
-
-      &.grey {
-        background: $table-disabled-row-color;
-      }
-    }
-  }
-}
-
-.pie-chart {
+.pie-chart-wrapper {
+  display: flex;
   width: 250px;
+  justify-content: center;
+  align-items: center;
 }
 </style>

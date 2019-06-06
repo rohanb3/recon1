@@ -25,7 +25,7 @@ export default {
       return this.$store.state.tables[this.tableName] || {};
     },
     rows() {
-      return this.storageData.items || [];
+      return this.storageData.items || [2];
     },
     allItemsLoaded() {
       return this.storageData.allItemsLoaded;

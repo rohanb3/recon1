@@ -4,6 +4,6 @@ export const addSpaceBetweenNumbers = number => {
   return number || number === 0 ? number.toLocaleString('ru-RU') : '';
 };
 
-export const addPercent = number => {
+export const percents = number => {
   return number || number === 0 ? `${number}%` : '';
 };
