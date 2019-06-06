@@ -1,7 +1,9 @@
 <template>
   <disput-statistic
     :title="$t('disputes.dashboard.total.statistic')"
+    :total-statistics="totalStatistics"
     :statistics="disputeStatistics"
+    :marker-color-list="markerColorList"
   />
 </template>
 

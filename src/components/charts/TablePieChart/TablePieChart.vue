@@ -57,7 +57,7 @@ export default {
           },
           custom: (() => {
             const self = this;
-            return function(tooltipModel) {
+            return function customTooltips(tooltipModel) {
               const datasetIndex = (((tooltipModel.body || []).pop() || {}).lines || []).pop();
 
               if (tooltipModel.opacity === 0) {

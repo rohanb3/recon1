@@ -33,7 +33,6 @@ export default {
       tableName: ENTITY_TYPES.DISPUTES_DASHBOARD,
     };
   },
-  methods: {},
 };
 </script>
 

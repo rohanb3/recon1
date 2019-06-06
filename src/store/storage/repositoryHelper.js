@@ -1,6 +1,6 @@
 import { ENTITY_TYPES } from '@/constants';
 import { getOrders } from '@/services/ordersRepository';
-import { getDisputes } from '@/services/disputesRepository';
+import { getDisputes, getDisputeHistory } from '@/services/disputesRepository';
 import { getDisputes as getDisputeStatistics } from '@/services/statisticsRepository';
 
 const handlers = {
@@ -15,6 +15,9 @@ const handlers = {
   },
   [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
     getAll: getDisputeStatistics,
+  },
+  [ENTITY_TYPES.DISPUTE_HISTORY]: {
+    getAll: getDisputeHistory,
   },
 };
 

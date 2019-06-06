@@ -84,6 +84,8 @@ export const TABLE_ORDER_COLUMNS_SORTED = {
   EXPECTED_COMISSION: 'expectedCommission',
   RECIEVED_COMISSON: 'receivedCommission',
   DIFFERENCE: 'difference',
+  BUNDLE_NAME: 'bundleName',
+  INSTALLED_UNITS: 'installedUnits',
 };
 
 export const TABLE_DISPUTE_COLUMNS_SORTED = {
@@ -111,6 +113,7 @@ export const ENTITY_TYPES = {
   DISPUTES: 'DISPUTES',
   RESUBMISSION: 'RESUBMISSION',
   DISPUTES_DASHBOARD: 'DISPUTES_DASHBOARD',
+  DISPUTE_HISTORY: 'DISPUTE_HISTORY',
 };
 
 export const FILTER_NAMES = {
@@ -127,11 +130,13 @@ export const FILTER_NAMES = {
   CREATED_FROM: 'CreatedFrom',
   CREATED_TO: 'CreatedTo',
   FISCAL_PERIOD_ID: 'FiscalPeriodId',
+  FISCAL_PERIOD: 'FiscalPeriod',
   FISCAL_PERIOD_FROM: 'FiscalPeriodFrom',
   FISCAL_PERIOD_TO: 'FiscalPeriodTo',
   DISPUTE_AGE_FROM: 'DisputeAgeFrom',
   DISPUTE_AGE_TO: 'DisputeAgeTo',
   DISPUTE_STATUS_IDS: 'DisputeStatusIds',
+  DISPUTE_ID: 'disputeId',
 };
 
 export const TABLE_COLUMN_ID_NAMES = {

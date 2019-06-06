@@ -16,6 +16,9 @@ const filters = {
     [FILTER_NAMES.INSTALLATION_AGE_TO]: null,
     [FILTER_NAMES.ORDER_AGE_TO]: null,
     [FILTER_NAMES.ORDER_AGE_FROM]: null,
+    [FILTER_NAMES.FISCAL_PERIOD_ID]: null,
+    [FILTER_NAMES.FISCAL_PERIOD_FROM]: '',
+    [FILTER_NAMES.FISCAL_PERIOD_TO]: '',
   },
   [ENTITY_TYPES.DISPUTES]: {
     [FILTER_NAMES.SEARCH_DISPUTES]: '',
@@ -52,6 +55,9 @@ const filters = {
     [FILTER_NAMES.ORDER_AGE_FROM]: null,
   },
   [ENTITY_TYPES.DISPUTES_DASHBOARD]: {},
+  [ENTITY_TYPES.DISPUTE_HISTORY]: {
+    [FILTER_NAMES.DISPUTE_ID]: null,
+  },
 };
 
 export default itemType => ({ ...filters[itemType] } || {});

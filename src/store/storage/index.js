@@ -22,6 +22,10 @@ export default {
       items: [],
       allItemsLoaded: false,
     },
+    [ENTITY_TYPES.DISPUTE_HISTORY]: {
+      items: [],
+      allItemsLoaded: false,
+    },
   },
   getters,
   actions,

@@ -12,14 +12,14 @@
             <v-flex>{{ $t('total.disputes') }}</v-flex>
             <v-flex>
               <div class="table-header-label">{{ $t('total.quantity') }}</div>
-              <p>{{ totalQuantity }}</p>
+              <p>{{ totalStatistics.totalQuantity }}</p>
             </v-flex>
             <v-flex>
               <div class="table-header-label header-precentage">{{ $t('percentage') }}</div>
             </v-flex>
             <v-flex>
               <div class="table-header-label">{{ $t('total.comission.difference') }}</div>
-              <p>{{ totalComissionDifference }}</p>
+              <p>{{ totalStatistics.Commission }}</p>
             </v-flex>
           </v-layout>
         </div>
@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="pie-chart-wrapper">
-        <table-pie-chart :datasets="chartData" />
+        <disput-chart :marker-color-list="markerColorList" :statistics="statistics" />
       </div>
     </v-layout>
   </v-container>
@@ -44,72 +44,33 @@
 
 <script>
 import { addPercent } from '@/filters/numberFormat';
-import TablePieChart from '@/components/charts/TablePieChart/TablePieChart';
-
-const GREEN_COLOR = '#7ed321';
-const BLUE_COLOR = '#398ffb';
-const ORANGE_COLOR = '#ff941b';
-const GREY_COLOR = '#d8d8d8';
+import DisputChart from './DisputChart';
 
 export default {
   name: 'DisputStatistic',
   components: {
-    TablePieChart,
+    DisputChart,
   },
   props: {
     title: {
       type: String,
       required: true,
     },
+    totalStatistics: {
+      type: Object,
+      required: true,
+    },
     statistics: {
+      type: Array,
+      required: true,
+    },
+    markerColorList: {
       type: Array,
       required: true,
     },
   },
   filters: {
     addPercent,
-  },
-  data() {
-    return {
-      markerColorList: [GREEN_COLOR, BLUE_COLOR, ORANGE_COLOR, GREY_COLOR],
-    };
-  },
-  computed: {
-    chartData() {
-      return {
-        backgroundColor: this.markerColorList,
-        data: this.percentList,
-        tooltip: this.tooltip,
-      };
-    },
-    percentList() {
-      return this.statistics.map(statistic => statistic.percent);
-    },
-    tooltip() {
-      return this.statistics.map(statistic => ({
-        title: statistic.sectionName,
-        data: [
-          {
-            label: this.$t('percentage'),
-            value: `${statistic.percent}%`,
-          },
-          {
-            label: this.$t('quantity'),
-            value: statistic.totalQuantity,
-          },
-          {
-            label: this.$t('comission.difference'),
-            value: statistic.commissionDifference,
-          },
-        ],
-      }));
-    },
-    totalQuantity() {
-      return this.statistics.reduce((sum, statistic) => sum + statistic.totalQuantity, 0);
-    },
-    totalComissionDifference() {
-      return this.statistics.reduce((sum, statistic) => sum + statistic.commissionDifference, 0);
-    },
   },
 };
 </script>

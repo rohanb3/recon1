@@ -24,12 +24,23 @@ export default () => [
     fieldHeaderType: 'sortingHeader',
   },
   {
+    name: 'creationDate',
+    field: 'createdOn',
+    fieldType: 'dateYearMonthDay',
+    class: 'grey-text-cell',
+    title: i18n.t('orders.creation.date'),
+    width: '4',
+    minWidth: '30px',
+  },
+  {
     name: 'serviceName',
     field: 'sevice.bundleName',
     class: 'text',
     title: i18n.t('orders.service.name'),
     width: '15',
     minWidth: '65px',
+    sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.BUNDLE_NAME,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'orderedUnits',
@@ -48,6 +59,8 @@ export default () => [
     title: i18n.t('orders.installed.units'),
     width: '4',
     minWidth: '75px',
+    sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.INSTALLED_UNITS,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'orderStatus',
