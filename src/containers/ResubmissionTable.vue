@@ -93,7 +93,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins.scss';
-.disputes-table {
+.resubmission-table {
   @include table-base-container;
 }
 .table-toolbar {
@@ -102,7 +102,7 @@ export default {
 .table-title {
   @include table-base-title;
 }
-.disputes-table /deep/ {
+.resubmission-table /deep/ {
   height: 100%;
   .virtual-list {
     height: 100vh;
