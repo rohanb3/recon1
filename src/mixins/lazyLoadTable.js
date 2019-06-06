@@ -105,10 +105,6 @@ export default {
       }
 
       if (sortingFieldName !== this.sortingField || state[this.sortDirection].order === null) {
-        if (!state[this.sortDirection].order) {
-          order.value = SORTING_DIRECTION.ASC;
-        }
-
         this.applyFilters(sort, order);
       } else {
         this.applyFilters(order);

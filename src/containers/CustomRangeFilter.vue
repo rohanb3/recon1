@@ -1,6 +1,6 @@
 <template>
   <table-dates-editor
-    boundaries-selector=".disputes-table"
+    :boundaries-selector="`.${getTableName}-table`"
     :start-date="startDate"
     :title="$t('custom.range')"
     :end-date="endDate"
@@ -36,6 +36,9 @@ export default {
     },
     endDate() {
       return this.filters[FILTER_NAMES.CREATED_TO];
+    },
+    getTableName() {
+      return this.tableName.toLowerCase();
     },
   },
   methods: {
