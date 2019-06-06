@@ -200,5 +200,6 @@
   "dispute.history.status": "Set Status",
   "dispute.history.status.description": "Status Description",
 
-  "fiscal.period.not.found": "Fiscal period not found"
+  "fiscal.period.not.found": "Fiscal period not found",
+  "selected.fiscal.period": "Selected fiscal period"
 }

@@ -8,6 +8,12 @@
         @syncOrders="onSyncOrders"
       />
     </div>
+    <div class="selected-date-range" v-show="isSelectedDateRange || isSelectedFiscalPeriod">
+      <span v-if="isSelectedDateRange">
+        {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
+      </span>
+      <span v-else>{{ $t('selected.fiscal.period') }}: {{ selectedFiscalPeriod }} </span>
+    </div>
     <lazy-load-table :tableName="tableName" :item-key-name="columnIdName">
       <component
         slot="row-cell"
@@ -43,6 +49,9 @@ import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
 
 import { successMessage } from '@/services/notifications';
 
+import tableDateRange from '@/mixins/tableDateRange';
+import disputeCommonTable from '@/mixins/disputeCommonTable';
+
 export default {
   name: 'OrdersPage',
   components: {
@@ -76,6 +85,7 @@ export default {
       },
     };
   },
+  mixins: [tableDateRange, disputeCommonTable],
   computed: {
     columnIdName() {
       return TABLE_COLUMN_ID_NAMES[this.tableName];
@@ -129,5 +139,9 @@ export default {
     color: $base-text-color;
     opacity: 0.6;
   }
+}
+
+.selected-date-range {
+  @include selected-date-range;
 }
 </style>
