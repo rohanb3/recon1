@@ -1,8 +1,8 @@
 <template>
   <div class="table-body">
-    <v-layout row v-for="(statistic, index) in statistics" :key="statistic.sectionName">
+    <v-layout row v-for="statistic in statistics" :key="statistic.sectionName">
       <v-flex>
-        <span class="mark-status" :style="{ background: markerColorList[index] }"></span>
+        <span class="mark-status" :style="{ background: statistic.color }"></span>
         {{ statistic.sectionName }}
       </v-flex>
       <v-flex>{{ statistic.totalQuantity }}</v-flex>
@@ -19,10 +19,6 @@ export default {
   name: 'SectionStatistics',
   props: {
     statistics: {
-      type: Array,
-      required: true,
-    },
-    markerColorList: {
       type: Array,
       required: true,
     },

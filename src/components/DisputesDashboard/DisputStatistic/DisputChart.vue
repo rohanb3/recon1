@@ -12,10 +12,6 @@ export default {
       type: Array,
       required: true,
     },
-    markerColorList: {
-      type: Array,
-      required: true,
-    },
   },
   components: {
     TablePieChart,
@@ -30,6 +26,9 @@ export default {
     },
     percentList() {
       return this.statistics.map(statistic => statistic.percent);
+    },
+    markerColorList() {
+      return this.statistics.map(statistic => statistic.color);
     },
     tooltip() {
       return this.statistics.map(statistic => ({

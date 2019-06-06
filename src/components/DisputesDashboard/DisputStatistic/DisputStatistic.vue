@@ -23,10 +23,10 @@
             </v-flex>
           </v-layout>
         </div>
-        <section-statistics :statistics="statistics" :marker-color-list="markerColorList" />
+        <section-statistics :statistics="statistics" />
       </div>
       <div class="pie-chart-wrapper">
-        <disput-chart :marker-color-list="markerColorList" :statistics="statistics" />
+        <disput-chart :statistics="statistics" />
       </div>
     </v-layout>
   </v-container>
@@ -52,10 +52,6 @@ export default {
       required: true,
     },
     statistics: {
-      type: Array,
-      required: true,
-    },
-    markerColorList: {
       type: Array,
       required: true,
     },
