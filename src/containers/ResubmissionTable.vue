@@ -1,5 +1,5 @@
 <template>
-  <div class="disputes-table">
+  <div class="resubmission-table">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('resubmission.table.title') }}</div>
       <resubmission-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
