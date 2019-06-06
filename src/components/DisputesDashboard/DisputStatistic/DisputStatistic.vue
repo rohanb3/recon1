@@ -23,17 +23,7 @@
             </v-flex>
           </v-layout>
         </div>
-        <div class="table-body">
-          <v-layout row v-for="(statistic, index) in statistics" :key="statistic.sectionName">
-            <v-flex>
-              <span class="mark-status" :style="{ background: markerColorList[index] }"></span>
-              {{ statistic.sectionName }}
-            </v-flex>
-            <v-flex>{{ statistic.totalQuantity }}</v-flex>
-            <v-flex>{{ statistic.percent | addPercent }}</v-flex>
-            <v-flex>{{ statistic.commissionDifference }}</v-flex>
-          </v-layout>
-        </div>
+        <section-statistics :statistics="statistics" :marker-color-list="markerColorList" />
       </div>
       <div class="pie-chart-wrapper">
         <disput-chart :marker-color-list="markerColorList" :statistics="statistics" />
@@ -43,13 +33,14 @@
 </template>
 
 <script>
-import { addPercent } from '@/filters/numberFormat';
 import DisputChart from './DisputChart';
+import SectionStatistics from './SectionStatistics';
 
 export default {
   name: 'DisputStatistic',
   components: {
     DisputChart,
+    SectionStatistics,
   },
   props: {
     title: {
@@ -68,9 +59,6 @@ export default {
       type: Array,
       required: true,
     },
-  },
-  filters: {
-    addPercent,
   },
 };
 </script>
@@ -137,31 +125,6 @@ export default {
 
 .header-precentage {
   height: 36px;
-}
-
-.table-body {
-  .flex {
-    color: $table-statistic-body-color;
-    font-size: 14px;
-    padding: 8px 0;
-
-    &:not(:first-child) {
-      border-left: 1px solid $table-statistic-separator-color;
-      border-right: 1px solid $table-statistic-separator-color;
-      text-align: center;
-      width: 20%;
-    }
-    &:first-child {
-      width: 30%;
-    }
-
-    .mark-status {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-  }
 }
 
 .pie-chart-wrapper {

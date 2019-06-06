@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import DisputStatistic from './DisputStatistic';
+import DisputStatistic from './DisputStatistic/DisputStatistic';
 import { DISPUTE_STATUSES_NAME } from '@/constants';
 import disputesDashboard from '@/mixins/disputesDashboard';
 
