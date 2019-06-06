@@ -2,10 +2,10 @@
   <div class="disputes-table-toolbar">
     <quick-search-disputes-filter :tableName="tableName" />
     <div class="table-filter-container">
-      <dispute-type-filter :tableName="tableName" />
       <order-age-filter :table-name="tableName" />
       <installation-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
+      <dispute-type-filter :tableName="tableName" />
       <dispute-status-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
