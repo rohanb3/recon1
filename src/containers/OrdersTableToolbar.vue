@@ -7,12 +7,16 @@
       <installation-age-filter :table-name="tableName" />
     </div>
     <v-spacer></v-spacer>
-    <table-button
-      :disabled="isOrdersSyncing"
-      :title="$t('sync.orders')"
-      @click="$emit('syncOrders')"
-    />
-    <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
+    <div class="table-filter-container">
+      <table-button
+        :disabled="isOrdersSyncing"
+        :title="$t('sync.orders')"
+        @click="$emit('syncOrders')"
+      />
+      <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
+      <custom-range-filter :table-name="tableName" />
+      <fiscal-period-filter :tableName="tableName" />
+    </div>
   </div>
 </template>
 
@@ -23,15 +27,19 @@ import OrderAgeFilter from './OrderAgeFilter';
 import InstallationAgeFilter from './InstallationAgeFilter';
 import TableButton from '@/components/TableButton';
 import { ENTITY_TYPES, ORDER_SYNC_STATUS } from '@/constants';
+import CustomRangeFilter from '@/containers/CustomRangeFilter';
+import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 
 export default {
   name: 'OrdersTableToolbar',
   components: {
+    CustomRangeFilter,
     QuickSearchFilter,
     OrderStatusFilter,
     OrderAgeFilter,
     InstallationAgeFilter,
     TableButton,
+    FiscalPeriodFilter,
   },
   data() {
     return {
