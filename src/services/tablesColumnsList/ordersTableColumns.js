@@ -24,6 +24,15 @@ export default () => [
     fieldHeaderType: 'sortingHeader',
   },
   {
+    name: 'creationDate',
+    field: 'createdOn',
+    fieldType: 'dateYearMonthDay',
+    class: 'grey-text-cell',
+    title: i18n.t('orders.creation.date'),
+    width: '4',
+    minWidth: '30px',
+  },
+  {
     name: 'serviceName',
     field: 'sevice.bundleName',
     class: 'text',
