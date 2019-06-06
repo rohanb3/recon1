@@ -59,6 +59,16 @@ const filters = {
   [ENTITY_TYPES.DISPUTE_HISTORY]: {
     [FILTER_NAMES.DISPUTE_ID]: null,
   },
+  [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
+    [FILTER_NAMES.FISCAL_PERIOD_ID]: null,
+    [FILTER_NAMES.CREATED_FROM]: '',
+    [FILTER_NAMES.CREATED_TO]: '',
+    [FILTER_NAMES.FISCAL_PERIOD_FROM]: '',
+    [FILTER_NAMES.FISCAL_PERIOD_TO]: '',
+  },
+  [ENTITY_TYPES.DISPUTE_HISTORY]: {
+    [FILTER_NAMES.DISPUTE_ID]: null,
+  },
 };
 
 export default itemType => ({ ...filters[itemType] } || {});

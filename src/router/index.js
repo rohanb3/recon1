@@ -14,6 +14,7 @@ import LoginPage from '@/containers/LoginPage';
 import PasswordRecoveryPage from '@/containers/PasswordRecoveryPage';
 import VerificationCodePage from '@/containers/VerificationCodePage';
 import ResetPasswordPage from '@/containers/ResetPasswordPage';
+import DisputesDashboardPage from '@/containers/DisputesDashboardPage';
 
 import { ROUTE_NAMES } from '@/constants';
 import { USER_LOGOUT } from '@/store/loggedInUser/actionTypes';
@@ -120,6 +121,11 @@ const router = new Router({
               path: 'resubmission-table',
               component: ResubmissionTable,
               name: ROUTE_NAMES.RESUBMISSION_TABLE,
+            },
+            {
+              path: 'disputes-dashboard',
+              component: DisputesDashboardPage,
+              name: ROUTE_NAMES.DISPUTES_DASHBOARD,
             },
           ],
         },

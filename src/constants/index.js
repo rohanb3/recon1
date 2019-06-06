@@ -20,6 +20,17 @@ export const DISPUTE_STATUSES_ID = {
   CONFIRM_APPROVED: '2a4b15f3-9ed3-4bc7-9788-fedbd3404f14',
 };
 
+export const DISPUTE_STATUSES_NAME = {
+  APPROVED: 'Approved',
+  RE_SENT: 'Re-sent',
+  SENT: 'Sent',
+  DRAFT: 'Draft',
+  REJECTED: 'Rejected',
+  IN_PROGRESS: 'In progress',
+  CONFIRM_REJECTED: 'Confirm Rejected',
+  CONFIRM_APPROVED: 'Confirm Approved',
+};
+
 export const DISPUTE_TYPES_ID = {
   ORDER_INSTALLED: '6630cffe-777b-4bca-90f3-50b4910ff3bb',
   EXPECTED_COMMISION: '79eb1607-2a85-42ed-a409-4f6c15b06fe3',
@@ -101,6 +112,7 @@ export const ENTITY_TYPES = {
   ORDERS: 'ORDERS',
   DISPUTES: 'DISPUTES',
   RESUBMISSION: 'RESUBMISSION',
+  DISPUTES_DASHBOARD: 'DISPUTES_DASHBOARD',
   DISPUTE_HISTORY: 'DISPUTE_HISTORY',
 };
 
@@ -143,6 +155,7 @@ export const ROUTE_NAMES = {
   VERIFICATION_CODE: 'verification-code',
   RESET_PASSWORD: 'reset-password',
   MAIN_PAGE: 'main-page',
+  DISPUTES_DASHBOARD: 'disputes-dashboard',
 };
 
 export const ROLE_TYPES = {
