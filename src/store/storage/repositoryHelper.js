@@ -1,7 +1,7 @@
 import { ENTITY_TYPES } from '@/constants';
 import { getOrders } from '@/services/ordersRepository';
-import { getDisputes, getDisputeHistory } from '@/services/disputesRepository';
 import { getDisputes as getDisputeStatistics } from '@/services/statisticsRepository';
+import { getDisputes, getDisputeHistory } from '@/services/disputesRepository';
 
 const handlers = {
   [ENTITY_TYPES.ORDERS]: {

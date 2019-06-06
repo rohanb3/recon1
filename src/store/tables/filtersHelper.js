@@ -66,6 +66,9 @@ const filters = {
     [FILTER_NAMES.FISCAL_PERIOD_FROM]: '',
     [FILTER_NAMES.FISCAL_PERIOD_TO]: '',
   },
+  [ENTITY_TYPES.DISPUTE_HISTORY]: {
+    [FILTER_NAMES.DISPUTE_ID]: null,
+  },
 };
 
 export default itemType => ({ ...filters[itemType] } || {});
