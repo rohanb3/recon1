@@ -8,12 +8,11 @@
         @syncOrders="onSyncOrders"
       />
     </div>
-    <div class="selected-date-range" v-show="isSelectedDateRange || isSelectedFiscalPeriod">
-      <span v-if="isSelectedDateRange">
-        {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
-      </span>
-      <span v-else>{{ $t('selected.fiscal.period') }}: {{ selectedFiscalPeriod }} </span>
-    </div>
+    <show-selected-filter-range
+      v-show="isSelectedDateRange || isSelectedFiscalPeriod"
+      :selectedDateRange="selectedDateRange"
+      :selectedFiscalPeriod="selectedFiscalPeriod"
+    />
     <lazy-load-table :tableName="tableName" :item-key-name="columnIdName">
       <component
         slot="row-cell"
@@ -41,7 +40,7 @@ import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
 
 import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
 
-import { ENTITY_TYPES, TABLE_COLUMN_ID_NAMES } from '@/constants';
+import { ENTITY_TYPES, TABLE_COLUMN_ID_NAMES, FILTER_NAMES } from '@/constants';
 import { getOrdersCsvFile } from '@/services/ordersRepository';
 import { generateCSVFile } from '@/services/utils';
 
@@ -51,10 +50,12 @@ import { successMessage } from '@/services/notifications';
 
 import tableDateRange from '@/mixins/tableDateRange';
 import disputeCommonTable from '@/mixins/disputeCommonTable';
+import ShowSelectedFilterRange from '../components/ShowSelectedFilterRange';
 
 export default {
   name: 'OrdersPage',
   components: {
+    ShowSelectedFilterRange,
     LazyLoadTable,
     DefaultCell,
     OrdersTableToolbar,
@@ -89,6 +90,12 @@ export default {
   computed: {
     columnIdName() {
       return TABLE_COLUMN_ID_NAMES[this.tableName];
+    },
+    isSelectedFiscalPeriod() {
+      return !!this.filters[FILTER_NAMES.FISCAL_PERIOD_ID];
+    },
+    selectedFiscalPeriod() {
+      return this.filters[FILTER_NAMES.FISCAL_PERIOD_TO];
     },
   },
   methods: {
@@ -139,9 +146,5 @@ export default {
     color: $base-text-color;
     opacity: 0.6;
   }
-}
-
-.selected-date-range {
-  @include selected-date-range;
 }
 </style>

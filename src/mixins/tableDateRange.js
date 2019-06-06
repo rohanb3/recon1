@@ -26,11 +26,5 @@ export default {
     isSelectedDateRange() {
       return this.filters[FILTER_NAMES.CREATED_FROM] && this.filters[FILTER_NAMES.CREATED_TO];
     },
-    isSelectedFiscalPeriod() {
-      return !!this.filters[FILTER_NAMES.FISCAL_PERIOD_ID];
-    },
-    selectedFiscalPeriod() {
-      return this.filters[FILTER_NAMES.FISCAL_PERIOD_TO];
-    },
   },
 };
