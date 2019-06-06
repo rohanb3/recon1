@@ -40,5 +40,9 @@ export default {
     font-weight: bold;
     color: $base-text-color;
   }
+
+  .table-filter-container {
+    display: flex;
+  }
 }
 </style>
