@@ -1,6 +1,6 @@
 <template>
-  <div class="disputes-dashboard-page">
-    <Disputes-Dashboard-Toolbar />
+  <div class="disputes_dashboard-table">
+    <Disputes-Dashboard-Toolbar :tableName="tableName" />
     <VuePerfectScrollbar class="statistic-list">
       <total-disputes-statistic :statistics="rows" />
       <total-spectrum-dispute-statistic :statistics="rows" />
