@@ -1,6 +1,6 @@
 <template>
-  <div class="default-cell">
-    {{ filteredValue }}
+  <div class="id-cell">
+    <a href="#" @click.prevent.stop="$emit('selectId', value)">{{ value }}</a>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import nestedFieldCell from '@/mixins/nestedFieldCell';
 
 export default {
-  name: 'DefaultCell',
+  name: 'IdCell',
   mixins: [nestedFieldCell],
 };
 </script>

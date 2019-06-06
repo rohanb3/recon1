@@ -6,8 +6,15 @@ export default {
     column: {
       type: Object,
     },
+    filter: {
+      type: Function,
+      default: value => value,
+    },
   },
   computed: {
+    filteredValue() {
+      return this.filter(this.value);
+    },
     fields() {
       if (typeof this.column.field === 'string') {
         return this.column.field.split('.');
