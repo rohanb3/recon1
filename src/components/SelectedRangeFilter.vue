@@ -20,7 +20,7 @@ import dateRange from '@/filters/boundaries';
 import tableDateRange from '@/mixins/tableDateRange';
 
 export default {
-  name: 'SelectedFilterRange',
+  name: 'SelectedRangeFilter',
   props: {
     tableName: {
       type: String,
