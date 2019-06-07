@@ -136,6 +136,8 @@
   "disputes.statistic.approved.for.pay": "Approved for pay",
   "disputes.statistic.deny.for.pay": "Deny for pay",
   "disputes.order.creation.date": "Order Creation Date",
+  "disputes.resubmit.description": "Dispute Resubmit Description",
+  "disputes.enter.comment.for.resubmit.dispute": "To resubmit this dispute enter comment...",
 
   "resubmission.table.title": "Resubmission Table",
   "resubmission.table.approve": "Approve",

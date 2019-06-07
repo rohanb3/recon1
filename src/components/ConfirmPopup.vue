@@ -1,5 +1,5 @@
 <template>
-  <v-dialog :value="visiblePopup" persistent :max-width="380">
+  <v-dialog :value="visiblePopup" :persistent="persistent" :max-width="380">
     <v-card class="popup-wrapper">
       <v-icon class="close-dialog" @click="$emit('close', false)">close</v-icon>
       <v-card-title class="headline">{{ title }}</v-card-title>
@@ -26,6 +26,10 @@ export default {
     visiblePopup: {
       type: Boolean,
       required: true,
+    },
+    persistent: {
+      type: Boolean,
+      default: true,
     },
   },
   watch: {
