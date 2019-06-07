@@ -74,7 +74,7 @@
         <v-flex md12>
           <v-textarea
             :label="$t('dispute.order.comment')"
-            disabled
+            readonly
             :value="orderComment"
           ></v-textarea>
         </v-flex>
