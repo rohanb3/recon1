@@ -21,6 +21,8 @@ export default () => [
     title: i18n.t('dispute.orders.number'),
     width: '4',
     minWidth: '16px',
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.ORDER_NUMBER,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'fiscalPeriod',
