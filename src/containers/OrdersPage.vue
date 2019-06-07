@@ -8,6 +8,7 @@
         @syncOrders="onSyncOrders"
       />
     </div>
+    <selected-range-filter :tableName="tableName" />
     <lazy-load-table :tableName="tableName" :item-key-name="columnIdName">
       <component
         slot="row-cell"
@@ -42,10 +43,12 @@ import { generateCSVFile } from '@/services/utils';
 import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
 
 import { successMessage } from '@/services/notifications';
+import SelectedRangeFilter from '../components/SelectedRangeFilter';
 
 export default {
   name: 'OrdersPage',
   components: {
+    SelectedRangeFilter,
     LazyLoadTable,
     DefaultCell,
     OrdersTableToolbar,

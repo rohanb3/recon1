@@ -199,5 +199,6 @@
   "dispute.history.datetime": "TBD Datetime",
   "dispute.history.author": "TBD Author",
   "dispute.history.status": "TBD Set Status",
-  "dispute.history.status.description": "TBD Status Description"
+  "dispute.history.status.description": "TBD Status Description",
+  "selected.fiscal.period": "TBD Selected fiscal period"
 }
