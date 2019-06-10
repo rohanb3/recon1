@@ -33,17 +33,17 @@ export default {
   },
   computed: {
     approveDate() {
-      return this.getLastDisputeStatus(DISPUTE_STATUSES_ID.APPROVED).timeStamp || '';
+      return this.getLastDisputeStatus(DISPUTE_STATUSES_ID.CONFIRM_APPROVED).timeStamp || '';
     },
     isContainsApprovedStatus() {
-      return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.APPROVED);
+      return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.CONFIRM_APPROVED);
     },
   },
   methods: {
     onResubmit() {
       this.$emit('confirmApproveDisputeStatus', {
         disputeId: this.item.id,
-        statusId: DISPUTE_STATUSES_ID.APPROVED,
+        statusId: DISPUTE_STATUSES_ID.CONFIRM_APPROVED,
       });
     },
   },

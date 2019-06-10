@@ -25,13 +25,11 @@
 <script>
 import LazyLoadTable from '@/containers/LazyLoadTable';
 import DefaultCell from '@/components/tableCells/DefaultCell';
-import DifferenceComissonCell from '@/components/tableCells/DifferenceComissonCell';
 import OrderStatusCell from '@/components/tableCells/OrderStatusCell';
 import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
 import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
 import PriceCell from '@/components/tableCells/PriceCell';
 import DisputeButtonCell from '@/components/tableCells/DisputeButtonCell';
-import RecievedComissonCell from '@/components/tableCells/RecievedComissonCell';
 import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
 
 import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
@@ -52,13 +50,11 @@ export default {
     LazyLoadTable,
     DefaultCell,
     OrdersTableToolbar,
-    DifferenceComissonCell,
     OrderAgeCell,
     OrderStatusCell,
     OrderNumberCell,
     PriceCell,
     DisputeButtonCell,
-    RecievedComissonCell,
     DateYearMonthDayCell,
   },
   data() {
@@ -66,15 +62,11 @@ export default {
       tableName: ENTITY_TYPES.ORDERS,
       rowComponentsHash: {
         default: 'DefaultCell',
-        differenceComisson: 'DifferenceComissonCell',
         creationAge: 'OrderAgeCell',
-        installationAge: 'OrderAgeCell',
         orderStatus: 'OrderStatusCell',
         orderNumber: 'OrderNumberCell',
         price: 'PriceCell',
-        recievedComisson: 'RecievedComissonCell',
         disputeButton: 'DisputeButtonCell',
-        orderDifference: 'DifferenceComissonCell',
         dateYearMonthDay: 'DateYearMonthDayCell',
       },
     };
