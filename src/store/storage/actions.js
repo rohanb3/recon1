@@ -52,7 +52,6 @@ async function loadItems({ commit, state }, { itemType, filters = {} }, resetPre
 
   commit(INSERT_ITEMS, { itemType, items: data });
   commit(SET_ITEMS_TOTAL, { itemType, total });
-
   if (data.length < ITEMS_TO_LOAD) {
     commit(SET_ALL_ITEMS_LOADED, itemType);
   }
