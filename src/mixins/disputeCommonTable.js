@@ -60,6 +60,7 @@ export default {
         disputeStatus: 'DisputeStatusCell',
       },
       disputeHistoryShown: false,
+      selectedDispute: {},
     };
   },
   computed: {

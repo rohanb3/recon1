@@ -14,8 +14,8 @@
         @click="$emit('syncOrders')"
       />
       <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
-      <custom-range-filter :table-name="tableName" />
       <fiscal-period-filter :tableName="tableName" />
+      <custom-range-filter :table-name="tableName" />
     </div>
   </div>
 </template>

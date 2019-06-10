@@ -54,13 +54,13 @@ export default {
   },
   methods: {
     onResubmit() {
-      this.$emit('changeDisputeStatus', {
+      this.$emit('confirmResubmitDisputeStatus', {
         disputeId: this.item.id,
         statusId: DISPUTE_STATUSES_ID.RE_SENT,
       });
     },
     onConfirm() {
-      this.$emit('changeDisputeStatus', {
+      this.$emit('confirmDisputeStatus', {
         disputeId: this.item.id,
         statusId: this.statusIdForConfirmDispute,
       });
