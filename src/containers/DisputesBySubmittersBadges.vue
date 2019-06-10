@@ -12,6 +12,7 @@ import { ENTITY_TYPES } from '@/constants';
 
 import { getDisputesStatistics } from '@/services/disputesRepository';
 import transformDataFromResponse from '@/services/disputesBySubmitters/transformDataFromResponse';
+import { errorMessage } from '@/services/notifications';
 
 import TopSubmitterByRejectionRate from '@/components/tableBadges/TopSubmitterByRejectionRate';
 import TopSubmitterByApproveRate from '@/components/tableBadges/TopSubmitterByApproveRate';
@@ -35,7 +36,7 @@ export default {
         const response = await getDisputesStatistics(filters);
         this.statistics = transformDataFromResponse(response);
       } catch (e) {
-        console.log({ e });
+        errorMessage();
       }
     },
   },
