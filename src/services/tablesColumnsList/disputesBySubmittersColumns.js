@@ -4,7 +4,7 @@ import { TABLE_DISPUTES_BY_SUBMITTERS_COLUMNS_SORTED } from '@/constants';
 export default () => [
   {
     name: 'creatorName',
-    field: 'creatorName',
+    field: 'creator.DisplayName',
     class: 'text',
     title: i18n.t('dispute.creator.name'),
     width: '4',

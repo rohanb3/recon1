@@ -10,6 +10,7 @@
     <div class="selected-date-range" v-show="isSelectedDateRange">
       {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
     </div>
+    <disputes-by-submitters-badges />
     <wombat-table
       :items="rows"
       :columns="columns"
@@ -72,6 +73,9 @@ import DefaultCell from '@/components/tableCells/DefaultCell';
 import PercentCell from '@/components/tableCells/PercentCell';
 
 import DisputesBySubmittersTableToolbar from '@/containers/DisputesBySubmittersTableToolbar';
+import DisputesBySubmittersBadges from '@/containers/DisputesBySubmittersBadges';
+
+import { getDisputesBySubmittersCsvFile } from '@/services/disputesRepository';
 
 import configurableColumnsTable from '@/mixins/configurableColumnsTable';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
@@ -84,6 +88,7 @@ export default {
   name: 'DisputesBySubmittersTable',
   components: {
     DisputesBySubmittersTableToolbar,
+    DisputesBySubmittersBadges,
     WombatTable,
     WombatRow,
     TableLoader,
@@ -111,12 +116,9 @@ export default {
   },
   methods: {
     async onExportToCsvFile() {
-      const CSVFile = await getDisputesCsvFile(this.filters);
+      const CSVFile = await getDisputesBySubmittersCsvFile(this.filters);
       generateCSVFile(CSVFile, this.tableName);
     },
-  },
-  updated() {
-    console.log('2', this.sortDirection);
   },
 };
 </script>

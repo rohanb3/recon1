@@ -8,13 +8,11 @@ export const getDispute = id => {
 export const getDisputesStatisticsBySubmitters = filters => {
   const params = { ...filters };
 
-  return apiDisputes
-    .get(`/disputes/statistic/submitters`, { params })
-    .then(
-      data =>
-        console.log({ data }) ||
-        Object.assign(data, { data: data.data.data.map((item, idx) => ({ ...item, id: idx })) })
-    ); //  Object.assign(data, { data: data.data.map((item, idx) => ({ ...item, id: idx })) })
+  return apiDisputes.get(`/disputes/statistic/submitters`, { params }).then(data =>
+    Object.assign(data, {
+      data: (data.data.data || []).map(item => ({ ...item, id: item.creator.ObjectId })),
+    })
+  );
 };
 
 export const getDisputes = filters => {
@@ -62,6 +60,13 @@ export const changeStatusDispute = ({ disputeId, ...params }) => {
 export const getDisputesCsvFile = filters => {
   const params = { ...filters };
   return apiDisputes.get('/dispute/csv', { params, paramsSerializer }).then(({ data }) => data);
+};
+
+export const getDisputesStatistics = filters => {
+  const params = { ...filters };
+  return apiDisputes
+    .get('/disputes/statistic/top', { params, paramsSerializer })
+    .then(({ data }) => data);
 };
 
 export const getDisputesBySubmittersCsvFile = filters => {

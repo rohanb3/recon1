@@ -119,6 +119,11 @@ export const ENTITY_TYPES = {
   DISPUTES_BY_SUBMITTERS: 'DISPUTES_BY_SUBMITTERS',
 };
 
+export const DISPUTES_BY_SUBMITTERS_STATISTICS_TYPES = {
+  BY_APPROVE: 'Confirm Approved',
+  BY_REJECTION: 'Confirm Rejected',
+};
+
 export const FILTER_NAMES = {
   SEARCH_ORDERS: 'Search',
   SEARCH_DISPUTES: 'SearchPhrase',
