@@ -3,9 +3,7 @@ import { paramsSerializer } from '@/services/repositoryUtils';
 
 export const getOrders = filters => {
   const params = { ...filters };
-  return apiDisputes
-    .get('/order/orders/disputing', { params, paramsSerializer })
-    .then(({ data }) => data);
+  return apiDisputes.get('/order', { params, paramsSerializer }).then(({ data }) => data);
 };
 
 export const getServiceList = () => {
