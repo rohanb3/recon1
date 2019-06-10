@@ -152,4 +152,12 @@ export default () => [
     width: '4',
     minWidth: '110px',
   },
+  {
+    name: 'disputeStatusDescription',
+    fieldType: 'disputeStatusDescription',
+    class: 'text',
+    title: i18n.t('disputes.dispute.status.description'),
+    width: '4',
+    minWidth: '30px',
+  },
 ];

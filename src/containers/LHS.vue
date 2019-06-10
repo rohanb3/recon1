@@ -67,7 +67,7 @@ export default {
           routeName: ROUTE_NAMES.RESUBMISSION_TABLE,
         },
         {
-          action: 'view_list',
+          action: 'face',
           title: this.$t('disputes.by.submitters'),
           routeName: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
         },

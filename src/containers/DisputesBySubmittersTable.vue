@@ -20,10 +20,6 @@
         :item="rowCell.item"
         :column="rowCell.column"
         :filter="rowCell.column.filter"
-        @changeDisputeStatus="changeDisputeStatus"
-        @confirmApproveDisputeStatus="onConfirmApproveDisputeStatus"
-        @confirmRejectDisputeStatus="onConfirmRejectDisputeStatus"
-        @selectId="onSelectIdDispute"
       />
     </lazy-load-table>
   </div>
