@@ -37,20 +37,6 @@ export function sortingRuleForObject(propertyName) {
   };
 }
 
-export function addBackgroundBlur() {
-  const applicationWrap = document.querySelector('.application--wrap');
-  if (applicationWrap) {
-    applicationWrap.classList.add('blurred');
-  }
-}
-
-export function removeBackgroundBlur() {
-  const applicationWrap = document.querySelector('.application--wrap');
-  if (applicationWrap) {
-    applicationWrap.classList.remove('blurred');
-  }
-}
-
 export function imageEncode(arrayBuffer) {
   const b64encoded = btoa(
     new Uint8Array(arrayBuffer).reduce((p, c) => p + String.fromCharCode(c), '')
