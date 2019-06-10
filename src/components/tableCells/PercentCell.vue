@@ -9,11 +9,13 @@
         good,
       }"
     />
-    <span>{{ value }} %</span>
+    <span>{{ value | percents }}</span>
   </div>
 </template>
 
 <script>
+import { percents } from '@/filters/numberFormat';
+
 export default {
   name: 'PercentCell',
   props: {
@@ -25,6 +27,9 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  filters: {
+    percents,
   },
   computed: {
     value() {
