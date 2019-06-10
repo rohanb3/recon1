@@ -52,9 +52,7 @@ async function loadItems({ commit, state }, { itemType, filters = {} }, resetPre
 
   commit(INSERT_ITEMS, { itemType, items: data });
   commit(SET_ITEMS_TOTAL, { itemType, total });
-  console.log('loadItems', data.length, ITEMS_TO_LOAD);
   if (data.length < ITEMS_TO_LOAD) {
-    console.log('tada');
     commit(SET_ALL_ITEMS_LOADED, itemType);
   }
 }
@@ -118,6 +116,9 @@ export default {
           filters: rootState.tables[ENTITY_TYPES.ORDERS].filters,
         });
         commit(SET_SYNC_ORDERS_STATUS, ORDER_SYNC_STATUS.FINISHED);
+      }
+      if (status === ORDER_SYNC_STATUS.ERROR) {
+        throw new Error();
       }
     } catch {
       clearInterval(syncOrdersIntervalId);

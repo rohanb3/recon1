@@ -2,8 +2,7 @@ import { RESET_ITEMS } from '@/store/storage/mutationTypes';
 import { LOAD_ITEMS, LOAD_MORE_ITEMS } from '@/store/storage/actionTypes';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 import { RESET_FILTERS } from '@/store/tables/mutationTypes';
-import { FILTER_NAMES, SORTING_DIRECTION, DATE_FORMATS } from '@/constants';
-import moment from 'moment';
+import { FILTER_NAMES, SORTING_DIRECTION } from '@/constants';
 
 export default {
   data() {
@@ -26,10 +25,9 @@ export default {
       return this.$store.state.tables[this.tableName] || {};
     },
     rows() {
-      return this.storageData.items || [];
+      return this.storageData.items || [2];
     },
     allItemsLoaded() {
-      console.log('3', this.storageData.allItemsLoaded);
       return this.storageData.allItemsLoaded;
     },
     totalItems() {
@@ -49,26 +47,6 @@ export default {
     },
     applyingFilters() {
       return Boolean(this.tableData.applyingFilters);
-    },
-    usersDashboardStatistics() {
-      return this.storageData.usersDashboardStatistics || {};
-    },
-    selectedDateRangeFrom() {
-      return moment(this.filters[FILTER_NAMES.CREATED_FROM]).format(
-        DATE_FORMATS.MONTH_DAY_FULL_YEAR
-      );
-    },
-    selectedDateRangeTo() {
-      return moment(this.filters[FILTER_NAMES.CREATED_TO]).format(DATE_FORMATS.MONTH_DAY_FULL_YEAR);
-    },
-    selectedDateRange() {
-      return {
-        from: this.selectedDateRangeFrom,
-        to: this.selectedDateRangeTo,
-      };
-    },
-    isSelectedDateRange() {
-      return this.filters[FILTER_NAMES.CREATED_FROM] && this.filters[FILTER_NAMES.CREATED_TO];
     },
   },
   methods: {
@@ -127,17 +105,10 @@ export default {
       }
 
       if (sortingFieldName !== this.sortingField || state[this.sortDirection].order === null) {
-        if (!state[this.sortDirection].order) {
-          order.value = SORTING_DIRECTION.ASC;
-        }
-
         this.applyFilters(sort, order);
       } else {
         this.applyFilters(order);
       }
-    },
-    onFiltersApplied(arrayFilters) {
-      this.applyFilters(...arrayFilters);
     },
   },
 };

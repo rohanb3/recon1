@@ -2,17 +2,19 @@
   <div class="disputes-table-toolbar">
     <quick-search-disputes-filter :tableName="tableName" />
     <div class="table-filter-container">
-      <dispute-type-filter :tableName="tableName" />
       <order-age-filter :table-name="tableName" />
       <installation-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
+      <dispute-type-filter :tableName="tableName" />
       <dispute-xyz-status-filter :tableName="tableName" send-field-name="ids" />
       <dispute-status-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
-    <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
-    <fiscal-period-filter :tableName="tableName" />
-    <custom-range-filter :tableName="tableName" />
+    <div class="table-filter-container">
+      <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
+      <fiscal-period-filter :tableName="tableName" />
+      <custom-range-filter :tableName="tableName" />
+    </div>
   </div>
 </template>
 

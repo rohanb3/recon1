@@ -1,6 +1,6 @@
 <template>
   <div class="default-cell">
-    {{ value }}
+    {{ filteredValue }}
   </div>
 </template>
 

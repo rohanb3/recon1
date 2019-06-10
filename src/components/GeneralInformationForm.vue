@@ -71,19 +71,12 @@
         </v-flex>
       </v-layout>
       <v-layout row mb-2>
-        <v-flex md6>
-          <v-text-field
-            :value="expectedCommission | currency"
-            disabled
-            :label="$t('dispute.expected.comission')"
-          ></v-text-field>
-        </v-flex>
-        <v-flex md6 ml-5>
-          <v-text-field
-            :value="receivedCommission | currency"
-            disabled
-            :label="$t('dispute.recived.comission.difference')"
-          ></v-text-field>
+        <v-flex md12>
+          <v-textarea
+            :label="$t('dispute.order.comment')"
+            readonly
+            :value="orderComment"
+          ></v-textarea>
         </v-flex>
       </v-layout>
     </v-form>
@@ -95,7 +88,6 @@ import FieldAccountNumber from '@/components/FieldAccountNumber';
 import FieldOrderConfirmation from '@/components/FieldOrderConfirmation';
 import FieldWoNumber from '@/components/FieldWoNumber';
 
-import currency from '@/filters/currency';
 import { dateShortDayMonthYear } from '@/filters/dateFormat';
 import { validateFieldCantBeEmpty } from '@/services/validators';
 
@@ -113,7 +105,6 @@ export default {
     },
   },
   filters: {
-    currency,
     dateShortDayMonthYear,
   },
   data() {
@@ -140,14 +131,14 @@ export default {
     expectedCommission() {
       return this.value.expectedCommission || ' ';
     },
-    receivedCommission() {
-      return this.value.receivedCommission || ' ';
-    },
     createdOn() {
       return this.value.createdOn || ' ';
     },
     installationDate() {
       return this.value.installationDate || ' ';
+    },
+    orderComment() {
+      return this.value.orderComment || ' ';
     },
     disputeInfo: {
       get() {

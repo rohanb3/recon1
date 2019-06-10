@@ -6,22 +6,20 @@
   "orders.service.name": "TBD Service Name",
   "orders.ordered.units": "TBD Ordered Units",
   "orders.installed.units": "TBD Installed Units",
-
   "orders.order.status": "TBD Order Status",
   "orders.order.status.installed": "TBD Installed",
   "orders.order.status.canceled": "TBD Canceled",
   "orders.order.status.not.installed": "TBD Not Installed",
-  "orders.order.status.claim.submitted": "TBD ClaimSubmitted",
-  "orders.order.status.online.order": "TBD OnlineOrder",
+  "orders.order.status.claim.submitted": "TBD Claim Submitted",
+  "orders.order.status.online.order": "TBD Online Order",
   "orders.order.status.pending": "TBD Pending",
-  "orders.order.status.call.in.order": "TBD CallInOrder",
-
+  "orders.order.status.call.in.order": "TBD Call In Order",
+  "orders.creation.date": "TBD Order Creation Date",
   "sync.orders": "TBD Sync orders for last 6 months",
   "sync.started": "TBD Sync successfully initiated",
   "sync.orders.completed": "TBD Sync orders completed",
   "sync.info": "TBD Synchronization may take a few minutes...",
   "no.sync.occurred": "TBD No sync occurred",
-
   "orders.age.after.order": "TBD Age (after order)",
   "orders.age.after.installation": "TBD Age (after Installation)",
   "orders.expected.comission": "TBD Expected Commission",
@@ -30,7 +28,6 @@
   "orders.new.dispute": "TBD New Dispute",
   "orders.restore.draft": "TBD Restore Draft",
   "orders.disputed": "TBD Disputed",
-
   "dispute.page.title": "TBD New dispute",
   "dispute.general.information": "TBD General Information",
   "dispute.customer.information": "TBD Customer Information",
@@ -64,10 +61,10 @@
   "dispute.are.you.sure": "TBD Are you sure?",
   "dispute.orders.number": "TBD Order Number",
   "dispute.if.you.close.this.page": "TBD Changes have been made. If you close this page, they will not be saved. You can cancel the creation of the dispute or save it as a draft in order to continue creating it next time.",
-
+  "dispute.order.comment": "TBD Order Comment",
+  "dispute.id": "TBD Dispute ID",
   "file.is.too.big": "TBD File is too big",
   "failed.to.upload.file": "TBD Failed to upload file",
-
   "field.cant.be.empty": "TBD This field should be filled",
   "field.max.length": "TBD This field can't not be longer than %{length} symbols",
   "field.min.length": "TBD This field can't not be less than %{length} symbols",
@@ -75,28 +72,22 @@
   "field.must.consist.only.letters": "TBD This field must consist only letters",
   "field.must.consist.only.digits": "TBD This field must consist only digits",
   "field.must.consist.only.capital.letter": "TBD This field must consist only capital letter",
-
   "cancel": "TBD Cancel",
   "save.as.draft": "TBD Save as Draft",
   "save": "TBD Save",
   "create.new.dispute": "TBD Create new dispute",
   "remove.draft": "TBD Remove Draft",
-
   "choose.fiscal.period": "TBD Choose fiscal period",
   "selected.date.range": "TBD Selected date range",
   "quick.search": "TBD Search query…",
   "orders.status": "TBD Order status",
   "export": "TBD Export",
   "custom.range": "TBD Custom range",
-
   "something.went.wrong": "TBD Opps, something went wrong :(",
-
   "loading": "TBD Loading",
   "table.no.results.found": "TBD No Results found",
-
   "browse.files.or.images": "TBD Browse files or images",
   "choose.file": "TBD Choose File",
-
   "disputes": "TBD Dispute List",
   "disputes.title": "TBD Dispute List With Statuses",
   "disputes.id": "TBD Dispute ID",
@@ -115,7 +106,7 @@
   "disputes.xyz.status": "TBD XYZ Status",
   "disputes.dispute.status": "TBD Spectrum Dispute status",
   "disputes.dispute.status.description": "TBD Dispute Status Description",
-
+  "disputes.order.creation.date": "TBD Order Creation Date",
   "resubmission.table.title": "TBD Resubmission Table",
   "resubmission.table.approve": "TBD Approve",
   "resubmission.table.reject": "TBD Reject",
@@ -124,7 +115,6 @@
   "resubmission.table.approve.description": "TBD Dispute Approve Description",
   "resubmission.table.enter.reject.comment.below": "TBD To reject the dispute enter comment below:",
   "resubmission.table.enter.approve.comment.below": "TBD To approve the dispute enter comment below:",
-
   "approve": "TBD Approve",
   "approved": "TBD Approved",
   "reject": "TBD Reject",
@@ -142,10 +132,8 @@
   "resent": "TBD Re-sent",
   "pending": "TBD Pending",
   "waiting.for.answer": "TBD Waiting for answer",
-
   "validation.rule.rage.negative": "TBD To value should be greater that from",
   "validation.rule.number.too.small": "TBD Value should be greater than %{min}",
-
   "login": "TBD Login",
   "i.agree.to.the": "TBD I agree to the ",
   "terms.and.conditions": "TBD Terms and Conditions",
@@ -170,18 +158,16 @@
   "password.do.not.match": "TBD Password do not match",
   "enter.your.new.password": "TBD Please, enter your new password and confirm it to reset",
   "invalid.code.entered": "TBD Invalid code entered",
-  "we.sended.verification.code.again": "TBD We sended verification code to your email",
+  "we.sended.verification.code.again": "TBD We have sent a new verification code to your email",
   "password.must.contain.capital.letter": "TBD Password must contain at least 1 capital letter",
   "email.is.not.registered": "TBD This email is not registered in this system. Please, check and try again.",
   "password.or.email.is.incorrect": "TBD Password or email is incorrect. Please, check and try again.",
   "login.agree.to.continue": "TBD You must agree to continue!",
-
   "id": "TBD ID",
   "profile": "TBD Profile",
   "log.out": "TBD Log Out",
   "email": "TBD Email",
   "password": "TBD Password",
-
   "today": "TBD Today",
   "yesterday": "TBD Yesterday",
   "last.7.days": "TBD Last 7 days",
@@ -190,7 +176,6 @@
   "apply": "TBD Apply",
   "from": "TBD from",
   "to": "TBD to",
-
   "disputes.by.submitters": "TBD Disputes by Submitters",
   "disputes.statistics.by.submitters": "TBD Disputes statistics by submitters",
   "dispute.creator.name": "TBD Dispute creator name",
@@ -207,5 +192,11 @@
   "waiting.for.spectrum.answer.in": "TBD Waiting for Spectrum Answer in %",
   "pending.commission": "TBD Pending Commission",
   "number.of.resubmitted": "TBD Number of Resubmitted",
-  "number.of.resubmitted.in": "TBD Number of Resubmitted in %"
+  "number.of.resubmitted.in": "TBD Number of Resubmitted in %",
+  "fiscal.period.not.found": "TBD Fiscal period not found",
+  "dispute.history.datetime": "TBD Datetime",
+  "dispute.history.author": "TBD Author",
+  "dispute.history.status": "TBD Set Status",
+  "dispute.history.status.description": "TBD Status Description",
+  "selected.fiscal.period": "TBD Selected fiscal period"
 }

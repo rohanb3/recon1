@@ -1,5 +1,5 @@
 <template>
-  <div class="disputes-table disputes-by-submitters-table">
+  <div class="disputes-table disputes_by_submitters-table">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('disputes.statistics.by.submitters') }}</div>
       <disputes-by-submitters-table-toolbar
@@ -11,55 +11,21 @@
       {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
     </div>
     <disputes-by-submitters-badges />
-    <wombat-table
-      :items="rows"
-      :columns="columns"
-      :item-height="50"
-      :infinite-loading="!allItemsLoaded"
-      :loading-items="loading"
-      @bottomReached="checkAndLoadItems"
-      @columnsResized="onColumnsResized"
-      @columnsReordered="onColumnsReordered"
-    >
+    <lazy-load-table :tableName="tableName">
       <component
-        slot="header-cell"
-        slot-scope="headerCell"
-        class="header-cell"
-        :is="
-          headerComponentsHash[headerCell.column.fieldHeaderType] || headerComponentsHash.default
-        "
-        :column="headerCell.column"
-        :sortingField="sortingField"
-        :sortDirection="sortDirection"
-        @sortDirectionChanged="onSortDirectionChanged"
+        slot="row-cell"
+        slot-scope="rowCell"
+        class="row-cell"
+        :is="rowComponentsHash[rowCell.column.fieldType] || rowComponentsHash.default"
+        :item="rowCell.item"
+        :column="rowCell.column"
+        :filter="rowCell.column.filter"
+        @changeDisputeStatus="changeDisputeStatus"
+        @confirmApproveDisputeStatus="onConfirmApproveDisputeStatus"
+        @confirmRejectDisputeStatus="onConfirmRejectDisputeStatus"
+        @selectId="onSelectIdDispute"
       />
-      <div
-        v-if="rows && rows.length"
-        slot="row"
-        slot-scope="row"
-        :class="{ blurred: applyingFilters }"
-      >
-        <wombat-row :item="row.item" :columns="row.columns" :height="row.item.height">
-          <component
-            slot="row-cell"
-            slot-scope="rowCell"
-            class="row-cell"
-            :is="rowComponentsHash[rowCell.column.fieldType] || rowComponentsHash.default"
-            :item="rowCell.item"
-            :column="rowCell.column"
-          />
-        </wombat-row>
-      </div>
-      <table-loader v-if="loading" slot="loader" />
-    </wombat-table>
-    <v-progress-circular
-      v-if="applyingFilters"
-      class="big-spinner"
-      :size="70"
-      :width="7"
-      color="blue"
-      indeterminate
-    ></v-progress-circular>
+    </lazy-load-table>
   </div>
 </template>
 
@@ -77,8 +43,8 @@ import DisputesBySubmittersBadges from '@/containers/DisputesBySubmittersBadges'
 
 import { getDisputesBySubmittersCsvFile } from '@/services/disputesRepository';
 
-import configurableColumnsTable from '@/mixins/configurableColumnsTable';
-import lazyLoadTable from '@/mixins/lazyLoadTable';
+import disputeCommonTable from '@/mixins/disputeCommonTable';
+
 import { ENTITY_TYPES } from '@/constants';
 import { generateCSVFile } from '@/services/utils';
 
@@ -100,14 +66,10 @@ export default {
   filters: {
     dateRange,
   },
-  mixins: [configurableColumnsTable, lazyLoadTable],
+  mixins: [disputeCommonTable],
   data() {
     return {
       tableName: ENTITY_TYPES.DISPUTES_BY_SUBMITTERS,
-      headerComponentsHash: {
-        default: 'DefaultHeaderCell',
-        sortingHeader: 'SortingHeaderCell',
-      },
       rowComponentsHash: {
         default: 'DefaultCell',
         percent: 'PercentCell',
@@ -125,7 +87,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins.scss';
-.disputes-by-submitters-table {
+.disputes_by_submitters-table {
   @include table-base-container;
 }
 .table-toolbar {
@@ -134,7 +96,7 @@ export default {
 .table-title {
   @include table-base-title;
 }
-.disputes-by-submitters-table /deep/ {
+.disputes_by_submitters-table /deep/ {
   height: 100%;
   .virtual-list {
     height: 100vh;

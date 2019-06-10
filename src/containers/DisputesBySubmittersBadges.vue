@@ -1,10 +1,7 @@
 <template>
   <div class="disputes-by-submitters-badges">
-    <top-submitter-by-approve-rate v-show="statistics.byApprove" :data="statistics.byApprove" />
-    <top-submitter-by-rejection-rate
-      v-show="statistics.byRejection"
-      :data="statistics.byRejection"
-    />
+    <top-submitter-by-approve-rate :data="statistics.byApprove" />
+    <top-submitter-by-rejection-rate :data="statistics.byRejection" />
   </div>
 </template>
 
@@ -47,7 +44,7 @@ export default {
 
 <style scoped lang="scss">
 .disputes-by-submitters-badges {
-  margin: 0 13px;
+  margin: 0 13px 10px;
   display: flex;
   align-items: center;
   .disputes-by-submitters-badge /deep/ {
@@ -73,11 +70,19 @@ export default {
     }
     .name-block {
       max-width: 200px;
+      min-width: 88px;
+      text-align: center;
     }
     .percent-block {
       max-width: 65px;
+      min-width: 33px;
       font-size: 24px;
       font-weight: 500;
+      &-empty {
+        font-weight: 400;
+        font-size: 12px;
+        text-align: center;
+      }
     }
   }
 }

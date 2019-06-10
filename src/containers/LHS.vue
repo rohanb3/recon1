@@ -47,6 +47,11 @@ export default {
       activeIndex: 0,
       items: [
         {
+          action: 'dashboard',
+          title: this.$t('disputes.dashboard'),
+          routeName: ROUTE_NAMES.DISPUTES_DASHBOARD,
+        },
+        {
           action: 'play_arrow',
           title: this.$t('orders'),
           routeName: ROUTE_NAMES.SELECT_ORDER,

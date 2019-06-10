@@ -83,7 +83,6 @@ export default {
       return this.items.length;
     },
     scrollbarShown() {
-      console.log('here', { 1: this.items.length, 2: this.infiniteLoading });
       return this.items.length || this.infiniteLoading;
     },
   },
@@ -93,7 +92,7 @@ export default {
         if (this.scrollbar) {
           this.scrollbar.update();
         } else {
-          const el = document.querySelector('.virtual-list');
+          const el = document.querySelector(`.virtual-list.table-${this.name}`);
           this.scrollbar = new PerfectScrollbar(el);
           el.addEventListener('ps-y-reach-end', () => {
             if (!this.loadingItems) {
