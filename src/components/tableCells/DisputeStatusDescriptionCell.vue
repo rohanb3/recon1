@@ -1,13 +1,20 @@
 <template>
-  <div class="dispute-status-description-cell" :title="filteredValue">{{ filteredValue }}</div>
+  <div class="dispute-status-description-cell" :title="disputeComment">{{ disputeComment }}</div>
 </template>
 
 <script>
-import nestedFieldCell from '@/mixins/nestedFieldCell';
-
 export default {
   name: 'DisputeStatusDescriptionCell',
-  mixins: [nestedFieldCell],
+  props: {
+    item: {
+      type: Object,
+    },
+  },
+  computed: {
+    disputeComment() {
+      return this.item.disputeStatusDescription || this.item.submitterComment;
+    },
+  },
 };
 </script>
 

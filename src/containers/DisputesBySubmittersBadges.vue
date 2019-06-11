@@ -1,7 +1,7 @@
 <template>
   <div class="disputes-by-submitters-badges">
-    <top-submitter-by-approve-rate :data="statistics.byApprove" />
-    <top-submitter-by-rejection-rate :data="statistics.byRejection" />
+    <top-submitter-by-approve-rate v-if="statistics.byApprove" :data="statistics.byApprove" />
+    <top-submitter-by-rejection-rate v-if="statistics.byRejection" :data="statistics.byRejection" />
   </div>
 </template>
 
