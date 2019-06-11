@@ -24,6 +24,7 @@
 import LazyLoadTable from '@/containers/LazyLoadTable';
 import TableFullHeightBalloon from '@/components/TableFullHeightBalloon';
 import DefaultCell from '@/components/tableCells/DefaultCell';
+import DisputeStatusDescriptionCell from '@/components/tableCells/DisputeStatusDescriptionCell';
 import { ENTITY_TYPES, FILTER_NAMES } from '@/constants';
 
 export default {
@@ -32,6 +33,7 @@ export default {
     LazyLoadTable,
     DefaultCell,
     TableFullHeightBalloon,
+    DisputeStatusDescriptionCell,
   },
   props: {
     parentTableName: {
@@ -44,6 +46,7 @@ export default {
       tableName: ENTITY_TYPES.DISPUTE_HISTORY,
       rowComponentsHash: {
         default: 'DefaultCell',
+        disputeStatusDescription: 'DisputeStatusDescriptionCell',
       },
     };
   },

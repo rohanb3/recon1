@@ -31,6 +31,7 @@ export default () => [
   {
     name: 'statusDescription',
     field: 'submitterComment',
+    fieldType: 'disputeStatusDescription',
     class: 'text-italic',
     title: i18n.t('dispute.history.status.description'),
     width: '3',
