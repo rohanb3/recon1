@@ -14,7 +14,7 @@
         small
         depressed
         class="button button-save"
-        :disabled="!comment.length"
+        :disabled="isEmptyComment"
         @click="onSave"
         >{{ $t('save') }}</v-btn
       >
@@ -49,6 +49,11 @@ export default {
     return {
       comment: '',
     };
+  },
+  computed: {
+    isEmptyComment() {
+      return !this.comment.length;
+    },
   },
   methods: {
     onSave() {
