@@ -38,7 +38,7 @@ export default {
         },
         {
           id: DISPUTE_TYPES_ID.EXPECTED_COMMISION,
-          name: this.$t('dispute.expected.commision'),
+          name: this.$t('dispute.order.not.canceled'),
         },
         {
           id: DISPUTE_TYPES_ID.MISSING_TRANSACTION,
