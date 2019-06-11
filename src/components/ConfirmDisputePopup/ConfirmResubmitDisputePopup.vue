@@ -1,18 +1,18 @@
 <template>
   <confirm-popup
     :visible-popup="visiblePopup"
-    :title="$t('resubmission.table.approve.description')"
+    :title="$t('disputes.resubmit.description')"
+    :persistent="false"
     @close="onClose"
   >
     <v-form ref="form" @submit.prevent>
-      <comment-field
-        :label="$t('resubmission.table.enter.approve.comment.below')"
-        v-model="comment"
-      />
+      <comment-field :label="$t('disputes.enter.comment.for.resubmit.dispute')" v-model="comment" />
     </v-form>
 
     <template v-slot:buttons>
-      <v-btn small depressed class="button button-save" @click="onSave">{{ $t('save') }}</v-btn>
+      <v-btn small depressed class="button button-save" :disabled="isValid" @click="onSave">{{
+        $t('save')
+      }}</v-btn>
       <v-btn small depressed class="button button-cancel" @click="onClose">
         {{ $t('cancel') }}
       </v-btn>
@@ -25,7 +25,7 @@ import ConfirmPopup from '@/components/ConfirmPopup';
 import CommentField from './CommentField';
 
 export default {
-  name: 'ConfirmApproveDisputePopup',
+  name: 'ConfirmResubmitDisputePopup',
   props: {
     visiblePopup: {
       type: Boolean,
@@ -44,6 +44,11 @@ export default {
     return {
       comment: '',
     };
+  },
+  computed: {
+    isValid() {
+      return !this.comment.length;
+    },
   },
   methods: {
     onSave() {

@@ -65,7 +65,6 @@ export default {
       tableName: ENTITY_TYPES.RESUBMISSION,
       isShowApproveConfirmationPopup: false,
       isShowRejectConfirmationPopup: false,
-      selectedDispute: {},
       rowComponentsHash: {
         resubmitClaim: 'ResubmitClaimCell',
         rejectDisputeStatus: 'RejectDisputeStatusCell',
