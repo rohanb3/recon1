@@ -106,17 +106,6 @@ export default () => [
     fieldHeaderType: 'sortingHeader',
   },
   {
-    name: 'ageAfterInstallation',
-    field: 'ageAfterInstallation',
-    fieldType: 'ageAfterOrder',
-    class: 'text',
-    title: i18n.t('disputes.age.after.installation'),
-    width: '4',
-    minWidth: '16px',
-    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.AGE_AFTER_INSTALLATION,
-    fieldHeaderType: 'sortingHeader',
-  },
-  {
     name: 'ageAfterDispute',
     field: 'ageAfterDispute',
     fieldType: 'ageAfterDispute',
