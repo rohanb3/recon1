@@ -1,25 +1,25 @@
 <template>
-  <div class="dispute-status-description-cell" :title="submitterComment">
-    {{ submitterComment }}
-  </div>
+  <div class="dispute-status-description-cell" :title="disputeComment">{{ disputeComment }}</div>
 </template>
 
 <script>
-import disputeStatusAutocomplete from '@/mixins/disputeStatusAutocomplete';
-
 export default {
   name: 'DisputeStatusDescriptionCell',
-  mixins: [disputeStatusAutocomplete],
   props: {
     item: {
       type: Object,
-      required: true,
     },
   },
   computed: {
-    submitterComment() {
-      return (this.disputeStatusHistoryList.slice().pop() || {}).submitterComment;
+    disputeComment() {
+      return this.item.disputeStatusDescription || this.item.submitterComment;
     },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.dispute-status-description-cell {
+  font-style: italic;
+}
+</style>

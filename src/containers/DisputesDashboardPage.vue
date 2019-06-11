@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       tableName: ENTITY_TYPES.DISPUTES_DASHBOARD,
+      initialLoad: true,
     };
   },
 };

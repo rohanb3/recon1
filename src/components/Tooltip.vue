@@ -38,6 +38,7 @@ export default {
 
 .tooltip {
   position: fixed;
+  z-index: 1;
   font-size: 12px;
   min-width: 132px;
   padding: 8px;
