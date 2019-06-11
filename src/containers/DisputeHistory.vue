@@ -5,7 +5,7 @@
       <span class="order-number">{{ $t('orders.number') }}: {{ orderId }}</span>
     </div>
     <div class="inputs-wrapper">
-      <lazy-load-table :tableName="tableName">
+      <lazy-load-table :tableName="tableName" :initial-load="false">
         <component
           slot="row-cell"
           slot-scope="rowCell"

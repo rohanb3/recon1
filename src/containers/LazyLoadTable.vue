@@ -82,6 +82,10 @@ export default {
       type: String,
       default: 'id',
     },
+    initialLoad: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
