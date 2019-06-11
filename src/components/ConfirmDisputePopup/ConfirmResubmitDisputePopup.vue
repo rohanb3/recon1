@@ -10,14 +10,9 @@
     </v-form>
 
     <template v-slot:buttons>
-      <v-btn
-        small
-        depressed
-        class="button button-save"
-        :disabled="isEmptyComment"
-        @click="onSave"
-        >{{ $t('save') }}</v-btn
-      >
+      <v-btn small depressed class="button button-save" :disabled="isValid" @click="onSave">{{
+        $t('save')
+      }}</v-btn>
       <v-btn small depressed class="button button-cancel" @click="onClose">
         {{ $t('cancel') }}
       </v-btn>
@@ -51,7 +46,7 @@ export default {
     };
   },
   computed: {
-    isEmptyComment() {
+    isValid() {
       return !this.comment.length;
     },
   },
