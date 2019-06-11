@@ -26,6 +26,7 @@ import TableFullHeightBalloon from '@/components/TableFullHeightBalloon';
 import DefaultCell from '@/components/tableCells/DefaultCell';
 import DisputeStatusDescriptionCell from '@/components/tableCells/DisputeStatusDescriptionCell';
 import { ENTITY_TYPES, FILTER_NAMES } from '@/constants';
+import { addBackgroundShadow, removeBackgroundShadow } from '@/services/background';
 
 export default {
   name: 'DisputeHistory',
@@ -40,6 +41,12 @@ export default {
       type: String,
       required: true,
     },
+  },
+  mounted() {
+    addBackgroundShadow();
+  },
+  destroyed() {
+    removeBackgroundShadow();
   },
   data() {
     return {
@@ -89,6 +96,8 @@ export default {
   color: $base-text-color;
   font-size: 14px;
   font-weight: 500;
+  z-index: 50;
+
   .text-style-italic-cell {
     font-style: italic;
     color: $base-text-color;
