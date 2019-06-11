@@ -64,7 +64,7 @@ import CustomerInformationForm from '@/components/CustomerInformationForm';
 import GeneralInformationForm from '@/components/GeneralInformationForm';
 import TableButton from '@/components/TableButton';
 import { errorMessage } from '@/services/notifications';
-import { addBackgroundBlur, removeBackgroundBlur } from '@/services/utils';
+import { addBackgroundBlur, removeBackgroundBlur } from '@/services/background';
 
 import { RESPONSE_STATUSES, DISPUTE_STATUSES_ID, ROUTE_NAMES } from '@/constants';
 
