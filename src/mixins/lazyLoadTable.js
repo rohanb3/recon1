@@ -11,7 +11,9 @@ export default {
     };
   },
   mounted() {
-    this.loadItems();
+    if (this.initialLoad) {
+      this.loadItems();
+    }
   },
   beforeDestroy() {
     this.resetItems();
