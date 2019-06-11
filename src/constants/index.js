@@ -198,3 +198,17 @@ export const ORDER_SYNC_STATUS = {
   FINISHED: 'Finished',
   ERROR: 'Error',
 };
+
+export const SCOPES = {
+  DISPUTE_READ: 'xyzies.reconciliation.dispute.read',
+  DISPUTE_UPDATE: 'xyzies.reconciliation.dispute.update',
+  DISPUTE_CREATE: 'xyzies.reconciliation.dispute.create',
+  DISPUTE_PATCH: 'xyzies.reconciliation.dispute.patch',
+  DISPUTE_STATISTIC: 'xyzies.reconciliation.web.disputestatistic',
+  DISPUTE_DASHBOARD: 'xyzies.reconciliation.web.disputedashboard',
+  RESSUBMISSION_TABLE_READ: 'xyzies.reconciliation.web.ressubmissiontable.read',
+  ORDER_READ_WITHOUT_EXPECTED_COMISSION: 'xyzies.reconciliation.web.order.read',
+  AUTHORIZATION: 'xyzies.authorization.reconciliation.web',
+  TEAM_STATISTIC: 'xyzies.reconciliation.web.teamstatistic',
+  ORDER_READ_WITH_EXPECTED_COMISSION: 'xyzies.reconciliation.web.order.read.systemadmin',
+};

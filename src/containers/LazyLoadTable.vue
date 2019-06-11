@@ -24,7 +24,7 @@
         @sortDirectionChanged="onSortDirectionChanged"
       />
       <div
-        v-if="rows && rows.length"
+        v-if="isContainRows"
         slot="row"
         slot-scope="row"
         :class="{ blurred: applyingFilters }"
@@ -37,9 +37,10 @@
             :column="rowCell.column"
             :item="rowCell.item"
           />
+          <span>Do something important</span>
         </wombat-row>
       </div>
-      <table-loader v-if="loading" slot="loader" />
+      <table-loader v-if="loading" slot="loader"/>
     </wombat-table>
     <v-progress-circular
       v-if="applyingFilters"
@@ -86,6 +87,20 @@ export default {
       type: Boolean,
       default: true,
     },
+    rows: {
+      type: Array,
+      default() {
+        console.log(this.tablesRows);
+        
+        return this.tablesRows;
+      },
+    },
+    columns: {
+      type: Array,
+      default() {
+        return this.tablesColumns;
+      },
+    },
   },
   data() {
     return {
@@ -94,11 +109,6 @@ export default {
         sortingHeader: 'SortingHeaderCell',
       },
     };
-  },
-  computed: {
-    tableNameLowerCase() {
-      return this.tableName.toLowerCase();
-    },
   },
 };
 </script>

@@ -7,7 +7,11 @@
         <a v-if="item.url" :href="item.url" :key="item.title">
           <lhs-item class="navigation-link" :item="item"></lhs-item>
         </a>
-        <router-link v-if="item.routeName" :key="item.title" :to="{ name: item.routeName }">
+        <router-link
+          v-if="item.visible && item.routeName"
+          :key="item.title"
+          :to="{ name: item.routeName }"
+        >
           <lhs-item class="navigation-link" :item="item"></lhs-item>
         </router-link>
       </template>
@@ -31,10 +35,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
+
 import LhsItemHeader from '@/components/LHS/LHSItemHeader';
 import LhsItem from '@/components/LHS/LHSItem';
 import { ROUTE_NAMES } from '@/constants';
-import { mapState } from 'vuex';
 
 export default {
   name: 'lhs',
@@ -45,41 +51,16 @@ export default {
   data() {
     return {
       activeIndex: 0,
-      items: [
-        {
-          action: 'dashboard',
-          title: this.$t('disputes.dashboard'),
-          routeName: ROUTE_NAMES.DISPUTES_DASHBOARD,
-        },
-        {
-          action: 'play_arrow',
-          title: this.$t('orders'),
-          routeName: ROUTE_NAMES.SELECT_ORDER,
-        },
-        {
-          action: 'list_alt',
-          title: this.$t('disputes'),
-          routeName: ROUTE_NAMES.DISPUTE_LIST,
-        },
-        {
-          action: 'view_list',
-          title: this.$t('resubmission.table.title'),
-          routeName: ROUTE_NAMES.RESUBMISSION_TABLE,
-        },
-        {
-          action: 'face',
-          title: this.$t('disputes.by.submitters'),
-          routeName: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
-        },
-        {
-          action: 'build',
-          title: 'System',
-          items: [],
-        },
-      ],
     };
   },
   computed: {
+    ...mapGetters([
+      'isShowOrderWithoutExpectedComission',
+      'isShowDisputeDashboard',
+      'isShowDispute',
+      'isReadRessubmissionTable',
+      'isShowOrderWithExpectedComission',
+    ]),
     ...mapState({
       isTinySidebar: state => state.uiState.tinySidebarStatus,
     }),
@@ -88,6 +69,47 @@ export default {
     },
     groupOfItems() {
       return this.items.filter(item => item.items && item.items.length);
+    },
+    items() {
+      return [
+        {
+          action: 'dashboard',
+          title: this.$t('disputes.dashboard'),
+          routeName: ROUTE_NAMES.DISPUTES_DASHBOARD,
+          visible: true,
+        },
+        {
+          action: 'play_arrow',
+          title: this.$t('orders'),
+          routeName: ROUTE_NAMES.SELECT_ORDER,
+          visible:
+            this.isShowOrderWithoutExpectedComission ||
+            this.isShowOrderWithExpectedComission,
+        },
+        {
+          action: 'list_alt',
+          title: this.$t('disputes'),
+          routeName: ROUTE_NAMES.DISPUTE_LIST,
+          visible: this.isShowDispute,
+        },
+        {
+          action: 'view_list',
+          title: this.$t('resubmission.table.title'),
+          routeName: ROUTE_NAMES.RESUBMISSION_TABLE,
+          visible: this.isReadRessubmissionTable,
+        },
+        {
+          action: 'face',
+          title: this.$t('disputes.by.submitters'),
+          routeName: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
+          visible: true,
+        },
+        {
+          action: 'build',
+          title: 'System',
+          items: [],
+        },
+      ];
     },
   },
 };

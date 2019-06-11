@@ -1,15 +1,15 @@
 <template>
-  <div class="orders-table">
+  <div class="orders-table" v-if="isShowOrder">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('orders.select.order') }}</div>
       <orders-table-toolbar
-        :tableName="tableName"
+        :table-name="tableName"
         @exportToCsvFile="onExportToCsvFile"
         @syncOrders="onSyncOrders"
       />
     </div>
-    <selected-range-filter :tableName="tableName" />
-    <lazy-load-table :tableName="tableName" :item-key-name="columnIdName">
+    <selected-range-filter :table-name="tableName"/>
+    <lazy-load-table :table-name="tableName" :item-key-name="columnIdName" :columns="columns">
       <component
         slot="row-cell"
         slot-scope="rowCell"
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import LazyLoadTable from '@/containers/LazyLoadTable';
 import DefaultCell from '@/components/tableCells/DefaultCell';
 import OrderStatusCell from '@/components/tableCells/OrderStatusCell';
@@ -72,8 +74,24 @@ export default {
     };
   },
   computed: {
+    ...mapGetters([
+      'isShowOrderWithoutExpectedComission',
+      'isShowOrderWithExpectedComission',
+      'tableData',
+    ]),
+    isShowOrder() {
+      return (
+        this.isShowOrderWithoutExpectedComission ||
+        this.isShowOrderWithExpectedComission
+      );
+    },
     columnIdName() {
       return TABLE_COLUMN_ID_NAMES[this.tableName];
+    },
+    columns() {
+      console.log( this.tableData(this.tableName));
+      
+      return this.tableData(this.tableName).columns.filter(column => column.name !== 'expectedCommission');
     },
   },
   methods: {
@@ -114,7 +132,8 @@ export default {
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} -
+        #{$table-header-height}
     );
   }
 }
