@@ -1,14 +1,12 @@
 <template>
   <div class="resubmission-table">
-    <div class="resubmission-table__header">
-      <div class="table-toolbar">
-        <div class="table-title">{{ $t('resubmission.table.title') }}</div>
-        <resubmission-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
-      </div>
-      <div class="selected-date-range" v-show="isSelectedDateRange">
-        {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
-      </div>
-    </div>
+    <table-toolbar :title="$t('resubmission.table.title')" :table-name="tableName">
+      <resubmission-table-toolbar
+        :tableName="tableName"
+        @exportToCsvFile="onExportToCsvFile"
+        slot="filters"
+      />
+    </table-toolbar>
     <lazy-load-table :tableName="tableName">
       <component
         slot="row-cell"
@@ -53,10 +51,12 @@ import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmR
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 
 import { ENTITY_TYPES } from '@/constants';
+import TableToolbar from '@/components/TableToolbar';
 
 export default {
   name: 'ResubmissionTable',
   components: {
+    TableToolbar,
     ConfirmApproveDisputePopup,
     ConfirmRejectDisputePopup,
     ResubmissionTableToolbar,

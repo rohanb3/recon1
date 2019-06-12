@@ -1,16 +1,13 @@
 <template>
   <div class="orders-table">
-    <div class="order-table__header">
-      <div class="table-toolbar">
-        <div class="table-title">{{ $t('orders.select.order') }}</div>
-        <orders-table-toolbar
-          :tableName="tableName"
-          @exportToCsvFile="onExportToCsvFile"
-          @syncOrders="onSyncOrders"
-        />
-      </div>
-      <selected-range-filter :tableName="tableName" />
-    </div>
+    <table-toolbar :title="$t('orders.select.order')" :table-name="tableName">
+      <orders-table-toolbar
+        :tableName="tableName"
+        @exportToCsvFile="onExportToCsvFile"
+        @syncOrders="onSyncOrders"
+        slot="filters"
+      />
+    </table-toolbar>
     <lazy-load-table :tableName="tableName" :item-key-name="columnIdName">
       <component
         slot="row-cell"
@@ -44,10 +41,12 @@ import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
 
 import { successMessage } from '@/services/notifications';
 import SelectedRangeFilter from '../components/SelectedRangeFilter';
+import TableToolbar from '@/components/TableToolbar';
 
 export default {
   name: 'OrdersPage',
   components: {
+    TableToolbar,
     SelectedRangeFilter,
     LazyLoadTable,
     DefaultCell,
@@ -99,20 +98,8 @@ export default {
   @include table-base-container;
 }
 
-.table-toolbar {
-  @include table-base-toolbar;
-}
-
-.table-title {
-  @include table-base-title;
-}
-
 .orders-table {
   @extend %blurred-this;
-}
-
-.order-table__header {
-  @include table__header;
 }
 
 .orders-table /deep/ {

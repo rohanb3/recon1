@@ -1,14 +1,12 @@
 <template>
   <div class="disputes-table">
-    <div class="disputes-table__header">
-      <div class="table-toolbar">
-        <div class="table-title">{{ $t('disputes.title') }}</div>
-        <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
-      </div>
-      <div class="selected-date-range" v-show="isSelectedDateRange">
-        {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
-      </div>
-    </div>
+    <table-toolbar :title="$t('disputes.title')" :table-name="tableName">
+      <disputes-table-toolbar
+        :tableName="tableName"
+        @exportToCsvFile="onExportToCsvFile"
+        slot="filters"
+      />
+    </table-toolbar>
     <lazy-load-table :tableName="tableName">
       <component
         slot="row-cell"
@@ -52,10 +50,12 @@ import ConfirmResubmitDisputePopup from '@/components/ConfirmDisputePopup/Confir
 import ConfirmDisputePopup from '@/components/ConfirmDisputePopup/ConfirmDisputePopup';
 
 import { ENTITY_TYPES } from '@/constants';
+import TableToolbar from '@/components/TableToolbar';
 
 export default {
   name: 'DisputesPage',
   components: {
+    TableToolbar,
     DisputesTableToolbar,
     XYZStatusCell,
     ConfirmResubmitDisputePopup,
@@ -97,17 +97,6 @@ export default {
 .disputes-table {
   @include table-base-container;
 }
-.table-toolbar {
-  @include table-base-toolbar;
-}
-.table-title {
-  @include table-base-title;
-}
-
-.disputes-table__header {
-  @include table__header;
-}
-
 .disputes-table /deep/ {
   height: 100%;
   .virtual-list {
