@@ -1,8 +1,7 @@
 <template>
-  <div
-    class="dispute-status-description-cell"
-    :title="disputeComment"
-  >{{ disputeComment | dashForEmptyValue }}</div>
+  <div class="dispute-status-description-cell" :title="disputeComment">
+    {{ disputeComment | dashForEmptyValue }}
+  </div>
 </template>
 
 <script>

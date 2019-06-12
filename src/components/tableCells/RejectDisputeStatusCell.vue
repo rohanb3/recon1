@@ -4,6 +4,7 @@
       v-if="isInprogressStatus"
       class="disput-button"
       :title="$t('reject')"
+      :disabled="isDenyReject"
       @click="onResubmit"
     />
     <span
@@ -17,7 +18,7 @@
 <script>
 import TableButton from '@/components/TableButton';
 import disputeStatusAutocomplete from '@/mixins/disputeStatusAutocomplete';
-import { DISPUTE_STATUSES_ID } from '@/constants';
+import { DISPUTE_STATUSES_ID, SCOPES } from '@/constants';
 
 export default {
   name: 'RejectDisputeStatusCell',
@@ -25,6 +26,10 @@ export default {
   props: {
     item: {
       type: Object,
+      required: true,
+    },
+    scopes: {
+      type: Array,
       required: true,
     },
   },
@@ -37,6 +42,9 @@ export default {
     },
     isContainsRejectedStatus() {
       return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.REJECTED);
+    },
+    isDenyReject() {
+      return !this.scopes.includes(SCOPES.DISPUTE_PATCH);
     },
   },
   methods: {
@@ -61,11 +69,13 @@ export default {
 
   .disput-button {
     line-height: 0;
-    border: 1px solid $base-red;
-    color: $base-red;
+    &:not(.disabled-button) {
+      border: 1px solid $base-red;
+      color: $base-red;
 
-    &.brown-button {
-      color: $button-brown-color;
+      &.brown-button {
+        color: $button-brown-color;
+      }
     }
   }
 }

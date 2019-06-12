@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-md class="dispute-page">
+  <v-container fluid grid-list-md class="dispute-page" v-if="isUpdateDispute">
     <div class="dispute-page-wrapper" :class="{ blurred: loading }">
       <div class="dispute-toolbar">
         <div class="dispute-title">{{ $t('dispute.page.title') }}</div>
@@ -59,6 +59,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import AdditionalInfoBlockForm from '@/components/AdditionalInfoBlockForm';
 import CustomerInformationForm from '@/components/CustomerInformationForm';
 import GeneralInformationForm from '@/components/GeneralInformationForm';
@@ -101,6 +103,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['isUpdateDispute']),
     disputeId() {
       return this.disputeInfo.id;
     },

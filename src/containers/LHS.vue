@@ -35,8 +35,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 import LhsItemHeader from '@/components/LHS/LHSItemHeader';
 import LhsItem from '@/components/LHS/LHSItem';
@@ -58,7 +57,7 @@ export default {
       'isShowOrderWithoutExpectedComission',
       'isShowDisputeDashboard',
       'isShowDispute',
-      'isReadRessubmissionTable',
+      'isShowRessubmissionTable',
       'isShowOrderWithExpectedComission',
     ]),
     ...mapState({
@@ -83,8 +82,7 @@ export default {
           title: this.$t('orders'),
           routeName: ROUTE_NAMES.SELECT_ORDER,
           visible:
-            this.isShowOrderWithoutExpectedComission ||
-            this.isShowOrderWithExpectedComission,
+            this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission,
         },
         {
           action: 'list_alt',
@@ -96,7 +94,7 @@ export default {
           action: 'view_list',
           title: this.$t('resubmission.table.title'),
           routeName: ROUTE_NAMES.RESUBMISSION_TABLE,
-          visible: this.isReadRessubmissionTable,
+          visible: this.isShowRessubmissionTable,
         },
         {
           action: 'face',

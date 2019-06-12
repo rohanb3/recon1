@@ -1,51 +1,40 @@
-import { ROLE_TYPES, SCOPES } from '@/constants';
+import { SCOPES } from '@/constants';
 
 export default {
-  isSuperAdmin(state) {
-    return [
-      ROLE_TYPES.OPERATION_ADMIN,
-      ROLE_TYPES.SYSTEM_ADMIN,
-      ROLE_TYPES.ACCOUNT_ADMIN,
-      ROLE_TYPES.SUPPORT_ADMIN,
-    ].includes(state.profileData.role);
-  },
-  isRetailerAdmin(state) {
-    return [ROLE_TYPES.SUPER_ADMIN].includes(state.profileData.role);
-  },
   role(state) {
     return state.profileData.role;
   },
-  isShowDispute(state) {
-    return state.profileData.scopes.includes(SCOPES.DISPUTE_READ);
+  scopes(state) {
+    return state.profileData.scopes || [];
   },
-  isUpdateDispute(state) {
-    return state.profileData.scopes.includes(SCOPES.DISPUTE_UPDATE);
+  isShowDispute(state, getters) {
+    return getters.scopes.includes(SCOPES.DISPUTE_READ);
   },
-  isCreateDispute(state) {
-    return state.profileData.scopes.includes(SCOPES.DISPUTE_CREATE);
+  isUpdateDispute(state, getters) {
+    return getters.scopes.includes(SCOPES.DISPUTE_UPDATE);
   },
-  isPatchDispute(state) {
-    return state.profileData.scopes.includes(SCOPES.DISPUTE_PATCH);
+  isCreateDispute(state, getters) {
+    return getters.scopes.includes(SCOPES.DISPUTE_CREATE);
   },
-  isShowDisputeStatistic(state) {
-    return state.profileData.scopes.includes(SCOPES.DISPUTE_STATISTIC);
+  isPatchDispute(state, getters) {
+    return getters.scopes.includes(SCOPES.DISPUTE_PATCH);
   },
-  isShowDisputeDashboard(state) {
-    return state.profileData.scopes.includes(SCOPES.DISPUTE_DASHBOARD);
+  isShowDisputeStatistic(state, getters) {
+    return getters.scopes.includes(SCOPES.DISPUTE_STATISTIC);
   },
-  isReadRessubmissionTable(state) {
-    return state.profileData.scopes.includes(SCOPES.RESSUBMISSION_TABLE_READ);
+  isShowDisputeDashboard(state, getters) {
+    return getters.scopes.includes(SCOPES.DISPUTE_DASHBOARD);
   },
-  isShowOrderWithoutExpectedComission(state) {
-    return state.profileData.scopes.includes(SCOPES.ORDER_READ_WITHOUT_EXPECTED_COMISSION);
+  isShowRessubmissionTable(state, getters) {
+    return getters.scopes.includes(SCOPES.RESSUBMISSION_TABLE_READ);
   },
-  isAuthorization(state) {
-    return state.profileData.scopes.includes(SCOPES.AUTHORIZATION);
+  isShowOrderWithoutExpectedComission(state, getters) {
+    return getters.scopes.includes(SCOPES.ORDER_READ_WITHOUT_EXPECTED_COMISSION);
   },
-  isShowTeamStatistic(state) {
-    return state.profileData.scopes.includes(SCOPES.TEAM_STATISTIC);
+  isShowTeamStatistic(state, getters) {
+    return getters.scopes.includes(SCOPES.TEAM_STATISTIC);
   },
-  isShowOrderWithExpectedComission(state) {
-    return state.profileData.scopes.includes(SCOPES.ORDER_READ_WITH_EXPECTED_COMISSION);
+  isShowOrderWithExpectedComission(state, getters) {
+    return getters.scopes.includes(SCOPES.ORDER_READ_WITH_EXPECTED_COMISSION);
   },
 };

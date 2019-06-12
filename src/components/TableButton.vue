@@ -2,7 +2,7 @@
   <button class="table-button" :class="{ 'disabled-button': disabled }" @click.prevent="onClick">
     {{ title }}
     <v-progress-circular
-      v-show="disabled"
+      v-show="preloader"
       size="14"
       class="preloader-button"
       indeterminate
@@ -20,6 +20,10 @@ export default {
       required: true,
     },
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+    preloader: {
       type: Boolean,
       default: false,
     },

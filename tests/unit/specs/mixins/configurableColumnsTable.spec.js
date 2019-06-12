@@ -49,7 +49,7 @@ describe('configurableColumnsTable mixin', () => {
         columns: expectedColumns,
       };
 
-      fakeThis.columns = columns;
+      fakeThis.tableColumns = columns;
 
       configurableColumnsTable.methods.onColumnsResized.call(fakeThis, updates);
 

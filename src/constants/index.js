@@ -154,8 +154,6 @@ export const FILTER_NAMES = {
   CREATED_TO: 'CreatedTo',
   FISCAL_PERIOD_ID: 'FiscalPeriodId',
   FISCAL_PERIOD: 'FiscalPeriod',
-  FISCAL_PERIOD_FROM: 'FiscalPeriodFrom',
-  FISCAL_PERIOD_TO: 'FiscalPeriodTo',
   DISPUTE_AGE_FROM: 'DisputeAgeFrom',
   DISPUTE_AGE_TO: 'DisputeAgeTo',
   DISPUTE_STATUS_IDS: 'DisputeStatusIds',

@@ -70,7 +70,6 @@ export default {
         });
     },
     handleFiscalPeriod(fiscalPeriodId) {
-      const fiscalPeriod = this.fiscalPeriodList.find(fp => fp.id === fiscalPeriodId);
       const data = {
         tableName: this.tableName,
         filters: [
@@ -85,14 +84,6 @@ export default {
           {
             name: FILTER_NAMES.FISCAL_PERIOD_ID,
             value: fiscalPeriodId,
-          },
-          {
-            name: FILTER_NAMES.FISCAL_PERIOD_FROM,
-            value: fiscalPeriod.name,
-          },
-          {
-            name: FILTER_NAMES.FISCAL_PERIOD_TO,
-            value: fiscalPeriod.name,
           },
         ],
       };

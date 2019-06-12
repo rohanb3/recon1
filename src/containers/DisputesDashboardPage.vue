@@ -1,10 +1,10 @@
 <template>
   <div class="disputes_dashboard-table">
-    <Disputes-Dashboard-Toolbar :tableName="tableName"/>
+    <Disputes-Dashboard-Toolbar :tableName="tableName" />
     <VuePerfectScrollbar class="statistic-list">
-      <total-disputes-statistic :statistics="tablesRows"/>
-      <total-spectrum-dispute-statistic :statistics="tablesRows"/>
-      <total-xyz-dispute-statistic :statistics="tablesRows"/>
+      <total-disputes-statistic :statistics="tableRows" />
+      <total-spectrum-dispute-statistic :statistics="tableRows" />
+      <total-xyz-dispute-statistic :statistics="tableRows" />
     </VuePerfectScrollbar>
   </div>
 </template>

@@ -43,16 +43,19 @@ export default {
     applyingFilters() {
       return Boolean(this.tableData(this.tableName).applyingFilters);
     },
-    tablesRows() {
-      console.log(this.storageData(this.tableName).items);
-      
+    tableRows() {
+      if (this.isContainRows) return this.rows;
       return this.storageData(this.tableName).items || [];
-    },
-    tablesColumns() {
-      return this.tableData(this.tableName).columns;
     },
     isContainRows() {
       return this.rows && this.rows.length;
+    },
+    tableColumns() {
+      if (this.isContainColumns) return this.columns;
+      return this.tableData(this.tableName).columns;
+    },
+    isContainColumns() {
+      return this.columns && this.columns.length;
     },
     tableNameLowerCase() {
       return this.tableName.toLowerCase();

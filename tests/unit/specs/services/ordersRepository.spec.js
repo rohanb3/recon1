@@ -27,7 +27,7 @@ describe('ordersRepository', () => {
       const response = await getOrders(filters);
 
       expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith('/order', {
+      expect(disputesApi.get).toHaveBeenCalledWith('/order/orders/disputing', {
         params: { ...filters },
         paramsSerializer,
       });

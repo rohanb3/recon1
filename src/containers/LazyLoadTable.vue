@@ -1,8 +1,8 @@
 <template>
   <div>
     <wombat-table
-      :items="rows"
-      :columns="columns"
+      :items="tableRows"
+      :columns="tableColumns"
       :infinite-loading="!allItemsLoaded"
       :item-key-name="itemKeyName"
       :loading-items="loading"
@@ -23,12 +23,7 @@
         :sortDirection="sortDirection"
         @sortDirectionChanged="onSortDirectionChanged"
       />
-      <div
-        v-if="isContainRows"
-        slot="row"
-        slot-scope="row"
-        :class="{ blurred: applyingFilters }"
-      >
+      <div slot="row" slot-scope="row" :class="{ blurred: applyingFilters }">
         <wombat-row :item="row.item" :columns="row.columns" :height="row.item.height">
           <slot
             name="row-cell"
@@ -40,7 +35,7 @@
           <span>Do something important</span>
         </wombat-row>
       </div>
-      <table-loader v-if="loading" slot="loader"/>
+      <table-loader v-if="loading" slot="loader" />
     </wombat-table>
     <v-progress-circular
       v-if="applyingFilters"
@@ -89,17 +84,11 @@ export default {
     },
     rows: {
       type: Array,
-      default() {
-        console.log(this.tablesRows);
-        
-        return this.tablesRows;
-      },
+      default: () => [],
     },
     columns: {
       type: Array,
-      default() {
-        return this.tablesColumns;
-      },
+      default: () => [],
     },
   },
   data() {

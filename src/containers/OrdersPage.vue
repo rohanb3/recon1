@@ -8,7 +8,7 @@
         @syncOrders="onSyncOrders"
       />
     </div>
-    <selected-range-filter :table-name="tableName"/>
+    <selected-range-filter :table-name="tableName" />
     <lazy-load-table :table-name="tableName" :item-key-name="columnIdName" :columns="columns">
       <component
         slot="row-cell"
@@ -17,6 +17,7 @@
         :is="rowComponentsHash[rowCell.column.fieldType] || rowComponentsHash.default"
         :item="rowCell.item"
         :column="rowCell.column"
+        :scopes="scopes"
       />
     </lazy-load-table>
   </div>
@@ -78,20 +79,18 @@ export default {
       'isShowOrderWithoutExpectedComission',
       'isShowOrderWithExpectedComission',
       'tableData',
+      'scopes',
     ]),
     isShowOrder() {
-      return (
-        this.isShowOrderWithoutExpectedComission ||
-        this.isShowOrderWithExpectedComission
-      );
+      return this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission;
     },
     columnIdName() {
       return TABLE_COLUMN_ID_NAMES[this.tableName];
     },
     columns() {
-      console.log( this.tableData(this.tableName));
-      
-      return this.tableData(this.tableName).columns.filter(column => column.name !== 'expectedCommission');
+      return this.tableData(this.tableName).columns.filter(
+        column => column.name !== 'expectedCommission' || this.isShowOrderWithExpectedComission
+      );
     },
   },
   methods: {
@@ -132,8 +131,7 @@ export default {
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} -
-        #{$table-header-height}
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
     );
   }
 }
