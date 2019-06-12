@@ -11,7 +11,9 @@ export default {
     };
   },
   mounted() {
-    this.loadItems();
+    if (this.initialLoad) {
+      this.loadItems();
+    }
   },
   beforeDestroy() {
     this.resetItems();
@@ -25,7 +27,7 @@ export default {
       return this.$store.state.tables[this.tableName] || {};
     },
     rows() {
-      return this.storageData.items || [];
+      return this.storageData.items || [2];
     },
     allItemsLoaded() {
       return this.storageData.allItemsLoaded;

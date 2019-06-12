@@ -1,6 +1,6 @@
 <template>
   <div class="dispute-button-cell">
-    <template v-if="isApprovedOrRejectedStatus">
+    <template v-if="isRejectedStatus">
       <table-button class="disput-button button-blue" :title="$t('confirm')" @click="onConfirm" />
       <table-button class="disput-button" :title="$t('resubmit')" @click="onResubmit" />
     </template>
@@ -42,9 +42,6 @@ export default {
     isRejectedStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.REJECTED;
     },
-    isApprovedOrRejectedStatus() {
-      return this.isApprovedStatus || this.isRejectedStatus;
-    },
     statusIdForConfirmDispute() {
       if (this.isApprovedStatus) {
         return DISPUTE_STATUSES_ID.CONFIRM_APPROVED;
@@ -52,18 +49,18 @@ export default {
       return DISPUTE_STATUSES_ID.CONFIRM_REJECTED;
     },
     isConfirmRejectedOrConfirmApprovedStatus() {
-      return this.isConfirmApprovedStatus || this.isConfirmRejectedStatus;
+      return this.isConfirmApprovedStatus || this.isConfirmRejectedStatus || this.isApprovedStatus;
     },
   },
   methods: {
     onResubmit() {
-      this.$emit('changeDisputeStatus', {
+      this.$emit('confirmResubmitDisputeStatus', {
         disputeId: this.item.id,
         statusId: DISPUTE_STATUSES_ID.RE_SENT,
       });
     },
     onConfirm() {
-      this.$emit('changeDisputeStatus', {
+      this.$emit('confirmDisputeStatus', {
         disputeId: this.item.id,
         statusId: this.statusIdForConfirmDispute,
       });

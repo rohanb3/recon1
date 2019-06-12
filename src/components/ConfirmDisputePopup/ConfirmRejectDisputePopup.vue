@@ -4,7 +4,7 @@
     :title="$t('resubmission.table.reject.description')"
     @close="onClose"
   >
-    <v-form ref="form">
+    <v-form ref="form" @submit.prevent>
       <comment-field
         :label="$t('resubmission.table.enter.reject.comment.below')"
         v-model="comment"

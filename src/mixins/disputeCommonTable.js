@@ -18,6 +18,7 @@ import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatus
 import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
 import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
 import IdCell from '@/components/tableCells/IdCell';
+import DisputeStatusDescriptionCell from '@/components/tableCells/DisputeStatusDescriptionCell';
 
 import DisputeHistory from '@/containers/DisputeHistory';
 
@@ -40,6 +41,7 @@ export default {
     DisputeStatusCell,
     IdCell,
     DisputeHistory,
+    DisputeStatusDescriptionCell,
   },
   mixins: [tableDateRange],
   filters: {
@@ -58,8 +60,10 @@ export default {
         ageAfterDispute: 'OrderAgeCell',
         disputeId: 'IdCell',
         disputeStatus: 'DisputeStatusCell',
+        disputeStatusDescription: 'DisputeStatusDescriptionCell',
       },
       disputeHistoryShown: false,
+      selectedDispute: {},
     };
   },
   computed: {

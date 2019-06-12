@@ -21,6 +21,8 @@ export default () => [
     title: i18n.t('dispute.orders.number'),
     width: '4',
     minWidth: '16px',
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.ORDER_NUMBER,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'orderCreationDate',
@@ -104,17 +106,6 @@ export default () => [
     fieldHeaderType: 'sortingHeader',
   },
   {
-    name: 'ageAfterInstallation',
-    field: 'ageAfterInstallation',
-    fieldType: 'ageAfterOrder',
-    class: 'text',
-    title: i18n.t('disputes.age.after.installation'),
-    width: '4',
-    minWidth: '16px',
-    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.AGE_AFTER_INSTALLATION,
-    fieldHeaderType: 'sortingHeader',
-  },
-  {
     name: 'ageAfterDispute',
     field: 'ageAfterDispute',
     fieldType: 'ageAfterDispute',
@@ -147,6 +138,7 @@ export default () => [
   {
     name: 'disputeStatusDescription',
     field: 'disputeStatusDescription',
+    fieldType: 'disputeStatusDescription',
     class: 'text',
     title: i18n.t('disputes.dispute.status.description'),
     width: '4',

@@ -1,7 +1,12 @@
 <template>
-  <v-dialog :value="visiblePopup" persistent :max-width="380">
+  <v-dialog
+    :value="visiblePopup"
+    :persistent="persistent"
+    :max-width="380"
+    @update:returnValue="onClose"
+  >
     <v-card class="popup-wrapper">
-      <v-icon class="close-dialog" @click="$emit('close', false)">close</v-icon>
+      <v-icon class="close-dialog" @click="onClose">close</v-icon>
       <v-card-title class="headline">{{ title }}</v-card-title>
       <v-card-text class="description">
         <slot></slot>
@@ -14,7 +19,7 @@
 </template>
 
 <script>
-import { addBackgroundBlur, removeBackgroundBlur } from '@/services/utils';
+import { addBackgroundBlur, removeBackgroundBlur } from '@/services/background';
 
 export default {
   name: 'ConfirmPopup',
@@ -26,6 +31,15 @@ export default {
     visiblePopup: {
       type: Boolean,
       required: true,
+    },
+    persistent: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  methods: {
+    onClose() {
+      this.$emit('close', false);
     },
   },
   watch: {

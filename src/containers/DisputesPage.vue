@@ -16,11 +16,23 @@
         :item="rowCell.item"
         :column="rowCell.column"
         :filter="rowCell.column.filter"
-        @changeDisputeStatus="onChangeDisputeStatus"
+        @confirmDisputeStatus="onConfirmDisputeStatus"
+        @confirmResubmitDisputeStatus="onConfirmResubmitDisputeStatus"
         @selectId="onSelectIdDispute"
       />
     </lazy-load-table>
-
+    <confirm-resubmit-dispute-popup
+      :visible-popup="isShowResubmitConfirmationPopup"
+      :dispute-info="selectedDispute"
+      @save="changeDisputeStatus"
+      @close="isShowResubmitConfirmationPopup = false"
+    />
+    <confirm-dispute-popup
+      :visible-popup="isShowConfirmationPopup"
+      :dispute-info="selectedDispute"
+      @save="changeDisputeStatus"
+      @close="isShowConfirmationPopup = false"
+    />
     <dispute-history
       v-if="disputeHistoryShown"
       :parent-table-name="tableName"
@@ -33,6 +45,9 @@
 import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 import XYZStatusCell from '@/components/tableCells/XYZStatusCell';
+import DisputeStatusDescriptionCell from '@/components/tableCells/DisputeStatusDescriptionCell';
+import ConfirmResubmitDisputePopup from '@/components/ConfirmDisputePopup/ConfirmResubmitDisputePopup';
+import ConfirmDisputePopup from '@/components/ConfirmDisputePopup/ConfirmDisputePopup';
 
 import { ENTITY_TYPES } from '@/constants';
 
@@ -41,6 +56,9 @@ export default {
   components: {
     DisputesTableToolbar,
     XYZStatusCell,
+    ConfirmResubmitDisputePopup,
+    ConfirmDisputePopup,
+    DisputeStatusDescriptionCell,
   },
   mixins: [disputeCommonTable],
   data() {
@@ -48,8 +66,26 @@ export default {
       tableName: ENTITY_TYPES.DISPUTES,
       rowComponentsHash: {
         xyzStatus: 'XYZStatusCell',
+        disputeStatusDescription: 'DisputeStatusDescriptionCell',
       },
+      isShowResubmitConfirmationPopup: false,
+      isShowConfirmationPopup: false,
     };
+  },
+  methods: {
+    async changeDisputeStatus({ disputeId, statusId, comments }) {
+      this.isShowResubmitConfirmationPopup = false;
+      this.isShowConfirmationPopup = false;
+      await this.onChangeDisputeStatus({ disputeId, statusId, comments });
+    },
+    onConfirmResubmitDisputeStatus({ disputeId, statusId }) {
+      this.selectedDispute = { disputeId, statusId };
+      this.isShowResubmitConfirmationPopup = true;
+    },
+    onConfirmDisputeStatus({ disputeId, statusId }) {
+      this.selectedDispute = { disputeId, statusId };
+      this.isShowConfirmationPopup = true;
+    },
   },
 };
 </script>

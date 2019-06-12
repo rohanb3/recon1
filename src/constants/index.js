@@ -20,6 +20,17 @@ export const DISPUTE_STATUSES_ID = {
   CONFIRM_APPROVED: '2a4b15f3-9ed3-4bc7-9788-fedbd3404f14',
 };
 
+export const DISPUTE_STATUSES_NAME = {
+  APPROVED: 'Approved',
+  RE_SENT: 'Re-sent',
+  SENT: 'Sent',
+  DRAFT: 'Draft',
+  REJECTED: 'Rejected',
+  IN_PROGRESS: 'In progress',
+  CONFIRM_REJECTED: 'Confirm Rejected',
+  CONFIRM_APPROVED: 'Confirm Approved',
+};
+
 export const DISPUTE_TYPES_ID = {
   ORDER_INSTALLED: '6630cffe-777b-4bca-90f3-50b4910ff3bb',
   EXPECTED_COMMISION: '79eb1607-2a85-42ed-a409-4f6c15b06fe3',
@@ -97,11 +108,35 @@ export const TABLE_DISPUTE_COLUMNS_SORTED = {
   ORDER_NUMBER: 'ordernumber',
 };
 
+export const TABLE_DISPUTES_BY_SUBMITTERS_COLUMNS_SORTED = {
+  CREATOR: 'creatorName',
+  ENTERED: 'entered',
+  UNITS: 'units',
+  CLOSED: 'closed',
+  CLOSED_PERCENT: 'closedPercent',
+  APPROVED: 'approved',
+  APPROVED_PERCENT: 'approvedPercent',
+  REJECTED: 'rejected',
+  REJECTED_PERCENT: 'rejectedPercent',
+  APPROVED_COMMISSION: 'approvedComission',
+  RESUBMITTED: 'resubmited',
+  RESUBMITTED_PERCENT: 'resubmitedPercent',
+  PENDING: 'pending',
+  PENDING_PERCENT: 'pendingPercent',
+};
+
 export const ENTITY_TYPES = {
   ORDERS: 'ORDERS',
   DISPUTES: 'DISPUTES',
   RESUBMISSION: 'RESUBMISSION',
+  DISPUTES_BY_SUBMITTERS: 'DISPUTES_BY_SUBMITTERS',
+  DISPUTES_DASHBOARD: 'DISPUTES_DASHBOARD',
   DISPUTE_HISTORY: 'DISPUTE_HISTORY',
+};
+
+export const DISPUTES_BY_SUBMITTERS_STATISTICS_TYPES = {
+  BY_APPROVE: 'Confirm Approved',
+  BY_REJECTION: 'Confirm Rejected',
 };
 
 export const FILTER_NAMES = {
@@ -136,6 +171,7 @@ export const ROUTE_NAMES = {
   EDIT_DISPUTE: 'edit-dispute',
   CREAT_DISPUTE: 'creat-dispute',
   DISPUTE_LIST: 'dispute-list',
+  DISPUTES_BY_SUBMITTERS: 'disputes-by-submitters',
   RESUBMISSION_TABLE: 'resubmission-table',
   LOGIN: 'login',
   LOGOUT: 'logout',
@@ -143,6 +179,7 @@ export const ROUTE_NAMES = {
   VERIFICATION_CODE: 'verification-code',
   RESET_PASSWORD: 'reset-password',
   MAIN_PAGE: 'main-page',
+  DISPUTES_DASHBOARD: 'disputes-dashboard',
 };
 
 export const ROLE_TYPES = {

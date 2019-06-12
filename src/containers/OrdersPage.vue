@@ -8,6 +8,7 @@
         @syncOrders="onSyncOrders"
       />
     </div>
+    <selected-range-filter :tableName="tableName" />
     <lazy-load-table :tableName="tableName" :item-key-name="columnIdName">
       <component
         slot="row-cell"
@@ -24,13 +25,11 @@
 <script>
 import LazyLoadTable from '@/containers/LazyLoadTable';
 import DefaultCell from '@/components/tableCells/DefaultCell';
-import DifferenceComissonCell from '@/components/tableCells/DifferenceComissonCell';
 import OrderStatusCell from '@/components/tableCells/OrderStatusCell';
 import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
 import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
 import PriceCell from '@/components/tableCells/PriceCell';
 import DisputeButtonCell from '@/components/tableCells/DisputeButtonCell';
-import RecievedComissonCell from '@/components/tableCells/RecievedComissonCell';
 import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
 
 import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
@@ -42,20 +41,20 @@ import { generateCSVFile } from '@/services/utils';
 import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
 
 import { successMessage } from '@/services/notifications';
+import SelectedRangeFilter from '../components/SelectedRangeFilter';
 
 export default {
   name: 'OrdersPage',
   components: {
+    SelectedRangeFilter,
     LazyLoadTable,
     DefaultCell,
     OrdersTableToolbar,
-    DifferenceComissonCell,
     OrderAgeCell,
     OrderStatusCell,
     OrderNumberCell,
     PriceCell,
     DisputeButtonCell,
-    RecievedComissonCell,
     DateYearMonthDayCell,
   },
   data() {
@@ -63,15 +62,11 @@ export default {
       tableName: ENTITY_TYPES.ORDERS,
       rowComponentsHash: {
         default: 'DefaultCell',
-        differenceComisson: 'DifferenceComissonCell',
         creationAge: 'OrderAgeCell',
-        installationAge: 'OrderAgeCell',
         orderStatus: 'OrderStatusCell',
         orderNumber: 'OrderNumberCell',
         price: 'PriceCell',
-        recievedComisson: 'RecievedComissonCell',
         disputeButton: 'DisputeButtonCell',
-        orderDifference: 'DifferenceComissonCell',
         dateYearMonthDay: 'DateYearMonthDayCell',
       },
     };

@@ -2,6 +2,7 @@ import {
   getOrdersTableColumns,
   getDisputesTableColumns,
   getResubmissionTableColumns,
+  getDisputesBySubmittersColumns,
   getDisputeHistoryTableColumns,
 } from '@/services/tablesColumnsList';
 import { ENTITY_TYPES } from '@/constants';
@@ -25,6 +26,15 @@ const state = {
   [ENTITY_TYPES.RESUBMISSION]: {
     columns: getResubmissionTableColumns(),
     filters: getDefaultFilters(ENTITY_TYPES.RESUBMISSION),
+    applyingFilters: false,
+  },
+  [ENTITY_TYPES.DISPUTES_BY_SUBMITTERS]: {
+    columns: getDisputesBySubmittersColumns(),
+    filters: getDefaultFilters(ENTITY_TYPES.DISPUTES_BY_SUBMITTERS),
+    applyingFilters: false,
+  },
+  [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
+    filters: getDefaultFilters(ENTITY_TYPES.DISPUTES_DASHBOARD),
     applyingFilters: false,
   },
   [ENTITY_TYPES.DISPUTE_HISTORY]: {

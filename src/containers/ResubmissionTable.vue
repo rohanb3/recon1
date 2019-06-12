@@ -1,5 +1,5 @@
 <template>
-  <div class="disputes-table">
+  <div class="resubmission-table">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('resubmission.table.title') }}</div>
       <resubmission-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
@@ -65,7 +65,6 @@ export default {
       tableName: ENTITY_TYPES.RESUBMISSION,
       isShowApproveConfirmationPopup: false,
       isShowRejectConfirmationPopup: false,
-      selectedDispute: {},
       rowComponentsHash: {
         resubmitClaim: 'ResubmitClaimCell',
         rejectDisputeStatus: 'RejectDisputeStatusCell',
@@ -93,7 +92,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins.scss';
-.disputes-table {
+.resubmission-table {
   @include table-base-container;
 }
 .table-toolbar {
@@ -102,7 +101,7 @@ export default {
 .table-title {
   @include table-base-title;
 }
-.disputes-table /deep/ {
+.resubmission-table /deep/ {
   height: 100%;
   .virtual-list {
     height: 100vh;

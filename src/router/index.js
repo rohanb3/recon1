@@ -9,11 +9,13 @@ import DisputePage from '@/containers/DisputePage';
 import DisputesPage from '@/containers/DisputesPage';
 import ResubmissionTable from '@/containers/ResubmissionTable';
 import SyncNotifier from '@/containers/SyncNotifier';
+import DisputesBySubmittersTable from '@/containers/DisputesBySubmittersTable';
 
 import LoginPage from '@/containers/LoginPage';
 import PasswordRecoveryPage from '@/containers/PasswordRecoveryPage';
 import VerificationCodePage from '@/containers/VerificationCodePage';
 import ResetPasswordPage from '@/containers/ResetPasswordPage';
+import DisputesDashboardPage from '@/containers/DisputesDashboardPage';
 
 import { ROUTE_NAMES } from '@/constants';
 import { USER_LOGOUT } from '@/store/loggedInUser/actionTypes';
@@ -117,9 +119,19 @@ const router = new Router({
               name: ROUTE_NAMES.DISPUTE_LIST,
             },
             {
+              path: 'disputes-by-submitters',
+              component: DisputesBySubmittersTable,
+              name: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
+            },
+            {
               path: 'resubmission-table',
               component: ResubmissionTable,
               name: ROUTE_NAMES.RESUBMISSION_TABLE,
+            },
+            {
+              path: 'disputes-dashboard',
+              component: DisputesDashboardPage,
+              name: ROUTE_NAMES.DISPUTES_DASHBOARD,
             },
           ],
         },

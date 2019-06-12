@@ -4,16 +4,18 @@
     <div class="table-filter-container">
       <order-status-filter :table-name="tableName" />
       <order-age-filter :table-name="tableName" />
-      <installation-age-filter :table-name="tableName" />
     </div>
     <v-spacer></v-spacer>
-    <table-button
-      :disabled="isOrdersSyncing"
-      :title="$t('sync.orders')"
-      @click="$emit('syncOrders')"
-    />
-    <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
-    <fiscal-period-filter :tableName="tableName" />
+    <div class="table-filter-container">
+      <table-button
+        :disabled="isOrdersSyncing"
+        :title="$t('sync.orders')"
+        @click="$emit('syncOrders')"
+      />
+      <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
+      <fiscal-period-filter :tableName="tableName" />
+      <custom-range-filter :table-name="tableName" />
+    </div>
   </div>
 </template>
 
@@ -21,18 +23,18 @@
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import OrderStatusFilter from '@/containers/OrderStatusFilter';
 import OrderAgeFilter from './OrderAgeFilter';
-import InstallationAgeFilter from './InstallationAgeFilter';
 import TableButton from '@/components/TableButton';
 import { ENTITY_TYPES, ORDER_SYNC_STATUS } from '@/constants';
+import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 
 export default {
   name: 'OrdersTableToolbar',
   components: {
+    CustomRangeFilter,
     QuickSearchFilter,
     OrderStatusFilter,
     OrderAgeFilter,
-    InstallationAgeFilter,
     TableButton,
     FiscalPeriodFilter,
   },

@@ -21,6 +21,8 @@ export default () => [
     title: i18n.t('dispute.orders.number'),
     width: '4',
     minWidth: '16px',
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.ORDER_NUMBER,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'fiscalPeriod',
@@ -149,5 +151,13 @@ export default () => [
     title: i18n.t('resubmission.table.approve'),
     width: '4',
     minWidth: '110px',
+  },
+  {
+    name: 'disputeStatusDescription',
+    fieldType: 'disputeStatusDescription',
+    class: 'text',
+    title: i18n.t('disputes.dispute.status.description'),
+    width: '4',
+    minWidth: '30px',
   },
 ];

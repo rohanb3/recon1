@@ -48,25 +48,9 @@
         </v-flex>
         <v-flex md6 ml-5>
           <v-text-field
-            :value="installationDate | dateShortDayMonthYear"
-            :label="$t('dispute.installation.date')"
-            disabled
-          ></v-text-field>
-        </v-flex>
-      </v-layout>
-      <v-layout row mb-2>
-        <v-flex md6>
-          <v-text-field
             :value="creationAge"
             disabled
             :label="$t('dispute.age.by.creation.date')"
-          ></v-text-field>
-        </v-flex>
-        <v-flex md6 ml-5>
-          <v-text-field
-            :value="installationAge"
-            disabled
-            :label="$t('dispute.age.by.instalation.date')"
           ></v-text-field>
         </v-flex>
       </v-layout>
@@ -74,7 +58,7 @@
         <v-flex md12>
           <v-textarea
             :label="$t('dispute.order.comment')"
-            disabled
+            readonly
             :value="orderComment"
           ></v-textarea>
         </v-flex>
@@ -130,9 +114,6 @@ export default {
     },
     createdOn() {
       return this.value.createdOn || ' ';
-    },
-    installationDate() {
-      return this.value.installationDate || ' ';
     },
     orderComment() {
       return this.value.orderComment || ' ';
