@@ -105,7 +105,7 @@ export default {
 }
 
 .resubmission-table__header {
-  height: 90px;
+  @include table__header;
 }
 
 .resubmission-table /deep/ {

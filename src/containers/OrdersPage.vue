@@ -112,7 +112,7 @@ export default {
 }
 
 .order-table__header {
-  height: 90px;
+  @include table__header;
 }
 
 .orders-table /deep/ {

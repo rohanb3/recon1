@@ -80,3 +80,7 @@
   font-weight: bold;
   color: $base-text-color;
 }
+
+@mixin table__header {
+  height: 90px;
+}
