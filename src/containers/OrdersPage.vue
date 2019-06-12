@@ -1,14 +1,16 @@
 <template>
   <div class="orders-table">
-    <div class="table-toolbar">
-      <div class="table-title">{{ $t('orders.select.order') }}</div>
-      <orders-table-toolbar
-        :tableName="tableName"
-        @exportToCsvFile="onExportToCsvFile"
-        @syncOrders="onSyncOrders"
-      />
+    <div class="order-table__header">
+      <div class="table-toolbar">
+        <div class="table-title">{{ $t('orders.select.order') }}</div>
+        <orders-table-toolbar
+          :tableName="tableName"
+          @exportToCsvFile="onExportToCsvFile"
+          @syncOrders="onSyncOrders"
+        />
+      </div>
+      <selected-range-filter :tableName="tableName" />
     </div>
-    <selected-range-filter :tableName="tableName" />
     <lazy-load-table :tableName="tableName" :item-key-name="columnIdName">
       <component
         slot="row-cell"
@@ -109,12 +111,17 @@ export default {
   @extend %blurred-this;
 }
 
+.order-table__header {
+  height: 90px;
+}
+
 .orders-table /deep/ {
   height: 100%;
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
+        #{$table-header-height-offset}
     );
   }
 }

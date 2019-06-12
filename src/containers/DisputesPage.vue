@@ -1,11 +1,13 @@
 <template>
   <div class="disputes-table">
-    <div class="table-toolbar">
-      <div class="table-title">{{ $t('disputes.title') }}</div>
-      <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
-    </div>
-    <div class="selected-date-range" v-show="isSelectedDateRange">
-      {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
+    <div class="disputes-table__header">
+      <div class="table-toolbar">
+        <div class="table-title">{{ $t('disputes.title') }}</div>
+        <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
+      </div>
+      <div class="selected-date-range" v-show="isSelectedDateRange">
+        {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
+      </div>
     </div>
     <lazy-load-table :tableName="tableName">
       <component
@@ -101,12 +103,18 @@ export default {
 .table-title {
   @include table-base-title;
 }
+
+.disputes-table__header {
+  height: 90px;
+}
+
 .disputes-table /deep/ {
   height: 100%;
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
+        #{$table-header-height-offset}
     );
   }
 }
