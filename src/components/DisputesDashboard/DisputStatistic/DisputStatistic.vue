@@ -19,7 +19,7 @@
             </v-flex>
             <v-flex>
               <div class="table-header-label">{{ $t('total.comission.difference') }}</div>
-              <p>{{ totalStatistics.Commission }}</p>
+              <p>{{ totalStatistics.commission }}</p>
             </v-flex>
           </v-layout>
         </div>

@@ -20,15 +20,17 @@ export const DISPUTE_STATUSES_ID = {
   CONFIRM_APPROVED: '2a4b15f3-9ed3-4bc7-9788-fedbd3404f14',
 };
 
-export const DISPUTE_STATUSES_NAME = {
+export const DISPUTE_SECTION_NAME = {
+  WAITED_SPECTRUM_ANSWER: 'Waited Spectrum answer',
+  WAITED_XYZ_ANSWER: 'Waited Xyz answer',
+  APPROVED_FOR_PAY: 'Approved for pay',
+  DENIED_FOR_PAY: 'Denied for pay',
+  ANSWERED: 'Answered',
+  CONFIRM_REJECTED: 'Confirm rejected disputes',
+  CONFIRM_APPROVED: 'Confirm approved disputes',
+  WAITING_FOR_ANSWER: 'Waiting for answer',
   APPROVED: 'Approved',
-  RE_SENT: 'Re-sent',
-  SENT: 'Sent',
-  DRAFT: 'Draft',
   REJECTED: 'Rejected',
-  IN_PROGRESS: 'In progress',
-  CONFIRM_REJECTED: 'Confirm Rejected',
-  CONFIRM_APPROVED: 'Confirm Approved',
 };
 
 export const DISPUTE_TYPES_ID = {

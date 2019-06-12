@@ -44,7 +44,7 @@ export default {
           },
           {
             label: this.$t('comission.difference'),
-            value: statistic.commissionDifference,
+            value: statistic.commission,
           },
         ],
       }));
