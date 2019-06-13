@@ -4,14 +4,14 @@
       v-if="item.disputeStatus === null"
       class="disput-button"
       :title="$t('orders.new.dispute')"
-      :disabled="isDenyNewDispute"
+      :disabled="isNewDisputeDisabled"
       @click="onNewDispute"
     />
     <table-button
       v-if="isDraftDispute"
       class="disput-button brown-button"
       :title="$t('orders.restore.draft')"
-      :disabled="isDenyUpdateDispute"
+      :disabled="isRestoreDisputeDraftDisabled"
       @click="onRestoreDraft"
     />
     <span class="approved-dispute" v-if="isDisputed">{{ $t('orders.disputed') }}</span>
@@ -48,10 +48,10 @@ export default {
     isDraftDispute() {
       return this.statusId === DISPUTE_STATUSES_ID.DRAFT;
     },
-    isDenyNewDispute() {
+    isNewDisputeDisabled() {
       return !this.scopes.includes(SCOPES.DISPUTE_CREATE);
     },
-    isDenyUpdateDispute() {
+    isRestoreDisputeDraftDisabled() {
       return !this.scopes.includes(SCOPES.DISPUTE_UPDATE);
     },
   },

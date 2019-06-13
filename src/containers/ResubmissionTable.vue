@@ -1,5 +1,5 @@
 <template>
-  <div class="resubmission-table" v-if="isShowRessubmissionTable">
+  <div class="resubmission-table" v-if="isShowResubmissionTable">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('resubmission.table.title') }}</div>
       <resubmission-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
@@ -92,7 +92,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['isShowRessubmissionTable', 'scopes']),
+    ...mapGetters(['isShowResubmissionTable', 'scopes']),
   },
 };
 </script>

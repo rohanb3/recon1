@@ -4,7 +4,7 @@
       v-if="isSentOrResentStatus"
       class="disput-button"
       :title="$t('resubmit')"
-      :disabled="isDenyResubmitOrStatusProcessing"
+      :disabled="isStatusEditableOrStatusProcessing"
       :preloader="statusProcessing"
       @click="onResubmit"
     />
@@ -19,7 +19,7 @@
 <script>
 import TableButton from '@/components/TableButton';
 import disputeStatusAutocomplete from '@/mixins/disputeStatusAutocomplete';
-import { DISPUTE_STATUSES_ID, SCOPES } from '@/constants';
+import { DISPUTE_STATUSES_ID } from '@/constants';
 
 export default {
   name: 'ResubmitClaimCell',
@@ -31,10 +31,6 @@ export default {
     },
     scopes: {
       type: Array,
-      required: true,
-    },
-    statusProcessing: {
-      type: Boolean,
       required: true,
     },
   },
@@ -50,12 +46,6 @@ export default {
     },
     isContainsInprogressStatus() {
       return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.IN_PROGRESS);
-    },
-    isDenyResubmit() {
-      return !this.scopes.includes(SCOPES.DISPUTE_PATCH);
-    },
-    isDenyResubmitOrStatusProcessing() {
-      return this.isDenyResubmit || this.statusProcessing;
     },
   },
   methods: {

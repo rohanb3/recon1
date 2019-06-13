@@ -4,7 +4,7 @@
       v-if="isInprogressStatus"
       class="disput-button"
       :title="$t('reject')"
-      :disabled="isDenyRejectOrStatusProcessing"
+      :disabled="isStatusEditableOrStatusProcessing"
       :preloader="statusProcessing"
       @click="onResubmit"
     />
@@ -19,7 +19,7 @@
 <script>
 import TableButton from '@/components/TableButton';
 import disputeStatusAutocomplete from '@/mixins/disputeStatusAutocomplete';
-import { DISPUTE_STATUSES_ID, SCOPES } from '@/constants';
+import { DISPUTE_STATUSES_ID } from '@/constants';
 
 export default {
   name: 'RejectDisputeStatusCell',
@@ -47,12 +47,6 @@ export default {
     },
     isContainsRejectedStatus() {
       return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.REJECTED);
-    },
-    isDenyReject() {
-      return !this.scopes.includes(SCOPES.DISPUTE_PATCH);
-    },
-    isDenyRejectOrStatusProcessing() {
-      return this.isDenyReject || this.statusProcessing;
     },
   },
   methods: {

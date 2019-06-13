@@ -4,7 +4,7 @@
       v-if="isInprogressStatus"
       class="disput-button button-blue"
       :title="$t('approve')"
-      :disabled="isDenyApproveOrStatusProcessing"
+      :disabled="isStatusEditableOrStatusProcessing"
       :preloader="statusProcessing"
       @click="onResubmit"
     />
@@ -19,7 +19,7 @@
 <script>
 import TableButton from '@/components/TableButton';
 import disputeStatusAutocomplete from '@/mixins/disputeStatusAutocomplete';
-import { DISPUTE_STATUSES_ID, SCOPES } from '@/constants';
+import { DISPUTE_STATUSES_ID } from '@/constants';
 
 export default {
   name: 'ApproveDisputeStatusCell',
@@ -27,14 +27,6 @@ export default {
   props: {
     item: {
       type: Object,
-      required: true,
-    },
-    scopes: {
-      type: Array,
-      required: true,
-    },
-    statusProcessing: {
-      type: Boolean,
       required: true,
     },
   },
@@ -47,12 +39,6 @@ export default {
     },
     isContainsApprovedStatus() {
       return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.CONFIRM_APPROVED);
-    },
-    isDenyApprove() {
-      return !this.scopes.includes(SCOPES.DISPUTE_PATCH);
-    },
-    isDenyApproveOrStatusProcessing() {
-      return this.isDenyApprove || this.statusProcessing;
     },
   },
   methods: {

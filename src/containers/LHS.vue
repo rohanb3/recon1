@@ -8,7 +8,7 @@
           <lhs-item class="navigation-link" :item="item"></lhs-item>
         </a>
         <router-link
-          v-if="item.visible && item.routeName"
+          v-if="item.visible !== false && item.routeName"
           :key="item.title"
           :to="{ name: item.routeName }"
         >
@@ -57,7 +57,7 @@ export default {
       'isShowOrderWithoutExpectedComission',
       'isShowDisputeDashboard',
       'isShowDispute',
-      'isShowRessubmissionTable',
+      'isShowResubmissionTable',
       'isShowOrderWithExpectedComission',
     ]),
     ...mapState({
@@ -75,7 +75,6 @@ export default {
           action: 'dashboard',
           title: this.$t('disputes.dashboard'),
           routeName: ROUTE_NAMES.DISPUTES_DASHBOARD,
-          visible: true,
         },
         {
           action: 'play_arrow',
@@ -94,13 +93,12 @@ export default {
           action: 'view_list',
           title: this.$t('resubmission.table.title'),
           routeName: ROUTE_NAMES.RESUBMISSION_TABLE,
-          visible: this.isShowRessubmissionTable,
+          visible: this.isShowResubmissionTable,
         },
         {
           action: 'face',
           title: this.$t('disputes.by.submitters'),
           routeName: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
-          visible: true,
         },
         {
           action: 'build',

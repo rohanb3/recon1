@@ -32,6 +32,8 @@ export default () => [
     title: i18n.t('disputes.order.creation.date'),
     width: '4',
     minWidth: '30px',
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.ORDER_CREATION_DATE,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'fiscalPeriod',

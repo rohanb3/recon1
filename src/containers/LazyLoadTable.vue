@@ -32,7 +32,6 @@
             :column="rowCell.column"
             :item="rowCell.item"
           />
-          <span>Do something important</span>
         </wombat-row>
       </div>
       <table-loader v-if="loading" slot="loader" />

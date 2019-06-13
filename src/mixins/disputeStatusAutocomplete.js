@@ -1,8 +1,18 @@
 import { dateYearMonthDay, dateDefaultFormat } from '@/filters/dateFormat';
-import { DISPUTE_STATUSES_ID } from '@/constants';
+import { DISPUTE_STATUSES_ID, SCOPES } from '@/constants';
 import { sortingRuleForObject } from '@/services/utils';
 
 export default {
+  props: {
+    scopes: {
+      type: Array,
+      required: true,
+    },
+    statusProcessing: {
+      type: Boolean,
+      required: true,
+    },
+  },
   filters: {
     dateYearMonthDay,
     dateDefaultFormat,
@@ -28,6 +38,12 @@ export default {
     },
     isConfirmRejectedStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.CONFIRM_REJECTED;
+    },
+    isStatusEditableBySAM() {
+      return !this.scopes.includes(SCOPES.DISPUTE_PATCH_SAM);
+    },
+    isStatusEditableOrStatusProcessing() {
+      return this.isStatusEditableBySAM || this.statusProcessing;
     },
   },
   methods: {
