@@ -55,5 +55,9 @@ export default {
       border-radius: 50%;
     }
   }
+
+  .layout:last-child {
+    height: 71px;
+  }
 }
 </style>

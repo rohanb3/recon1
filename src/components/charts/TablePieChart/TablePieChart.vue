@@ -65,9 +65,7 @@ export default {
           custom: (() => {
             const self = this;
             return function customTooltips(tooltipModel) {
-              const datasetIndex = (
-                ((tooltipModel.body || []).pop() || {}).lines || []
-              ).pop();
+              const datasetIndex = (((tooltipModel.body || []).pop() || {}).lines || []).pop();
 
               if (tooltipModel.opacity === 0) {
                 self.showTooltip = false;
@@ -89,18 +87,14 @@ export default {
       return {
         datasets: [
           {
-            backgroundColor: this.datasets.backgroundColor.concat(
-              STATISTIC_COLOR_SCHEMA.WHITE
-            ),
+            backgroundColor: this.datasets.backgroundColor.concat(STATISTIC_COLOR_SCHEMA.WHITE),
             data: this.percentBallast,
           },
         ],
       };
     },
     percentBallast() {
-      return this.datasets.data.concat(
-        Math.max(0, TOTAL_PERCENT - this.sumPercent)
-      );
+      return this.datasets.data.concat(Math.max(0, TOTAL_PERCENT - this.sumPercent));
     },
     sumPercent() {
       return this.datasets.data.reduce((acc, percent) => acc + percent);
@@ -125,8 +119,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pie-chart {
+.pie-chart /deep/ {
   width: 150px;
   height: 150px;
+
+  #pie-chart {
+    border: 1px solid #d6d6d6;
+    border-radius: 50%;
+  }
 }
 </style>

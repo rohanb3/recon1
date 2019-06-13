@@ -80,6 +80,7 @@ export default {
   border: 2px solid $table-statistic-border-color;
   border-radius: 4px;
   margin: 3px 0 17px;
+  min-height: 190px;
 }
 
 .table-wrapper {
