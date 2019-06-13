@@ -1,7 +1,12 @@
 <template>
   <div @mousemove="onCursorPosition">
     <pie-chart class="pie-chart" :chartData="chartData" :options="options"></pie-chart>
-    <tooltip v-show="showTooltip" :title="tooltipTitle" :x="cursorPositionX" :y="cursorPositionY">
+    <tooltip
+      v-show="visibleTooltip"
+      :title="tooltipTitle"
+      :x="cursorPositionX"
+      :y="cursorPositionY"
+    >
       <div class="tooltip-row" v-for="data in tooltipData" :key="data.label">
         <span>{{ data.label }}</span>
         <span class="tooltip-value">{{ data.value }}</span>
@@ -13,8 +18,9 @@
 <script>
 import PieChart from './PieChart';
 import Tooltip from '@/components/Tooltip';
+import { STATISTIC_COLOR_SCHEMA } from '@/services/statisticColorSchema';
 
-const LABEL_CHART_COLOR = '#fff';
+const TOTAL_PERCENT = 100;
 
 export default {
   name: 'TablePieChart',
@@ -39,8 +45,9 @@ export default {
         plugins: {
           labels: {
             render: 'percentage',
-            fontColor: LABEL_CHART_COLOR,
+            fontColor: STATISTIC_COLOR_SCHEMA.WHITE,
             fontSize: 14,
+            overlap: false,
           },
         },
         responsive: true,
@@ -80,17 +87,26 @@ export default {
       return {
         datasets: [
           {
-            backgroundColor: this.datasets.backgroundColor,
-            data: this.datasets.data,
+            backgroundColor: this.datasets.backgroundColor.concat(STATISTIC_COLOR_SCHEMA.WHITE),
+            data: this.percentBallast,
           },
         ],
       };
     },
+    percentBallast() {
+      return this.datasets.data.concat(Math.max(0, TOTAL_PERCENT - this.sumPercent));
+    },
+    sumPercent() {
+      return this.datasets.data.reduce((acc, percent) => acc + percent);
+    },
     tooltipTitle() {
-      return this.datasets.tooltip[this.indexSection].title;
+      return (this.datasets.tooltip[this.indexSection] || {}).title;
     },
     tooltipData() {
-      return this.datasets.tooltip[this.indexSection].data;
+      return (this.datasets.tooltip[this.indexSection] || {}).data;
+    },
+    visibleTooltip() {
+      return this.showTooltip && this.tooltipData;
     },
   },
   methods: {
@@ -103,8 +119,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pie-chart {
+.pie-chart /deep/ {
   width: 150px;
   height: 150px;
+
+  #pie-chart {
+    border: 1px solid #d6d6d6;
+    border-radius: 50%;
+  }
 }
 </style>

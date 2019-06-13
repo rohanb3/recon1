@@ -7,7 +7,7 @@
       </v-flex>
       <v-flex>{{ statistic.totalQuantity }}</v-flex>
       <v-flex>{{ statistic.percent | percents }}</v-flex>
-      <v-flex>{{ statistic.commissionDifference }}</v-flex>
+      <v-flex>{{ statistic.commission }}</v-flex>
     </v-layout>
   </div>
 </template>
@@ -54,6 +54,10 @@ export default {
       height: 10px;
       border-radius: 50%;
     }
+  }
+
+  .layout:last-child {
+    height: 71px;
   }
 }
 </style>
