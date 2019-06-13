@@ -55,6 +55,14 @@ export default {
             value: value.endDate,
           },
           {
+            name: FILTER_NAMES.FISCAL_PERIOD_FROM,
+            value: '',
+          },
+          {
+            name: FILTER_NAMES.FISCAL_PERIOD_TO,
+            value: '',
+          },
+          {
             name: FILTER_NAMES.FISCAL_PERIOD_ID,
             value: null,
           },
