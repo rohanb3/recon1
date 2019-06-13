@@ -6,7 +6,7 @@
       <installation-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
       <dispute-type-filter :tableName="tableName" />
-      <dispute-status-filter :tableName="tableName" />
+      <dispute-status-filter :tableName="tableName" send-field-name="ids" />
     </div>
     <v-spacer></v-spacer>
     <div class="table-filter-container">
