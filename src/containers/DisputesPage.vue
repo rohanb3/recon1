@@ -17,6 +17,7 @@
         :column="rowCell.column"
         :filter="rowCell.column.filter"
         :scopes="scopes"
+        :status-processing="statusProcessing"
         @confirmDisputeStatus="onConfirmDisputeStatus"
         @confirmResubmitDisputeStatus="onConfirmResubmitDisputeStatus"
         @selectId="onSelectIdDispute"

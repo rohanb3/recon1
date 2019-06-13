@@ -123,7 +123,7 @@ export default () => [
     class: 'text',
     title: i18n.t('disputes.xyz.status'),
     width: '5',
-    minWidth: '170px',
+    minWidth: '190px',
   },
   {
     name: 'disputeStatus',

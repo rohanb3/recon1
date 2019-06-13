@@ -17,6 +17,7 @@
         :column="rowCell.column"
         :filter="rowCell.column.filter"
         :scopes="scopes"
+        :status-processing="statusProcessing"
         @changeDisputeStatus="changeDisputeStatus"
         @confirmApproveDisputeStatus="onConfirmApproveDisputeStatus"
         @confirmRejectDisputeStatus="onConfirmRejectDisputeStatus"

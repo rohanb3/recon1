@@ -4,19 +4,21 @@
       <table-button
         class="disput-button button-blue"
         :title="$t('confirm')"
-        :disabled="isDenyChangeXYZStatus"
+        :disabled="isDenyChangeXYZStatusOrStatusProcessing"
+        :preloader="statusProcessing"
         @click="onConfirm"
       />
       <table-button
         class="disput-button"
         :title="$t('resubmit')"
-        :disabled="isDenyChangeXYZStatus"
+        :disabled="isDenyChangeXYZStatusOrStatusProcessing"
+        :preloader="statusProcessing"
         @click="onResubmit"
       />
     </template>
-    <span v-show="isConfirmRejectedOrConfirmApprovedStatus" class="confirmed-status">
-      {{ $t('confirmed') }}
-    </span>
+    <span v-show="isConfirmRejectedOrConfirmApprovedStatus" class="confirmed-status">{{
+      $t('confirmed')
+    }}</span>
     <span v-show="isResentStatus" class="resubmited-status">{{ $t('resubmited') }}</span>
     <span v-show="isSentOrInProgressStatus">{{ $t('pending') }}</span>
   </div>
@@ -37,6 +39,10 @@ export default {
     },
     scopes: {
       type: Array,
+      required: true,
+    },
+    statusProcessing: {
+      type: Boolean,
       required: true,
     },
   },
@@ -67,6 +73,9 @@ export default {
     },
     isDenyChangeXYZStatus() {
       return !this.scopes.includes(SCOPES.DISPUTE_PATCH);
+    },
+    isDenyChangeXYZStatusOrStatusProcessing() {
+      return this.isDenyChangeXYZStatus || this.statusProcessing;
     },
   },
   methods: {

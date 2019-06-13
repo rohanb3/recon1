@@ -4,7 +4,8 @@
       v-if="isInprogressStatus"
       class="disput-button button-blue"
       :title="$t('approve')"
-      :disabled="isDenyApprove"
+      :disabled="isDenyApproveOrStatusProcessing"
+      :preloader="statusProcessing"
       @click="onResubmit"
     />
     <span
@@ -32,6 +33,10 @@ export default {
       type: Array,
       required: true,
     },
+    statusProcessing: {
+      type: Boolean,
+      required: true,
+    },
   },
   components: {
     TableButton,
@@ -45,6 +50,9 @@ export default {
     },
     isDenyApprove() {
       return !this.scopes.includes(SCOPES.DISPUTE_PATCH);
+    },
+    isDenyApproveOrStatusProcessing() {
+      return this.isDenyApprove || this.statusProcessing;
     },
   },
   methods: {
