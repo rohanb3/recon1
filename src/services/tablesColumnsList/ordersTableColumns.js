@@ -31,6 +31,8 @@ export default () => [
     title: i18n.t('orders.creation.date'),
     width: '4',
     minWidth: '30px',
+    sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.CREATED_ON,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'serviceName',

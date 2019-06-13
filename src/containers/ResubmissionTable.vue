@@ -1,5 +1,5 @@
 <template>
-  <div class="resubmission-table">
+  <div class="resubmission-table" v-if="isShowResubmissionTable">
     <table-toolbar :title="$t('resubmission.table.title')" :table-name="tableName">
       <resubmission-table-toolbar
         :tableName="tableName"
@@ -16,6 +16,8 @@
         :item="rowCell.item"
         :column="rowCell.column"
         :filter="rowCell.column.filter"
+        :scopes="scopes"
+        :status-processing="statusProcessing"
         @changeDisputeStatus="changeDisputeStatus"
         @confirmApproveDisputeStatus="onConfirmApproveDisputeStatus"
         @confirmRejectDisputeStatus="onConfirmRejectDisputeStatus"
@@ -43,6 +45,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import ResubmissionTableToolbar from '@/containers/ResubmissionTableToolbar';
 
 import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
@@ -88,6 +92,9 @@ export default {
       this.selectedDispute = { disputeId, statusId };
       this.isShowRejectConfirmationPopup = true;
     },
+  },
+  computed: {
+    ...mapGetters(['isShowResubmissionTable', 'scopes']),
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="disputes-table">
+  <div class="disputes-table" v-if="isShowDispute">
     <table-toolbar :title="$t('disputes.title')" :table-name="tableName">
       <disputes-table-toolbar
         :tableName="tableName"
@@ -16,6 +16,8 @@
         :item="rowCell.item"
         :column="rowCell.column"
         :filter="rowCell.column.filter"
+        :scopes="scopes"
+        :status-processing="statusProcessing"
         @confirmDisputeStatus="onConfirmDisputeStatus"
         @confirmResubmitDisputeStatus="onConfirmResubmitDisputeStatus"
         @selectId="onSelectIdDispute"
@@ -42,6 +44,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 import XYZStatusCell from '@/components/tableCells/XYZStatusCell';
@@ -88,6 +92,9 @@ export default {
       this.selectedDispute = { disputeId, statusId };
       this.isShowConfirmationPopup = true;
     },
+  },
+  computed: {
+    ...mapGetters(['isShowDispute', 'isPatchDispute', 'scopes']),
   },
 };
 </script>

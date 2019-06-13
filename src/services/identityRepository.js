@@ -1,12 +1,13 @@
 import api from './identityApi';
 import { imageEncode } from '@/services/utils';
-
-const scope = 'xyzies.authorization.reviews.admin';
+import { SCOPES } from '@/constants';
 
 export const getProfileData = () => api.get(`/users/profile`).then(({ data }) => data);
 
 export const login = (email, password) =>
-  api.post('/authorize/token', { username: email, password, scope }).then(response => response);
+  api
+    .post('/authorize/token', { username: email, password, scope: SCOPES.AUTHORIZATION })
+    .then(response => response);
 
 export const refreshToken = token =>
   api.post('/authorize/refresh', { refresh_token: token }).then(response => response);

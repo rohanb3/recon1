@@ -88,6 +88,7 @@ export const TABLE_ORDER_COLUMNS_SORTED = {
   DIFFERENCE: 'difference',
   BUNDLE_NAME: 'bundleName',
   INSTALLED_UNITS: 'installedUnits',
+  CREATED_ON: 'createdOn',
 };
 
 export const TABLE_DISPUTE_COLUMNS_SORTED = {
@@ -108,6 +109,7 @@ export const TABLE_DISPUTE_COLUMNS_SORTED = {
   STATUS: 'disputeStatus',
   STATUS_DESCRIPTION: 'disputeStatusDescription',
   ORDER_NUMBER: 'ordernumber',
+  ORDER_CREATION_DATE: 'orderCreationDate',
 };
 
 export const TABLE_DISPUTES_BY_SUBMITTERS_COLUMNS_SORTED = {
@@ -156,8 +158,6 @@ export const FILTER_NAMES = {
   CREATED_TO: 'CreatedTo',
   FISCAL_PERIOD_ID: 'FiscalPeriodId',
   FISCAL_PERIOD: 'FiscalPeriod',
-  FISCAL_PERIOD_FROM: 'FiscalPeriodFrom',
-  FISCAL_PERIOD_TO: 'FiscalPeriodTo',
   DISPUTE_AGE_FROM: 'DisputeAgeFrom',
   DISPUTE_AGE_TO: 'DisputeAgeTo',
   DISPUTE_STATUS_IDS: 'DisputeStatusIds',
@@ -199,4 +199,19 @@ export const ORDER_SYNC_STATUS = {
   WORKING: 'Working',
   FINISHED: 'Finished',
   ERROR: 'Error',
+};
+
+export const SCOPES = {
+  DISPUTE_READ: 'xyzies.reconciliation.dispute.read',
+  DISPUTE_UPDATE: 'xyzies.reconciliation.dispute.update',
+  DISPUTE_CREATE: 'xyzies.reconciliation.dispute.create',
+  DISPUTE_PATCH: 'xyzies.reconciliation.dispute.patch',
+  DISPUTE_PATCH_SAM: 'xyzies.reconciliation.dispute.patch.sam',
+  DISPUTE_STATISTIC: 'xyzies.reconciliation.web.disputestatistic',
+  DISPUTE_DASHBOARD: 'xyzies.reconciliation.web.disputedashboard',
+  RESUBMISSION_TABLE_READ: 'xyzies.reconciliation.web.resubmissiontable.read',
+  ORDER_READ_WITHOUT_EXPECTED_COMISSION: 'xyzies.reconciliation.web.order.read',
+  AUTHORIZATION: 'xyzies.authorization.reconciliation.web',
+  TEAM_STATISTIC: 'xyzies.reconciliation.web.teamstatistic',
+  ORDER_READ_WITH_EXPECTED_COMISSION: 'xyzies.reconciliation.web.order.read.systemadmin',
 };

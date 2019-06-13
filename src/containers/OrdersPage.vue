@@ -1,14 +1,14 @@
 <template>
-  <div class="orders-table">
+  <div class="orders-table" v-if="isShowOrder">
     <table-toolbar :title="$t('orders.select.order')" :table-name="tableName">
       <orders-table-toolbar
-        :tableName="tableName"
+        :table-name="tableName"
         @exportToCsvFile="onExportToCsvFile"
         @syncOrders="onSyncOrders"
         slot="filters"
       />
     </table-toolbar>
-    <lazy-load-table :tableName="tableName" :item-key-name="columnIdName">
+    <lazy-load-table :tableName="tableName" :item-key-name="columnIdName" :columns="columns">
       <component
         slot="row-cell"
         slot-scope="rowCell"
@@ -16,12 +16,15 @@
         :is="rowComponentsHash[rowCell.column.fieldType] || rowComponentsHash.default"
         :item="rowCell.item"
         :column="rowCell.column"
+        :scopes="scopes"
       />
     </lazy-load-table>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import LazyLoadTable from '@/containers/LazyLoadTable';
 import DefaultCell from '@/components/tableCells/DefaultCell';
 import OrderStatusCell from '@/components/tableCells/OrderStatusCell';
@@ -73,8 +76,22 @@ export default {
     };
   },
   computed: {
+    ...mapGetters([
+      'isShowOrderWithoutExpectedComission',
+      'isShowOrderWithExpectedComission',
+      'tableData',
+      'scopes',
+    ]),
+    isShowOrder() {
+      return this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission;
+    },
     columnIdName() {
       return TABLE_COLUMN_ID_NAMES[this.tableName];
+    },
+    columns() {
+      return this.tableData(this.tableName).columns.filter(
+        column => column.name !== 'expectedCommission' || this.isShowOrderWithExpectedComission
+      );
     },
   },
   methods: {

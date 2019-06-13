@@ -1,8 +1,12 @@
 <template>
-  <div class="dispute-status-description-cell" :title="disputeComment">{{ disputeComment }}</div>
+  <div class="dispute-status-description-cell" :title="disputeComment">
+    {{ disputeComment | dashForEmptyValue }}
+  </div>
 </template>
 
 <script>
+import dashForEmptyValue from '@/filters/dashForEmptyValue';
+
 export default {
   name: 'DisputeStatusDescriptionCell',
   props: {
@@ -10,9 +14,12 @@ export default {
       type: Object,
     },
   },
+  filters: {
+    dashForEmptyValue,
+  },
   computed: {
     disputeComment() {
-      return this.item.disputeStatusDescription || this.item.submitterComment;
+      return this.item.submitterComment || this.item.disputeStatusDescription;
     },
   },
 };

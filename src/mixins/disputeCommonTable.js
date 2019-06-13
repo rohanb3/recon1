@@ -64,6 +64,7 @@ export default {
       },
       disputeHistoryShown: false,
       selectedDispute: {},
+      statusProcessing: false,
     };
   },
   computed: {
@@ -76,6 +77,7 @@ export default {
   },
   methods: {
     async onChangeDisputeStatus({ disputeId, statusId, comments }) {
+      this.statusProcessing = true;
       const userName = this.displayName;
       const status = statusId;
       try {
@@ -88,6 +90,8 @@ export default {
         });
       } catch {
         errorMessage();
+      } finally {
+        this.statusProcessing = false;
       }
     },
     async onExportToCsvFile() {
