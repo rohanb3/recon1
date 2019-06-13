@@ -3,7 +3,6 @@
     <quick-search-disputes-filter :tableName="tableName" />
     <div class="table-filter-container">
       <order-age-filter :table-name="tableName" />
-      <installation-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
       <dispute-type-filter :tableName="tableName" />
       <dispute-status-filter :tableName="tableName" send-field-name="ids" />
@@ -23,7 +22,6 @@ import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
 import OrderAgeFilter from '@/containers/OrderAgeFilter';
 import DisputAgeFilter from '@/containers/DisputAgeFilter';
-import InstallationAgeFilter from '@/containers/InstallationAgeFilter';
 import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
 import TableButton from '@/components/TableButton';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
@@ -37,7 +35,6 @@ export default {
     FiscalPeriodFilter,
     CustomRangeFilter,
     OrderAgeFilter,
-    InstallationAgeFilter,
     DisputAgeFilter,
     DisputeStatusFilter,
   },
