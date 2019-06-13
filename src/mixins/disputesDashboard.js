@@ -15,10 +15,13 @@ export default {
     parseStatistics(statistics) {
       const {
         sectionName,
-        data: { total: totalQuantity, rows: { Percent, Commission } = {} } = {},
+        data: {
+          total: totalQuantity,
+          rows: { Percent: percent, Commission: commission } = {},
+        } = {},
       } = statistics;
 
-      return { sectionName, totalQuantity, Percent, Commission };
+      return { sectionName, totalQuantity, percent, commission };
     },
   },
 };

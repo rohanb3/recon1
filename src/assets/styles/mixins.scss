@@ -59,7 +59,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  
+
   .filter-wrapper {
     &:first-child .table-filter {
       border-radius: 3px 0 0 3px;
@@ -79,4 +79,8 @@
   font-size: 14px;
   font-weight: bold;
   color: $base-text-color;
+}
+
+@mixin table__header {
+  height: 90px;
 }

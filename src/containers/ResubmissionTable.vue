@@ -1,12 +1,12 @@
 <template>
   <div class="resubmission-table" v-if="isShowResubmissionTable">
-    <div class="table-toolbar">
-      <div class="table-title">{{ $t('resubmission.table.title') }}</div>
-      <resubmission-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
-    </div>
-    <div class="selected-date-range" v-show="isSelectedDateRange">
-      {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
-    </div>
+    <table-toolbar :title="$t('resubmission.table.title')" :table-name="tableName">
+      <resubmission-table-toolbar
+        :tableName="tableName"
+        @exportToCsvFile="onExportToCsvFile"
+        slot="filters"
+      />
+    </table-toolbar>
     <lazy-load-table :tableName="tableName">
       <component
         slot="row-cell"
@@ -55,10 +55,12 @@ import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmR
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 
 import { ENTITY_TYPES } from '@/constants';
+import TableToolbar from '@/components/TableToolbar';
 
 export default {
   name: 'ResubmissionTable',
   components: {
+    TableToolbar,
     ConfirmApproveDisputePopup,
     ConfirmRejectDisputePopup,
     ResubmissionTableToolbar,
@@ -108,12 +110,18 @@ export default {
 .table-title {
   @include table-base-title;
 }
+
+.resubmission-table__header {
+  @include table__header;
+}
+
 .resubmission-table /deep/ {
   height: 100%;
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
+        #{$table-header-height-offset}
     );
   }
 }
