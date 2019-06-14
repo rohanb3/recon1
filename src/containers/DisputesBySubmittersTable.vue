@@ -1,5 +1,5 @@
 <template>
-  <div class="disputes-table disputes_by_submitters-table">
+  <div class="disputes-table disputes_by_submitters-table" v-if="false">
     <div class="table-toolbar">
       <div class="table-title">{{ $t('disputes.statistics.by.submitters') }}</div>
       <disputes-by-submitters-table-toolbar

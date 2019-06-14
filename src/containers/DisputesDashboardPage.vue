@@ -1,5 +1,5 @@
 <template>
-  <div class="disputes_dashboard-table">
+  <div class="disputes_dashboard-table" v-if="false">
     <Disputes-Dashboard-Toolbar :tableName="tableName" />
     <VuePerfectScrollbar class="statistic-list">
       <total-disputes-statistic :statistics="tableRows" />
