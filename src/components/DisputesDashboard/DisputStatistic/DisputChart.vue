@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import TablePieChart from '@/components/charts/TablePieChart/TablePieChart';
+import TablePieChart from '@/components/charts/PieChart/TablePieChart';
 
 export default {
   name: 'DisputChart',
