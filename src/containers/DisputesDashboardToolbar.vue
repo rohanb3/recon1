@@ -1,6 +1,8 @@
 <template>
   <v-container fluid grid-list-md class="disputes-dashboard-toolbar">
-    <div class="table-title">{{ $t('disputes.dashboard') }}</div>
+    <div class="table-filter-container">
+      <order-age-filter :table-name="tableName" />
+    </div>
     <v-spacer />
     <div class="table-filter-container">
       <fiscal-period-filter :tableName="tableName" />
@@ -12,10 +14,11 @@
 <script>
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
+import OrderAgeFilter from '@/containers/OrderAgeFilter';
 
 export default {
   name: 'DisputesDashboardToolbar',
-  components: { FiscalPeriodFilter, CustomRangeFilter },
+  components: { OrderAgeFilter, FiscalPeriodFilter, CustomRangeFilter },
   props: {
     tableName: {
       type: String,
@@ -29,7 +32,7 @@ export default {
 @import '@/assets/styles/mixins.scss';
 
 .disputes-dashboard-toolbar {
-  @include table-base-container;
+  //@include table-base-container;
 
   align-items: center;
   display: flex;
@@ -43,6 +46,11 @@ export default {
 
   .table-filter-container {
     display: flex;
+    padding-left: 10px;
   }
+}
+
+.table-filter-container /deep/ {
+  @include table-filter-container;
 }
 </style>
