@@ -32,8 +32,6 @@ export default {
 @import '@/assets/styles/mixins.scss';
 
 .disputes-dashboard-toolbar {
-  //@include table-base-container;
-
   align-items: center;
   display: flex;
   flex: 1;

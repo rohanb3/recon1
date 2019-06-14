@@ -19,7 +19,7 @@ import TotalXyzDisputeStatistic from '@/components/DisputesDashboard/TotalXyzDis
 import DisputesDashboardToolbar from '@/containers/DisputesDashboardToolbar';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 import { ENTITY_TYPES } from '@/constants';
-import TableToolbar from '../components/TableToolbar';
+import TableToolbar from '@/components/TableToolbar';
 
 export default {
   name: 'DisputesDashboardPage',
