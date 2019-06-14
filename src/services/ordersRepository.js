@@ -26,7 +26,9 @@ export const checkOrderSync = taskId => {
 
 export const getOrdersCsvFile = filters => {
   const params = { ...filters };
-  return apiDisputes.get('/order/csv', { params, paramsSerializer }).then(({ data }) => data);
+  return apiDisputes
+    .get('/order/orders/disputing/csv', { params, paramsSerializer })
+    .then(({ data }) => data);
 };
 
 export const getFiscalPeriods = () => {

@@ -19,7 +19,7 @@
             </v-flex>
             <v-flex>
               <div class="table-header-label">{{ $t('total.comission.difference') }}</div>
-              <p>{{ totalStatistics.Commission }}</p>
+              <p>{{ totalStatistics.commission }}</p>
             </v-flex>
           </v-layout>
         </div>
@@ -80,6 +80,7 @@ export default {
   border: 2px solid $table-statistic-border-color;
   border-radius: 4px;
   margin: 3px 0 17px;
+  min-height: 190px;
 }
 
 .table-wrapper {

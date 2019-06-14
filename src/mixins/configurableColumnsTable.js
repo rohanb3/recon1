@@ -1,14 +1,9 @@
 import { SET_COLUMNS, RESET_COLUMNS, SHOW_COLUMN, HIDE_COLUMN } from '@/store/tables/mutationTypes';
 
 export default {
-  computed: {
-    columns() {
-      return this.$store.state.tables[this.tableName].columns;
-    },
-  },
   methods: {
     onColumnsResized(data) {
-      const updatedColumns = this.columns.map(column => {
+      const updatedColumns = this.tableColumns.map(column => {
         const updated = { ...column };
         if (data[column.name]) {
           updated.width = data[column.name];

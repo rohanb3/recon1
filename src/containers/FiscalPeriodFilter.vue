@@ -91,8 +91,8 @@ export default {
             value: fiscalPeriod.name,
           },
           {
-            name: FILTER_NAMES.FISCAL_PERIOD_TO,
-            value: fiscalPeriod.name,
+            name: FILTER_NAMES.FISCAL_PERIOD_ID,
+            value: fiscalPeriodId,
           },
         ],
       };

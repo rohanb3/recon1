@@ -1,15 +1,14 @@
 <template>
-  <div class="orders-table">
-    <div class="table-toolbar">
-      <div class="table-title">{{ $t('orders.select.order') }}</div>
+  <div class="orders-table" v-if="isShowOrder">
+    <table-toolbar :title="$t('orders.select.order')" :table-name="tableName">
       <orders-table-toolbar
-        :tableName="tableName"
+        :table-name="tableName"
         @exportToCsvFile="onExportToCsvFile"
         @syncOrders="onSyncOrders"
+        slot="filters"
       />
-    </div>
-    <selected-range-filter :tableName="tableName" />
-    <lazy-load-table :tableName="tableName" :item-key-name="columnIdName">
+    </table-toolbar>
+    <lazy-load-table :tableName="tableName" :item-key-name="columnIdName" :columns="columns">
       <component
         slot="row-cell"
         slot-scope="rowCell"
@@ -17,12 +16,15 @@
         :is="rowComponentsHash[rowCell.column.fieldType] || rowComponentsHash.default"
         :item="rowCell.item"
         :column="rowCell.column"
+        :scopes="scopes"
       />
     </lazy-load-table>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import LazyLoadTable from '@/containers/LazyLoadTable';
 import DefaultCell from '@/components/tableCells/DefaultCell';
 import OrderStatusCell from '@/components/tableCells/OrderStatusCell';
@@ -42,10 +44,12 @@ import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
 
 import { successMessage } from '@/services/notifications';
 import SelectedRangeFilter from '../components/SelectedRangeFilter';
+import TableToolbar from '@/components/TableToolbar';
 
 export default {
   name: 'OrdersPage',
   components: {
+    TableToolbar,
     SelectedRangeFilter,
     LazyLoadTable,
     DefaultCell,
@@ -72,8 +76,22 @@ export default {
     };
   },
   computed: {
+    ...mapGetters([
+      'isShowOrderWithoutExpectedComission',
+      'isShowOrderWithExpectedComission',
+      'tableData',
+      'scopes',
+    ]),
+    isShowOrder() {
+      return this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission;
+    },
     columnIdName() {
       return TABLE_COLUMN_ID_NAMES[this.tableName];
+    },
+    columns() {
+      return this.tableData(this.tableName).columns.filter(
+        column => column.name !== 'expectedCommission' || this.isShowOrderWithExpectedComission
+      );
     },
   },
   methods: {
@@ -97,14 +115,6 @@ export default {
   @include table-base-container;
 }
 
-.table-toolbar {
-  @include table-base-toolbar;
-}
-
-.table-title {
-  @include table-base-title;
-}
-
 .orders-table {
   @extend %blurred-this;
 }
@@ -114,7 +124,8 @@ export default {
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
+        #{$table-header-height-offset}
     );
   }
 }

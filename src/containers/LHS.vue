@@ -7,7 +7,11 @@
         <a v-if="item.url" :href="item.url" :key="item.title">
           <lhs-item class="navigation-link" :item="item"></lhs-item>
         </a>
-        <router-link v-if="item.routeName" :key="item.title" :to="{ name: item.routeName }">
+        <router-link
+          v-if="item.visible !== false && item.routeName"
+          :key="item.title"
+          :to="{ name: item.routeName }"
+        >
           <lhs-item class="navigation-link" :item="item"></lhs-item>
         </router-link>
       </template>
@@ -31,10 +35,11 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+
 import LhsItemHeader from '@/components/LHS/LHSItemHeader';
 import LhsItem from '@/components/LHS/LHSItem';
 import { ROUTE_NAMES } from '@/constants';
-import { mapState } from 'vuex';
 
 export default {
   name: 'lhs',
@@ -45,31 +50,16 @@ export default {
   data() {
     return {
       activeIndex: 0,
-      items: [
-        {
-          action: 'play_arrow',
-          title: this.$t('orders'),
-          routeName: ROUTE_NAMES.SELECT_ORDER,
-        },
-        {
-          action: 'list_alt',
-          title: this.$t('disputes'),
-          routeName: ROUTE_NAMES.DISPUTE_LIST,
-        },
-        {
-          action: 'view_list',
-          title: this.$t('resubmission.table.title'),
-          routeName: ROUTE_NAMES.RESUBMISSION_TABLE,
-        },
-        {
-          action: 'build',
-          title: 'System',
-          items: [],
-        },
-      ],
     };
   },
   computed: {
+    ...mapGetters([
+      'isShowOrderWithoutExpectedComission',
+      'isShowDisputeDashboard',
+      'isShowDispute',
+      'isShowResubmissionTable',
+      'isShowOrderWithExpectedComission',
+    ]),
     ...mapState({
       isTinySidebar: state => state.uiState.tinySidebarStatus,
     }),
@@ -78,6 +68,46 @@ export default {
     },
     groupOfItems() {
       return this.items.filter(item => item.items && item.items.length);
+    },
+    items() {
+      return [
+        {
+          action: 'dashboard',
+          title: this.$t('disputes.dashboard'),
+          routeName: ROUTE_NAMES.DISPUTES_DASHBOARD,
+          visible: false,
+        },
+        {
+          action: 'play_arrow',
+          title: this.$t('orders'),
+          routeName: ROUTE_NAMES.SELECT_ORDER,
+          visible:
+            this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission,
+        },
+        {
+          action: 'list_alt',
+          title: this.$t('disputes'),
+          routeName: ROUTE_NAMES.DISPUTE_LIST,
+          visible: this.isShowDispute,
+        },
+        {
+          action: 'view_list',
+          title: this.$t('resubmission.table.title'),
+          routeName: ROUTE_NAMES.RESUBMISSION_TABLE,
+          visible: this.isShowResubmissionTable,
+        },
+        {
+          action: 'face',
+          title: this.$t('disputes.by.submitters'),
+          routeName: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
+          visible: false,
+        },
+        {
+          action: 'build',
+          title: 'System',
+          items: [],
+        },
+      ];
     },
   },
 };

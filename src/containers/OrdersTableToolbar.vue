@@ -9,6 +9,7 @@
     <div class="table-filter-container">
       <table-button
         :disabled="isOrdersSyncing"
+        :preloader="isOrdersSyncing"
         :title="$t('sync.orders')"
         @click="$emit('syncOrders')"
       />

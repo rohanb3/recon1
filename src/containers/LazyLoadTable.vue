@@ -1,8 +1,8 @@
 <template>
   <div>
     <wombat-table
-      :items="rows"
-      :columns="columns"
+      :items="tableRows"
+      :columns="tableColumns"
       :infinite-loading="!allItemsLoaded"
       :item-key-name="itemKeyName"
       :loading-items="loading"
@@ -23,12 +23,7 @@
         :sortDirection="sortDirection"
         @sortDirectionChanged="onSortDirectionChanged"
       />
-      <div
-        v-if="rows && rows.length"
-        slot="row"
-        slot-scope="row"
-        :class="{ blurred: applyingFilters }"
-      >
+      <div slot="row" slot-scope="row" :class="{ blurred: applyingFilters }">
         <wombat-row :item="row.item" :columns="row.columns" :height="row.item.height">
           <slot
             name="row-cell"
@@ -86,6 +81,14 @@ export default {
       type: Boolean,
       default: true,
     },
+    rows: {
+      type: Array,
+      default: () => [],
+    },
+    columns: {
+      type: Array,
+      default: () => [],
+    },
   },
   data() {
     return {
@@ -94,11 +97,6 @@ export default {
         sortingHeader: 'SortingHeaderCell',
       },
     };
-  },
-  computed: {
-    tableNameLowerCase() {
-      return this.tableName.toLowerCase();
-    },
   },
 };
 </script>
