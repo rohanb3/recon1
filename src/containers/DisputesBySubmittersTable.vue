@@ -1,14 +1,13 @@
 <template>
   <div class="disputes-table disputes_by_submitters-table">
     <div class="table-toolbar">
-      <div class="table-title">{{ $t('disputes.statistics.by.submitters') }}</div>
-      <disputes-by-submitters-table-toolbar
-        :tableName="tableName"
-        @exportToCsvFile="onExportToCsvFile"
-      />
-    </div>
-    <div class="selected-date-range" v-show="isSelectedDateRange">
-      {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
+      <table-toolbar :table-name="tableName" :title="$t('disputes.statistics.by.submitters')">
+        <disputes-by-submitters-table-toolbar
+          :tableName="tableName"
+          @exportToCsvFile="onExportToCsvFile"
+          slot="filters"
+        />
+      </table-toolbar>
     </div>
     <disputes-by-submitters-badges />
     <lazy-load-table :tableName="tableName">
@@ -45,10 +44,12 @@ import { ENTITY_TYPES } from '@/constants';
 import { generateCSVFile } from '@/services/utils';
 
 import dateRange from '@/filters/boundaries';
+import TableToolbar from '../components/TableToolbar';
 
 export default {
   name: 'DisputesBySubmittersTable',
   components: {
+    TableToolbar,
     DisputesBySubmittersTableToolbar,
     DisputesBySubmittersBadges,
     WombatTable,
@@ -99,6 +100,10 @@ export default {
     max-height: calc(
       100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
     );
+  }
+
+  .table__header {
+    width: 100%;
   }
 }
 .selected-date-range {
