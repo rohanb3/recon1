@@ -33,7 +33,7 @@ describe('identityRepository', () => {
     it('should call api.post and return correct data', async () => {
       const username = 'user@example.com';
       const password = 'password';
-      const scope = 'xyzies.authorization.reviews.admin';
+      const scope = 'xyzies.authorization.reconciliation.web';
       const data = {
         username,
         password,
