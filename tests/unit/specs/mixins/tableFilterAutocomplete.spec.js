@@ -1,7 +1,9 @@
+import * as sinon from 'sinon';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
 
-// import { APPLY_FILTERS } from '@/store/tables/actionTypes';
-// import { extractPropertiesFromArrObj } from '@/services/utils';
+const _ = require('lodash.debounce');
+
+jest.useFakeTimers();
 
 describe('tableFilterAutocomplete mixin', () => {
   describe('tableFilterAutocomplete computed', () => {
@@ -138,6 +140,198 @@ describe('tableFilterAutocomplete mixin', () => {
         tableFilterAutocomplete.methods.selectOneItem.call(mockedThis, [0, 'status']);
 
         expect(mockedThis.$set).toHaveBeenCalled();
+      });
+    });
+    describe('selectAllItem', () => {
+      it('should call $set and applyFilters', () => {
+        const filterName = 'filter';
+        const mockedThis = {
+          $set: jest.fn(),
+          applyFilter: jest.fn(),
+          filterName,
+          [filterName]: [
+            {
+              value: 'value',
+            },
+          ],
+        };
+
+        const itemKeyName = 'value';
+        const items = [
+          {
+            value: 'value',
+          },
+        ];
+
+        tableFilterAutocomplete.methods.selectAllItem.call(
+          mockedThis,
+          itemKeyName,
+          items,
+          'status'
+        );
+
+        expect(mockedThis.$set).toHaveBeenCalled();
+        expect(mockedThis.applyFilter).toHaveBeenCalled();
+      });
+    });
+    describe('onSelectAllItemDisplayed', () => {
+      it('should call selectAllItem with right params', () => {
+        const mockedThis = {
+          selectAllItem: jest.fn(),
+        };
+        const itemKeyName = 'value';
+        const items = [
+          {
+            value: 'value',
+          },
+        ];
+        const status = true;
+
+        tableFilterAutocomplete.methods.onSelectAllItemDisplayed.call(mockedThis, {
+          itemKeyName,
+          items,
+        });
+
+        expect(mockedThis.selectAllItem).toHaveBeenCalledWith(itemKeyName, items, status);
+      });
+    });
+    describe('onClearAllItemDisplayed', () => {
+      it('should call selectAllItem with right params', () => {
+        const mockedThis = {
+          selectAllItem: jest.fn(),
+        };
+        const itemKeyName = 'value';
+        const items = [
+          {
+            value: 'value',
+          },
+        ];
+        const status = false;
+
+        tableFilterAutocomplete.methods.onClearAllItemDisplayed.call(mockedThis, {
+          itemKeyName,
+          items,
+        });
+
+        expect(mockedThis.selectAllItem).toHaveBeenCalledWith(itemKeyName, items, status);
+      });
+    });
+    describe('applyFilter', () => {
+      let clock;
+
+      beforeEach(() => {
+        clock = sinon.useFakeTimers();
+      });
+
+      afterEach(() => {
+        clock.restore();
+      });
+
+      it('should call callback after 1 seconds', () => {
+        const TIMEOUT_APPLY_FILTER = 1000;
+
+        const func = jest.fn();
+        const debouncedFunc = _(func, TIMEOUT_APPLY_FILTER);
+
+        debouncedFunc();
+        expect(func).toHaveBeenCalledTimes(0);
+
+        clock.tick(1000);
+        expect(func).toHaveBeenCalledTimes(1);
+      });
+    });
+    describe('displayPreselectItems', () => {
+      it('should call toggleItem method', () => {
+        const mockedThis = {
+          preselectedItems: [
+            {
+              id: 1,
+            },
+          ],
+          toggleItem: jest.fn(),
+        };
+
+        tableFilterAutocomplete.methods.displayPreselectItems.call(mockedThis, {
+          itemKeyName: 'id',
+        });
+
+        expect(mockedThis.toggleItem).toHaveBeenCalled();
+      });
+    });
+    describe('onNotFoundItem', () => {
+      it('should call getItemList with right params', () => {
+        const mockedThis = {
+          loading: false,
+          $set: jest.fn(),
+        };
+        const getItemList = jest.fn(() => Promise.resolve());
+        const itemKey = 'itemKey';
+        const searchField = 'searchField';
+
+        tableFilterAutocomplete.methods.onNotFoundItem.call(mockedThis, {
+          itemKey,
+          searchField,
+          getItemList,
+        });
+
+        expect(getItemList).toHaveBeenCalledWith(searchField);
+      });
+    });
+    describe('loadingPreselectedItems', () => {
+      it('should call getItemById', async () => {
+        const displayedFieldName = 'displayedFieldName';
+        const itemKeyName = 'id';
+        const data = { data: { displayedFieldName, itemKeyName } };
+        const filterName = 'filter';
+        const getItemById = await jest.fn(() => data);
+
+        const mockedThis = {
+          filterName,
+          preselectedItems: [1],
+          [filterName]: [
+            {
+              id: 2,
+            },
+          ],
+          toggleItem: jest.fn(),
+        };
+
+        await tableFilterAutocomplete.methods.loadingPreselectedItems.call(mockedThis, {
+          itemKeyName,
+          displayedFieldName,
+          getItemById,
+        });
+
+        expect(getItemById).toHaveBeenCalled();
+        expect(mockedThis.toggleItem).not.toHaveBeenCalled();
+      });
+
+      it('should call toggleItem', async () => {
+        const displayedFieldName = 'displayedFieldName';
+        const itemKeyName = 'id';
+        const data = { data: { displayedFieldName, itemKeyName } };
+        const filterName = 'filter';
+        const getItemById = await jest.fn(() => data);
+
+        const mockedThis = {
+          filterName,
+          preselectedItems: [1],
+          [filterName]: [
+            {
+              id: 1,
+            },
+          ],
+          toggleItem: jest.fn(),
+        };
+
+        await tableFilterAutocomplete.methods.loadingPreselectedItems.call(mockedThis, {
+          itemKeyName,
+          displayedFieldName,
+          getItemById,
+        });
+
+        expect(getItemById).not.toHaveBeenCalled();
+        expect(mockedThis.toggleItem).toHaveBeenCalled();
       });
     });
   });
