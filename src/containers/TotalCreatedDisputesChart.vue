@@ -4,11 +4,12 @@
       <v-flex>
         <p class="table-name">{{ $t('disputes.dashboard.total.created.disputes') }}</p>
       </v-flex>
-      <total-created-disputes-toolbar :filters="filters" @select="onSelect" />
+      <total-created-disputes-toolbar :filters="filters" @select="onSelect"/>
     </v-layout>
     <lazy-load-for-chart
       :dataSets="dailyStatistics"
       v-slot:default="{ pieceOfData }"
+      :loading="loadingStatus"
       @loadData="onLoadDate"
     >
       <bar-chart
@@ -18,6 +19,14 @@
         :yAxisLabel="yAxisLabel"
         :labelTooltip="labelTooltip"
       />
+      <v-progress-circular
+        v-if="loadingStatus"
+        class="big-spinner"
+        :size="70"
+        :width="7"
+        color="blue"
+        indeterminate
+      ></v-progress-circular>
     </lazy-load-for-chart>
   </v-container>
 </template>
@@ -30,6 +39,7 @@ import TotalCreatedDisputesToolbar from '@/components/DisputesDashboard/TotalCre
 import { getDailyStatistics } from '@/services/statisticsRepository';
 import { errorMessage } from '@/services/notifications';
 import { DATE_FORMATS } from '@/constants';
+import { dateRange } from '@/services/dateHelper';
 
 export default {
   name: 'TotalCreatedDisputesChart',
@@ -85,9 +95,11 @@ export default {
           countCreated: this.filters.countCreated,
         });
         if (resetPrevious) {
-          this.dailyStatistics = data.map(this.addMonthName);
+          this.dailyStatistics = this.mergeDates(data);
         } else {
-          this.dailyStatistics = data.map(this.addMonthName).concat(this.dailyStatistics);
+          this.dailyStatistics = this.mergeDates(data).concat(
+            this.dailyStatistics
+          );
         }
       } catch {
         errorMessage();
@@ -96,22 +108,42 @@ export default {
       }
     },
     async onLoadDate() {
-      this.filters.createdTo = this.filters.createdFrom;
+      this.filters.createdTo = moment
+        .utc(this.filters.createdFrom)
+        .subtract(1, 'days')
+        .format();
       this.filters.createdFrom = moment
         .utc(this.filters.createdFrom)
         .subtract(1, 'month')
         .format();
       await this.loadDailyStatistics(false);
     },
-    addMonthName(data, index) {
-      return {
-        ...data,
-        xValue: moment
-          .utc(this.filters.createdFrom)
-          .add(index - 1, 'days')
-          .local()
-          .format(DATE_FORMATS.FULL_MONTH_DAY),
-      };
+    genDays() {
+      this.filters.createdFrom;
+      this.filters.createdTo;
+    },
+    mergeDates(data) {
+      const dayList = dateRange(
+        this.filters.createdFrom,
+        this.filters.createdTo
+      ).map(date => {
+        const [dayNumber] = date.split(' ');
+        return { xValue: date, dayNumber: Number(dayNumber) };
+      });
+
+      data
+        .filter(({ yValue }) => yValue)
+        .forEach(({ xValue, ...dailyStatistics }) => {
+          const dayListIndex = dayList.findIndex(
+            day => day.dayNumber === xValue
+          );
+          dayList[dayListIndex] = {
+            ...dayList[dayListIndex],
+            ...dailyStatistics,
+          };
+        });
+
+      return dayList;
     },
     onSelect(filters) {
       this.filters = filters;
@@ -128,6 +160,7 @@ export default {
 
 .dispute-bar-chart {
   @include table-base-container;
+  position: relative;
 
   background-color: $base-white;
   margin-bottom: 8px;
@@ -142,6 +175,10 @@ export default {
 
   .bar-chart {
     height: 230px;
+  }
+
+  .big-spinner {
+    top: 40%;
   }
 }
 </style>

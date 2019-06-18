@@ -1,6 +1,6 @@
 <template>
   <div @wheel="onWheel">
-    <slot :pieceOfData="pieceOfData" />
+    <slot :pieceOfData="pieceOfData"/>
   </div>
 </template>
 
@@ -32,6 +32,10 @@ export default {
       type: Number,
       default: LOAD_DATA_TIMEOUT,
     },
+    loading: {
+      type: Boolean,
+      required: true,
+    },
   },
   data() {
     return {
@@ -40,7 +44,11 @@ export default {
   },
   computed: {
     pieceOfData() {
-      return slidingWindow(this.dataSets, this.offset, this.numberDisplayedItems);
+      return slidingWindow(
+        this.dataSets,
+        this.offset,
+        this.numberDisplayedItems
+      );
     },
     maxWindowOffset() {
       return this.dataSets.length - this.numberDisplayedItems;
@@ -48,14 +56,14 @@ export default {
   },
   methods: {
     onWheel(e) {
+      e.preventDefault();
+
       if (this.isSlidingWindowHasReachedRightEdge(e.deltaY)) return false;
 
-      if (this.isSlidingWindowHasReachedLeftEdge(e.deltaY)) {
+      if (this.isSlidingWindowHasReachedLeftEdge(e.deltaY) && !this.loading) {
         this.debounceLoadDate();
         return false;
       }
-
-      e.preventDefault();
 
       if (this.isScrollingRight(e.deltaY)) {
         this.offset += 1;
@@ -68,7 +76,9 @@ export default {
       return this.offset === MIN_OFFSET && !this.isScrollingRight(value);
     },
     isSlidingWindowHasReachedRightEdge(value) {
-      return this.offset === this.maxWindowOffset && this.isScrollingRight(value);
+      return (
+        this.offset === this.maxWindowOffset && this.isScrollingRight(value)
+      );
     },
     isScrollingRight(value) {
       return value > 0;
@@ -82,7 +92,9 @@ export default {
       if (this.offset === UNKNOWN_OFFSET) this.offset = this.maxWindowOffset;
     },
     maxWindowOffset(newOffset, oldOffset) {
-      this.offset = Math.max(newOffset, oldOffset - newOffset);
+      console.log(newOffset > oldOffset, newOffset, oldOffset);
+      
+      if (newOffset > oldOffset) this.offset = newOffset - oldOffset;
     },
   },
 };
