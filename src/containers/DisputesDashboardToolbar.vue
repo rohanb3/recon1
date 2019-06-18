@@ -2,6 +2,7 @@
   <v-container fluid grid-list-md class="disputes-dashboard-toolbar">
     <div class="table-filter-container">
       <order-age-filter :table-name="tableName" />
+      <disput-age-filter :table-name="tableName" />
     </div>
     <v-spacer />
     <div class="table-filter-container">
@@ -15,10 +16,11 @@
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import OrderAgeFilter from '@/containers/OrderAgeFilter';
+import DisputAgeFilter from '@/containers/DisputAgeFilter';
 
 export default {
   name: 'DisputesDashboardToolbar',
-  components: { OrderAgeFilter, FiscalPeriodFilter, CustomRangeFilter },
+  components: { DisputAgeFilter, OrderAgeFilter, FiscalPeriodFilter, CustomRangeFilter },
   props: {
     tableName: {
       type: String,
