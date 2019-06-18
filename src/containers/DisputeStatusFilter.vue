@@ -34,6 +34,10 @@ export default {
       [FILTER_NAMES.DISPUTE_STATUS_IDS]: [
         {
           id: DISPUTE_STATUSES_ID.APPROVED,
+          [this.sendFieldName]: [
+            DISPUTE_STATUSES_ID.APPROVED,
+            DISPUTE_STATUSES_ID.CONFIRM_APPROVED,
+          ],
           name: this.$t('approved'),
         },
         {
@@ -55,10 +59,6 @@ export default {
         {
           id: DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
           name: this.$t('confirm.rejected'),
-        },
-        {
-          id: DISPUTE_STATUSES_ID.CONFIRM_APPROVED,
-          name: this.$t('confirm.approved'),
         },
       ],
     };

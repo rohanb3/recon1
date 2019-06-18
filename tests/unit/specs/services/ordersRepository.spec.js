@@ -27,7 +27,7 @@ describe('ordersRepository', () => {
       const response = await getOrders(filters);
 
       expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith('/order', {
+      expect(disputesApi.get).toHaveBeenCalledWith('/order/orders/disputing', {
         params: { ...filters },
         paramsSerializer,
       });
@@ -106,7 +106,10 @@ describe('ordersRepository', () => {
       const response = await getOrdersCsvFile(filters);
 
       expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith('/order/csv', expect.any(Object));
+      expect(disputesApi.get).toHaveBeenCalledWith(
+        '/order/orders/disputing/csv',
+        expect.any(Object)
+      );
     });
   });
 });

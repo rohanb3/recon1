@@ -1,5 +1,8 @@
 export default {
-  getItemById: state => (itemId, tableName, getItemId) => {
-    return state[tableName].items.find(item => getItemId(item) === itemId);
+  getItemById: state => (itemId, entityName, getItemId) => {
+    return state[entityName].items.find(item => getItemId(item) === itemId);
+  },
+  storageData: state => entityName => {
+    return state[entityName] || {};
   },
 };

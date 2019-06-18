@@ -20,15 +20,17 @@ export const DISPUTE_STATUSES_ID = {
   CONFIRM_APPROVED: '2a4b15f3-9ed3-4bc7-9788-fedbd3404f14',
 };
 
-export const DISPUTE_STATUSES_NAME = {
+export const DISPUTE_SECTION_NAME = {
+  WAITED_SPECTRUM_ANSWER: 'Waited Spectrum answer',
+  WAITED_XYZ_ANSWER: 'Waited Xyz answer',
+  APPROVED_FOR_PAY: 'Approved for pay',
+  DENIED_FOR_PAY: 'Denied for pay',
+  ANSWERED: 'Answered',
+  CONFIRM_REJECTED: 'Confirm rejected disputes',
+  CONFIRM_APPROVED: 'Confirm approved disputes',
+  WAITING_FOR_ANSWER: 'Waiting for answer',
   APPROVED: 'Approved',
-  RE_SENT: 'Re-sent',
-  SENT: 'Sent',
-  DRAFT: 'Draft',
   REJECTED: 'Rejected',
-  IN_PROGRESS: 'In progress',
-  CONFIRM_REJECTED: 'Confirm Rejected',
-  CONFIRM_APPROVED: 'Confirm Approved',
 };
 
 export const DISPUTE_TYPES_ID = {
@@ -86,6 +88,7 @@ export const TABLE_ORDER_COLUMNS_SORTED = {
   DIFFERENCE: 'difference',
   BUNDLE_NAME: 'bundleName',
   INSTALLED_UNITS: 'installedUnits',
+  CREATED_ON: 'createdOn',
 };
 
 export const TABLE_DISPUTE_COLUMNS_SORTED = {
@@ -106,6 +109,7 @@ export const TABLE_DISPUTE_COLUMNS_SORTED = {
   STATUS: 'disputeStatus',
   STATUS_DESCRIPTION: 'disputeStatusDescription',
   ORDER_NUMBER: 'ordernumber',
+  ORDER_CREATION_DATE: 'orderCreationDate',
 };
 
 export const TABLE_DISPUTES_BY_SUBMITTERS_COLUMNS_SORTED = {
@@ -154,8 +158,6 @@ export const FILTER_NAMES = {
   CREATED_TO: 'CreatedTo',
   FISCAL_PERIOD_ID: 'FiscalPeriodId',
   FISCAL_PERIOD: 'FiscalPeriod',
-  FISCAL_PERIOD_FROM: 'FiscalPeriodFrom',
-  FISCAL_PERIOD_TO: 'FiscalPeriodTo',
   DISPUTE_AGE_FROM: 'DisputeAgeFrom',
   DISPUTE_AGE_TO: 'DisputeAgeTo',
   DISPUTE_STATUS_IDS: 'DisputeStatusIds',
@@ -197,4 +199,19 @@ export const ORDER_SYNC_STATUS = {
   WORKING: 'Working',
   FINISHED: 'Finished',
   ERROR: 'Error',
+};
+
+export const SCOPES = {
+  DISPUTE_READ: 'xyzies.reconciliation.dispute.read',
+  DISPUTE_UPDATE: 'xyzies.reconciliation.dispute.update',
+  DISPUTE_CREATE: 'xyzies.reconciliation.dispute.create',
+  DISPUTE_PATCH: 'xyzies.reconciliation.dispute.patch',
+  DISPUTE_PATCH_SAM: 'xyzies.reconciliation.dispute.patch.sam',
+  DISPUTE_STATISTIC: 'xyzies.reconciliation.web.disputestatistic',
+  DISPUTE_DASHBOARD: 'xyzies.reconciliation.web.disputedashboard',
+  RESUBMISSION_TABLE_READ: 'xyzies.reconciliation.web.resubmissiontable.read',
+  ORDER_READ_WITHOUT_EXPECTED_COMISSION: 'xyzies.reconciliation.web.order.read',
+  AUTHORIZATION: 'xyzies.authorization.reconciliation.web',
+  TEAM_STATISTIC: 'xyzies.reconciliation.web.teamstatistic',
+  ORDER_READ_WITH_EXPECTED_COMISSION: 'xyzies.reconciliation.web.order.read.systemadmin',
 };

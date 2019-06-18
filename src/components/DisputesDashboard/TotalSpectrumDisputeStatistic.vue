@@ -8,7 +8,7 @@
 
 <script>
 import DisputStatistic from './DisputStatistic/DisputStatistic';
-import { DISPUTE_STATUSES_NAME } from '@/constants';
+import { DISPUTE_SECTION_NAME } from '@/constants';
 import disputesDashboard from '@/mixins/disputesDashboard';
 import { STATISTIC_COLOR_SCHEMA } from '@/services/statisticColorSchema';
 
@@ -28,36 +28,21 @@ export default {
     disputeStatistics() {
       return [
         {
+          ...this.getSection(DISPUTE_SECTION_NAME.ANSWERED),
           sectionName: this.$t('in.progress'),
-          totalQuantity: this.inProgressDisputeStatistics.totalQuantity,
-          percent: this.inProgressDisputeStatistics.Percent,
-          commissionDifference: this.inProgressDisputeStatistics.Commission,
           color: STATISTIC_COLOR_SCHEMA.GREEN,
         },
         {
+          ...this.getSection(DISPUTE_SECTION_NAME.REJECTED),
           sectionName: this.$t('rejected'),
-          totalQuantity: this.rejectedDisputeStatistics.totalQuantity,
-          percent: this.rejectedDisputeStatistics.Percent,
-          commissionDifference: this.rejectedDisputeStatistics.Commission,
           color: STATISTIC_COLOR_SCHEMA.BLUE,
         },
         {
+          ...this.getSection(DISPUTE_SECTION_NAME.APPROVED),
           sectionName: this.$t('approved'),
-          totalQuantity: this.approvedDisputeStatistics.totalQuantity,
-          percent: this.approvedDisputeStatistics.Percent,
-          commissionDifference: this.approvedDisputeStatistics.Commission,
           color: STATISTIC_COLOR_SCHEMA.ORANGE,
         },
       ];
-    },
-    inProgressDisputeStatistics() {
-      return this.getSection(DISPUTE_STATUSES_NAME.IN_PROGRESS);
-    },
-    approvedDisputeStatistics() {
-      return this.getSection(DISPUTE_STATUSES_NAME.APPROVED);
-    },
-    rejectedDisputeStatistics() {
-      return this.getSection(DISPUTE_STATUSES_NAME.REJECTED);
     },
   },
 };

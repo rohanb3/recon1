@@ -1,12 +1,12 @@
 <template>
-  <div class="disputes-table">
-    <div class="table-toolbar">
-      <div class="table-title">{{ $t('disputes.title') }}</div>
-      <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
-    </div>
-    <div class="selected-date-range" v-show="isSelectedDateRange">
-      {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
-    </div>
+  <div class="disputes-table" v-if="isShowDispute">
+    <table-toolbar :title="$t('disputes.title')" :table-name="tableName">
+      <disputes-table-toolbar
+        :tableName="tableName"
+        @exportToCsvFile="onExportToCsvFile"
+        slot="filters"
+      />
+    </table-toolbar>
     <lazy-load-table :tableName="tableName">
       <component
         slot="row-cell"
@@ -16,6 +16,8 @@
         :item="rowCell.item"
         :column="rowCell.column"
         :filter="rowCell.column.filter"
+        :scopes="scopes"
+        :status-processing="statusProcessing"
         @confirmDisputeStatus="onConfirmDisputeStatus"
         @confirmResubmitDisputeStatus="onConfirmResubmitDisputeStatus"
         @selectId="onSelectIdDispute"
@@ -42,6 +44,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 import XYZStatusCell from '@/components/tableCells/XYZStatusCell';
@@ -50,10 +54,12 @@ import ConfirmResubmitDisputePopup from '@/components/ConfirmDisputePopup/Confir
 import ConfirmDisputePopup from '@/components/ConfirmDisputePopup/ConfirmDisputePopup';
 
 import { ENTITY_TYPES } from '@/constants';
+import TableToolbar from '@/components/TableToolbar';
 
 export default {
   name: 'DisputesPage',
   components: {
+    TableToolbar,
     DisputesTableToolbar,
     XYZStatusCell,
     ConfirmResubmitDisputePopup,
@@ -87,6 +93,9 @@ export default {
       this.isShowConfirmationPopup = true;
     },
   },
+  computed: {
+    ...mapGetters(['isShowDispute', 'isPatchDispute', 'scopes']),
+  },
 };
 </script>
 
@@ -95,18 +104,13 @@ export default {
 .disputes-table {
   @include table-base-container;
 }
-.table-toolbar {
-  @include table-base-toolbar;
-}
-.table-title {
-  @include table-base-title;
-}
 .disputes-table /deep/ {
   height: 100%;
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
+        #{$table-header-height-offset}
     );
   }
 }

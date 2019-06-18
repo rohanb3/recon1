@@ -4,6 +4,8 @@
       v-if="isInprogressStatus"
       class="disput-button button-blue"
       :title="$t('approve')"
+      :disabled="isStatusEditableOrStatusProcessing"
+      :preloader="statusProcessing"
       @click="onResubmit"
     />
     <span
@@ -62,7 +64,7 @@ export default {
   .disput-button {
     line-height: 0;
 
-    &.button-blue {
+    &.button-blue:not(.disabled-button) {
       color: $base-white;
       background: $base-blue;
     }

@@ -2,9 +2,9 @@
   <div class="disputes_dashboard-table">
     <Disputes-Dashboard-Toolbar :tableName="tableName" />
     <VuePerfectScrollbar class="statistic-list">
-      <total-disputes-statistic :statistics="rows" />
-      <total-spectrum-dispute-statistic :statistics="rows" />
-      <total-xyz-dispute-statistic :statistics="rows" />
+      <total-disputes-statistic :statistics="tableRows" />
+      <total-spectrum-dispute-statistic :statistics="tableRows" />
+      <total-xyz-dispute-statistic :statistics="tableRows" />
     </VuePerfectScrollbar>
   </div>
 </template>

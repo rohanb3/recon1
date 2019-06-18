@@ -1,3 +1,4 @@
+import { mapGetters } from 'vuex';
 import { RESET_ITEMS } from '@/store/storage/mutationTypes';
 import { LOAD_ITEMS, LOAD_MORE_ITEMS } from '@/store/storage/actionTypes';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
@@ -20,23 +21,15 @@ export default {
     this.resetFilters();
   },
   computed: {
-    storageData() {
-      return this.$store.state.storage[this.tableName] || {};
-    },
-    tableData() {
-      return this.$store.state.tables[this.tableName] || {};
-    },
-    rows() {
-      return this.storageData.items || [2];
-    },
+    ...mapGetters(['storageData', 'tableData']),
     allItemsLoaded() {
-      return this.storageData.allItemsLoaded;
+      return this.storageData(this.tableName).allItemsLoaded;
     },
     totalItems() {
-      return this.storageData.total;
+      return this.storageData(this.tableName).total;
     },
     filters() {
-      return this.tableData.filters || {};
+      return this.tableData(this.tableName).filters || {};
     },
     sortingField() {
       return this.filters[FILTER_NAMES.SORT];
@@ -48,7 +41,24 @@ export default {
       return this.$store.getters.role;
     },
     applyingFilters() {
-      return Boolean(this.tableData.applyingFilters);
+      return Boolean(this.tableData(this.tableName).applyingFilters);
+    },
+    tableRows() {
+      if (this.isContainRows) return this.rows;
+      return this.storageData(this.tableName).items || [];
+    },
+    isContainRows() {
+      return this.rows && this.rows.length;
+    },
+    tableColumns() {
+      if (this.isContainColumns) return this.columns;
+      return this.tableData(this.tableName).columns;
+    },
+    isContainColumns() {
+      return this.columns && this.columns.length;
+    },
+    tableNameLowerCase() {
+      return this.tableName.toLowerCase();
     },
   },
   methods: {
