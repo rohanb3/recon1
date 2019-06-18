@@ -112,6 +112,7 @@
   "disputes.dashboard.total.spectrum.statistic": "Total Spectrum Dispute Info",
   "disputes.dashboard.total.xyz.statistic": "Total XYZ Disputes info",
   "disputes.dashboard.total.created.disputes": "Total Created Disputes",
+  "disputes.dashboard.total.closed.disputes": "Total closed disputes",
   "total.comission.difference": "Total comission difference",
   "comission.difference": "Comission difference",
   "percentage": "Percentage",
@@ -224,5 +225,7 @@
   "dispute.history.author": "Author",
   "dispute.history.status": "Set Status",
   "dispute.history.status.description": "Status Description",
-  "selected.fiscal.period": "Selected fiscal period"
+  "selected.fiscal.period": "Selected fiscal period",
+  "date": "Date",
+  "money": "Money"
 }

@@ -1,0 +1,147 @@
+<template>
+  <v-container fluid class="dispute-bar-chart">
+    <v-layout row>
+      <v-flex>
+        <p class="table-name">{{ $t('disputes.dashboard.total.created.disputes') }}</p>
+      </v-flex>
+      <total-created-disputes-toolbar :filters="filters" @select="onSelect" />
+    </v-layout>
+    <lazy-load-for-chart
+      :dataSets="dailyStatistics"
+      v-slot:default="{ pieceOfData }"
+      @loadData="onLoadDate"
+    >
+      <bar-chart
+        class="bar-chart"
+        :datasets="pieceOfData"
+        :xAxisLabel="$t('date')"
+        :yAxisLabel="yAxisLabel"
+        :labelTooltip="labelTooltip"
+      />
+    </lazy-load-for-chart>
+  </v-container>
+</template>
+
+<script>
+import moment from 'moment';
+import LazyLoadForChart from '@/components/charts/LazyLoadForChart';
+import BarChart from '@/components/charts/BarChart';
+import TotalCreatedDisputesToolbar from '@/components/DisputesDashboard/TotalCreatedDisputes/TotalCreatedDisputesToolbar';
+import { getDailyStatistics } from '@/services/statisticsRepository';
+import { errorMessage } from '@/services/notifications';
+import { DATE_FORMATS } from '@/constants';
+
+export default {
+  name: 'TotalCreatedDisputesChart',
+  components: {
+    BarChart,
+    LazyLoadForChart,
+    TotalCreatedDisputesToolbar,
+  },
+  mounted() {
+    this.initDate();
+    this.loadDailyStatistics();
+  },
+  data() {
+    return {
+      loadingStatus: false,
+      dailyStatistics: [],
+      filters: {
+        countQyt: true,
+        countCreated: false,
+        createdFrom: '',
+        createdTo: '',
+      },
+    };
+  },
+  computed: {
+    yAxisLabel() {
+      return this.filters.countQyt ? this.$t('quantity') : this.$t('money');
+    },
+  },
+  methods: {
+    initDate() {
+      this.filters.createdFrom = moment()
+        .startOf('day')
+        .subtract(1, 'month')
+        .utc()
+        .format();
+      this.filters.createdTo = moment()
+        .endOf('day')
+        .utc()
+        .format();
+    },
+    labelTooltip({ additionalYValue, nameOfAdditionalValue }) {
+      if (!nameOfAdditionalValue) return null;
+      return `${nameOfAdditionalValue} ${additionalYValue}`;
+    },
+    async loadDailyStatistics(resetPrevious = true) {
+      this.loadingStatus = true;
+      try {
+        const { data } = await getDailyStatistics({
+          CreatedFrom: this.filters.createdFrom,
+          CreatedTo: this.filters.createdTo,
+          countQyt: this.filters.countQyt,
+          countCreated: this.filters.countCreated,
+        });
+        if (resetPrevious) {
+          this.dailyStatistics = data.map(this.addMonthName);
+        } else {
+          this.dailyStatistics = data.map(this.addMonthName).concat(this.dailyStatistics);
+        }
+      } catch {
+        errorMessage();
+      } finally {
+        this.loadingStatus = false;
+      }
+    },
+    async onLoadDate() {
+      this.filters.createdTo = this.filters.createdFrom;
+      this.filters.createdFrom = moment
+        .utc(this.filters.createdFrom)
+        .subtract(1, 'month')
+        .format();
+      await this.loadDailyStatistics(false);
+    },
+    addMonthName(data, index) {
+      return {
+        ...data,
+        xValue: moment
+          .utc(this.filters.createdFrom)
+          .add(index - 1, 'days')
+          .local()
+          .format(DATE_FORMATS.FULL_MONTH_DAY),
+      };
+    },
+    onSelect(filters) {
+      this.filters = filters;
+      this.initDate();
+      this.loadDailyStatistics();
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+@import '@/assets/styles/variables.scss';
+@import '@/assets/styles/mixins.scss';
+
+.dispute-bar-chart {
+  @include table-base-container;
+
+  background-color: $base-white;
+  margin-bottom: 8px;
+  padding: 12px 20px;
+  max-height: 323px;
+
+  .table-name {
+    font-size: 14px;
+    color: $table-statistic-header-color;
+    margin-bottom: 32px;
+  }
+
+  .bar-chart {
+    height: 230px;
+  }
+}
+</style>

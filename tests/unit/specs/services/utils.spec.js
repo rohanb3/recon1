@@ -39,7 +39,7 @@ describe('utils', () => {
 
       const result = getStringFromValuesByKey('name', items, 3);
 
-      const expectedString = ': Alabama, Alaska';
+      const expectedString = 'Alabama, Alaska';
 
       expect(result).toEqual(expectedString);
     });
@@ -53,7 +53,7 @@ describe('utils', () => {
 
       const result = getStringFromValuesByKey('name', items, 3);
 
-      const expectedString = ': Alabama, Alaska, Arizona';
+      const expectedString = 'Alabama, Alaska, Arizona';
 
       expect(result).toEqual(expectedString);
     });
@@ -68,7 +68,7 @@ describe('utils', () => {
 
       const result = getStringFromValuesByKey('name', items, 3);
 
-      const expectedString = ': Alabama, Alaska, Arizona...';
+      const expectedString = 'Alabama, Alaska, Arizona...';
 
       expect(result).toEqual(expectedString);
     });

@@ -18,4 +18,9 @@ export default {
     this.addPlugin(ChartjsLabels);
     this.renderChart(this.chartData, this.options);
   },
+  watch: {
+    options() {
+      this.renderChart(this.chartData, this.options);
+    },
+  },
 };
