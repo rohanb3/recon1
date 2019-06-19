@@ -2,8 +2,8 @@
   <v-container fluid grid-list-md class="disputes-dashboard-toolbar">
     <div class="table-filter-container">
       <order-age-filter :table-name="tableName" />
-      <disput-age-filter :table-name="tableName" />
       <instalation-filter :table-name="tableName" />
+      <disput-age-filter :table-name="tableName" />
     </div>
     <v-spacer />
     <div class="table-filter-container">
