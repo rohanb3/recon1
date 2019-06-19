@@ -39,6 +39,7 @@ import TotalCreatedDisputesToolbar from '@/components/DisputesDashboard/TotalCre
 import { getDailyStatistics } from '@/services/statisticsRepository';
 import { errorMessage } from '@/services/notifications';
 import { dateRange } from '@/services/dateHelper';
+import { DATE_FORMATS } from '@/constants';
 
 export default {
   name: 'TotalCreatedDisputesChart',
@@ -116,7 +117,11 @@ export default {
       await this.loadDailyStatistics(false);
     },
     generateAndMergeDates(dailyStatistics) {
-      const dayList = dateRange(this.filters.createdFrom, this.filters.createdTo).map(date => {
+      const dayList = dateRange(
+        this.filters.createdFrom,
+        this.filters.createdTo,
+        DATE_FORMATS.DAY_SHORT_MONTH
+      ).map(date => {
         const [dayNumber] = date.split(' ');
         return { xValue: date, dayNumber: Number(dayNumber) };
       });
