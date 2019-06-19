@@ -1,3 +1,5 @@
-export default (dataArray, index, offset) => {
+const pieceArray = (dataArray, index, offset) => {
   return dataArray.slice(index, index + offset);
 };
+
+export default pieceArray;

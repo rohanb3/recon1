@@ -41,10 +41,7 @@ export default {
     },
     toggleOptions(optionId) {
       this.options = this.options.map(option => {
-        if (optionId === option.id) {
-          return { ...option, selected: true };
-        }
-        return { ...option, selected: false };
+        return { ...option, selected: optionId === option.id };
       });
     },
   },

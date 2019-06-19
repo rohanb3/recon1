@@ -134,7 +134,7 @@ export default {
         this.selectedItems,
         DISPLAYED_ITEMS_IN_TITLE
       );
-      if (this.title.length && itemsDisplayedInTitle.length) return `: ${itemsDisplayedInTitle}`;
+      if (this.isShowTitleWithItems(itemsDisplayedInTitle)) return `: ${itemsDisplayedInTitle}`;
       return itemsDisplayedInTitle;
     },
     searchinOptions() {
@@ -215,6 +215,9 @@ export default {
         return -1;
       }
       return 0;
+    },
+    isShowTitleWithItems(text) {
+      return this.title.length && text.length;
     },
   },
 };

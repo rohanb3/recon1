@@ -95,15 +95,26 @@ export default {
           countCreated: this.filters.countCreated,
         });
         if (resetPrevious) {
-          this.dailyStatistics = this.generateAndMergeDates(data);
+          this.dailyStatistics = this.generateAndMergeDates(data.map(this.addFullDate));
         } else {
-          this.dailyStatistics = this.generateAndMergeDates(data).concat(this.dailyStatistics);
+          this.dailyStatistics = this.generateAndMergeDates(data.map(this.addFullDate)).concat(
+            this.dailyStatistics
+          );
         }
       } catch {
         errorMessage();
       } finally {
         this.loadingStatus = false;
       }
+    },
+    addFullDate(data, index) {
+      return {
+        ...data,
+        date: moment
+          .utc(this.filters.createdFrom)
+          .add(index, 'days')
+          .format(DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY),
+      };
     },
     async onLoadDate() {
       this.filters.createdTo = moment
@@ -120,21 +131,16 @@ export default {
       const dayList = dateRange(
         this.filters.createdFrom,
         this.filters.createdTo,
-        DATE_FORMATS.DAY_SHORT_MONTH
+        DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY
       ).map(date => {
-        const [dayNumber] = date.split(' ');
-        return { xValue: date, dayNumber: Number(dayNumber) };
-      });
+        const statistic = dailyStatistics.find(day => day.date === date);
+        const xValue = moment(date).format(DATE_FORMATS.DAY_SHORT_MONTH);
 
-      dailyStatistics
-        .filter(({ yValue }) => yValue)
-        .forEach(({ xValue, ...statistics }) => {
-          const dayListIndex = dayList.findIndex(day => day.dayNumber === xValue);
-          dayList[dayListIndex] = {
-            ...dayList[dayListIndex],
-            ...statistics,
-          };
-        });
+        if (statistic) {
+          return { ...statistic, xValue };
+        }
+        return { xValue };
+      });
 
       return dayList;
     },
