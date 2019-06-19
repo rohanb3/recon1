@@ -61,3 +61,7 @@ export default function interceptors(instance, router) {
     error => errorResponseInterceptor(error, router)
   );
 }
+
+export const authInterceptors = {
+  __private__: { requestInterceptor, isUnauthorized, errorResponseInterceptor, debounceSetToken },
+};
