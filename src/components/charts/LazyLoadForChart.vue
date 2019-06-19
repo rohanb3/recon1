@@ -1,15 +1,14 @@
 <template>
   <div @wheel="onWheel">
-    <slot :pieceOfData="pieceOfData"/>
+    <slot :pieceOfData="pieceOfData" />
   </div>
 </template>
 
 <script>
-import debounce from 'lodash.debounce';
+import throttle from 'lodash.throttle';
 import slidingWindow from '@/services/slidingWindow';
 
-const MIN_OFFSET = 0;
-const UNKNOWN_OFFSET = -1;
+const MIN_OFFSET = 1;
 const NUMBER_DISPLAYED_ITEMS = 31;
 const LOAD_DATA_TIMEOUT = 1000;
 
@@ -28,10 +27,6 @@ export default {
       type: Number,
       default: NUMBER_DISPLAYED_ITEMS,
     },
-    loadDataTimeout: {
-      type: Number,
-      default: LOAD_DATA_TIMEOUT,
-    },
     loading: {
       type: Boolean,
       required: true,
@@ -39,16 +34,12 @@ export default {
   },
   data() {
     return {
-      offset: UNKNOWN_OFFSET,
+      offset: this.minOffset,
     };
   },
   computed: {
     pieceOfData() {
-      return slidingWindow(
-        this.dataSets,
-        this.offset,
-        this.numberDisplayedItems
-      );
+      return slidingWindow(this.dataSets, this.offset, this.numberDisplayedItems);
     },
     maxWindowOffset() {
       return this.dataSets.length - this.numberDisplayedItems;
@@ -60,8 +51,10 @@ export default {
 
       if (this.isSlidingWindowHasReachedRightEdge(e.deltaY)) return false;
 
-      if (this.isSlidingWindowHasReachedLeftEdge(e.deltaY) && !this.loading) {
-        this.debounceLoadDate();
+      if (this.isSlidingWindowHasReachedLeftEdge(e.deltaY)) {
+        if (!this.loading) {
+          this.throttleLoadDate();
+        }
         return false;
       }
 
@@ -73,28 +66,26 @@ export default {
       return true;
     },
     isSlidingWindowHasReachedLeftEdge(value) {
-      return this.offset === MIN_OFFSET && !this.isScrollingRight(value);
+      return this.offset <= this.minOffset && !this.isScrollingRight(value);
     },
     isSlidingWindowHasReachedRightEdge(value) {
-      return (
-        this.offset === this.maxWindowOffset && this.isScrollingRight(value)
-      );
+      return this.offset >= this.maxWindowOffset && this.isScrollingRight(value);
     },
     isScrollingRight(value) {
       return value > 0;
     },
-    debounceLoadDate: debounce(function debounceLoadDate() {
+    throttleLoadDate: throttle(function throttleLoadDate() {
       this.$emit('loadData');
     }, LOAD_DATA_TIMEOUT),
   },
   watch: {
-    dataSets() {
-      if (this.offset === UNKNOWN_OFFSET) this.offset = this.maxWindowOffset;
-    },
     maxWindowOffset(newOffset, oldOffset) {
-      console.log(newOffset > oldOffset, newOffset, oldOffset);
-      
-      if (newOffset > oldOffset) this.offset = newOffset - oldOffset;
+      if (oldOffset > 0 && newOffset > oldOffset) {
+        this.offset = newOffset - oldOffset;
+      }
+    },
+    dataSets(newData, oldData) {
+      if (newData.length < oldData.length) this.offset = this.minOffset;
     },
   },
 };

@@ -4,7 +4,7 @@
       <v-flex>
         <p class="table-name">{{ $t('disputes.dashboard.total.created.disputes') }}</p>
       </v-flex>
-      <total-created-disputes-toolbar :filters="filters" @select="onSelect"/>
+      <total-created-disputes-toolbar :filters="filters" @select="onSelect" />
     </v-layout>
     <lazy-load-for-chart
       :dataSets="dailyStatistics"
@@ -38,7 +38,6 @@ import BarChart from '@/components/charts/BarChart';
 import TotalCreatedDisputesToolbar from '@/components/DisputesDashboard/TotalCreatedDisputes/TotalCreatedDisputesToolbar';
 import { getDailyStatistics } from '@/services/statisticsRepository';
 import { errorMessage } from '@/services/notifications';
-import { DATE_FORMATS } from '@/constants';
 import { dateRange } from '@/services/dateHelper';
 
 export default {
@@ -95,11 +94,9 @@ export default {
           countCreated: this.filters.countCreated,
         });
         if (resetPrevious) {
-          this.dailyStatistics = this.mergeDates(data);
+          this.dailyStatistics = this.generateAndMergeDates(data);
         } else {
-          this.dailyStatistics = this.mergeDates(data).concat(
-            this.dailyStatistics
-          );
+          this.dailyStatistics = this.generateAndMergeDates(data).concat(this.dailyStatistics);
         }
       } catch {
         errorMessage();
@@ -110,7 +107,7 @@ export default {
     async onLoadDate() {
       this.filters.createdTo = moment
         .utc(this.filters.createdFrom)
-        .subtract(1, 'days')
+        .subtract(1, 'seconds')
         .format();
       this.filters.createdFrom = moment
         .utc(this.filters.createdFrom)
@@ -118,28 +115,19 @@ export default {
         .format();
       await this.loadDailyStatistics(false);
     },
-    genDays() {
-      this.filters.createdFrom;
-      this.filters.createdTo;
-    },
-    mergeDates(data) {
-      const dayList = dateRange(
-        this.filters.createdFrom,
-        this.filters.createdTo
-      ).map(date => {
+    generateAndMergeDates(dailyStatistics) {
+      const dayList = dateRange(this.filters.createdFrom, this.filters.createdTo).map(date => {
         const [dayNumber] = date.split(' ');
         return { xValue: date, dayNumber: Number(dayNumber) };
       });
 
-      data
+      dailyStatistics
         .filter(({ yValue }) => yValue)
-        .forEach(({ xValue, ...dailyStatistics }) => {
-          const dayListIndex = dayList.findIndex(
-            day => day.dayNumber === xValue
-          );
+        .forEach(({ xValue, ...statistics }) => {
+          const dayListIndex = dayList.findIndex(day => day.dayNumber === xValue);
           dayList[dayListIndex] = {
             ...dayList[dayListIndex],
-            ...dailyStatistics,
+            ...statistics,
           };
         });
 
