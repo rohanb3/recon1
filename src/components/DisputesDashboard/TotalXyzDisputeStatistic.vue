@@ -33,8 +33,8 @@ export default {
           color: STATISTIC_COLOR_SCHEMA.GREEN,
         },
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.CONFIRM_APPROVED),
-          sectionName: this.$t('confirm.approved.disputes'),
+          ...this.getSection(DISPUTE_SECTION_NAME.RE_SENT_DISPUTES),
+          sectionName: this.$t('re.sent.disputes'),
           color: STATISTIC_COLOR_SCHEMA.BLUE,
         },
         {

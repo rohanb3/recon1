@@ -1,5 +1,9 @@
 <template>
-  <div class="tooltip" :style="{ top: y + shiftTooltip + 'px', left: x + shiftTooltip + 'px' }">
+  <div
+    class="tooltip"
+    ref="tooltip"
+    :style="{ top: y + shiftYTooltip + 'px', left: x + shiftXTooltip + 'px' }"
+  >
     <div class="tooltip-header">{{ title }}</div>
     <div class="tooltip-body">
       <slot></slot>
@@ -8,7 +12,7 @@
 </template>
 
 <script>
-const SHIFT_TOOLTIP = 10;
+const SHIFT_TOOLTIP = 15;
 
 export default {
   name: 'Tooltip',
@@ -27,8 +31,23 @@ export default {
   },
   data() {
     return {
-      shiftTooltip: SHIFT_TOOLTIP,
+      shiftXTooltip: SHIFT_TOOLTIP,
+      shiftYTooltip: SHIFT_TOOLTIP,
     };
+  },
+  watch: {
+    x(x) {
+      if (this.isShowTooltipBeforeCursor(x)) {
+        this.shiftXTooltip = -this.$refs.tooltip.offsetWidth;
+      } else {
+        this.shiftXTooltip = SHIFT_TOOLTIP;
+      }
+    },
+  },
+  methods: {
+    isShowTooltipBeforeCursor(x) {
+      return x + SHIFT_TOOLTIP + this.$refs.tooltip.offsetWidth > window.innerWidth;
+    },
   },
 };
 </script>
@@ -47,6 +66,7 @@ export default {
   border-radius: 8px;
   box-shadow: 0 2px 4px 0 $table-shadow-color;
   line-height: 20px;
+  white-space: nowrap;
 }
 
 .tooltip-header {
