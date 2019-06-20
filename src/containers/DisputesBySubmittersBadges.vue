@@ -64,13 +64,16 @@ export default {
       }
       &:not(:first-child) {
         padding-left: 9px;
+        height: 100%;
+        display: flex;
+        align-items: center;
       }
     }
     .title-block {
       width: 105px;
     }
     .name-block {
-      max-width: 200px;
+      max-width: 250px;
       min-width: 88px;
       text-align: center;
     }
