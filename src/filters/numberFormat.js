@@ -5,5 +5,5 @@ export const addSpaceBetweenNumbers = number => {
 };
 
 export const percents = number => {
-  return number || number === 0 ? `${number}%` : '';
+  return number || number === 0 ? `${number}%` : `${0}%`;
 };
