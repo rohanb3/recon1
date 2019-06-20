@@ -78,6 +78,8 @@ const filters = {
     [FILTER_NAMES.ORDER_AGE_FROM]: null,
     [FILTER_NAMES.DISPUTE_AGE_FROM]: null,
     [FILTER_NAMES.DISPUTE_AGE_TO]: null,
+    [FILTER_NAMES.INSTALLATION_AGE_FROM]: null,
+    [FILTER_NAMES.INSTALLATION_AGE_TO]: null,
   },
 };
 
