@@ -44,7 +44,6 @@ async function errorResponseInterceptor(data, router) {
       return axios.request({
         ...data.config,
         url: data.config.url.replace(data.config.baseURL, ''),
-        ...headers,
       });
     } catch {
       await store.dispatch(USER_LOGOUT);
@@ -63,5 +62,5 @@ export default function interceptors(instance, router) {
 }
 
 export const authInterceptors = {
-  __private__: { requestInterceptor, isUnauthorized, errorResponseInterceptor, debounceSetToken },
+  __private__: { requestInterceptor, isUnauthorized, errorResponseInterceptor },
 };
