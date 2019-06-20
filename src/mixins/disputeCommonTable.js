@@ -95,8 +95,12 @@ export default {
       }
     },
     async onExportToCsvFile() {
-      const CSVFile = await getDisputesCsvFile(this.filters);
-      generateCSVFile(CSVFile, this.tableName);
+      try {
+        const CSVFile = await getDisputesCsvFile(this.filters);
+        generateCSVFile(CSVFile, this.tableName);
+      } catch {
+        errorMessage();
+      }
     },
     async onSelectIdDispute(idDispute) {
       try {

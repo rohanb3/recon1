@@ -42,7 +42,7 @@ import { generateCSVFile } from '@/services/utils';
 
 import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
 
-import { successMessage } from '@/services/notifications';
+import { successMessage, errorMessage } from '@/services/notifications';
 import SelectedRangeFilter from '../components/SelectedRangeFilter';
 import TableToolbar from '@/components/TableToolbar';
 
@@ -100,8 +100,12 @@ export default {
       successMessage('sync.started', 'sync.info');
     },
     async onExportToCsvFile() {
-      const CSVFile = await getOrdersCsvFile(this.filters);
-      generateCSVFile(CSVFile, this.tableName);
+      try {
+        const CSVFile = await getOrdersCsvFile(this.tableData(this.tableName).filters);
+        generateCSVFile(CSVFile, this.tableName);
+      } catch {
+        errorMessage();
+      }
     },
   },
 };

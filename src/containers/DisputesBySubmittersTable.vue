@@ -42,6 +42,7 @@ import disputeCommonTable from '@/mixins/disputeCommonTable';
 
 import { ENTITY_TYPES } from '@/constants';
 import { generateCSVFile } from '@/services/utils';
+import { errorMessage } from '@/services/notifications';
 
 import dateRange from '@/filters/boundaries';
 import TableToolbar from '../components/TableToolbar';
@@ -75,8 +76,12 @@ export default {
   },
   methods: {
     async onExportToCsvFile() {
-      const CSVFile = await getDisputesBySubmittersCsvFile(this.filters);
-      generateCSVFile(CSVFile, this.tableName);
+      try {
+        const CSVFile = await getDisputesBySubmittersCsvFile(this.filters);
+        generateCSVFile(CSVFile, this.tableName);
+      } catch {
+        errorMessage();
+      }
     },
   },
 };
