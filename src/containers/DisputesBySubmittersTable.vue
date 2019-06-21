@@ -2,11 +2,7 @@
   <div class="disputes-table disputes_by_submitters-table">
     <div class="table-toolbar">
       <table-toolbar :table-name="tableName" :title="$t('disputes.statistics.by.submitters')">
-        <disputes-by-submitters-table-toolbar
-          :tableName="tableName"
-          @exportToCsvFile="onExportToCsvFile"
-          slot="filters"
-        />
+        <disputes-by-submitters-table-toolbar :tableName="tableName" slot="filters" />
       </table-toolbar>
     </div>
     <disputes-by-submitters-badges />
@@ -36,13 +32,9 @@ import PercentCell from '@/components/tableCells/PercentCell';
 import DisputesBySubmittersTableToolbar from '@/containers/DisputesBySubmittersTableToolbar';
 import DisputesBySubmittersBadges from '@/containers/DisputesBySubmittersBadges';
 
-import { getDisputesBySubmittersCsvFile } from '@/services/disputesRepository';
-
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 
 import { ENTITY_TYPES } from '@/constants';
-import { generateCSVFile } from '@/services/utils';
-import { errorMessage } from '@/services/notifications';
 
 import dateRange from '@/filters/boundaries';
 import TableToolbar from '../components/TableToolbar';
@@ -73,16 +65,6 @@ export default {
         percent: 'PercentCell',
       },
     };
-  },
-  methods: {
-    async onExportToCsvFile() {
-      try {
-        const CSVFile = await getDisputesBySubmittersCsvFile(this.filters);
-        generateCSVFile(CSVFile, this.tableName);
-      } catch {
-        errorMessage();
-      }
-    },
   },
 };
 </script>

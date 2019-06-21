@@ -1,9 +1,8 @@
-import { generateCSVFile } from '@/services/utils';
 import { errorMessage } from '@/services/notifications';
 import { ENTITY_TYPES, FILTER_NAMES } from '@/constants';
 import { mapState } from 'vuex';
 import { CHANGE_ITEM } from '@/store/storage/mutationTypes';
-import { changeStatusDispute, getDispute, getDisputesCsvFile } from '@/services/disputesRepository';
+import { changeStatusDispute, getDispute } from '@/services/disputesRepository';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 
 import LazyLoadTable from '@/containers/LazyLoadTable';
@@ -92,14 +91,6 @@ export default {
         errorMessage();
       } finally {
         this.statusProcessing = false;
-      }
-    },
-    async onExportToCsvFile() {
-      try {
-        const CSVFile = await getDisputesCsvFile(this.filters);
-        generateCSVFile(CSVFile, this.tableName);
-      } catch {
-        errorMessage();
       }
     },
     async onSelectIdDispute(idDispute) {

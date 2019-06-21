@@ -13,7 +13,11 @@
         :title="$t('sync.orders')"
         @click="$emit('syncOrders')"
       />
-      <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
+      <export-to-csv-file-button
+        :tableName="tableName"
+        :filters="filters"
+        :repository="handlerCsvFile()"
+      />
       <fiscal-period-filter :tableName="tableName" />
       <custom-range-filter :table-name="tableName" />
     </div>
@@ -21,6 +25,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import OrderStatusFilter from '@/containers/OrderStatusFilter';
 import OrderAgeFilter from './OrderAgeFilter';
@@ -28,6 +33,8 @@ import TableButton from '@/components/TableButton';
 import { ENTITY_TYPES, ORDER_SYNC_STATUS } from '@/constants';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
+import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
+import { getOrdersCsvFile } from '@/services/ordersRepository';
 
 export default {
   name: 'OrdersTableToolbar',
@@ -38,6 +45,7 @@ export default {
     OrderAgeFilter,
     TableButton,
     FiscalPeriodFilter,
+    ExportToCsvFileButton,
   },
   data() {
     return {
@@ -50,6 +58,15 @@ export default {
     },
     isOrdersSyncing() {
       return this.storageData.syncOrdersStatus === ORDER_SYNC_STATUS.WORKING;
+    },
+    ...mapGetters(['tableData']),
+    filters() {
+      return this.tableData(this.tableName).filters;
+    },
+  },
+  methods: {
+    handlerCsvFile() {
+      return getOrdersCsvFile;
     },
   },
 };

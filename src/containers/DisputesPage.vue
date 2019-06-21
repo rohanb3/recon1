@@ -1,11 +1,7 @@
 <template>
   <div class="disputes-table" v-if="isShowDispute">
     <table-toolbar :title="$t('disputes.title')" :table-name="tableName">
-      <disputes-table-toolbar
-        :tableName="tableName"
-        @exportToCsvFile="onExportToCsvFile"
-        slot="filters"
-      />
+      <disputes-table-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
     <lazy-load-table :tableName="tableName">
       <component
