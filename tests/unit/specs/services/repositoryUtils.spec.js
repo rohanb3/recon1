@@ -3,11 +3,11 @@ import { pickNotEmptyFields, paramsSerializer } from '@/services/repositoryUtils
 
 describe('repositoryUtils', () => {
   describe('pickNotEmptyFields', () => {
-    it('should return empty object if no data passed', async () => {
+    it('should return empty object if no data passed', () => {
       expect(pickNotEmptyFields()).toEqual({});
     });
 
-    it('should filter not empty fields', async () => {
+    it('should filter not empty fields', () => {
       const data = {
         name: 'Dmitry',
         age: null,
@@ -20,7 +20,7 @@ describe('repositoryUtils', () => {
       expect(pickNotEmptyFields(data)).toEqual(expectedData);
     });
 
-    it('should not ignore 0', async () => {
+    it('should not ignore 0', () => {
       const data = {
         name: 'Dmitry',
         age: 0,
