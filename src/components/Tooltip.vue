@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="tooltip"
-    ref="tooltip"
-    :style="{ top: y + shiftYTooltip + 'px', left: x + shiftXTooltip + 'px' }"
-  >
+  <div class="tooltip" v-tooltip="{ x, y }">
     <div class="tooltip-header">{{ title }}</div>
     <div class="tooltip-body">
       <slot></slot>
@@ -12,7 +8,7 @@
 </template>
 
 <script>
-const SHIFT_TOOLTIP = 15;
+import tooltip from '@/directives/tooltip';
 
 export default {
   name: 'Tooltip',
@@ -29,25 +25,8 @@ export default {
       default: 0,
     },
   },
-  data() {
-    return {
-      shiftXTooltip: SHIFT_TOOLTIP,
-      shiftYTooltip: SHIFT_TOOLTIP,
-    };
-  },
-  watch: {
-    x(x) {
-      if (this.isShowTooltipBeforeCursor(x)) {
-        this.shiftXTooltip = -this.$refs.tooltip.offsetWidth;
-      } else {
-        this.shiftXTooltip = SHIFT_TOOLTIP;
-      }
-    },
-  },
-  methods: {
-    isShowTooltipBeforeCursor(x) {
-      return x + SHIFT_TOOLTIP + this.$refs.tooltip.offsetWidth > window.innerWidth;
-    },
+  directives: {
+    tooltip,
   },
 };
 </script>
