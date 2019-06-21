@@ -48,9 +48,9 @@ export default {
     LazyLoadForChart,
     TotalCreatedDisputesToolbar,
   },
-  mounted() {
+  async mounted() {
     this.initDate();
-    this.loadDailyStatistics();
+    this.dailyStatistics = await this.loadDailyStatistics();
   },
   data() {
     return {
@@ -85,7 +85,7 @@ export default {
       if (!nameOfAdditionalValue) return null;
       return `${nameOfAdditionalValue} ${additionalYValue}`;
     },
-    async loadDailyStatistics(resetPrevious = true) {
+    async loadDailyStatistics() {
       this.loadingStatus = true;
       try {
         const { data } = await getDailyStatistics({
@@ -94,13 +94,11 @@ export default {
           countQyt: this.filters.countQyt,
           countCreated: this.filters.countCreated,
         });
-        if (resetPrevious) {
-          this.dailyStatistics = this.generateAndMergeDates(data);
-        } else {
-          this.dailyStatistics = this.generateAndMergeDates(data).concat(this.dailyStatistics);
-        }
+
+        return this.generateAndMergeDates(data);
       } catch {
         errorMessage();
+        return Promise.reject();
       } finally {
         this.loadingStatus = false;
       }
@@ -114,7 +112,7 @@ export default {
         .utc(this.filters.createdFrom)
         .subtract(1, 'month')
         .format();
-      await this.loadDailyStatistics(false);
+      this.dailyStatistics = (await this.loadDailyStatistics()).concat(this.dailyStatistics);
     },
     generateAndMergeDates(dailyStatistics) {
       const dayList = dateRange(
@@ -133,10 +131,10 @@ export default {
 
       return dayList;
     },
-    onSelect(filters) {
+    async onSelect(filters) {
       this.filters = filters;
       this.initDate();
-      this.loadDailyStatistics();
+      this.dailyStatistics = await this.loadDailyStatistics();
     },
   },
 };
