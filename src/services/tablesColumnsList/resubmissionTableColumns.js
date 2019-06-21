@@ -25,6 +25,17 @@ export default () => [
     fieldHeaderType: 'sortingHeader',
   },
   {
+    name: 'orderCreationDate',
+    field: 'orderCreationDate',
+    fieldType: 'dateYearMonthDay',
+    class: 'grey-text-cell',
+    title: i18n.t('disputes.order.creation.date'),
+    width: '4',
+    minWidth: '30px',
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.ORDER_CREATION_DATE,
+    fieldHeaderType: 'sortingHeader',
+  },
+  {
     name: 'fiscalPeriod',
     field: 'fiscalPeriod.name',
     class: 'grey-text-cell',
