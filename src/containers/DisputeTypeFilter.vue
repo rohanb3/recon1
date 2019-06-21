@@ -28,6 +28,9 @@ export default {
   components: {
     TableFilter,
   },
+  mounted() {
+    this.displayPreselectItems();
+  },
   data() {
     return {
       filterName: FILTER_NAMES.DISPUTE_TYPE_IDS,

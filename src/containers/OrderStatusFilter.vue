@@ -9,7 +9,6 @@
       :useSearchField="false"
       @select="toggleItem"
     />
-    <table-loader v-if="loading" slot="loader" />
   </div>
 </template>
 
@@ -45,7 +44,8 @@ export default {
   computed: {
     statusList() {
       return this[this.filterName].map(({ id, orderStatusName, selected }) => {
-        const translationKey = ORDER_STATUS_NAME_TRANSLATION_KEYS[orderStatusName];
+        const translationKey =
+          ORDER_STATUS_NAME_TRANSLATION_KEYS[orderStatusName];
         return {
           id,
           name: translationKey ? this.$t(translationKey) : orderStatusName,
