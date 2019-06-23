@@ -12,4 +12,10 @@ describe('dashForEmptyValue', () => {
     const expectedResult = '-';
     expect(result).toEqual(expectedResult);
   });
+
+  it('should return string with dash if passed a zero', () => {
+    const result = dashForEmptyValue(0);
+    const expectedResult = '-';
+    expect(result).toEqual(expectedResult);
+  });
 });

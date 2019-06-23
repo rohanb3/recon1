@@ -2,19 +2,19 @@ import { numberSign, addSpaceBetweenNumbers, percents } from '@/filters/numberFo
 
 describe('numberFormat', () => {
   describe('numberSign', () => {
-    it('should return a number with sign # if passed number 123', () => {
+    it('should return a number with number sign and additional zero if passed number', () => {
       const result = numberSign(123);
       const expectedResult = '#0123';
       expect(result).toEqual(expectedResult);
     });
 
-    it('should return a number with sign # if passed number 12345', () => {
+    it('should return a number with number sign if passed number', () => {
       const result = numberSign(12345);
       const expectedResult = '#12345';
       expect(result).toEqual(expectedResult);
     });
 
-    it('should return a number #0000 if nothing passed', () => {
+    it('should return should return zeros with number sign if nothing passed', () => {
       const result = numberSign();
       const expectedResult = '#0000';
       expect(result).toEqual(expectedResult);
