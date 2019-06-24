@@ -28,9 +28,6 @@ export default {
   components: {
     TableFilter,
   },
-  mounted() {
-    this.displayPreselectItems({ itemKeyName: this.sendFieldName });
-  },
   data() {
     return {
       filterName: FILTER_NAMES.DISPUTE_STATUS_IDS,
