@@ -1,7 +1,7 @@
 <template>
   <div class="disputes-by-submitters-badges">
-    <top-submitter-by-approve-rate v-if="statistics.byApprove" :data="statistics.byApprove" />
-    <top-submitter-by-rejection-rate v-if="statistics.byRejection" :data="statistics.byRejection" />
+    <top-submitter-by-approve-rate :data="byApprove" />
+    <top-submitter-by-rejection-rate :data="byRejection" />
   </div>
 </template>
 
@@ -29,6 +29,14 @@ export default {
       tableName: ENTITY_TYPES.DISPUTES_BY_SUBMITTERS,
       statistics: {},
     };
+  },
+  computed: {
+    byApprove() {
+      return this.statistics.byApprove || {};
+    },
+    byRejection() {
+      return this.statistics.byRejection || {};
+    },
   },
   methods: {
     async loadData(filters) {
