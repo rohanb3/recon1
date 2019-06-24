@@ -22,6 +22,7 @@ export default () => [
     minWidth: '70px',
     sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.ACCOUNT_NUMBER,
     fieldHeaderType: 'sortingHeader',
+    showTitle: true,
   },
   {
     name: 'creationDate',
@@ -43,6 +44,7 @@ export default () => [
     minWidth: '65px',
     sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.BUNDLE_NAME,
     fieldHeaderType: 'sortingHeader',
+    showTitle: true,
   },
   {
     name: 'orderedUnits',

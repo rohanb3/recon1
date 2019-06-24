@@ -21,6 +21,12 @@ export default {
       }
       return [];
     },
+    isShowTitle() {
+      return this.column.showTitle;
+    },
+    title() {
+      return this.isShowTitle ? this.filteredValue : '';
+    },
     value() {
       try {
         return this.fields.reduce((acc, curr) => acc[curr], this.item);
