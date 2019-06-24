@@ -18,6 +18,18 @@
       <div class="popper">
         <div class="month-wrapper" :class="{ blurred: loadingStatus }">
           <month-list v-model="selectedMonth" :active-year="selectedYear" />
+        </div>
+        <div class="vertical-hr"></div>
+        <div class="year-list-wrapper">
+          <year-list :list-of-years="listOfYears" v-model="selectedYear" />
+          <v-btn
+            small
+            depressed
+            :disabled="isNotSelectedMonthOrYear"
+            class="button button-clear"
+            @click.stop="onClear"
+            >{{ $t('clear.selected') }}</v-btn
+          >
           <v-btn
             small
             depressed
@@ -26,10 +38,6 @@
             @click.stop="onApply"
             >{{ $t('apply') }}</v-btn
           >
-        </div>
-        <div class="vertical-hr"></div>
-        <div class="year-list-wrapper">
-          <year-list :list-of-years="listOfYears" v-model="selectedYear" />
         </div>
         <v-progress-circular
           v-if="loadingStatus"
@@ -130,6 +138,11 @@ export default {
         warnMessage('fiscal.period.not.found');
       }
     },
+    onClear() {
+      this.selectedMonth = '';
+      this.$emit('clearFiscalPeriod');
+      this.hide();
+    },
   },
   watch: {
     selectedYear() {
@@ -192,13 +205,6 @@ export default {
 
 .month-wrapper {
   text-align: left;
-  .button-apply {
-    margin: 0 0 38px 59px;
-    background: $base-green !important;
-    color: $base-white;
-    text-transform: capitalize;
-    font-size: 14px;
-  }
 }
 
 .big-spinner {
@@ -210,9 +216,43 @@ export default {
   color: $base-blue;
 }
 
-.year-list-wrapper {
+.year-list-wrapper /deep/ {
   margin-top: 10px;
   width: 350px;
-  margin: 10px 20px 0 20px;
+  margin: 10px 30px 0 20px;
+  text-align: right;
+
+  .button {
+    margin: 10px 0 26px 33px;
+    font-size: 14px;
+    text-transform: initial;
+    border-radius: 6px !important;
+
+    &.button-clear {
+      background: $base-white !important;
+      border: 1px solid $enabled-button-border-color;
+      color: $base-red;
+    }
+
+    &.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat):not(.v-btn--outline) {
+      background: $base-white !important;
+      border: 1px solid $disabled-button-border-color;
+
+      &.button-apply {
+        background: $disabled-button-background !important;
+        color: $base-white !important;
+      }
+
+      &.button-clear {
+        color: $disabled-button-color !important;
+      }
+    }
+
+    &.button-apply {
+      background: $base-green !important;
+      color: $base-white;
+      margin-right: 20px;
+    }
+  }
 }
 </style>
