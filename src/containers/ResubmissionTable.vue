@@ -1,11 +1,7 @@
 <template>
   <div class="resubmission-table" v-if="isShowResubmissionTable">
     <table-toolbar :title="$t('resubmission.table.title')" :table-name="tableName">
-      <resubmission-table-toolbar
-        :tableName="tableName"
-        @exportToCsvFile="onExportToCsvFile"
-        slot="filters"
-      />
+      <resubmission-table-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
     <lazy-load-table :tableName="tableName">
       <component

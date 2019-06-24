@@ -3,20 +3,21 @@
     <table-toolbar :title="$t('disputes.dashboard')" :table-name="tableName">
       <Disputes-Dashboard-Toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
-    <VuePerfectScrollbar class="statistic-list">
+    <div class="statistic-list">
       <total-disputes-statistic :statistics="tableRows" />
       <total-spectrum-dispute-statistic :statistics="tableRows" />
       <total-xyz-dispute-statistic :statistics="tableRows" />
-    </VuePerfectScrollbar>
+      <total-created-disputes-chart />
+    </div>
   </div>
 </template>
 
 <script>
-import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 import TotalDisputesStatistic from '@/components/DisputesDashboard/TotalDisputesStatistic';
 import TotalSpectrumDisputeStatistic from '@/components/DisputesDashboard/TotalSpectrumDisputeStatistic';
 import TotalXyzDisputeStatistic from '@/components/DisputesDashboard/TotalXyzDisputeStatistic';
 import DisputesDashboardToolbar from '@/containers/DisputesDashboardToolbar';
+import TotalCreatedDisputesChart from '@/containers/TotalCreatedDisputesChart';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 import { ENTITY_TYPES } from '@/constants';
 import TableToolbar from '@/components/TableToolbar';
@@ -29,7 +30,7 @@ export default {
     TotalDisputesStatistic,
     TotalSpectrumDisputeStatistic,
     TotalXyzDisputeStatistic,
-    VuePerfectScrollbar,
+    TotalCreatedDisputesChart,
   },
   mixins: [lazyLoadTable],
   data() {
@@ -43,12 +44,16 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
+@import '@/assets/styles/extends.scss';
 @import '@/assets/styles/mixins.scss';
 
 .statistic-list {
+  @extend %thin-scrollbar;
+  overflow: hidden;
+  overflow-y: auto;
   margin-top: 30px;
-  padding: 0 10px 30px;
-  height: calc(100vh - #{$header-height} - #{$table-toolbar-height});
+  padding: 0 10px 0;
+  height: calc(100vh - #{$header-height} - #{$table-toolbar-height} - 50px);
 }
 
 .disputes_dashboard-table {

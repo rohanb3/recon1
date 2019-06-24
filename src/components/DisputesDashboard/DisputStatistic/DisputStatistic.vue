@@ -15,7 +15,8 @@
               <p>{{ totalStatistics.totalQuantity }}</p>
             </v-flex>
             <v-flex>
-              <div class="table-header-label header-precentage">{{ $t('percentage') }}</div>
+              <div class="table-header-label">{{ $t('percentage') }}</div>
+              <p>{{ totalStatistics.percent | percents }}</p>
             </v-flex>
             <v-flex>
               <div class="table-header-label">{{ $t('total.comission.difference') }}</div>
@@ -35,12 +36,16 @@
 <script>
 import DisputChart from './DisputChart';
 import SectionStatistics from './SectionStatistics';
+import { percents } from '@/filters/numberFormat';
 
 export default {
   name: 'DisputStatistic',
   components: {
     DisputChart,
     SectionStatistics,
+  },
+  filters: {
+    percents,
   },
   props: {
     title: {
@@ -118,10 +123,6 @@ export default {
   font-weight: normal;
   font-style: italic;
   margin-bottom: 5px;
-}
-
-.header-precentage {
-  height: 36px;
 }
 
 .pie-chart-wrapper {

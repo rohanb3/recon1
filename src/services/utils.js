@@ -14,12 +14,12 @@ export function getStringFromValuesByKey(itemKey, items = [], outputItems = 3) {
     .reduce((acc, item) => (item[itemKey] ? [...acc, item[itemKey]] : acc), []);
 
   if (shortItemList.length > 0 && shortItemList.length <= outputItems) {
-    return `: ${shortItemList.join(', ')}`;
+    return shortItemList.join(', ');
   }
 
   if (shortItemList.length > outputItems) {
     shortItemList.pop();
-    return `: ${shortItemList.join(', ')}...`;
+    return `${shortItemList.join(', ')}...`;
   }
 
   return '';

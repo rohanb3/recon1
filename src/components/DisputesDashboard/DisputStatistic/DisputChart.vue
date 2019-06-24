@@ -3,7 +3,9 @@
 </template>
 
 <script>
-import TablePieChart from '@/components/charts/TablePieChart/TablePieChart';
+import TablePieChart from '@/components/charts/PieChart/TablePieChart';
+import currency from '@/filters/currency';
+import { percents } from '@/filters/numberFormat';
 
 export default {
   name: 'DisputChart',
@@ -36,7 +38,7 @@ export default {
         data: [
           {
             label: this.$t('percentage'),
-            value: `${statistic.percent}%`,
+            value: percents(statistic.percent),
           },
           {
             label: this.$t('quantity'),
@@ -44,7 +46,7 @@ export default {
           },
           {
             label: this.$t('comission.difference'),
-            value: statistic.commission,
+            value: currency(statistic.commission),
           },
         ],
       }));

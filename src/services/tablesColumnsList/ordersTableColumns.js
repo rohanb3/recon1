@@ -36,7 +36,7 @@ export default () => [
   },
   {
     name: 'serviceName',
-    field: 'sevice.bundleName',
+    field: 'service.bundleName',
     class: 'text',
     title: i18n.t('orders.service.name'),
     width: '15',
