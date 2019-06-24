@@ -29,7 +29,7 @@ export default {
     TableFilter,
   },
   mounted() {
-    this.displayPreselectItems();
+    this.displayPreselectItems({ itemKeyName: this.sendFieldName });
   },
   data() {
     return {
