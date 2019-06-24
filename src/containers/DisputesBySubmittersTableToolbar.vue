@@ -1,28 +1,45 @@
 <template>
   <div class="disputes-by-submitters-table-toolbar">
     <v-spacer></v-spacer>
-    <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
+    <export-to-csv-file-button
+      :tableName="tableName"
+      :filters="filters"
+      :repository="handlerCsvFile()"
+    />
     <fiscal-period-filter :tableName="tableName" />
     <custom-range-filter :tableName="tableName" />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
-import TableButton from '@/components/TableButton';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
+import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
+import { getDisputesBySubmittersCsvFile } from '@/services/disputesRepository';
 
 export default {
   name: 'DisputesBySubmittersTableToolbar',
   components: {
-    TableButton,
     FiscalPeriodFilter,
     CustomRangeFilter,
+    ExportToCsvFileButton,
   },
   props: {
     tableName: {
       type: String,
       required: true,
+    },
+  },
+  computed: {
+    ...mapGetters(['tableData']),
+    filters() {
+      return this.tableData(this.tableName).filters;
+    },
+  },
+  methods: {
+    handlerCsvFile() {
+      return getDisputesBySubmittersCsvFile;
     },
   },
 };

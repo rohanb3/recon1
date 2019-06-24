@@ -1,9 +1,9 @@
 <template>
   <div class="disputes-by-submitters-badge top-submitter-by-rejection-rate">
     <span class="block title-block">{{ $t('top.sumbitter.by.rejection.rate') }}</span>
-    <span class="block name-block">{{ data.submitterName | dashForEmptyValue }}</span>
-    <span class="block percent-block" v-if="data.rate">{{ data.rate | percents }}</span>
-    <span class="block percent-block percent-block-empty" v-else>-</span>
+    <span class="block name-block" v-if="data.submitterName">{{ data.submitterName }}</span>
+    <span class="block name-block" v-else>{{ $t('dispute.creator.name') }}</span>
+    <span class="block percent-block">{{ data.rate | percents }}</span>
   </div>
 </template>
 

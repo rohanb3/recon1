@@ -1,12 +1,7 @@
 <template>
   <div class="orders-table" v-if="isShowOrder">
     <table-toolbar :title="$t('orders.select.order')" :table-name="tableName">
-      <orders-table-toolbar
-        :table-name="tableName"
-        @exportToCsvFile="onExportToCsvFile"
-        @syncOrders="onSyncOrders"
-        slot="filters"
-      />
+      <orders-table-toolbar :table-name="tableName" @syncOrders="onSyncOrders" slot="filters" />
     </table-toolbar>
     <lazy-load-table :tableName="tableName" :item-key-name="columnIdName" :columns="columns">
       <component
@@ -37,8 +32,6 @@ import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
 import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
 
 import { ENTITY_TYPES, TABLE_COLUMN_ID_NAMES } from '@/constants';
-import { getOrdersCsvFile } from '@/services/ordersRepository';
-import { generateCSVFile } from '@/services/utils';
 
 import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
 
@@ -98,10 +91,6 @@ export default {
     onSyncOrders() {
       this.$store.dispatch(START_SYNC_ORDERS);
       successMessage('sync.started', 'sync.info');
-    },
-    async onExportToCsvFile() {
-      const CSVFile = await getOrdersCsvFile(this.filters);
-      generateCSVFile(CSVFile, this.tableName);
     },
   },
 };

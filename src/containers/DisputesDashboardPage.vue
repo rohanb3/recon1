@@ -1,6 +1,8 @@
 <template>
   <div class="disputes_dashboard-table">
-    <Disputes-Dashboard-Toolbar :tableName="tableName" />
+    <table-toolbar :title="$t('disputes.dashboard')" :table-name="tableName">
+      <Disputes-Dashboard-Toolbar :tableName="tableName" slot="filters" />
+    </table-toolbar>
     <div class="statistic-list">
       <total-disputes-statistic :statistics="tableRows" />
       <total-spectrum-dispute-statistic :statistics="tableRows" />
@@ -18,10 +20,12 @@ import DisputesDashboardToolbar from '@/containers/DisputesDashboardToolbar';
 import TotalCreatedDisputesChart from '@/containers/TotalCreatedDisputesChart';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 import { ENTITY_TYPES } from '@/constants';
+import TableToolbar from '@/components/TableToolbar';
 
 export default {
   name: 'DisputesDashboardPage',
   components: {
+    TableToolbar,
     DisputesDashboardToolbar,
     TotalDisputesStatistic,
     TotalSpectrumDisputeStatistic,
@@ -41,6 +45,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
 @import '@/assets/styles/extends.scss';
+@import '@/assets/styles/mixins.scss';
 
 .statistic-list {
   @extend %thin-scrollbar;
@@ -49,5 +54,14 @@ export default {
   margin-top: 30px;
   padding: 0 10px 0;
   height: calc(100vh - #{$header-height} - #{$table-toolbar-height} - 50px);
+}
+
+.disputes_dashboard-table {
+  .table__header {
+    @include table-base-container;
+
+    height: auto;
+    padding-bottom: 5px;
+  }
 }
 </style>
