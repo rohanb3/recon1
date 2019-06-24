@@ -35,16 +35,8 @@ export default {
     },
   },
   methods: {
-    compareItem(a, b) {
-      if (Array.isArray(a) && Array.isArray(b)) {
-        return a.length === b.length && a.filter(item => !b.includes(item)).length === 0;
-      }
-      return a === b;
-    },
     toggleItem({ itemKeyName, itemKeyVal }) {
-      const itemIndex = this[this.filterName].findIndex(item =>
-        this.compareItem(item[itemKeyName], itemKeyVal)
-      );
+      const itemIndex = this[this.filterName].findIndex(item => item[itemKeyName] === itemKeyVal);
       if (itemIndex >= 0) {
         this.selectOneItem(itemIndex, !this[this.filterName][itemIndex].selected);
         this.applyFilter(this.selectedItems);

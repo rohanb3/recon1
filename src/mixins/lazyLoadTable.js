@@ -17,7 +17,10 @@ export default {
     }
   },
   beforeDestroy() {
-  //  this.resetItems();
+    if (this.resetDataBeforeLeave) {
+      this.resetItems();
+      this.resetFilters();
+    }
   },
   computed: {
     ...mapGetters(['storageData', 'tableData']),
