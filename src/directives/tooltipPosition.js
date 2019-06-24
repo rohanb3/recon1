@@ -5,7 +5,7 @@ function isShowTooltipBeforeCursor(x, offsetWidth) {
   return x + SHIFT_TOOLTIP + offsetWidth > window.innerWidth;
 }
 
-const tooltip = (el, { value: { x, y } }) => {
+const tooltipPosition = (el, { value: { x, y } }) => {
   el.style.top = `${y + SHIFT_TOOLTIP}px`;
 
   if (isShowTooltipBeforeCursor(x, el.offsetWidth)) {
@@ -15,4 +15,4 @@ const tooltip = (el, { value: { x, y } }) => {
   }
 };
 
-export default tooltip;
+export default tooltipPosition;

@@ -1,5 +1,5 @@
 <template>
-  <div class="tooltip" v-tooltip="{ x, y }">
+  <div class="tooltip" v-tooltip-position="{ x, y }">
     <div class="tooltip-header">{{ title }}</div>
     <div class="tooltip-body">
       <slot></slot>
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import tooltip from '@/directives/tooltip';
+import tooltipPosition from '@/directives/tooltipPosition';
 
 export default {
   name: 'Tooltip',
@@ -26,7 +26,7 @@ export default {
     },
   },
   directives: {
-    tooltip,
+    tooltipPosition,
   },
 };
 </script>
