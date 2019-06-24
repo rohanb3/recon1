@@ -48,6 +48,7 @@ export default {
             fontColor: STATISTIC_COLOR_SCHEMA.WHITE,
             fontSize: 14,
             overlap: false,
+            precision: 2,
           },
         },
         responsive: true,

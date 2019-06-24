@@ -17,13 +17,6 @@
         <div>
           <span class="user-name">{{ `${user.givenName} ${user.surname}` }}</span>
           <span class="user-email">{{ user.email }}</span>
-          <div class="buttons-container">
-            <button class="profile-button">{{ $t('profile') }}</button>
-            <div class="user-id-container">
-              <span class="user-id-text">{{ $t('id') }}</span>
-              <span class="user-id-number">{{ user.companyId }}</span>
-            </div>
-          </div>
         </div>
       </div>
       <div class="footer">

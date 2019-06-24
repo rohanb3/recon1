@@ -48,9 +48,9 @@ describe('numberFormat', () => {
       expect(result).toEqual(expectedResult);
     });
 
-    it('should return empty string if nothing passed', () => {
+    it('should return zero precent if nothing passed', () => {
       const result = percents();
-      const expectedResult = '';
+      const expectedResult = '0%';
       expect(result).toEqual(expectedResult);
     });
   });

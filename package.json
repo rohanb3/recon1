@@ -16,6 +16,7 @@
     "core-js": "^2.6.5",
     "lodash.chunk": "^4.2.0",
     "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
     "material-design-icons-iconfont": "^4.0.5",
     "moment": "^2.24.0",
     "perfect-scrollbar": "^1.4.0",

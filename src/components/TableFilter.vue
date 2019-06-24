@@ -75,7 +75,7 @@ export default {
   props: {
     title: {
       type: String,
-      required: true,
+      default: '',
     },
     items: {
       type: Array,
@@ -129,7 +129,14 @@ export default {
       return this.selectedItems.length;
     },
     selectedItemsForTitle() {
-      return getStringFromValuesByKey(this.name, this.selectedItems, DISPLAYED_ITEMS_IN_TITLE);
+      const itemsDisplayedInTitle = getStringFromValuesByKey(
+        this.name,
+        this.selectedItems,
+        DISPLAYED_ITEMS_IN_TITLE
+      );
+      return this.isShowTitleWithItems(itemsDisplayedInTitle)
+        ? `: ${itemsDisplayedInTitle}`
+        : itemsDisplayedInTitle;
     },
     searchinOptions() {
       return (this.exactMatchSearch() || this.occurrenceSearch() || []).slice(0, this.listSize);
@@ -209,6 +216,9 @@ export default {
         return -1;
       }
       return 0;
+    },
+    isShowTitleWithItems(text) {
+      return this.title.length && text.length;
     },
   },
 };
