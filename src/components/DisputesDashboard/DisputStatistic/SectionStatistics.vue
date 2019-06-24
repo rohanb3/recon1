@@ -7,13 +7,14 @@
       </v-flex>
       <v-flex>{{ statistic.totalQuantity }}</v-flex>
       <v-flex>{{ statistic.percent | percents }}</v-flex>
-      <v-flex>{{ statistic.commission }}</v-flex>
+      <v-flex>{{ statistic.commission | currency }}</v-flex>
     </v-layout>
   </div>
 </template>
 
 <script>
 import { percents } from '@/filters/numberFormat';
+import currency from '@/filters/currency';
 
 export default {
   name: 'SectionStatistics',
@@ -25,6 +26,7 @@ export default {
   },
   filters: {
     percents,
+    currency,
   },
 };
 </script>
