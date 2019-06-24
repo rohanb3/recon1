@@ -13,12 +13,12 @@
     >
       <div class="popper">
         <div v-if="useQuickBtn" class="table-filter-btn">
-          <a href="#" @click.prevent="onSelectAllItemDisplayed">
-            {{ $t('table.filter.select.all') }}
-          </a>
-          <a href="#" @click.prevent="onClearAllItemDisplayed">
-            {{ $t('table.filter.clear.all') }}
-          </a>
+          <a href="#" @click.prevent="onSelectAllItemDisplayed">{{
+            $t('table.filter.select.all')
+          }}</a>
+          <a href="#" @click.prevent="onClearAllItemDisplayed">{{
+            $t('table.filter.clear.all')
+          }}</a>
         </div>
         <template v-if="useSearchField">
           <input
@@ -134,8 +134,9 @@ export default {
         this.selectedItems,
         DISPLAYED_ITEMS_IN_TITLE
       );
-      if (this.isShowTitleWithItems(itemsDisplayedInTitle)) return `: ${itemsDisplayedInTitle}`;
-      return itemsDisplayedInTitle;
+      return this.isShowTitleWithItems(itemsDisplayedInTitle)
+        ? `: ${itemsDisplayedInTitle}`
+        : itemsDisplayedInTitle;
     },
     searchinOptions() {
       return (this.exactMatchSearch() || this.occurrenceSearch() || []).slice(0, this.listSize);

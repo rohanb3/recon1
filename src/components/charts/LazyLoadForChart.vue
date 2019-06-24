@@ -9,7 +9,7 @@ import throttle from 'lodash.throttle';
 import slidingWindow from '@/services/slidingWindow';
 
 const MIN_OFFSET = 1;
-const NUMBER_DISPLAYED_ITEMS = 31;
+const NUMBER_DISPLAYED_ITEMS = 31; // maximum days in month
 const LOAD_DATA_TIMEOUT = 1000;
 
 export default {
