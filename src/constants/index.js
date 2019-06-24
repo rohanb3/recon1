@@ -33,6 +33,7 @@ export const DISPUTE_SECTION_NAME = {
   WAITING_FOR_ANSWER: 'Waiting for answer',
   APPROVED: 'Approved',
   REJECTED: 'Rejected',
+  RE_SENT_DISPUTES: 'Re-sent disputes',
 };
 
 export const DISPUTE_TYPES_ID = {
