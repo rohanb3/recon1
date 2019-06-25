@@ -115,7 +115,7 @@ export default {
       ).filter(year => FOUR_DIGITS_REGEX.test(year));
     },
     isNotSelectedMonthOrYear() {
-      return !!this.selectedYear && this.selectedMonth === '';
+      return !this.selectedYear || this.selectedMonth === '';
     },
     selectedFiscalPeriodForTitle() {
       return !this.preselectedMonth ? '' : `: ${this.preselectedMonth} ${this.preselectedYear}`;
@@ -139,6 +139,7 @@ export default {
       }
     },
     onClear() {
+      this.selectedYear = 0;
       this.selectedMonth = '';
       this.$emit('clearFiscalPeriod');
       this.hide();
@@ -159,6 +160,7 @@ export default {
 <style scoped lang="scss">
 @import '~@/assets/styles/variables.scss';
 @import '~@/assets/styles/popper.scss';
+@import '@/assets/styles/mixins.scss';
 
 .fiscal-period-filter {
   height: 20px;
@@ -223,36 +225,7 @@ export default {
   text-align: right;
 
   .button {
-    margin: 10px 0 26px 33px;
-    font-size: 14px;
-    text-transform: initial;
-    border-radius: 6px !important;
-
-    &.button-clear {
-      background: $base-white !important;
-      border: 1px solid $enabled-button-border-color;
-      color: $base-red;
-    }
-
-    &.v-btn--disabled:not(.v-btn--icon):not(.v-btn--flat):not(.v-btn--outline) {
-      background: $base-white !important;
-      border: 1px solid $disabled-button-border-color;
-
-      &.button-apply {
-        background: $disabled-button-background !important;
-        color: $base-white !important;
-      }
-
-      &.button-clear {
-        color: $disabled-button-color !important;
-      }
-    }
-
-    &.button-apply {
-      background: $base-green !important;
-      color: $base-white;
-      margin-right: 20px;
-    }
+    @include button;
   }
 }
 </style>
