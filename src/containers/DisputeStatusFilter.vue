@@ -41,19 +41,9 @@ export default {
           name: this.$t('approved'),
         },
         {
-          id: DISPUTE_STATUSES_ID.RE_SENT,
-          name: this.$t('resent'),
-          [this.sendFieldName]: [DISPUTE_STATUSES_ID.RE_SENT],
-        },
-        {
           id: DISPUTE_STATUSES_ID.SENT,
           name: this.$t('new'),
           [this.sendFieldName]: [DISPUTE_STATUSES_ID.SENT],
-        },
-        {
-          id: DISPUTE_STATUSES_ID.REJECTED,
-          name: this.$t('rejected'),
-          [this.sendFieldName]: [DISPUTE_STATUSES_ID.REJECTED],
         },
         {
           id: DISPUTE_STATUSES_ID.IN_PROGRESS,
@@ -62,8 +52,12 @@ export default {
         },
         {
           id: DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
-          name: this.$t('confirm.rejected'),
-          [this.sendFieldName]: [DISPUTE_STATUSES_ID.CONFIRM_REJECTED],
+          name: this.$t('rejected'),
+          [this.sendFieldName]: [
+            DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
+            DISPUTE_STATUSES_ID.RE_SENT,
+            DISPUTE_STATUSES_ID.REJECTED,
+          ],
         },
       ],
     };

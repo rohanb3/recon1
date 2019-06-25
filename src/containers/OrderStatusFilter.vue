@@ -16,7 +16,6 @@
 import TableFilter from '@/components/TableFilter';
 import { FILTER_NAMES, ORDER_STATUS_NAME_TRANSLATION_KEYS } from '@/constants';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
-import TableLoader from '@/components/TableLoader';
 import { getOrderStatusList } from '@/services/ordersRepository';
 
 export default {
@@ -30,7 +29,6 @@ export default {
   },
   components: {
     TableFilter,
-    TableLoader,
   },
   mounted() {
     this.loadStatusesList();
@@ -44,8 +42,7 @@ export default {
   computed: {
     statusList() {
       return this[this.filterName].map(({ id, orderStatusName, selected }) => {
-        const translationKey =
-          ORDER_STATUS_NAME_TRANSLATION_KEYS[orderStatusName];
+        const translationKey = ORDER_STATUS_NAME_TRANSLATION_KEYS[orderStatusName];
         return {
           id,
           name: translationKey ? this.$t(translationKey) : orderStatusName,
