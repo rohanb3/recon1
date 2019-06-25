@@ -40,7 +40,7 @@ describe('dateMonthYear', () => {
   describe('dateDefaultFormat', () => {
     it('should return date format as DD MMM YYYY if passed date', () => {
       const result = dateDefaultFormat('2019-01-28T16:48:19.907');
-      const expectedResult = '28 Jan 2019, 06:48';
+      const expectedResult = '28 Jan 2019, 06:48 pm';
       expect(result).toEqual(expectedResult);
     });
 

@@ -111,4 +111,13 @@ export default {
       }
     },
   },
+  watch: {
+    preselectedItems(items) {
+      if (!items.length) {
+        this.selectedItems.forEach((item, index) => {
+          this.$set(this[this.filterName][index], 'selected', false);
+        });
+      }
+    },
+  },
 };

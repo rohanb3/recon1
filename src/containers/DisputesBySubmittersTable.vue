@@ -76,6 +76,8 @@ export default {
 }
 .table-toolbar {
   @include table-base-toolbar;
+  padding: 0;
+  height: 95px;
 }
 .table-title {
   @include table-base-title;
@@ -85,7 +87,7 @@ export default {
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} - 80px
     );
   }
 

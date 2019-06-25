@@ -36,10 +36,20 @@ export default {
       textValue: '',
     };
   },
-  mounted() {
-    if (this.initialPhrase) {
+  computed: {
+    textValue: {
+      get() {
+        return this.initialPhrase;
+      },
+      set(value) {
+        this.$emit('input', value.trim());
+      },
+    },
+  },
+  watch: {
+    initialPhrase() {
       this.textValue = this.initialPhrase;
-    }
+    },
   },
   methods: {
     debounceInput: debounce(debounceInput, SEARCH_TIMEOUT),
