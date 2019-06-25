@@ -1,5 +1,5 @@
 <template>
-  <div class="disputes_dashboard-table">
+  <div class="disputes_dashboard-table" v-if="false">
     <table-toolbar :title="$t('disputes.dashboard')" :table-name="tableName">
       <Disputes-Dashboard-Toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>

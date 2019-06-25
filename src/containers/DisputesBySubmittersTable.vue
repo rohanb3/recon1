@@ -1,5 +1,5 @@
 <template>
-  <div class="disputes-table disputes_by_submitters-table">
+  <div class="disputes-table disputes_by_submitters-table" v-if="false">
     <div class="table-toolbar">
       <table-toolbar :table-name="tableName" :title="$t('disputes.statistics.by.submitters')">
         <disputes-by-submitters-table-toolbar :tableName="tableName" slot="filters" />
