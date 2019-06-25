@@ -3,7 +3,12 @@
     <table-toolbar :title="$t('orders.select.order')" :table-name="tableName">
       <orders-table-toolbar :table-name="tableName" @syncOrders="onSyncOrders" slot="filters" />
     </table-toolbar>
-    <lazy-load-table :tableName="tableName" :item-key-name="columnIdName" :columns="columns">
+    <lazy-load-table
+      :tableName="tableName"
+      :item-key-name="columnIdName"
+      :columns="columns"
+      :resetDataBeforeLeave="false"
+    >
       <component
         slot="row-cell"
         slot-scope="rowCell"
