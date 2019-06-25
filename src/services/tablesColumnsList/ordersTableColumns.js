@@ -22,6 +22,7 @@ export default () => [
     minWidth: '70px',
     sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.ACCOUNT_NUMBER,
     fieldHeaderType: 'sortingHeader',
+    showTitle: true,
   },
   {
     name: 'creationDate',
@@ -36,13 +37,14 @@ export default () => [
   },
   {
     name: 'serviceName',
-    field: 'sevice.bundleName',
+    field: 'service.bundleName',
     class: 'text',
     title: i18n.t('orders.service.name'),
     width: '15',
     minWidth: '65px',
     sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.BUNDLE_NAME,
     fieldHeaderType: 'sortingHeader',
+    showTitle: true,
   },
   {
     name: 'orderedUnits',

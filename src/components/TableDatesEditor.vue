@@ -22,14 +22,6 @@
               {{ previousPreviousMonthName }}
             </li>
           </ul>
-          <v-btn
-            class="apply-button"
-            color="success"
-            small
-            depressed
-            @click.stop="applyDateRange"
-            >{{ $t('apply') }}</v-btn
-          >
         </div>
         <div class="datepicker">
           <inline-datepicker
@@ -39,6 +31,22 @@
             @dateOneSelected="setFormattedStartDate"
             @dateTwoSelected="setFormattedEndDate"
           />
+          <v-btn
+            small
+            depressed
+            :disabled="isSelectedDate"
+            class="button button-clear"
+            @click.stop="onClearDateRange"
+            >{{ $t('clear.selected') }}</v-btn
+          >
+          <v-btn
+            small
+            depressed
+            class="button button-apply"
+            :disabled="isSelectedDate"
+            @click.stop="applyDateRange"
+            >{{ $t('apply') }}</v-btn
+          >
         </div>
       </div>
 
@@ -95,7 +103,7 @@ export default {
   },
   computed: {
     dateRange() {
-      if (this.startDate === '' || this.endDate === '') {
+      if (this.isNotSelectDate) {
         return '';
       }
       return `: ${this.prettifiedStartDate} - ${this.prettifiedEndDate}`;
@@ -106,27 +114,32 @@ export default {
     prettifiedEndDate() {
       return this.prettifyDate(this.endDate);
     },
-  },
-  watch: {
-    isShown(value) {
-      if (value) {
-        this.setRange(this.startDate, this.endDate);
-      }
+    isNotSelectDate() {
+      return this.startDate === '' || this.endDate === '';
+    },
+    isSelectedDate() {
+      return !this.formattedStartDate.length && !this.formattedEndDate.length;
     },
   },
   methods: {
     applyDateRange() {
-      const startDate = moment(this.formattedStartDate)
+      const startDate = moment(this.formattedStartDate || this.formattedEndDate)
         .startOf('day')
         .utc()
         .format();
 
-      const endDate = moment(this.formattedEndDate)
+      const endDate = moment(this.formattedEndDate || this.formattedStartDate)
         .endOf('day')
         .utc()
         .format();
 
       this.$emit('applyDateRange', { startDate, endDate });
+      this.hide();
+    },
+    onClearDateRange() {
+      this.formattedStartDate = '';
+      this.formattedEndDate = '';
+      this.$emit('clearDateRange');
       this.hide();
     },
     prettifyDate(date) {
@@ -136,6 +149,7 @@ export default {
         .format(this.dateRangeFormat);
     },
     formatDayForDatePicker(date) {
+      if (date.length === 0) return '';
       return moment
         .utc(date || moment())
         .local()
@@ -195,6 +209,7 @@ export default {
 <style scoped lang="scss">
 @import '~@/assets/styles/variables.scss';
 @import '@/assets/styles/popper.scss';
+@import '@/assets/styles/mixins.scss';
 
 .table-dates-editor {
   height: 20px;
@@ -258,5 +273,10 @@ export default {
 }
 .datepicker {
   margin-right: 10px;
+  text-align: right;
+
+  .button {
+    @include button;
+  }
 }
 </style>

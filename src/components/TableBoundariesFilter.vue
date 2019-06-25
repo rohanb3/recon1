@@ -102,8 +102,8 @@ export default {
   },
   watch: {
     selected() {
-      this.fromValueEntered = this.getInitialOperation();
-      this.toValueEntered = this.getInitialValue();
+      this.fromValueEntered = this.getInitialFromValue();
+      this.toValueEntered = this.getInitialToValue();
     },
   },
   methods: {

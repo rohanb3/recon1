@@ -1,7 +1,7 @@
 <template>
   <div class="disputes-by-submitters-badges">
-    <top-submitter-by-approve-rate v-if="statistics.byApprove" :data="statistics.byApprove" />
-    <top-submitter-by-rejection-rate v-if="statistics.byRejection" :data="statistics.byRejection" />
+    <top-submitter-by-approve-rate :data="byApprove" />
+    <top-submitter-by-rejection-rate :data="byRejection" />
   </div>
 </template>
 
@@ -30,6 +30,14 @@ export default {
       statistics: {},
     };
   },
+  computed: {
+    byApprove() {
+      return this.statistics.byApprove || {};
+    },
+    byRejection() {
+      return this.statistics.byRejection || {};
+    },
+  },
   methods: {
     async loadData(filters) {
       try {
@@ -45,7 +53,7 @@ export default {
 
 <style scoped lang="scss">
 .disputes-by-submitters-badges {
-  margin: 0 13px 10px;
+  margin: 15px 13px 10px;
   display: flex;
   align-items: center;
   .disputes-by-submitters-badge /deep/ {
@@ -64,13 +72,16 @@ export default {
       }
       &:not(:first-child) {
         padding-left: 9px;
+        height: 100%;
+        display: flex;
+        align-items: center;
       }
     }
     .title-block {
       width: 105px;
     }
     .name-block {
-      max-width: 200px;
+      max-width: 250px;
       min-width: 88px;
       text-align: center;
     }

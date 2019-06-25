@@ -7,7 +7,8 @@
       :min="0"
       boundaries-selector=".reviews-table"
       name="creationAge"
-      v-model="age"
+      :selected="age"
+      @input="onSelectRange"
     />
   </div>
 </template>
@@ -25,21 +26,28 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      age: {},
-    };
-  },
   computed: {
     tableData() {
       return this.$store.state.tables[this.tableName] || {};
+    },
+    age() {
+      return {
+        from: this.ageFrom,
+        to: this.ageTo,
+      };
+    },
+    ageFrom() {
+      return this.tableData.filters[FILTER_NAMES.ORDER_AGE_FROM];
+    },
+    ageTo() {
+      return this.tableData.filters[FILTER_NAMES.ORDER_AGE_TO];
     },
   },
   components: {
     TableBoundariesFilter,
   },
-  watch: {
-    age(value) {
+  methods: {
+    onSelectRange(value) {
       const { from, to } = value;
       const data = {
         tableName: this.tableName,
