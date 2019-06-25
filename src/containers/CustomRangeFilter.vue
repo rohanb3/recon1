@@ -5,6 +5,7 @@
     :title="$t('custom.range')"
     :end-date="endDate"
     @applyDateRange="handleFilterByDate"
+    @clearDateRange="onClearDateRange"
   />
 </template>
 
@@ -61,6 +62,22 @@ export default {
           {
             name: FILTER_NAMES.FISCAL_PERIOD_ID,
             value: null,
+          },
+        ],
+      };
+      this.$store.dispatch(APPLY_FILTERS, data);
+    },
+    onClearDateRange() {
+      const data = {
+        tableName: this.tableName,
+        filters: [
+          {
+            name: FILTER_NAMES.CREATED_FROM,
+            value: '',
+          },
+          {
+            name: FILTER_NAMES.CREATED_TO,
+            value: '',
           },
         ],
       };
