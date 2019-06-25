@@ -11,14 +11,14 @@
       @show="onShow"
       @hide="hideFilter"
     >
-      <div class="popper">
+      <div class="popper table-filter-options">
         <div v-if="useQuickBtn" class="table-filter-btn">
-          <a href="#" @click.prevent="onSelectAllItemDisplayed">{{
-            $t('table.filter.select.all')
-          }}</a>
-          <a href="#" @click.prevent="onClearAllItemDisplayed">{{
-            $t('table.filter.clear.all')
-          }}</a>
+          <a href="#" @click.prevent="onSelectAllItemDisplayed">
+            {{ $t('table.filter.select.all') }}
+          </a>
+          <a href="#" @click.prevent="onClearAllItemDisplayed">
+            {{ $t('table.filter.clear.all') }}
+          </a>
         </div>
         <template v-if="useSearchField">
           <input
@@ -49,6 +49,15 @@
             <slot name="loader"></slot>
           </ul>
         </VuePerfectScrollbar>
+        <v-btn
+          v-show="showClearButton"
+          small
+          depressed
+          :disabled="isClearSelectedDisabled"
+          class="button button-clear"
+          @click="onClearAllItemDisplayed"
+          >{{ $t('clear.selected') }}</v-btn
+        >
       </div>
       <div slot="reference" class="datepicker-toggler">
         <div class="caret"></div>
@@ -101,6 +110,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    showClearButton: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -140,6 +153,9 @@ export default {
     },
     searchinOptions() {
       return (this.exactMatchSearch() || this.occurrenceSearch() || []).slice(0, this.listSize);
+    },
+    isClearSelectedDisabled() {
+      return !this.selectedItems.length;
     },
   },
   methods: {
@@ -227,6 +243,7 @@ export default {
 <style scoped lang="scss">
 @import '~@/assets/styles/variables.scss';
 @import '~@/assets/styles/popper.scss';
+@import '@/assets/styles/mixins.scss';
 
 .table-filter {
   height: 20px;
@@ -246,6 +263,14 @@ export default {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+.table-filter-options {
+  .button {
+    @include button;
+    margin: 0 10px 10px;
+  }
+}
+
 .table-filter-btn {
   display: flex;
   margin-top: 7px;
