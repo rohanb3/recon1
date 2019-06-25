@@ -6,7 +6,7 @@
       :style="{ minWidth: minWidthFilterEditor }"
     >
       {{ title }}
-      <span v-if="!error">{{ range | boundaries({ prefix: ': ' }) }}</span>
+      <span v-if="!error">{{ selected | boundaries({ prefix: ': ' }) }}</span>
     </div>
     <popper
       trigger="click"
@@ -24,7 +24,6 @@
           class="number-field"
           :placeholder="fromPlaceholder"
           outline
-          @input="debounceInput"
         ></v-text-field>
         <v-text-field
           type="text"
@@ -32,9 +31,24 @@
           class="number-field"
           :placeholder="toPlaceholder"
           outline
-          @input="debounceInput"
         ></v-text-field>
         <div class="messages-wrapper" v-show="error">{{ error }}</div>
+        <v-btn
+          small
+          depressed
+          class="button button-apply"
+          :disabled="isSelectedRangeDisabled"
+          @click.stop="onApplyRange"
+          >{{ $t('apply') }}</v-btn
+        >
+        <v-btn
+          small
+          depressed
+          :disabled="isSelectedRangeDisabled"
+          class="button button-clear"
+          @click.stop="onClearRange"
+          >{{ $t('clear.fields') }}</v-btn
+        >
       </div>
       <div slot="reference" class="datepicker-toggler">
         <div class="caret"></div>
@@ -44,13 +58,12 @@
 </template>
 
 <script>
-import debounce from 'lodash.debounce';
 import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
 import filters, { OPERATORS } from '@/services/customFilters/index';
 import boundaries from '@/filters/boundaries';
+import { notEmpty } from '@/services/utils';
 
 const filter = filters.range.get(OPERATORS.BETWEEN);
-const INPUT_DELAY = 500;
 
 export default {
   name: 'TableBoundariesFilter',
@@ -99,6 +112,10 @@ export default {
     error() {
       return filter.validate(this.range, { min: this.min });
     },
+    isSelectedRangeDisabled() {
+      const { from, to } = this.range;
+      return !!this.error || (!notEmpty(from) && !notEmpty(to));
+    },
   },
   watch: {
     selected() {
@@ -107,6 +124,21 @@ export default {
     },
   },
   methods: {
+    onApplyRange() {
+      if (this.error) {
+        return;
+      }
+
+      const data = filter.apply(this.range);
+      this.$emit('input', data);
+      this.hide();
+    },
+    onClearRange() {
+      this.fromValueEntered = '';
+      this.toValueEntered = '';
+      this.$emit('clearRange');
+      this.hide();
+    },
     getInitialFromValue() {
       return this.selected.from;
     },
@@ -121,14 +153,6 @@ export default {
       this.minWidthFilterEditor = 'auto';
       this.onHide();
     },
-    debounceInput: debounce(function onInput() {
-      if (this.error) {
-        return;
-      }
-
-      const data = filter.apply(this.range);
-      this.$emit('input', data);
-    }, INPUT_DELAY),
   },
 };
 </script>
@@ -136,6 +160,7 @@ export default {
 <style scoped lang="scss">
 @import '~@/assets/styles/variables.scss';
 @import '~@/assets/styles/popper.scss';
+@import '@/assets/styles/mixins.scss';
 
 .title-rule {
   text-align: left;
@@ -153,6 +178,18 @@ export default {
   font-size: 12px;
   color: $table-toolbar-section-color;
   font-weight: 500;
+
+  .button {
+    @include button;
+
+    &.button-apply {
+      margin: 5px 0;
+    }
+
+    &.button-clear {
+      margin: 5px 0 10px 0;
+    }
+  }
 }
 .messages-wrapper {
   color: $base-red;

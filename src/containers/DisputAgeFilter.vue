@@ -9,6 +9,7 @@
       name="creationAge"
       :selected="age"
       @input="onSelectRange"
+      @clearRange="onClearRange"
     />
   </div>
 </template>
@@ -59,6 +60,22 @@ export default {
           {
             name: FILTER_NAMES.DISPUTE_AGE_TO,
             value: to,
+          },
+        ],
+      };
+      this.$store.dispatch(APPLY_FILTERS, data);
+    },
+    onClearRange() {
+      const data = {
+        tableName: this.tableName,
+        filters: [
+          {
+            name: FILTER_NAMES.DISPUTE_AGE_FROM,
+            value: null,
+          },
+          {
+            name: FILTER_NAMES.DISPUTE_AGE_TO,
+            value: null,
           },
         ],
       };
