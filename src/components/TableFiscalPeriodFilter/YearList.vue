@@ -140,6 +140,7 @@ export default {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  text-align: center;
 }
 
 .navigation-years {

@@ -200,6 +200,7 @@
   "last.30.days": "Last 30 days",
   "all.time": "All time",
   "apply": "Apply",
+  "clear.selected": "Clear selected",
   "from": "from",
   "to": "to",
   "fiscal.period.not.found": "Fiscal period not found",

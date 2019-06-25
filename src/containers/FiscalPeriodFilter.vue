@@ -6,6 +6,7 @@
       :loading-status="loading"
       :boundariesSelector="`.${getTableName}-table`"
       @selectFiscalPeriod="handleFiscalPeriod"
+      @clearFiscalPeriod="onClearFiscalPeriod"
     />
   </div>
 </template>
@@ -87,16 +88,28 @@ export default {
             value: fiscalPeriodId,
           },
           {
-            name: FILTER_NAMES.FISCAL_PERIOD_FROM,
+            name: FILTER_NAMES.FISCAL_PERIOD_TO,
             value: fiscalPeriod.name,
-          },
-          {
-            name: FILTER_NAMES.FISCAL_PERIOD_ID,
-            value: fiscalPeriodId,
           },
         ],
       };
 
+      this.$store.dispatch(APPLY_FILTERS, data);
+    },
+    onClearFiscalPeriod() {
+      const data = {
+        tableName: this.tableName,
+        filters: [
+          {
+            name: FILTER_NAMES.FISCAL_PERIOD_ID,
+            value: null,
+          },
+          {
+            name: FILTER_NAMES.FISCAL_PERIOD_TO,
+            value: '',
+          },
+        ],
+      };
       this.$store.dispatch(APPLY_FILTERS, data);
     },
   },
