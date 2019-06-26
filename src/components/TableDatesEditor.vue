@@ -18,10 +18,9 @@
             <li class="range-value" @click="setLastSevenDays">{{ $t('last.7.days') }}</li>
             <li class="range-value" @click="setLastThirtyDays">{{ $t('last.30.days') }}</li>
             <li class="range-value" @click="setPreviousMonth">{{ previousMonthName }}</li>
-            <li
-              class="range-value"
-              @click="setPreviousPreviousMonth"
-            >{{ previousPreviousMonthName }}</li>
+            <li class="range-value" @click="setPreviousPreviousMonth">
+              {{ previousPreviousMonthName }}
+            </li>
           </ul>
         </div>
         <div class="datepicker">
@@ -38,14 +37,16 @@
             :disabled="isSelectedDate"
             class="button button-clear"
             @click.stop="onClearDateRange"
-          >{{ $t('clear.selected') }}</v-btn>
+            >{{ $t('clear.selected') }}</v-btn
+          >
           <v-btn
             small
             depressed
             class="button button-apply"
             :disabled="isSelectedDate"
             @click.stop="applyDateRange"
-          >{{ $t('apply') }}</v-btn>
+            >{{ $t('apply') }}</v-btn
+          >
         </div>
       </div>
 

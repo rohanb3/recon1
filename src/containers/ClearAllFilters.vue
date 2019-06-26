@@ -1,11 +1,7 @@
 <template>
-  <v-btn
-    small
-    depressed
-    :disabled="false"
-    class="button button-apply"
-    @click="onClearAllFilters"
-  >{{ $t('clear.all.filters') }}</v-btn>
+  <v-btn small depressed :disabled="false" class="button button-apply" @click="onClearAllFilters">{{
+    $t('clear.all.filters')
+  }}</v-btn>
 </template>
 
 <script>
@@ -20,7 +16,7 @@ export default {
     },
   },
   methods: {
-    onClearAllFilters() {      
+    onClearAllFilters() {
       this.$store.dispatch(RESET_FILTERS, this.tableName);
     },
   },

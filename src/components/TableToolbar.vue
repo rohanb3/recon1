@@ -5,9 +5,9 @@
       <slot name="filters"></slot>
     </div>
     <div class="table-toolbar-info">
-      <selected-range-filter :tableName="tableName"/>
-      <v-spacer/>
-      <clear-all-filters :tableName="tableName"/>
+      <selected-range-filter :tableName="tableName" />
+      <v-spacer />
+      <clear-all-filters :tableName="tableName" />
     </div>
   </div>
 </template>
