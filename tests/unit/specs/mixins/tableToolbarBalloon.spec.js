@@ -1,4 +1,3 @@
-import * as sinon from 'sinon';
 import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
 
 describe('tableToolbarBalloon', () => {
@@ -19,58 +18,6 @@ describe('tableToolbarBalloon', () => {
     });
   });
   describe('tableToolbarBalloon: methods', () => {
-    describe('checkAndShow', () => {
-      let clock;
-
-      beforeEach(() => {
-        clock = sinon.useFakeTimers();
-      });
-
-      afterEach(() => {
-        clock.restore();
-      });
-
-      it('should call func show with timeout', () => {
-        const DELAY_BEFORE_OPENING = 10;
-        const mockedThis = {
-          show: jest.fn(),
-          isShown: false,
-        };
-
-        tableToolbarBalloon.methods.checkAndShow.call(mockedThis);
-
-        expect(mockedThis.show).toHaveBeenCalledTimes(0);
-
-        clock.tick(DELAY_BEFORE_OPENING);
-        expect(mockedThis.show).toHaveBeenCalledTimes(1);
-      });
-    });
-    describe('checkAndHide', () => {
-      let clock;
-
-      beforeEach(() => {
-        clock = sinon.useFakeTimers();
-      });
-
-      afterEach(() => {
-        clock.restore();
-      });
-
-      it('should call func hide with timeout', () => {
-        const DELAY_BEFORE_OPENING = 10;
-        const mockedThis = {
-          hide: jest.fn(),
-          isShown: true,
-        };
-
-        tableToolbarBalloon.methods.checkAndHide.call(mockedThis);
-
-        expect(mockedThis.hide).toHaveBeenCalledTimes(0);
-
-        clock.tick(DELAY_BEFORE_OPENING);
-        expect(mockedThis.hide).toHaveBeenCalledTimes(1);
-      });
-    });
     describe('show', () => {
       it('should call doShow func', () => {
         const mockedThis = {

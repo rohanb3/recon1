@@ -1,7 +1,4 @@
-import * as sinon from 'sinon';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
-
-const _ = require('lodash.debounce');
 
 jest.useFakeTimers();
 
@@ -216,28 +213,17 @@ describe('tableFilterAutocomplete mixin', () => {
         expect(mockedThis.selectAllItem).toHaveBeenCalledWith(itemKeyName, items, status);
       });
     });
-    describe('applyFilter', () => {
-      let clock;
+    describe('apply', () => {
+      it('should dispatch APPLY_FILTERS', () => {
+        const mockedThis = {
+          $store: {
+            dispatch: jest.fn(),
+          },
+        };
 
-      beforeEach(() => {
-        clock = sinon.useFakeTimers();
-      });
+        tableFilterAutocomplete.methods.apply.call(mockedThis);
 
-      afterEach(() => {
-        clock.restore();
-      });
-
-      it('should call callback after 1 seconds', () => {
-        const TIMEOUT_APPLY_FILTER = 1000;
-
-        const func = jest.fn();
-        const debouncedFunc = _(func, TIMEOUT_APPLY_FILTER);
-
-        debouncedFunc();
-        expect(func).toHaveBeenCalledTimes(0);
-
-        clock.tick(1000);
-        expect(func).toHaveBeenCalledTimes(1);
+        expect(mockedThis.$store.dispatch).toHaveBeenCalled();
       });
     });
     describe('displayPreselectItems', () => {

@@ -22,7 +22,6 @@
     "perfect-scrollbar": "^1.4.0",
     "qs": "^6.7.0",
     "register-service-worker": "^1.6.2",
-    "sinon": "^7.3.2",
     "v-hotkey": "^0.4.0",
     "vue": "^2.6.10",
     "vue-airbnb-style-datepicker": "^2.7.0",
