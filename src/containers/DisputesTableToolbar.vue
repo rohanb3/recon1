@@ -1,17 +1,9 @@
 <template>
   <div class="disputes-table-toolbar">
-    <quick-search-filter :table-name="tableName" :filter-name="filterNames.quickSearch" />
+    <quick-search-filter :table-name="tableName" :filter-name="quickSearchFilterName" />
     <div class="table-filter-container">
-      <age-filter
-        :title="$t('orders.age.after.order')"
-        :table-name="tableName"
-        :filter-names="filterNames.orderAge"
-      />
-      <age-filter
-        :title="$t('disputes.age.after.disput')"
-        :table-name="tableName"
-        :filter-names="filterNames.disputAge"
-      />
+      <order-age-filter :table-name="tableName" />
+      <disput-age-filter :table-name="tableName" />
       <dispute-type-filter :tableName="tableName" />
       <dispute-xyz-status-filter :tableName="tableName" send-field-name="ids" />
       <dispute-status-filter :tableName="tableName" send-field-name="ids" />
@@ -34,7 +26,8 @@ import { mapGetters } from 'vuex';
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
-import AgeFilter from '@/containers/AgeFilter';
+import OrderAgeFilter from '@/containers/AgeFilters/OrderAgeFilter';
+import DisputAgeFilter from '@/containers/AgeFilters/DisputAgeFilter';
 import DisputeXyzStatusFilter from '@/containers/DisputeXyzStatusFilter';
 import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
@@ -49,7 +42,8 @@ export default {
     DisputeTypeFilter,
     FiscalPeriodFilter,
     CustomRangeFilter,
-    AgeFilter,
+    OrderAgeFilter,
+    DisputAgeFilter,
     DisputeXyzStatusFilter,
     DisputeStatusFilter,
     ExportToCsvFileButton,
@@ -62,17 +56,7 @@ export default {
   },
   data() {
     return {
-      filterNames: {
-        orderAge: {
-          from: FILTER_NAMES.ORDER_AGE_FROM,
-          to: FILTER_NAMES.ORDER_AGE_TO,
-        },
-        disputAge: {
-          from: FILTER_NAMES.DISPUTE_AGE_FROM,
-          to: FILTER_NAMES.DISPUTE_AGE_TO,
-        },
-        quickSearch: FILTER_NAMES.SEARCH_DISPUTES,
-      },
+      quickSearchFilterName: FILTER_NAMES.SEARCH_DISPUTES,
     };
   },
   computed: {

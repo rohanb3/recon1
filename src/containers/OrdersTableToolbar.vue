@@ -1,13 +1,9 @@
 <template>
   <div class="orders-table-toolbar">
-    <quick-search-filter :table-name="tableName" :filter-name="filterNames.quickSearch" />
+    <quick-search-filter :table-name="tableName" :filter-name="quickSearchFilterName" />
     <div class="table-filter-container">
       <order-status-filter :table-name="tableName" />
-      <age-filter
-        :title="$t('orders.age.after.order')"
-        :table-name="tableName"
-        :filter-names="filterNames.orderAge"
-      />
+      <order-age-filter :table-name="tableName" />
     </div>
     <v-spacer></v-spacer>
     <div class="table-filter-container">
@@ -32,8 +28,8 @@
 import { mapGetters } from 'vuex';
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import OrderStatusFilter from '@/containers/OrderStatusFilter';
-import AgeFilter from '@/containers/AgeFilter';
 import TableButton from '@/components/TableButton';
+import OrderAgeFilter from '@/containers/AgeFilters/OrderAgeFilter';
 import { ENTITY_TYPES, ORDER_SYNC_STATUS, FILTER_NAMES } from '@/constants';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
@@ -46,21 +42,15 @@ export default {
     CustomRangeFilter,
     QuickSearchFilter,
     OrderStatusFilter,
-    AgeFilter,
     TableButton,
     FiscalPeriodFilter,
     ExportToCsvFileButton,
+    OrderAgeFilter,
   },
   data() {
     return {
       tableName: ENTITY_TYPES.ORDERS,
-      filterNames: {
-        orderAge: {
-          from: FILTER_NAMES.ORDER_AGE_FROM,
-          to: FILTER_NAMES.ORDER_AGE_TO,
-        },
-        quickSearch: FILTER_NAMES.SEARCH_ORDERS,
-      },
+      quickSearchFilterName: FILTER_NAMES.SEARCH_DISPUTES,
     };
   },
   computed: {

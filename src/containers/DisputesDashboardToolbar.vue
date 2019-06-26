@@ -1,16 +1,8 @@
 <template>
   <v-container fluid grid-list-md class="disputes-dashboard-toolbar">
     <div class="table-filter-container">
-      <age-filter
-        :title="$t('orders.age.after.order')"
-        :table-name="tableName"
-        :filter-names="filterNames.orderAge"
-      />
-      <age-filter
-        :title="$t('disputes.age.after.disput')"
-        :table-name="tableName"
-        :filter-names="filterNames.disputAge"
-      />
+      <order-age-filter :table-name="tableName" />
+      <disput-age-filter :table-name="tableName" />
     </div>
     <v-spacer />
     <div class="table-filter-container">
@@ -23,13 +15,14 @@
 <script>
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
-import AgeFilter from '@/containers/AgeFilter';
-import { FILTER_NAMES } from '@/constants';
+import OrderAgeFilter from '@/containers/AgeFilters/OrderAgeFilter';
+import DisputAgeFilter from '@/containers/AgeFilters/DisputAgeFilter';
 
 export default {
   name: 'DisputesDashboardToolbar',
   components: {
-    AgeFilter,
+    OrderAgeFilter,
+    DisputAgeFilter,
     FiscalPeriodFilter,
     CustomRangeFilter,
   },
@@ -38,20 +31,6 @@ export default {
       type: String,
       required: true,
     },
-  },
-  data() {
-    return {
-      filterNames: {
-        orderAge: {
-          from: FILTER_NAMES.ORDER_AGE_FROM,
-          to: FILTER_NAMES.ORDER_AGE_TO,
-        },
-        disputAge: {
-          from: FILTER_NAMES.DISPUTE_AGE_FROM,
-          to: FILTER_NAMES.DISPUTE_AGE_TO,
-        },
-      },
-    };
   },
 };
 </script>
