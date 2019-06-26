@@ -6,7 +6,7 @@
       :style="{ minWidth: minWidthFilterEditor }"
     >
       {{ title }}
-      <span v-if="!error">{{ range | boundaries({ prefix: ': ' }) }}</span>
+      <span v-if="!error">{{ selected | boundaries({ prefix: ': ' }) }}</span>
     </div>
     <popper
       trigger="click"
@@ -24,7 +24,6 @@
           class="number-field"
           :placeholder="fromPlaceholder"
           outline
-          @input="debounceInput"
         ></v-text-field>
         <v-text-field
           type="text"
@@ -32,9 +31,15 @@
           class="number-field"
           :placeholder="toPlaceholder"
           outline
-          @input="debounceInput"
         ></v-text-field>
         <div class="messages-wrapper" v-show="error">{{ error }}</div>
+        <control-buttons
+          :from="fromValueEntered"
+          :to="toValueEntered"
+          :error="error"
+          @applyRange="onApplyRange"
+          @clearRange="onClearRange"
+        />
       </div>
       <div slot="reference" class="datepicker-toggler">
         <div class="caret"></div>
@@ -44,17 +49,19 @@
 </template>
 
 <script>
-import debounce from 'lodash.debounce';
 import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
 import filters, { OPERATORS } from '@/services/customFilters/index';
 import boundaries from '@/filters/boundaries';
+import ControlButtons from './ControlButtons';
 
 const filter = filters.range.get(OPERATORS.BETWEEN);
-const INPUT_DELAY = 500;
 
 export default {
   name: 'TableBoundariesFilter',
   mixins: [tableToolbarBalloon],
+  components: {
+    ControlButtons,
+  },
   filters: {
     boundaries,
   },
@@ -107,6 +114,20 @@ export default {
     },
   },
   methods: {
+    onApplyRange() {
+      if (this.error) {
+        return;
+      }
+
+      const data = filter.apply(this.range);
+      this.$emit('input', data);
+      this.hide();
+    },
+    onClearRange() {
+      this.fromValueEntered = '';
+      this.toValueEntered = '';
+      this.$emit('clearRange');
+    },
     getInitialFromValue() {
       return this.selected.from;
     },
@@ -121,14 +142,6 @@ export default {
       this.minWidthFilterEditor = 'auto';
       this.onHide();
     },
-    debounceInput: debounce(function onInput() {
-      if (this.error) {
-        return;
-      }
-
-      const data = filter.apply(this.range);
-      this.$emit('input', data);
-    }, INPUT_DELAY),
   },
 };
 </script>

@@ -21,8 +21,8 @@ import DisputAgeFilter from '@/containers/DisputAgeFilter';
 export default {
   name: 'DisputesDashboardToolbar',
   components: {
-    DisputAgeFilter,
     OrderAgeFilter,
+    DisputAgeFilter,
     FiscalPeriodFilter,
     CustomRangeFilter,
   },

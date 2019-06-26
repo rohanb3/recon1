@@ -1,34 +1,46 @@
 <template>
   <div class="filter-wrapper">
     <table-boundaries-filter
-      :title="$t('orders.age.after.installation')"
+      :title="title"
       :from-placeholder="$t('from')"
       :to-placeholder="$t('to')"
       :min="0"
       boundaries-selector=".reviews-table"
-      name="installationAge"
       :selected="age"
       @input="onSelectRange"
+      @clearRange="onClearRange"
     />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import TableBoundariesFilter from '@/components/TableBoundariesFilter';
-import { FILTER_NAMES } from '@/constants';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 
 export default {
-  name: 'InstalationFilter',
+  name: 'OrderAgeFilter',
   props: {
+    title: {
+      type: String,
+      required: true,
+    },
     tableName: {
       type: String,
       required: true,
     },
+    filterNames: {
+      type: Object,
+      required: true,
+      validator(filters) {
+        return filters.from && filters.to;
+      },
+    },
   },
   computed: {
-    tableData() {
-      return this.$store.state.tables[this.tableName] || {};
+    ...mapGetters(['tableData']),
+    filters() {
+      return this.tableData(this.tableName).filters;
     },
     age() {
       return {
@@ -37,10 +49,10 @@ export default {
       };
     },
     ageFrom() {
-      return this.tableData.filters[FILTER_NAMES.INSTALLATION_AGE_FROM];
+      return this.filters[this.filterNames.from];
     },
     ageTo() {
-      return this.tableData.filters[FILTER_NAMES.INSTALLATION_AGE_TO];
+      return this.filters[this.filterNames.to];
     },
   },
   components: {
@@ -53,12 +65,28 @@ export default {
         tableName: this.tableName,
         filters: [
           {
-            name: FILTER_NAMES.INSTALLATION_AGE_FROM,
+            name: this.filterNames.from,
             value: from,
           },
           {
-            name: FILTER_NAMES.INSTALLATION_AGE_TO,
+            name: this.filterNames.to,
             value: to,
+          },
+        ],
+      };
+      this.$store.dispatch(APPLY_FILTERS, data);
+    },
+    onClearRange() {
+      const data = {
+        tableName: this.tableName,
+        filters: [
+          {
+            name: this.filterNames.from,
+            value: null,
+          },
+          {
+            name: this.filterNames.to,
+            value: null,
           },
         ],
       };
