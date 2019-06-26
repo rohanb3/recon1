@@ -1,6 +1,6 @@
 <template>
   <div class="disputes-table-toolbar">
-    <quick-search-disputes-filter :tableName="tableName" />
+    <quick-search-filter :table-name="tableName" :filter-name="filterNames.quickSearch" />
     <div class="table-filter-container">
       <age-filter
         :title="$t('orders.age.after.order')"
@@ -30,7 +30,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
+import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
 import AgeFilter from '@/containers/AgeFilter';
@@ -43,7 +43,7 @@ import { FILTER_NAMES } from '@/constants';
 export default {
   name: 'ResubmissionTableToolbar',
   components: {
-    QuickSearchDisputesFilter,
+    QuickSearchFilter,
     DisputeTypeFilter,
     FiscalPeriodFilter,
     CustomRangeFilter,
@@ -68,6 +68,7 @@ export default {
           from: FILTER_NAMES.DISPUTE_AGE_FROM,
           to: FILTER_NAMES.DISPUTE_AGE_TO,
         },
+        quickSearch: FILTER_NAMES.SEARCH_DISPUTES,
       },
     };
   },

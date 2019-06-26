@@ -1,6 +1,6 @@
 <template>
   <div class="orders-table-toolbar">
-    <quick-search-filter :tableName="tableName" />
+    <quick-search-filter :table-name="tableName" :filter-name="filterNames.quickSearch" />
     <div class="table-filter-container">
       <order-status-filter :table-name="tableName" />
       <age-filter
@@ -59,17 +59,15 @@ export default {
           from: FILTER_NAMES.ORDER_AGE_FROM,
           to: FILTER_NAMES.ORDER_AGE_TO,
         },
+        quickSearch: FILTER_NAMES.SEARCH_ORDERS,
       },
     };
   },
   computed: {
-    storageData() {
-      return this.$store.state.storage[this.tableName] || {};
-    },
+    ...mapGetters(['tableData', 'storageData']),
     isOrdersSyncing() {
-      return this.storageData.syncOrdersStatus === ORDER_SYNC_STATUS.WORKING;
+      return this.storageData(this.tableName).syncOrdersStatus === ORDER_SYNC_STATUS.WORKING;
     },
-    ...mapGetters(['tableData']),
     filters() {
       return this.tableData(this.tableName).filters;
     },

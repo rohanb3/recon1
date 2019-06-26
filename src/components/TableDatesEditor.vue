@@ -203,6 +203,13 @@ export default {
       this.formattedEndDate = this.formatDayForDatePicker(date);
     },
   },
+  watch: {
+    isShown(value) {
+      if (value) {
+        this.setRange(this.startDate, this.endDate);
+      }
+    },
+  },
 };
 </script>
 

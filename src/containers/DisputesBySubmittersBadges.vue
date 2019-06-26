@@ -53,7 +53,7 @@ export default {
 
 <style scoped lang="scss">
 .disputes-by-submitters-badges {
-  margin: 15px 13px 10px;
+  margin: 0 13px 10px;
   display: flex;
   align-items: center;
   .disputes-by-submitters-badge /deep/ {

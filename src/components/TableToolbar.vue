@@ -4,16 +4,21 @@
       <div class="table-title">{{ title }}</div>
       <slot name="filters"></slot>
     </div>
-    <selected-range-filter :tableName="tableName" />
+    <div class="table-toolbar-info">
+      <selected-range-filter :tableName="tableName" />
+      <v-spacer />
+      <clear-all-filters :tableName="tableName" />
+    </div>
   </div>
 </template>
 
 <script>
 import SelectedRangeFilter from '@/components/SelectedRangeFilter';
+import ClearAllFilters from '@/containers/ClearAllFilters';
 
 export default {
   name: 'TableToolbar',
-  components: { SelectedRangeFilter },
+  components: { SelectedRangeFilter, ClearAllFilters },
   props: {
     title: {
       type: String,
@@ -40,5 +45,9 @@ export default {
 
 .table__header {
   @include table__header;
+}
+
+.table-toolbar-info {
+  display: flex;
 }
 </style>

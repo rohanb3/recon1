@@ -202,6 +202,7 @@
   "apply": "Apply",
   "clear.selected": "Clear selected",
   "clear.fields": "Clear fields",
+  "clear.all.filters": "Clear all filters",
   "from": "from",
   "to": "to",
   "fiscal.period.not.found": "Fiscal period not found",
