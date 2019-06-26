@@ -1,6 +1,6 @@
 <template>
   <div class="orders-table-toolbar">
-    <quick-search-filter :tableName="tableName" />
+    <quick-search-filter :table-name="tableName" :filter-name="quickSearchFilterName" />
     <div class="table-filter-container">
       <order-status-filter :table-name="tableName" />
       <order-age-filter :table-name="tableName" />
@@ -30,7 +30,7 @@ import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import OrderStatusFilter from '@/containers/OrderStatusFilter';
 import OrderAgeFilter from './OrderAgeFilter';
 import TableButton from '@/components/TableButton';
-import { ENTITY_TYPES, ORDER_SYNC_STATUS } from '@/constants';
+import { ENTITY_TYPES, ORDER_SYNC_STATUS, FILTER_NAMES } from '@/constants';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
@@ -50,16 +50,14 @@ export default {
   data() {
     return {
       tableName: ENTITY_TYPES.ORDERS,
+      quickSearchFilterName: FILTER_NAMES.SEARCH_ORDERS,
     };
   },
   computed: {
-    storageData() {
-      return this.$store.state.storage[this.tableName] || {};
-    },
+    ...mapGetters(['tableData', 'storageData']),
     isOrdersSyncing() {
-      return this.storageData.syncOrdersStatus === ORDER_SYNC_STATUS.WORKING;
+      return this.storageData(this.tableName).syncOrdersStatus === ORDER_SYNC_STATUS.WORKING;
     },
-    ...mapGetters(['tableData']),
     filters() {
       return this.tableData(this.tableName).filters;
     },

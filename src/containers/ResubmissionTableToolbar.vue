@@ -1,6 +1,6 @@
 <template>
   <div class="disputes-table-toolbar">
-    <quick-search-disputes-filter :tableName="tableName" />
+    <quick-search-filter :table-name="tableName" :filter-name="quickSearchFilterName" />
     <div class="table-filter-container">
       <order-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
@@ -22,7 +22,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
+import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
 import OrderAgeFilter from '@/containers/OrderAgeFilter';
@@ -31,11 +31,12 @@ import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
 import { getDisputesCsvFile } from '@/services/disputesRepository';
+import { FILTER_NAMES } from '@/constants';
 
 export default {
   name: 'ResubmissionTableToolbar',
   components: {
-    QuickSearchDisputesFilter,
+    QuickSearchFilter,
     DisputeTypeFilter,
     FiscalPeriodFilter,
     CustomRangeFilter,
@@ -49,6 +50,11 @@ export default {
       type: String,
       required: true,
     },
+  },
+  data() {
+    return {
+      quickSearchFilterName: FILTER_NAMES.SEARCH_DISPUTES,
+    };
   },
   computed: {
     ...mapGetters(['tableData']),

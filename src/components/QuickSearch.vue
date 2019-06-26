@@ -5,19 +5,10 @@
     solo
     prepend-inner-icon="search"
     :placeholder="placeholder || $t('quick.search')"
-    @input="debounceInput"
   ></v-text-field>
 </template>
 
 <script>
-import debounce from 'lodash.debounce';
-
-const SEARCH_TIMEOUT = 500;
-
-function debounceInput(value) {
-  this.$emit('input', value.trim());
-}
-
 export default {
   name: 'QuickSearch',
   props: {
@@ -31,18 +22,15 @@ export default {
       },
     },
   },
-  data() {
-    return {
-      textValue: '',
-    };
-  },
-  mounted() {
-    if (this.initialPhrase) {
-      this.textValue = this.initialPhrase;
-    }
-  },
-  methods: {
-    debounceInput: debounce(debounceInput, SEARCH_TIMEOUT),
+  computed: {
+    textValue: {
+      get() {
+        return this.initialPhrase;
+      },
+      set(value) {
+        this.$emit('input', value);
+      },
+    },
   },
 };
 </script>
