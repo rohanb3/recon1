@@ -29,7 +29,7 @@ import { mapGetters } from 'vuex';
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import OrderStatusFilter from '@/containers/OrderStatusFilter';
 import TableButton from '@/components/TableButton';
-import OrderAgeFilter from '@/containers/AgeFilters/OrderAgeFilter';
+import OrderAgeFilter from '@/containers/OrderAgeFilter';
 import { ENTITY_TYPES, ORDER_SYNC_STATUS, FILTER_NAMES } from '@/constants';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';

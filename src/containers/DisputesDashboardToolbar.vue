@@ -15,8 +15,8 @@
 <script>
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
-import OrderAgeFilter from '@/containers/AgeFilters/OrderAgeFilter';
-import DisputAgeFilter from '@/containers/AgeFilters/DisputAgeFilter';
+import OrderAgeFilter from '@/containers/OrderAgeFilter';
+import DisputAgeFilter from '@/containers/DisputAgeFilter';
 
 export default {
   name: 'DisputesDashboardToolbar',
