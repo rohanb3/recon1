@@ -142,7 +142,6 @@ export default {
       this.selectedYear = 0;
       this.selectedMonth = '';
       this.$emit('clearFiscalPeriod');
-      this.hide();
     },
   },
   watch: {
