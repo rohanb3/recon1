@@ -140,7 +140,6 @@ export default {
       this.formattedStartDate = '';
       this.formattedEndDate = '';
       this.$emit('clearDateRange');
-      this.hide();
     },
     prettifyDate(date) {
       return moment
@@ -198,9 +197,22 @@ export default {
     },
     setFormattedStartDate(date) {
       this.formattedStartDate = this.formatDayForDatePicker(date);
+      if (!this.formattedEndDate.length) {
+        this.formattedEndDate = this.formattedStartDate;
+      }
     },
     setFormattedEndDate(date) {
       this.formattedEndDate = this.formatDayForDatePicker(date);
+      if (!this.formattedStartDate.length) {
+        this.formattedStartDate = this.formattedEndDate;
+      }
+    },
+  },
+  watch: {
+    isShown(value) {
+      if (value) {
+        this.setRange(this.startDate, this.endDate);
+      }
     },
   },
 };

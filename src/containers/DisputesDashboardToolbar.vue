@@ -21,8 +21,8 @@ import DisputAgeFilter from '@/containers/DisputAgeFilter';
 export default {
   name: 'DisputesDashboardToolbar',
   components: {
-    DisputAgeFilter,
     OrderAgeFilter,
+    DisputAgeFilter,
     FiscalPeriodFilter,
     CustomRangeFilter,
   },
@@ -42,6 +42,8 @@ export default {
   align-items: center;
   display: flex;
   flex: 1;
+  padding-top: 18px;
+  padding-right: 0;
 
   .table-title {
     font-size: 20px;

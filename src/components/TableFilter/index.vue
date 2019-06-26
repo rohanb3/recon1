@@ -11,7 +11,7 @@
       @show="onShow"
       @hide="hideFilter"
     >
-      <div class="popper">
+      <div class="popper table-filter-options">
         <div v-if="useQuickBtn" class="table-filter-btn">
           <a href="#" @click.prevent="onSelectAllItemDisplayed">{{
             $t('table.filter.select.all')
@@ -49,6 +49,11 @@
             <slot name="loader"></slot>
           </ul>
         </VuePerfectScrollbar>
+        <clear-button
+          v-show="showClearButton"
+          :disabled="isClearSelectedDisabled"
+          @clearSelected="onClearAllItemDisplayed"
+        />
       </div>
       <div slot="reference" class="datepicker-toggler">
         <div class="caret"></div>
@@ -61,6 +66,7 @@
 import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
 import debounce from 'lodash.debounce';
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
+import ClearButton from './ClearButton';
 import { getStringFromValuesByKey } from '@/services/utils';
 
 const SEARCH_TIMEOUT = 500;
@@ -71,6 +77,7 @@ export default {
   mixins: [tableToolbarBalloon],
   components: {
     VuePerfectScrollbar,
+    ClearButton,
   },
   props: {
     title: {
@@ -100,6 +107,10 @@ export default {
     useSearchField: {
       type: Boolean,
       default: true,
+    },
+    showClearButton: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -140,6 +151,9 @@ export default {
     },
     searchinOptions() {
       return (this.exactMatchSearch() || this.occurrenceSearch() || []).slice(0, this.listSize);
+    },
+    isClearSelectedDisabled() {
+      return !this.selectedItems.length;
     },
   },
   methods: {
@@ -246,6 +260,7 @@ export default {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
 .table-filter-btn {
   display: flex;
   margin-top: 7px;
