@@ -33,22 +33,13 @@
           outline
         ></v-text-field>
         <div class="messages-wrapper" v-show="error">{{ error }}</div>
-        <v-btn
-          small
-          depressed
-          class="button button-apply"
-          :disabled="isSelectedRangeDisabled"
-          @click.stop="onApplyRange"
-          >{{ $t('apply') }}</v-btn
-        >
-        <v-btn
-          small
-          depressed
-          :disabled="isClearButtonDisabled"
-          class="button button-clear"
-          @click.stop="onClearRange"
-          >{{ $t('clear.fields') }}</v-btn
-        >
+        <control-buttons
+          :from="fromValueEntered"
+          :to="toValueEntered"
+          :error="error"
+          @applyRange="onApplyRange"
+          @clearRange="onClearRange"
+        />
       </div>
       <div slot="reference" class="datepicker-toggler">
         <div class="caret"></div>
@@ -61,13 +52,16 @@
 import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
 import filters, { OPERATORS } from '@/services/customFilters/index';
 import boundaries from '@/filters/boundaries';
-import { notEmpty } from '@/services/utils';
+import ControlButtons from './ControlButtons';
 
 const filter = filters.range.get(OPERATORS.BETWEEN);
 
 export default {
   name: 'TableBoundariesFilter',
   mixins: [tableToolbarBalloon],
+  components: {
+    ControlButtons,
+  },
   filters: {
     boundaries,
   },
@@ -112,13 +106,6 @@ export default {
     error() {
       return filter.validate(this.range, { min: this.min });
     },
-    isClearButtonDisabled() {
-      return !(notEmpty(this.fromValueEntered) || notEmpty(this.toValueEntered));
-    },
-    isSelectedRangeDisabled() {
-      const { from, to } = this.range;
-      return !!this.error || (!notEmpty(from) && !notEmpty(to));
-    },
   },
   watch: {
     selected() {
@@ -162,7 +149,6 @@ export default {
 <style scoped lang="scss">
 @import '~@/assets/styles/variables.scss';
 @import '~@/assets/styles/popper.scss';
-@import '@/assets/styles/mixins.scss';
 
 .title-rule {
   text-align: left;
@@ -180,18 +166,6 @@ export default {
   font-size: 12px;
   color: $table-toolbar-section-color;
   font-weight: 500;
-
-  .button {
-    @include button;
-
-    &.button-apply {
-      margin: 5px 0;
-    }
-
-    &.button-clear {
-      margin: 5px 0 10px 0;
-    }
-  }
 }
 .messages-wrapper {
   color: $base-red;

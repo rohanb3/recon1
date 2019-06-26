@@ -2,8 +2,16 @@
   <div class="disputes-table-toolbar">
     <quick-search-disputes-filter :tableName="tableName" />
     <div class="table-filter-container">
-      <order-age-filter :table-name="tableName" />
-      <disput-age-filter :table-name="tableName" />
+      <age-filter
+        :title="$t('orders.age.after.order')"
+        :table-name="tableName"
+        :filter-names="filterNames.orderAge"
+      />
+      <age-filter
+        :title="$t('disputes.age.after.disput')"
+        :table-name="tableName"
+        :filter-names="filterNames.disputAge"
+      />
       <dispute-type-filter :tableName="tableName" />
       <dispute-status-filter :tableName="tableName" send-field-name="ids" />
     </div>
@@ -25,12 +33,12 @@ import { mapGetters } from 'vuex';
 import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
-import OrderAgeFilter from '@/containers/OrderAgeFilter';
-import DisputAgeFilter from '@/containers/DisputAgeFilter';
+import AgeFilter from '@/containers/AgeFilter';
 import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
 import { getDisputesCsvFile } from '@/services/disputesRepository';
+import { FILTER_NAMES } from '@/constants';
 
 export default {
   name: 'ResubmissionTableToolbar',
@@ -39,8 +47,7 @@ export default {
     DisputeTypeFilter,
     FiscalPeriodFilter,
     CustomRangeFilter,
-    OrderAgeFilter,
-    DisputAgeFilter,
+    AgeFilter,
     DisputeStatusFilter,
     ExportToCsvFileButton,
   },
@@ -49,6 +56,20 @@ export default {
       type: String,
       required: true,
     },
+  },
+  data() {
+    return {
+      filterNames: {
+        orderAge: {
+          from: FILTER_NAMES.ORDER_AGE_FROM,
+          to: FILTER_NAMES.ORDER_AGE_TO,
+        },
+        disputAge: {
+          from: FILTER_NAMES.DISPUTE_AGE_FROM,
+          to: FILTER_NAMES.DISPUTE_AGE_TO,
+        },
+      },
+    };
   },
   computed: {
     ...mapGetters(['tableData']),
