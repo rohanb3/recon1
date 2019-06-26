@@ -13,12 +13,12 @@
     >
       <div class="popper table-filter-options">
         <div v-if="useQuickBtn" class="table-filter-btn">
-          <a href="#" @click.prevent="onSelectAllItemDisplayed">
-            {{ $t('table.filter.select.all') }}
-          </a>
-          <a href="#" @click.prevent="onClearAllItemDisplayed">
-            {{ $t('table.filter.clear.all') }}
-          </a>
+          <a href="#" @click.prevent="onSelectAllItemDisplayed">{{
+            $t('table.filter.select.all')
+          }}</a>
+          <a href="#" @click.prevent="onClearAllItemDisplayed">{{
+            $t('table.filter.clear.all')
+          }}</a>
         </div>
         <template v-if="useSearchField">
           <input
@@ -49,15 +49,11 @@
             <slot name="loader"></slot>
           </ul>
         </VuePerfectScrollbar>
-        <v-btn
+        <clear-button
           v-show="showClearButton"
-          small
-          depressed
           :disabled="isClearSelectedDisabled"
-          class="button button-clear"
-          @click="onClearAllItemDisplayed"
-          >{{ $t('clear.selected') }}</v-btn
-        >
+          @clearSelected="onClearAllItemDisplayed"
+        />
       </div>
       <div slot="reference" class="datepicker-toggler">
         <div class="caret"></div>
@@ -70,6 +66,7 @@
 import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
 import debounce from 'lodash.debounce';
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
+import ClearButton from './ClearButton';
 import { getStringFromValuesByKey } from '@/services/utils';
 
 const SEARCH_TIMEOUT = 500;
@@ -80,6 +77,7 @@ export default {
   mixins: [tableToolbarBalloon],
   components: {
     VuePerfectScrollbar,
+    ClearButton,
   },
   props: {
     title: {
@@ -243,7 +241,6 @@ export default {
 <style scoped lang="scss">
 @import '~@/assets/styles/variables.scss';
 @import '~@/assets/styles/popper.scss';
-@import '@/assets/styles/mixins.scss';
 
 .table-filter {
   height: 20px;
@@ -262,13 +259,6 @@ export default {
   max-width: 150px;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.table-filter-options {
-  .button {
-    @include button;
-    margin: 0 10px 10px;
-  }
 }
 
 .table-filter-btn {
