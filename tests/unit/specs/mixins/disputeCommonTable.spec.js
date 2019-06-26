@@ -22,7 +22,7 @@ describe('disputeCommonTable', () => {
   });
   describe('disputeCommonTable: methods', () => {
     describe('onChangeDisputeStatus', () => {
-      it('should ', async () => {
+      it('should call changeStatusDispute, getDispute, $store.commit', async () => {
         const CHANGE_ITEM = 'CHANGE_ITEM';
         const displayName = 'displayName';
         const disputeId = 'disputeId';
@@ -78,7 +78,7 @@ describe('disputeCommonTable', () => {
       });
     });
     describe('onSelectIdDispute', () => {
-      it('should call $store.dispatch', () => {
+      it('should APPLY_FILTERS', () => {
         const APPLY_FILTERS = 'APPLY_FILTERS';
         const mockedThis = {
           $store: {
