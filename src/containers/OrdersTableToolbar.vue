@@ -50,7 +50,7 @@ export default {
   data() {
     return {
       tableName: ENTITY_TYPES.ORDERS,
-      quickSearchFilterName: FILTER_NAMES.SEARCH_DISPUTES,
+      quickSearchFilterName: FILTER_NAMES.SEARCH_ORDERS,
     };
   },
   computed: {
