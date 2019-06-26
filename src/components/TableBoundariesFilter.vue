@@ -44,7 +44,7 @@
         <v-btn
           small
           depressed
-          :disabled="isSelectedRangeDisabled"
+          :disabled="isClearButtonDisabled"
           class="button button-clear"
           @click.stop="onClearRange"
           >{{ $t('clear.fields') }}</v-btn
@@ -112,6 +112,9 @@ export default {
     error() {
       return filter.validate(this.range, { min: this.min });
     },
+    isClearButtonDisabled() {
+      return !(notEmpty(this.fromValueEntered) || notEmpty(this.toValueEntered));
+    },
     isSelectedRangeDisabled() {
       const { from, to } = this.range;
       return !!this.error || (!notEmpty(from) && !notEmpty(to));
@@ -137,7 +140,6 @@ export default {
       this.fromValueEntered = '';
       this.toValueEntered = '';
       this.$emit('clearRange');
-      this.hide();
     },
     getInitialFromValue() {
       return this.selected.from;
