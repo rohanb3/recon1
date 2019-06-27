@@ -31,6 +31,7 @@ describe('disputeCommonTable', () => {
         const mockedThis = {
           displayName,
           tableName: 'tableName',
+          processingDisputeIds: ['qwerty', 'disputeId', 'trwe'],
           $store: {
             commit: jest.fn(),
           },
@@ -53,6 +54,8 @@ describe('disputeCommonTable', () => {
         });
 
         expect(disputesRepository.getDispute).toHaveBeenCalledWith(disputeId);
+
+        expect(mockedThis.processingDisputeIds).toEqual(['qwerty', 'trwe']);
 
         expect(mockedThis.$store.commit).toHaveBeenCalledWith(CHANGE_ITEM, {
           itemType: mockedThis.tableName,

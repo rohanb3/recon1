@@ -13,7 +13,7 @@
         :column="rowCell.column"
         :filter="rowCell.column.filter"
         :scopes="scopes"
-        :status-processing="statusProcessing"
+        :processing-dispute-ids="processingDisputeIds"
         @confirmDisputeStatus="onConfirmDisputeStatus"
         @confirmResubmitDisputeStatus="onConfirmResubmitDisputeStatus"
         @selectId="onSelectIdDispute"
