@@ -63,16 +63,7 @@ export default {
       this.selectAllItem(itemKeyName, items, false);
     }, // eslint-disable-next-line func-names
     applyFilter: debounce(function(selectedItems) {
-      const data = {
-        tableName: this.tableName,
-        filters: [
-          {
-            name: this.filterName,
-            value: extractPropertiesFromArrObj(selectedItems, this.sendFieldName),
-          },
-        ],
-      };
-      this.$store.dispatch(APPLY_FILTERS, data);
+      this.apply(selectedItems);
     }, TIMEOUT_APPLY_FILTER),
     onNotFoundItem({ itemKey, searchField, getItemList }) {
       this.loading = true;
@@ -109,6 +100,18 @@ export default {
           this.toggleItem({ itemKeyName, itemKeyVal: itemId });
         }
       }
+    },
+    apply(selectedItems) {
+      const data = {
+        tableName: this.tableName,
+        filters: [
+          {
+            name: this.filterName,
+            value: extractPropertiesFromArrObj(selectedItems, this.sendFieldName),
+          },
+        ],
+      };
+      this.$store.dispatch(APPLY_FILTERS, data);
     },
   },
   watch: {
