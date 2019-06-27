@@ -32,8 +32,8 @@ export default {
   },
   data() {
     return {
-      filterName: FILTER_NAMES.DISPUTE_STATUS_IDS,
-      [FILTER_NAMES.DISPUTE_STATUS_IDS]: [
+      filterName: FILTER_NAMES.SPECTRUM_STATUS_IDS,
+      [FILTER_NAMES.SPECTRUM_STATUS_IDS]: [
         {
           id: DISPUTE_STATUSES_ID.APPROVED,
           [this.sendFieldName]: [

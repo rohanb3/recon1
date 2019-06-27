@@ -1,5 +1,15 @@
 import apiDisputes from './disputesApi';
-import { paramsSerializer } from '@/services/repositoryUtils';
+import {
+  paramsSerializer,
+  mergeParameters,
+  removeExtraParameters,
+} from '@/services/repositoryUtils';
+import { FILTER_NAMES } from '@/constants';
+
+const listOfParametersForMergeInDisputeApi = [
+  FILTER_NAMES.XYZ_STATUS_IDS,
+  FILTER_NAMES.SPECTRUM_STATUS_IDS,
+];
 
 export const getDispute = id => {
   return apiDisputes.get(`/dispute/${id}`).then(({ data }) => data);
@@ -16,7 +26,12 @@ export const getDisputesStatisticsBySubmitters = filters => {
 };
 
 export const getDisputes = filters => {
-  const params = { ...filters };
+  const mergedParams = mergeParameters(
+    filters,
+    listOfParametersForMergeInDisputeApi,
+    FILTER_NAMES.DISPUTE_STATUS_IDS
+  );
+  const params = removeExtraParameters(mergedParams, ...listOfParametersForMergeInDisputeApi);
   return apiDisputes.get('/dispute', { params, paramsSerializer }).then(({ data }) => data);
 };
 
