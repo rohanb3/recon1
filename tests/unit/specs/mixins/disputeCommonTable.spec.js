@@ -1,6 +1,5 @@
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 import * as disputesRepository from '@/services/disputesRepository';
-import * as utils from '@/services/utils';
 import { ENTITY_TYPES, FILTER_NAMES } from '@/constants';
 
 describe('disputeCommonTable', () => {
@@ -59,22 +58,6 @@ describe('disputeCommonTable', () => {
           itemType: mockedThis.tableName,
           id: disputeId,
         });
-      });
-    });
-    describe('onExportToCsvFile', () => {
-      it('should call getDisputesCsvFile and generateCSVFile', async () => {
-        const mockedThis = {
-          filters: {},
-          tableName: 'table',
-        };
-
-        disputesRepository.getDisputesCsvFile = jest.fn();
-        utils.generateCSVFile = jest.fn();
-
-        await disputeCommonTable.methods.onExportToCsvFile.call(mockedThis);
-
-        expect(disputesRepository.getDisputesCsvFile).toHaveBeenCalledWith(mockedThis.filters);
-        expect(utils.generateCSVFile).toHaveBeenCalled();
       });
     });
     describe('onSelectIdDispute', () => {

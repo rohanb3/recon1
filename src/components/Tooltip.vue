@@ -1,5 +1,5 @@
 <template>
-  <div class="tooltip" :style="{ top: y + shiftTooltip + 'px', left: x + shiftTooltip + 'px' }">
+  <div class="tooltip" v-tooltip-position="{ x, y }">
     <div class="tooltip-header">{{ title }}</div>
     <div class="tooltip-body">
       <slot></slot>
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-const SHIFT_TOOLTIP = 10;
+import tooltipPosition from '@/directives/tooltipPosition';
 
 export default {
   name: 'Tooltip',
@@ -25,10 +25,8 @@ export default {
       default: 0,
     },
   },
-  data() {
-    return {
-      shiftTooltip: SHIFT_TOOLTIP,
-    };
+  directives: {
+    tooltipPosition,
   },
 };
 </script>
@@ -47,6 +45,7 @@ export default {
   border-radius: 8px;
   box-shadow: 0 2px 4px 0 $table-shadow-color;
   line-height: 20px;
+  white-space: nowrap;
 }
 
 .tooltip-header {

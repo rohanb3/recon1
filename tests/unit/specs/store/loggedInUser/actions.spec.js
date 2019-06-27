@@ -19,6 +19,8 @@ import {
   CLEAR_PROFILE_DATA,
 } from '@/store/loggedInUser/mutationTypes';
 
+import { RESET_ALL_FILTERS } from '@/store/tables/actionTypes';
+
 import * as identityRepository from '@/services/identityRepository';
 
 describe('loggedInUser actions: ', () => {
@@ -192,12 +194,14 @@ describe('loggedInUser actions: ', () => {
     it('should user logout', async () => {
       const fakeStore = {
         commit: jest.fn(),
+        dispatch: jest.fn(),
       };
 
       await actions[USER_LOGOUT](fakeStore);
 
       expect(fakeStore.commit).toHaveBeenCalledWith(REMOVE_TOKEN);
       expect(fakeStore.commit).toHaveBeenCalledWith(CLEAR_PROFILE_DATA);
+      expect(fakeStore.dispatch).toHaveBeenCalledWith(RESET_ALL_FILTERS);
     });
   });
 });

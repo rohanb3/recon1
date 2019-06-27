@@ -6,7 +6,9 @@
       :items="disputeStatusList"
       :useQuickBtn="false"
       :useSearchField="false"
+      :show-clear-button="true"
       @select="toggleItem"
+      @clearAll="onClearAllItemDisplayed"
     />
   </div>
 </template>
@@ -41,24 +43,23 @@ export default {
           name: this.$t('approved'),
         },
         {
-          id: DISPUTE_STATUSES_ID.RE_SENT,
-          name: this.$t('resent'),
-        },
-        {
           id: DISPUTE_STATUSES_ID.SENT,
           name: this.$t('new'),
-        },
-        {
-          id: DISPUTE_STATUSES_ID.REJECTED,
-          name: this.$t('rejected'),
+          [this.sendFieldName]: [DISPUTE_STATUSES_ID.SENT],
         },
         {
           id: DISPUTE_STATUSES_ID.IN_PROGRESS,
           name: this.$t('in.progress'),
+          [this.sendFieldName]: [DISPUTE_STATUSES_ID.IN_PROGRESS],
         },
         {
           id: DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
-          name: this.$t('confirm.rejected'),
+          name: this.$t('rejected'),
+          [this.sendFieldName]: [
+            DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
+            DISPUTE_STATUSES_ID.RE_SENT,
+            DISPUTE_STATUSES_ID.REJECTED,
+          ],
         },
       ],
     };

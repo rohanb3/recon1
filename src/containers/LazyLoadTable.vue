@@ -81,6 +81,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    resetDataBeforeLeave: {
+      type: Boolean,
+      default: true,
+    },
     rows: {
       type: Array,
       default: () => [],

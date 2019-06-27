@@ -9,14 +9,21 @@
 </template>
 
 <script>
+import debounce from 'lodash.debounce';
+import { mapGetters } from 'vuex';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
-import { FILTER_NAMES } from '@/constants';
 import QuickSearch from '@/components/QuickSearch';
 
+const SEARCH_TIMEOUT = 500;
+
 export default {
-  name: 'QuickSearchBranchesFilter',
+  name: 'QuickSearchFilter',
   props: {
     tableName: {
+      type: String,
+      required: true,
+    },
+    filterName: {
       type: String,
       required: true,
     },
@@ -25,31 +32,27 @@ export default {
     QuickSearch,
   },
   computed: {
-    tableData() {
-      return this.$store.state.tables[this.tableName] || {};
-    },
+    ...mapGetters(['tableData']),
     filters() {
-      return this.tableData.filters || {};
+      return this.tableData(this.tableName).filters;
     },
     selectedPhrase() {
-      return this.filters[FILTER_NAMES.SEARCH_ORDERS] || '';
+      return this.filters[this.filterName] || '';
     },
   },
   methods: {
-    handleQuickSearchInput(searchPhrase) {
-      const filterName = {
-        name: FILTER_NAMES.SEARCH_ORDERS,
-        value: searchPhrase,
-      };
-      this.applyFilter(filterName);
-    },
-    applyFilter(...filters) {
+    handleQuickSearchInput: debounce(function onInput(searchPhrase) {
       const data = {
         tableName: this.tableName,
-        filters,
+        filters: [
+          {
+            name: this.filterName,
+            value: searchPhrase,
+          },
+        ],
       };
       this.$store.dispatch(APPLY_FILTERS, data);
-    },
+    }, SEARCH_TIMEOUT),
   },
 };
 </script>

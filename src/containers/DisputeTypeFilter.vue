@@ -6,7 +6,9 @@
       :items="disputeTypeList"
       :useQuickBtn="false"
       :useSearchField="false"
+      :show-clear-button="true"
       @select="toggleItem"
+      @clearAll="onClearAllItemDisplayed"
     />
   </div>
 </template>

@@ -26,13 +26,18 @@ export default {
       if (this.disputeStatusId === DISPUTE_STATUSES_ID.CONFIRM_APPROVED) {
         return this.$t('approved');
       }
-      if (this.disputeStatusId === DISPUTE_STATUSES_ID.CONFIRM_REJECTED) {
+      if (this.isDisputeStatusResentOrConfirmRejected) {
         return this.$t('rejected');
       }
       if (this.disputeStatusId === DISPUTE_STATUSES_ID.SENT) {
         return this.$t('new');
       }
       return this.disputeStatusName;
+    },
+    isDisputeStatusResentOrConfirmRejected() {
+      return [DISPUTE_STATUSES_ID.RE_SENT, DISPUTE_STATUSES_ID.CONFIRM_REJECTED].includes(
+        this.disputeStatusId
+      );
     },
   },
 };

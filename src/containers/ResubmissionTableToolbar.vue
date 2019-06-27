@@ -1,6 +1,6 @@
 <template>
   <div class="disputes-table-toolbar">
-    <quick-search-disputes-filter :tableName="tableName" />
+    <quick-search-filter :table-name="tableName" :filter-name="quickSearchFilterName" />
     <div class="table-filter-container">
       <order-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
@@ -9,7 +9,11 @@
     </div>
     <v-spacer></v-spacer>
     <div class="table-filter-container">
-      <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
+      <export-to-csv-file-button
+        :tableName="tableName"
+        :filters="filters"
+        :repository="handlerCsvFile()"
+      />
       <fiscal-period-filter :tableName="tableName" />
       <custom-range-filter :tableName="tableName" />
     </div>
@@ -17,31 +21,50 @@
 </template>
 
 <script>
-import QuickSearchDisputesFilter from '@/containers/QuickSearchDisputesFilter';
+import { mapGetters } from 'vuex';
+import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
 import OrderAgeFilter from '@/containers/OrderAgeFilter';
 import DisputAgeFilter from '@/containers/DisputAgeFilter';
 import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
-import TableButton from '@/components/TableButton';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
+import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
+import { getDisputesCsvFile } from '@/services/disputesRepository';
+import { FILTER_NAMES } from '@/constants';
 
 export default {
   name: 'ResubmissionTableToolbar',
   components: {
-    QuickSearchDisputesFilter,
+    QuickSearchFilter,
     DisputeTypeFilter,
-    TableButton,
     FiscalPeriodFilter,
     CustomRangeFilter,
     OrderAgeFilter,
     DisputAgeFilter,
     DisputeStatusFilter,
+    ExportToCsvFileButton,
   },
   props: {
     tableName: {
       type: String,
       required: true,
+    },
+  },
+  data() {
+    return {
+      quickSearchFilterName: FILTER_NAMES.SEARCH_DISPUTES,
+    };
+  },
+  computed: {
+    ...mapGetters(['tableData']),
+    filters() {
+      return this.tableData(this.tableName).filters;
+    },
+  },
+  methods: {
+    handlerCsvFile() {
+      return getDisputesCsvFile;
     },
   },
 };

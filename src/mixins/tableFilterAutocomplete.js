@@ -114,4 +114,13 @@ export default {
       this.$store.dispatch(APPLY_FILTERS, data);
     },
   },
+  watch: {
+    preselectedItems(items) {
+      if (!items.length) {
+        this[this.filterName].forEach((item, index) => {
+          this.$set(this[this.filterName][index], 'selected', false);
+        });
+      }
+    },
+  },
 };

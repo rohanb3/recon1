@@ -25,6 +25,17 @@ export default () => [
     fieldHeaderType: 'sortingHeader',
   },
   {
+    name: 'orderCreationDate',
+    field: 'orderCreationDate',
+    fieldType: 'dateYearMonthDay',
+    class: 'grey-text-cell',
+    title: i18n.t('disputes.order.creation.date'),
+    width: '4',
+    minWidth: '30px',
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.ORDER_CREATION_DATE,
+    fieldHeaderType: 'sortingHeader',
+  },
+  {
     name: 'fiscalPeriod',
     field: 'fiscalPeriod.name',
     class: 'grey-text-cell',
@@ -43,6 +54,7 @@ export default () => [
     minWidth: '16px',
     sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.ACCOUNT_NUMBER,
     fieldHeaderType: 'sortingHeader',
+    showTitle: true,
   },
   {
     name: 'creatorName',
@@ -53,6 +65,7 @@ export default () => [
     minWidth: '16px',
     sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.CREATOR_NAME,
     fieldHeaderType: 'sortingHeader',
+    showTitle: true,
   },
   {
     name: 'creationDate',
@@ -74,6 +87,7 @@ export default () => [
     minWidth: '16px',
     sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.SERVICE_NAME,
     fieldHeaderType: 'sortingHeader',
+    showTitle: true,
   },
   {
     name: 'disputeType',
@@ -84,6 +98,7 @@ export default () => [
     minWidth: '16px',
     sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.TYPE,
     fieldHeaderType: 'sortingHeader',
+    showTitle: true,
   },
   {
     name: 'ageAfterOrder',
