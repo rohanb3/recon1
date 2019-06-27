@@ -14,9 +14,14 @@
 </template>
 
 <script>
+import debounce from 'lodash.debounce';
 import TableFilter from '@/components/TableFilter';
-import { FILTER_NAMES, DISPUTE_STATUSES_ID } from '@/constants';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
+import { FILTER_NAMES, DISPUTE_STATUSES_ID } from '@/constants';
+import { APPLY_FILTERS } from '@/store/tables/actionTypes';
+import { extractPropertiesFromArrObj } from '@/services/utils';
+
+const TIMEOUT_APPLY_FILTER = 1000;
 
 export default {
   name: 'DisputeXyzStatusFilter',
@@ -70,5 +75,19 @@ export default {
       return this[this.filterName];
     },
   },
+  methods: {
+    applyFilter: debounce(function(selectedItems) {
+      const data = {
+        tableName: this.tableName,
+        filters: [
+          {
+            name: this.filterName,
+            value: extractPropertiesFromArrObj(selectedItems, this.sendFieldName),
+          },
+        ],
+      };
+      this.$store.dispatch(APPLY_FILTERS, data);
+    }, TIMEOUT_APPLY_FILTER),
+  }
 };
 </script>
