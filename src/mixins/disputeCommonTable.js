@@ -106,7 +106,7 @@ export default {
             },
           ],
         };
-        this.$store.dispatch(APPLY_FILTERS, data);
+        await this.$store.dispatch(APPLY_FILTERS, data);
         this.disputeHistoryShown = true;
       } catch {
         errorMessage();
