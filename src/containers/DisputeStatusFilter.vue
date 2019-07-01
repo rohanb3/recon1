@@ -1,7 +1,7 @@
 <template>
   <div class="filter-wrapper">
     <table-filter
-      :title="$t('disputes.dispute.status')"
+      :title="title"
       boundaries-selector=".disputes-table"
       :items="disputeStatusList"
       :useQuickBtn="false"
@@ -17,7 +17,7 @@
 import flatten from 'lodash.flatten';
 import debounce from 'lodash.debounce';
 import TableFilter from '@/components/TableFilter';
-import { FILTER_NAMES, DISPUTE_STATUSES_ID } from '@/constants';
+import { FILTER_NAMES } from '@/constants';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 import { RESET_ITEMS, SET_ALL_ITEMS_LOADED } from '@/store/storage/mutationTypes';
@@ -29,8 +29,24 @@ export default {
   name: 'DisputeStatusFilter',
   mixins: [tableFilterAutocomplete],
   props: {
+    title: {
+      type: String,
+      required: true,
+    },
     tableName: {
       type: String,
+      required: true,
+    },
+    filterName: {
+      type: String,
+      required: true,
+    },
+    dependentFilterName: {
+      type: String,
+      required: true,
+    },
+    displayedOptions: {
+      type: Array,
       required: true,
     },
   },
@@ -39,79 +55,61 @@ export default {
   },
   data() {
     return {
-      filterName: FILTER_NAMES.SPECTRUM_STATUS_IDS,
-      [FILTER_NAMES.SPECTRUM_STATUS_IDS]: [
-        {
-          id: DISPUTE_STATUSES_ID.APPROVED,
-          [this.sendFieldName]: [
-            DISPUTE_STATUSES_ID.APPROVED,
-            DISPUTE_STATUSES_ID.CONFIRM_APPROVED,
-          ],
-          name: this.$t('approved'),
-        },
-        {
-          id: DISPUTE_STATUSES_ID.SENT,
-          name: this.$t('new'),
-          [this.sendFieldName]: [DISPUTE_STATUSES_ID.SENT],
-        },
-        {
-          id: DISPUTE_STATUSES_ID.IN_PROGRESS,
-          name: this.$t('in.progress'),
-          [this.sendFieldName]: [DISPUTE_STATUSES_ID.IN_PROGRESS],
-        },
-        {
-          id: DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
-          name: this.$t('rejected'),
-          [this.sendFieldName]: [
-            DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
-            DISPUTE_STATUSES_ID.RE_SENT,
-            DISPUTE_STATUSES_ID.REJECTED,
-          ],
-        },
-      ],
+      [this.filterName]: this.displayedOptions,
     };
   },
   computed: {
     disputeStatusList() {
       return this[this.filterName];
     },
-    xyzStatusIds() {
-      return this.filters[FILTER_NAMES.XYZ_STATUS_IDS] || [];
+    dependentFilterItemIds() {
+      return this.filters[this.dependentFilterName] || [];
     },
-    isAppliedFilterByXyzStatus() {
-      return !!this.xyzStatusIds.length;
+    isAppliedDependentFilter() {
+      return !!this.dependentFilterItemIds.length;
     },
   },
   methods: {
-    applyFilter: debounce(function applyFilter(selectedItems) {
+    selectedStatusIds(selectedItems) {
+      return Array.from(
+        new Set(flatten(extractPropertiesFromArrObj(selectedItems, this.sendFieldName)))
+      );
+    },
+    isContainedDisputeStatusIds(items) {
+      if (items.length === 0) {
+        this.$store.commit(RESET_ITEMS, this.tableName);
+        this.$store.commit(SET_ALL_ITEMS_LOADED, this.tableName);
+        return false;
+      }
+      return true;
+    },
+    disputeStatusIds(selectedStatusIds) {
       let disputeStatusIds = [];
       let dataLoading = true;
 
-      const spectrumStatusIds = Array.from(
-        new Set(flatten(extractPropertiesFromArrObj(selectedItems, this.sendFieldName)))
-      );
-
-      if (this.isAppliedFilterByXyzStatus) {
-        if (spectrumStatusIds.length) {
-          disputeStatusIds = pickDuplicate(spectrumStatusIds, this.xyzStatusIds);
-          if (disputeStatusIds.length === 0) {
-            dataLoading = false;
-            this.$store.commit(RESET_ITEMS, this.tableName);
-            this.$store.commit(SET_ALL_ITEMS_LOADED, this.tableName);
-          }
+      if (this.isAppliedDependentFilter) {
+        if (selectedStatusIds.length) {
+          disputeStatusIds = pickDuplicate(selectedStatusIds, this.dependentFilterItemIds);
+          dataLoading = this.isContainedDisputeStatusIds(disputeStatusIds);
         } else {
-          disputeStatusIds = this.xyzStatusIds;
+          disputeStatusIds = this.dependentFilterItemIds;
         }
       } else {
-        disputeStatusIds = spectrumStatusIds;
+        disputeStatusIds = selectedStatusIds;
       }
+
+      return { dataLoading, disputeStatusIds };
+    },
+    applyFilter: debounce(function applyFilter(selectedItems) {
+      const selectedStatusIds = this.selectedStatusIds(selectedItems);
+      const { dataLoading, disputeStatusIds } = this.disputeStatusIds(selectedStatusIds);
 
       const data = {
         tableName: this.tableName,
         filters: [
           {
-            name: FILTER_NAMES.SPECTRUM_STATUS_IDS,
-            value: spectrumStatusIds,
+            name: this.filterName,
+            value: selectedStatusIds,
           },
           {
             name: FILTER_NAMES.DISPUTE_STATUS_IDS,
