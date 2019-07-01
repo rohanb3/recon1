@@ -1,9 +1,6 @@
 import qs from 'qs';
-import {
-  pickNotEmptyFields,
-  paramsSerializer,
-  removeExtraParameters,
-} from '@/services/repositoryUtils';
+import { pickNotEmptyFields } from '@/services/repositoryUtils';
+import { paramsSerializer, removeExtraParameters } from '@/services/serializers';
 
 describe('repositoryUtils', () => {
   describe('pickNotEmptyFields', () => {
@@ -67,7 +64,7 @@ describe('repositoryUtils', () => {
 
       const listOfExtraParameters = ['xyz', 'spectrum'];
 
-      const result = removeExtraParameters(parametersObj, ...listOfExtraParameters);
+      const result = removeExtraParameters(parametersObj, listOfExtraParameters);
 
       const expectedResult = {
         id: 1,

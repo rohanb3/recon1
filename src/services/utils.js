@@ -63,7 +63,3 @@ export function generateCSVFile(CSVFile, fileName = 'report') {
 export function pickDuplicate(array1, array2) {
   return array1.filter(item => array2.includes(item));
 }
-
-export function notEmptyArray(array) {
-  return Array.isArray(array) && array.length;
-}

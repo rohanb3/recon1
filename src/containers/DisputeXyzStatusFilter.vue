@@ -20,6 +20,7 @@ import TableFilter from '@/components/TableFilter';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
 import { FILTER_NAMES, DISPUTE_STATUSES_ID } from '@/constants';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
+import { RESET_ITEMS, SET_ALL_ITEMS_LOADED } from '@/store/storage/mutationTypes';
 import { extractPropertiesFromArrObj, pickDuplicate } from '@/services/utils';
 
 const TIMEOUT_APPLY_FILTER = 1000;
@@ -79,18 +80,26 @@ export default {
       return this.filters[FILTER_NAMES.SPECTRUM_STATUS_IDS] || [];
     },
     isAppliedFilterBySpectrumStatus() {
-      return this.spectrumStatusIds.length;
+      return !!this.spectrumStatusIds.length;
     },
   },
   methods: {
     applyFilter: debounce(function applyFilter(selectedItems) {
       let disputeStatusIds = [];
+      let dataLoading = true;
 
-      const xyzStatusIds = flatten(extractPropertiesFromArrObj(selectedItems, this.sendFieldName));
+      const xyzStatusIds = Array.from(
+        new Set(flatten(extractPropertiesFromArrObj(selectedItems, this.sendFieldName)))
+      );
 
       if (this.isAppliedFilterBySpectrumStatus) {
         if (xyzStatusIds.length) {
           disputeStatusIds = pickDuplicate(xyzStatusIds, this.spectrumStatusIds);
+          if (disputeStatusIds.length === 0) {
+            dataLoading = false;
+            this.$store.commit(RESET_ITEMS, this.tableName);
+            this.$store.commit(SET_ALL_ITEMS_LOADED, this.tableName);
+          }
         } else {
           disputeStatusIds = this.spectrumStatusIds;
         }
@@ -110,6 +119,7 @@ export default {
             value: disputeStatusIds,
           },
         ],
+        dataLoading,
       };
 
       this.$store.dispatch(APPLY_FILTERS, data);
