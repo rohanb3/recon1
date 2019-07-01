@@ -1,16 +1,14 @@
 <template>
-  <div class="filter-wrapper">
-    <table-filter
-      :title="title"
-      boundaries-selector=".disputes-table"
-      :items="disputeStatusList"
-      :useQuickBtn="false"
-      :useSearchField="false"
-      :show-clear-button="true"
-      @select="toggleItem"
-      @clearAll="onClearAllItemDisplayed"
-    />
-  </div>
+  <table-filter
+    :title="title"
+    boundaries-selector=".disputes-table"
+    :items="disputeStatusList"
+    :useQuickBtn="false"
+    :useSearchField="false"
+    :show-clear-button="true"
+    @select="toggleItem"
+    @clearAll="onClearAllItemDisplayed"
+  />
 </template>
 
 <script>
@@ -20,7 +18,10 @@ import TableFilter from '@/components/TableFilter';
 import { FILTER_NAMES } from '@/constants';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
-import { RESET_ITEMS, SET_ALL_ITEMS_LOADED } from '@/store/storage/mutationTypes';
+import {
+  RESET_ITEMS,
+  SET_ALL_ITEMS_LOADED,
+} from '@/store/storage/mutationTypes';
 import { extractPropertiesFromArrObj, pickDuplicate } from '@/services/utils';
 
 const TIMEOUT_APPLY_FILTER = 1000;
@@ -72,7 +73,11 @@ export default {
   methods: {
     selectedStatusIds(selectedItems) {
       return Array.from(
-        new Set(flatten(extractPropertiesFromArrObj(selectedItems, this.sendFieldName)))
+        new Set(
+          flatten(
+            extractPropertiesFromArrObj(selectedItems, this.sendFieldName)
+          )
+        )
       );
     },
     isContainedDisputeStatusIds(items) {
@@ -89,7 +94,10 @@ export default {
 
       if (this.isAppliedDependentFilter) {
         if (selectedStatusIds.length) {
-          disputeStatusIds = pickDuplicate(selectedStatusIds, this.dependentFilterItemIds);
+          disputeStatusIds = pickDuplicate(
+            selectedStatusIds,
+            this.dependentFilterItemIds
+          );
           dataLoading = this.isContainedDisputeStatusIds(disputeStatusIds);
         } else {
           disputeStatusIds = this.dependentFilterItemIds;
@@ -102,7 +110,9 @@ export default {
     },
     applyFilter: debounce(function applyFilter(selectedItems) {
       const selectedStatusIds = this.selectedStatusIds(selectedItems);
-      const { dataLoading, disputeStatusIds } = this.disputeStatusIds(selectedStatusIds);
+      const { dataLoading, disputeStatusIds } = this.disputeStatusIds(
+        selectedStatusIds
+      );
 
       const data = {
         tableName: this.tableName,
