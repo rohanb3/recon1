@@ -14,12 +14,13 @@
 </template>
 
 <script>
+import flatten from 'lodash.flatten';
 import debounce from 'lodash.debounce';
 import TableFilter from '@/components/TableFilter';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
 import { FILTER_NAMES, DISPUTE_STATUSES_ID } from '@/constants';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
-import { extractPropertiesFromArrObj } from '@/services/utils';
+import { extractPropertiesFromArrObj, pickDuplicate } from '@/services/utils';
 
 const TIMEOUT_APPLY_FILTER = 1000;
 
@@ -74,20 +75,45 @@ export default {
     disputeXYZStatusList() {
       return this[this.filterName];
     },
+    spectrumStatusIds() {
+      return this.filters[FILTER_NAMES.SPECTRUM_STATUS_IDS] || [];
+    },
+    isAppliedFilterBySpectrumStatus() {
+      return this.spectrumStatusIds.length;
+    },
   },
   methods: {
-    applyFilter: debounce(function(selectedItems) {
+    applyFilter: debounce(function applyFilter(selectedItems) {
+      let disputeStatusIds = [];
+
+      const xyzStatusIds = flatten(extractPropertiesFromArrObj(selectedItems, this.sendFieldName));
+
+      if (this.isAppliedFilterBySpectrumStatus) {
+        if (xyzStatusIds.length) {
+          disputeStatusIds = pickDuplicate(xyzStatusIds, this.spectrumStatusIds);
+        } else {
+          disputeStatusIds = this.spectrumStatusIds;
+        }
+      } else {
+        disputeStatusIds = xyzStatusIds;
+      }
+
       const data = {
         tableName: this.tableName,
         filters: [
           {
-            name: this.filterName,
-            value: extractPropertiesFromArrObj(selectedItems, this.sendFieldName),
+            name: FILTER_NAMES.XYZ_STATUS_IDS,
+            value: xyzStatusIds,
+          },
+          {
+            name: FILTER_NAMES.DISPUTE_STATUS_IDS,
+            value: disputeStatusIds,
           },
         ],
       };
+
       this.$store.dispatch(APPLY_FILTERS, data);
     }, TIMEOUT_APPLY_FILTER),
-  }
+  },
 };
 </script>

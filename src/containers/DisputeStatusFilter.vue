@@ -14,9 +14,15 @@
 </template>
 
 <script>
+import flatten from 'lodash.flatten';
+import debounce from 'lodash.debounce';
 import TableFilter from '@/components/TableFilter';
 import { FILTER_NAMES, DISPUTE_STATUSES_ID } from '@/constants';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
+import { APPLY_FILTERS } from '@/store/tables/actionTypes';
+import { extractPropertiesFromArrObj, pickDuplicate } from '@/services/utils';
+
+const TIMEOUT_APPLY_FILTER = 1000;
 
 export default {
   name: 'DisputeStatusFilter',
@@ -68,6 +74,47 @@ export default {
     disputeStatusList() {
       return this[this.filterName];
     },
+    xyzStatusIds() {
+      return this.filters[FILTER_NAMES.XYZ_STATUS_IDS] || [];
+    },
+    isAppliedFilterByXyzStatus() {
+      return this.xyzStatusIds.length;
+    },
+  },
+  methods: {
+    applyFilter: debounce(function applyFilter(selectedItems) {
+      let disputeStatusIds = [];
+
+      const spectrumStatusIds = flatten(
+        extractPropertiesFromArrObj(selectedItems, this.sendFieldName)
+      );
+
+      if (this.isAppliedFilterByXyzStatus) {
+        if (spectrumStatusIds.length) {
+          disputeStatusIds = pickDuplicate(spectrumStatusIds, this.xyzStatusIds);
+        } else {
+          disputeStatusIds = this.xyzStatusIds;
+        }
+      } else {
+        disputeStatusIds = spectrumStatusIds;
+      }
+
+      const data = {
+        tableName: this.tableName,
+        filters: [
+          {
+            name: FILTER_NAMES.SPECTRUM_STATUS_IDS,
+            value: spectrumStatusIds,
+          },
+          {
+            name: FILTER_NAMES.DISPUTE_STATUS_IDS,
+            value: disputeStatusIds,
+          },
+        ],
+      };
+
+      this.$store.dispatch(APPLY_FILTERS, data);
+    }, TIMEOUT_APPLY_FILTER),
   },
 };
 </script>

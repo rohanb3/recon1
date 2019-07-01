@@ -2,7 +2,6 @@ import qs from 'qs';
 import {
   pickNotEmptyFields,
   paramsSerializer,
-  mergeParameters,
   removeExtraParameters,
 } from '@/services/repositoryUtils';
 
@@ -54,32 +53,6 @@ describe('repositoryUtils', () => {
         arrayFormat: 'repeat',
         skipNulls: true,
       });
-    });
-  });
-
-  describe('mergeParameters', () => {
-    it('should return an object with merged parameters', () => {
-      const parametersObj = {
-        id: 1,
-        xyz: ['dsws', 'qwe', 455],
-        spectrum: ['sdfsdf', 'hfstedt'],
-        orderId: 3,
-      };
-
-      const listOfParametersToMerge = ['xyz', 'spectrum', 'orderId'];
-
-      const fieldName = 'disputeIds';
-      const result = mergeParameters(parametersObj, listOfParametersToMerge, fieldName);
-
-      const expectedResult = {
-        id: 1,
-        xyz: ['dsws', 'qwe', 455],
-        spectrum: ['sdfsdf', 'hfstedt'],
-        orderId: 3,
-        [fieldName]: ['dsws', 'qwe', 455, 'sdfsdf', 'hfstedt', 3],
-      };
-
-      expect(result).toEqual(expectedResult);
     });
   });
 
