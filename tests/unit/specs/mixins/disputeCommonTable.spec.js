@@ -1,6 +1,9 @@
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 import * as disputesRepository from '@/services/disputesRepository';
 import { ENTITY_TYPES, FILTER_NAMES } from '@/constants';
+import { CHANGE_ITEM } from '@/store/storage/mutationTypes';
+import * as notifications from '@/services/notifications';
+import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 
 describe('disputeCommonTable', () => {
   describe('disputeCommonTable: computed', () => {
@@ -21,16 +24,35 @@ describe('disputeCommonTable', () => {
   });
   describe('disputeCommonTable: methods', () => {
     describe('onChangeDisputeStatus', () => {
-      it('should call changeStatusDispute, getDispute, $store.commit', async () => {
-        const CHANGE_ITEM = 'CHANGE_ITEM';
-        const displayName = 'displayName';
-        const disputeId = 'disputeId';
-        const statusId = 'statusId';
-        const comments = 'comments';
+      it('should add the dispute id to the array', async () => {
+        const disputeId = 'q3sdt5h74fg44h4v43fdg';
+        const mockedThis = {
+          processingDisputeIds: [],
+          $store: {
+            commit: jest.fn(),
+          },
+        };
 
+        disputesRepository.getDispute = jest.fn();
+        disputesRepository.changeStatusDispute = jest.fn();
+
+        const pushDisputeIdSpy = jest.spyOn(mockedThis.processingDisputeIds, 'push');
+
+        await disputeCommonTable.methods.onChangeDisputeStatus.call(mockedThis, {
+          disputeId,
+        });
+
+        expect(pushDisputeIdSpy).toHaveBeenCalledWith(disputeId);
+      });
+
+      it('should call changeStatusDispute with parameters', async () => {
+        const disputeId = 'q3sdt5h74fg44h4v43fdg';
+        const statusId = 'statusId';
+        const displayName = 'displayName';
+        const comments = 'comments';
         const mockedThis = {
           displayName,
-          tableName: 'tableName',
+          processingDisputeIds: [],
           $store: {
             commit: jest.fn(),
           },
@@ -51,18 +73,94 @@ describe('disputeCommonTable', () => {
           userName: displayName,
           comments,
         });
+      });
+
+      it('should call getDispute with parameters', async () => {
+        const disputeId = 'q3sdt5h74fg44h4v43fdg';
+        const mockedThis = {
+          processingDisputeIds: [],
+          $store: {
+            commit: jest.fn(),
+          },
+        };
+
+        disputesRepository.getDispute = jest.fn();
+        disputesRepository.changeStatusDispute = jest.fn();
+
+        await disputeCommonTable.methods.onChangeDisputeStatus.call(mockedThis, {
+          disputeId,
+        });
 
         expect(disputesRepository.getDispute).toHaveBeenCalledWith(disputeId);
+      });
+
+      it('should call CHANGE_ITEM mutation with parameters', async () => {
+        const disputeId = 'q3sdt5h74fg44h4v43fdg';
+        const disputeInfo = { id: 1, date: '2019.06.01' };
+        const mockedThis = {
+          processingDisputeIds: [],
+          tableName: 'tableName',
+          $store: {
+            commit: jest.fn(),
+          },
+        };
+
+        disputesRepository.getDispute = jest.fn(() => disputeInfo);
+        disputesRepository.changeStatusDispute = jest.fn();
+
+        await disputeCommonTable.methods.onChangeDisputeStatus.call(mockedThis, {
+          disputeId,
+        });
 
         expect(mockedThis.$store.commit).toHaveBeenCalledWith(CHANGE_ITEM, {
           itemType: mockedThis.tableName,
           id: disputeId,
+          ...disputeInfo,
         });
       });
+
+      it('upon completion of the method, the dispute id should be removed', async () => {
+        const disputeId = 'disputeId';
+        const mockedThis = {
+          processingDisputeIds: ['qwerty', disputeId, 'trwe'],
+          $store: {
+            commit: jest.fn(),
+          },
+        };
+
+        disputesRepository.getDispute = jest.fn();
+        disputesRepository.changeStatusDispute = jest.fn();
+
+        await disputeCommonTable.methods.onChangeDisputeStatus.call(mockedThis, {
+          disputeId,
+        });
+
+        expect(mockedThis.processingDisputeIds).toEqual(['qwerty', 'trwe']);
+      });
+
+      it('should call errorMessage if an error occurs while executing the method', async () => {
+        const disputeId = 'disputeId';
+        const mockedThis = {
+          processingDisputeIds: [],
+          $store: {
+            commit: jest.fn(),
+          },
+        };
+
+        disputesRepository.getDispute = jest.fn(Promise.reject());
+        disputesRepository.changeStatusDispute = jest.fn();
+        notifications.errorMessage = jest.fn();
+
+        await disputeCommonTable.methods.onChangeDisputeStatus.call(mockedThis, {
+          disputeId,
+        });
+
+        expect(notifications.errorMessage).toHaveBeenCalled();
+      });
     });
+
     describe('onSelectIdDispute', () => {
-      it('should APPLY_FILTERS', () => {
-        const APPLY_FILTERS = 'APPLY_FILTERS';
+      it('should APPLY_FILTERS', async () => {
         const mockedThis = {
           $store: {
             dispatch: jest.fn(),
@@ -78,9 +176,22 @@ describe('disputeCommonTable', () => {
           ],
         };
 
-        disputeCommonTable.methods.onSelectIdDispute.call(mockedThis, 'idDispute');
+        await disputeCommonTable.methods.onSelectIdDispute.call(mockedThis, 'idDispute');
 
         expect(mockedThis.$store.dispatch).toHaveBeenCalledWith(APPLY_FILTERS, data);
+      });
+
+      it('should call errorMessage if an error occurs while executing the method', async () => {
+        const mockedThis = {
+          $store: {
+            dispatch: jest.fn(Promise.reject()),
+          },
+        };
+
+        notifications.errorMessage = jest.fn();
+
+        await disputeCommonTable.methods.onSelectIdDispute.call(mockedThis, 'idDispute');
+        expect(notifications.errorMessage).toHaveBeenCalled();
       });
     });
   });

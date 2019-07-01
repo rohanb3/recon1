@@ -41,10 +41,6 @@ export default {
       type: Array,
       required: true,
     },
-    statusProcessing: {
-      type: Boolean,
-      required: true,
-    },
   },
   components: {
     TableButton,
