@@ -8,8 +8,8 @@ export default {
       type: Array,
       required: true,
     },
-    statusProcessing: {
-      type: Boolean,
+    processingDisputeIds: {
+      type: Array,
       required: true,
     },
   },
@@ -18,6 +18,9 @@ export default {
     dateDefaultFormat,
   },
   computed: {
+    disputeId() {
+      return this.item.id;
+    },
     disputeStatusId() {
       return (this.item.disputeStatus || {}).id;
     },
@@ -44,6 +47,9 @@ export default {
     },
     isStatusEditableOrStatusProcessing() {
       return this.isStatusEditableBySAM || this.statusProcessing;
+    },
+    statusProcessing() {
+      return this.processingDisputeIds.includes(this.disputeId);
     },
   },
   methods: {
