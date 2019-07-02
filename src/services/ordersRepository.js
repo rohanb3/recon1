@@ -1,5 +1,5 @@
 import apiDisputes from './disputesApi';
-import { paramsSerializer } from '@/services/repositoryUtils';
+import { paramsSerializer } from '@/services/serializers';
 
 export const getOrders = filters => {
   const params = { ...filters };

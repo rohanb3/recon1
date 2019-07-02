@@ -8,7 +8,7 @@ import {
   getOrdersCsvFile,
   getFiscalPeriods,
 } from '@/services/ordersRepository';
-import { paramsSerializer } from '@/services/repositoryUtils';
+import { paramsSerializer } from '@/services/serializers';
 
 describe('ordersRepository', () => {
   describe('getOrders', () => {
