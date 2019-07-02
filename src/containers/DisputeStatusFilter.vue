@@ -74,7 +74,6 @@ export default {
           value: this.selectedStatusIds(selectedItems),
         },
       };
-
       this.$store.dispatch(APPLY_DISPUTE_STATUS_FILTER, data);
     },
     applyFilter: debounce(function applyFilter(selectedItems) {

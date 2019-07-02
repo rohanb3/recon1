@@ -20,7 +20,7 @@ export default {
     let dataLoading = true;
     let disputeStatusIds = [];
 
-    const dependentFilter = state[tableName].filters[dependentFilterName];
+    const dependentFilter = state[tableName].filters[dependentFilterName] || [];
 
     if (dependentFilter.length && selectedFilter.value.length) {
       disputeStatusIds = intersection(dependentFilter, selectedFilter.value);
