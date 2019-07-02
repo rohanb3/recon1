@@ -4,19 +4,12 @@ import * as mutationTypes from './mutationTypes';
 import { ENTITY_TYPES } from '@/constants';
 
 export default {
-  [actionTypes.APPLY_FILTERS](
-    { state, commit, dispatch },
-    { tableName, filters = [], dataLoading = true }
-  ) {
+  [actionTypes.APPLY_FILTERS]({ state, commit, dispatch }, { tableName, filters = [] }) {
     commit(mutationTypes.SET_FILTERS, { tableName, filters });
-    if (dataLoading) {
-      const allFilters = state[tableName].filters;
-      return dispatch(LOAD_ITEMS, { itemType: tableName, filters: allFilters }).finally(() => {
-        commit(mutationTypes.APPLYING_FILTERS_DONE, tableName);
-      });
-    }
-    commit(mutationTypes.APPLYING_FILTERS_DONE, tableName);
-    return true;
+    const allFilters = state[tableName].filters;
+    return dispatch(LOAD_ITEMS, { itemType: tableName, filters: allFilters }).finally(() => {
+      commit(mutationTypes.APPLYING_FILTERS_DONE, tableName);
+    });
   },
   [actionTypes.RESET_FILTERS]({ commit, dispatch }, tableName) {
     commit(mutationTypes.RESET_FILTERS, tableName);

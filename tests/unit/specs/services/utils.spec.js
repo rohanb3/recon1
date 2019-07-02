@@ -3,7 +3,6 @@ import {
   getStringFromValuesByKey,
   notEmpty,
   sortingRuleForObject,
-  pickDuplicate,
 } from '@/services/utils';
 
 describe('utils', () => {
@@ -140,30 +139,6 @@ describe('utils', () => {
           id: 2,
         },
       ];
-
-      expect(result).toEqual(expectedResult);
-    });
-  });
-
-  describe('pickDuplicate', () => {
-    it('should return duplicate values from two array', () => {
-      const array1 = [1, 2, 4];
-      const array2 = [4, 2, 5, 1];
-
-      const result = pickDuplicate(array1, array2);
-
-      const expectedResult = [1, 2, 4];
-
-      expect(result).toEqual(expectedResult);
-    });
-
-    it('should return empty array if passed an empty array', () => {
-      const array1 = [];
-      const array2 = [4, 2, 5, 1];
-
-      const result = pickDuplicate(array1, array2);
-
-      const expectedResult = [];
 
       expect(result).toEqual(expectedResult);
     });
