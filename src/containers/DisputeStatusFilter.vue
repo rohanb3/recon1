@@ -19,8 +19,14 @@ import TableFilter from '@/components/TableFilter';
 import { FILTER_NAMES } from '@/constants';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
-import { RESET_ITEMS, SET_ALL_ITEMS_LOADED } from '@/store/storage/mutationTypes';
-import { SET_FILTERS, APPLYING_FILTERS_DONE } from '@/store/tables/mutationTypes';
+import {
+  RESET_ITEMS,
+  SET_ALL_ITEMS_LOADED,
+} from '@/store/storage/mutationTypes';
+import {
+  SET_FILTERS,
+  APPLYING_FILTERS_DONE,
+} from '@/store/tables/mutationTypes';
 import { extractPropertiesFromArrObj } from '@/services/utils';
 
 const TIMEOUT_APPLY_FILTER = 1000;
@@ -77,7 +83,11 @@ export default {
     },
     selectedStatusIds(selectedItems) {
       return Array.from(
-        new Set(flatten(extractPropertiesFromArrObj(selectedItems, this.sendFieldName)))
+        new Set(
+          flatten(
+            extractPropertiesFromArrObj(selectedItems, this.sendFieldName)
+          )
+        )
       );
     },
     showNoResultsFound() {
@@ -93,7 +103,10 @@ export default {
 
       if (this.isAppliedDependentFilter) {
         if (selectedStatusIds.length) {
-          disputeStatusIds = intersection(selectedStatusIds, this.dependentFilterItemIds);
+          disputeStatusIds = intersection(
+            selectedStatusIds,
+            this.dependentFilterItemIds
+          );
           dataLoading = this.isContainedDisputeStatusIds(disputeStatusIds);
         } else {
           disputeStatusIds = this.dependentFilterItemIds;
@@ -104,9 +117,11 @@ export default {
 
       return { dataLoading, disputeStatusIds };
     },
-    applyFilter: debounce(function applyFilter(selectedItems) {
+    debounceApplyFilter(selectedItems) {
       const selectedStatusIds = this.selectedStatusIds(selectedItems);
-      const { dataLoading, disputeStatusIds } = this.disputeStatusIds(selectedStatusIds);
+      const { dataLoading, disputeStatusIds } = this.disputeStatusIds(
+        selectedStatusIds
+      );
 
       const data = {
         tableName: this.tableName,
@@ -128,6 +143,9 @@ export default {
         this.showNoResultsFound();
         this.applyFiltersWithoutLoadingData(data);
       }
+    },
+    applyFilter: debounce(function applyFilter(selectedItems) {
+      this.debounceApplyFilter(selectedItems);
     }, TIMEOUT_APPLY_FILTER),
   },
 };
