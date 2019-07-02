@@ -1,8 +1,5 @@
 import apiDisputes from './disputesApi';
-import { paramsSerializer, paramsSerializerWithRemoval } from '@/services/serializers';
-import { FILTER_NAMES } from '@/constants';
-
-const listOfExtraParameters = [FILTER_NAMES.XYZ_STATUS_IDS, FILTER_NAMES.SPECTRUM_STATUS_IDS];
+import { paramsSerializer } from '@/services/serializers';
 
 export const getDispute = id => {
   return apiDisputes.get(`/dispute/${id}`).then(({ data }) => data);
@@ -19,10 +16,7 @@ export const getDisputesStatisticsBySubmitters = filters => {
 };
 
 export const getDisputes = params => {
-  const handleParamsSerializer = paramsSerializerWithRemoval(params, listOfExtraParameters);
-  return apiDisputes
-    .get('/dispute', { params, paramsSerializer: handleParamsSerializer })
-    .then(({ data }) => data);
+  return apiDisputes.get('/dispute', { params, paramsSerializer }).then(({ data }) => data);
 };
 
 export const createDispute = orderId => {

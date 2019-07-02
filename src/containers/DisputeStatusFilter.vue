@@ -14,19 +14,9 @@
 <script>
 import flatten from 'lodash.flatten';
 import debounce from 'lodash.debounce';
-import intersection from 'lodash.intersection';
 import TableFilter from '@/components/TableFilter';
-import { FILTER_NAMES } from '@/constants';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
-import { APPLY_FILTERS } from '@/store/tables/actionTypes';
-import {
-  RESET_ITEMS,
-  SET_ALL_ITEMS_LOADED,
-} from '@/store/storage/mutationTypes';
-import {
-  SET_FILTERS,
-  APPLYING_FILTERS_DONE,
-} from '@/store/tables/mutationTypes';
+import { APPLY_DISPUTE_STATUS_FILTER } from '@/store/tables/actionTypes';
 import { extractPropertiesFromArrObj } from '@/services/utils';
 
 const TIMEOUT_APPLY_FILTER = 1000;
@@ -68,84 +58,27 @@ export default {
     disputeStatusList() {
       return this[this.filterName];
     },
-    dependentFilterItemIds() {
-      return this.filters[this.dependentFilterName] || [];
-    },
-    isAppliedDependentFilter() {
-      return !!this.dependentFilterItemIds.length;
-    },
   },
   methods: {
-    applyFiltersWithoutLoadingData(data) {
-      const { tableName } = data;
-      this.$store.commit(SET_FILTERS, data);
-      this.$store.commit(APPLYING_FILTERS_DONE, tableName);
-    },
     selectedStatusIds(selectedItems) {
       return Array.from(
-        new Set(
-          flatten(
-            extractPropertiesFromArrObj(selectedItems, this.sendFieldName)
-          )
-        )
+        new Set(flatten(extractPropertiesFromArrObj(selectedItems, this.sendFieldName)))
       );
     },
-    showNoResultsFound() {
-      this.$store.commit(RESET_ITEMS, this.tableName);
-      this.$store.commit(SET_ALL_ITEMS_LOADED, this.tableName);
-    },
-    isContainedDisputeStatusIds(items) {
-      return items.length > 0;
-    },
-    disputeStatusIds(selectedStatusIds) {
-      let disputeStatusIds = [];
-      let dataLoading = true;
-
-      if (this.isAppliedDependentFilter) {
-        if (selectedStatusIds.length) {
-          disputeStatusIds = intersection(
-            selectedStatusIds,
-            this.dependentFilterItemIds
-          );
-          dataLoading = this.isContainedDisputeStatusIds(disputeStatusIds);
-        } else {
-          disputeStatusIds = this.dependentFilterItemIds;
-        }
-      } else {
-        disputeStatusIds = selectedStatusIds;
-      }
-
-      return { dataLoading, disputeStatusIds };
-    },
-    debounceApplyFilter(selectedItems) {
-      const selectedStatusIds = this.selectedStatusIds(selectedItems);
-      const { dataLoading, disputeStatusIds } = this.disputeStatusIds(
-        selectedStatusIds
-      );
-
+    doApplyFilter(selectedItems) {
       const data = {
         tableName: this.tableName,
-        filters: [
-          {
-            name: this.filterName,
-            value: selectedStatusIds,
-          },
-          {
-            name: FILTER_NAMES.DISPUTE_STATUS_IDS,
-            value: disputeStatusIds,
-          },
-        ],
+        dependentFilterName: this.dependentFilterName,
+        selectedFilter: {
+          name: this.filterName,
+          value: this.selectedStatusIds(selectedItems),
+        },
       };
 
-      if (dataLoading) {
-        this.$store.dispatch(APPLY_FILTERS, data);
-      } else {
-        this.showNoResultsFound();
-        this.applyFiltersWithoutLoadingData(data);
-      }
+      this.$store.dispatch(APPLY_DISPUTE_STATUS_FILTER, data);
     },
     applyFilter: debounce(function applyFilter(selectedItems) {
-      this.debounceApplyFilter(selectedItems);
+      this.doApplyFilter(selectedItems);
     }, TIMEOUT_APPLY_FILTER),
   },
 };
