@@ -20,12 +20,12 @@ module.exports = {
   devServer: {
     proxy: {
       '/api/disputs': {
-        target: 'https://reviews.xyzies.ardas.biz',
+        target: 'https://dev.arportal.xyz',
         secure: true,
         changeOrigin: true,
       },
       '/api/identity/api': {
-        target: 'https://reviews.xyzies.ardas.biz/',
+        target: 'https://dev.arportal.xyz/',
         changeOrigin: true,
       },
     },

@@ -63,7 +63,7 @@ export default {
       },
       disputeHistoryShown: false,
       selectedDispute: {},
-      statusProcessing: false,
+      processingDisputeIds: [],
     };
   },
   computed: {
@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     async onChangeDisputeStatus({ disputeId, statusId, comments }) {
-      this.statusProcessing = true;
+      this.processingDisputeIds.push(disputeId);
       const userName = this.displayName;
       const status = statusId;
       try {
@@ -90,7 +90,9 @@ export default {
       } catch {
         errorMessage();
       } finally {
-        this.statusProcessing = false;
+        this.processingDisputeIds = this.processingDisputeIds.filter(
+          dispute => dispute !== disputeId
+        );
       }
     },
     async onSelectIdDispute(idDispute) {
@@ -104,7 +106,7 @@ export default {
             },
           ],
         };
-        this.$store.dispatch(APPLY_FILTERS, data);
+        await this.$store.dispatch(APPLY_FILTERS, data);
         this.disputeHistoryShown = true;
       } catch {
         errorMessage();

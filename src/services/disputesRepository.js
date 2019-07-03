@@ -1,5 +1,5 @@
 import apiDisputes from './disputesApi';
-import { paramsSerializer } from '@/services/repositoryUtils';
+import { paramsSerializer } from '@/services/serializers';
 
 export const getDispute = id => {
   return apiDisputes.get(`/dispute/${id}`).then(({ data }) => data);
@@ -15,8 +15,7 @@ export const getDisputesStatisticsBySubmitters = filters => {
   );
 };
 
-export const getDisputes = filters => {
-  const params = { ...filters };
+export const getDisputes = params => {
   return apiDisputes.get('/dispute', { params, paramsSerializer }).then(({ data }) => data);
 };
 

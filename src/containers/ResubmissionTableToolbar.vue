@@ -5,7 +5,7 @@
       <order-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
       <dispute-type-filter :tableName="tableName" />
-      <dispute-status-filter :tableName="tableName" send-field-name="ids" />
+      <spectrum-dispute-status-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
     <div class="table-filter-container">
@@ -27,7 +27,7 @@ import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
 import OrderAgeFilter from '@/containers/OrderAgeFilter';
 import DisputAgeFilter from '@/containers/DisputAgeFilter';
-import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
+import SpectrumDisputeStatusFilter from '@/containers/SpectrumDisputeStatusFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
 import { getDisputesCsvFile } from '@/services/disputesRepository';
@@ -42,7 +42,7 @@ export default {
     CustomRangeFilter,
     OrderAgeFilter,
     DisputAgeFilter,
-    DisputeStatusFilter,
+    SpectrumDisputeStatusFilter,
     ExportToCsvFileButton,
   },
   props: {
