@@ -112,9 +112,6 @@ export default {
     installationAge() {
       return this.value.installationAge || ' ';
     },
-    expectedCommission() {
-      return this.value.expectedCommission || ' ';
-    },
     createdOn() {
       return this.value.createdOn || ' ';
     },

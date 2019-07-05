@@ -25,17 +25,11 @@ export default {
     currency,
   },
   computed: {
-    expectedCommission() {
-      return this.item.expectedCommission ? parseFloat(this.item.expectedCommission) : 0;
-    },
-    receivedCommission() {
-      return this.item.receivedCommission ? parseFloat(this.item.receivedCommission) : 0;
-    },
     unsignedDifferenceComission() {
       return Math.abs(this.differenceComission);
     },
     differenceComission() {
-      return this.expectedCommission - this.receivedCommission;
+      return this.item.difference ? parseFloat(this.item.difference) : 0;
     },
     isPositiveDifference() {
       return this.differenceComission > 0;
