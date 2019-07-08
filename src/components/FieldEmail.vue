@@ -2,7 +2,7 @@
   <v-text-field
     :label="$t('email')"
     name="email"
-    v-model="email"
+    v-model.trim="email"
     autofocus
     required
     ref="fieldEmail"
@@ -51,9 +51,10 @@ export default {
   },
   methods: {
     validate() {
-      const status = this.$refs.fieldEmail.validate();
-      this.$emit('valid', status);
-      return status;
+      this.$nextTick(() => {
+        const status = this.$refs.fieldEmail.validate();
+        this.$emit('valid', status);
+      });
     },
   },
 };
