@@ -2,13 +2,12 @@
   <v-text-field
     :label="$t('email')"
     name="email"
-    v-model="email"
+    v-model.trim="email"
     autofocus
     required
     ref="fieldEmail"
     :rules="emailRules"
     :validate-on-blur="true"
-    @input="validate"
     @keydown.space.prevent
   ></v-text-field>
 </template>
@@ -34,7 +33,10 @@ export default {
     return {
       emailRules: [
         validateFieldCantBeEmpty('email.is.required'),
-        validateMaxTextLength(MAX_EMAIL_LENGTH, 'email.should.not.be.longer.than.50.symbols'),
+        validateMaxTextLength(
+          MAX_EMAIL_LENGTH,
+          'email.should.not.be.longer.than.50.symbols'
+        ),
         validateEmail(),
       ],
     };
@@ -54,6 +56,11 @@ export default {
       const status = this.$refs.fieldEmail.validate();
       this.$emit('valid', status);
       return status;
+    },
+  },
+  watch: {
+    email() {
+      this.$nextTick(() => this.validate());
     },
   },
 };

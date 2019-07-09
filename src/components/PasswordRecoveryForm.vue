@@ -13,14 +13,17 @@
             <v-container fluid>
               <v-layout row mt-5 align-center justify-space-around>
                 <v-flex order-lg2>
-                  <router-link class="back-to-login" :to="{ name: 'login' }">{{
-                    $t('back.to.login')
-                  }}</router-link>
+                  <router-link class="back-to-login" :to="{ name: 'login' }">
+                    {{ $t('back.to.login') }}
+                  </router-link>
                 </v-flex>
                 <v-flex order-lg2>
-                  <v-btn class="button" :disabled="!validEmail" @click="sendVerificationCode">
-                    {{ $t('send.me.code') }}
-                  </v-btn>
+                  <custom-button
+                    :title="$t('send.me.code')"
+                    :loading="loading"
+                    :disabled="!validEmail"
+                    @click="sendVerificationCode"
+                  />
                 </v-flex>
               </v-layout>
             </v-container>
@@ -33,11 +36,19 @@
 
 <script>
 import FieldEmail from '@/components/FieldEmail';
+import CustomButton from '@/components/CustomButton';
 
 export default {
   name: 'PasswordRecoveryForm',
   components: {
     FieldEmail,
+    CustomButton,
+  },
+  props: {
+    loading: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {

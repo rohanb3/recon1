@@ -1,6 +1,6 @@
 <template>
   <v-container fluid fill-height class="login-page">
-    <login-form @login="onLogin" />
+    <login-form @login="onLogin" :loading="loading" />
   </v-container>
 </template>
 
@@ -15,8 +15,14 @@ export default {
   components: {
     LoginForm,
   },
+  data() {
+    return {
+      loading: false,
+    };
+  },
   methods: {
     async onLogin({ email, password }) {
+      this.loading = true;
       try {
         await this.$store.dispatch(LOGIN, { email, password });
         this.$router.push({ name: ROUTE_NAMES.SELECT_ORDER });
@@ -33,6 +39,8 @@ export default {
         } else {
           errorMessage('login.failed', this.getDescriptionReason(message));
         }
+      } finally {
+        this.loading = false;
       }
     },
     getDescriptionReason(message) {
