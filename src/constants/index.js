@@ -165,6 +165,8 @@ export const FILTER_NAMES = {
   DISPUTE_AGE_FROM: 'DisputeAgeFrom',
   DISPUTE_AGE_TO: 'DisputeAgeTo',
   DISPUTE_STATUS_IDS: 'DisputeStatusIds',
+  XYZ_STATUS_IDS: 'XYZStatusIds',
+  SPECTRUM_STATUS_IDS: 'SpectrumStatusIds',
   DISPUTE_ID: 'disputeId',
 };
 
