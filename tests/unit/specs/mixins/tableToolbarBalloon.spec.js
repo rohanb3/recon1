@@ -1,73 +1,87 @@
-import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
+import TableFullHeightBalloon from '@/components/TableFullHeightBalloon';
 
-describe('tableToolbarBalloon', () => {
-  describe('tableToolbarBalloon: computed', () => {
-    describe('options', () => {
-      it('should return options', () => {
-        const expectedResult = {
-          modifiers: {
-            preventOverflow: { boundariesElement: 'scrollParent' },
-            placement: 'bottom',
-          },
-        };
+describe('TableFullHeightBalloon: ', () => {
+  describe('mounted: ', () => {
+    it('should call method subscribeToClickOut', () => {
+      const mockedThis = {
+        subscribeToClickOut: jest.fn(),
+      };
 
-        const result = tableToolbarBalloon.computed.options.call(null);
+      TableFullHeightBalloon.mounted.call(mockedThis);
 
-        expect(result).toEqual(expectedResult);
-      });
+      expect(mockedThis.subscribeToClickOut).toHaveBeenCalled();
     });
   });
-  describe('tableToolbarBalloon: methods', () => {
-    describe('show', () => {
-      it('should call doShow func', () => {
+
+  describe('beforeDestroy: ', () => {
+    it('should call method unsubscribeFromClickOut', () => {
+      const mockedThis = {
+        unsubscribeFromClickOut: jest.fn(),
+      };
+
+      TableFullHeightBalloon.beforeDestroy.call(mockedThis);
+
+      expect(mockedThis.unsubscribeFromClickOut).toHaveBeenCalled();
+    });
+  });
+
+  describe('methods: ', () => {
+    describe('subscribeToClickOut: ', () => {
+      it('should add event listener click', () => {
         const mockedThis = {
-          $refs: {
-            popper: {
-              doShow: jest.fn(),
-            },
+          onClick: () => 'func',
+        };
+
+        const addEventListenerSpy = jest.spyOn(document, 'addEventListener');
+
+        TableFullHeightBalloon.methods.subscribeToClickOut.call(mockedThis);
+
+        expect(addEventListenerSpy).toHaveBeenCalledWith('click', mockedThis.onClick);
+      });
+    });
+
+    describe('unsubscribeFromClickOut: ', () => {
+      it('should remove event listener click', () => {
+        const mockedThis = {
+          onClick: () => 'func',
+        };
+
+        const removeEventListenerSpy = jest.spyOn(document, 'removeEventListener');
+
+        TableFullHeightBalloon.methods.unsubscribeFromClickOut.call(mockedThis);
+
+        expect(removeEventListenerSpy).toHaveBeenCalledWith('click', mockedThis.onClick);
+      });
+    });
+
+    describe('onClick: ', () => {
+      it('should call method close if isClickout true', () => {
+        const mockedThis = {
+          close: jest.fn(),
+        };
+
+        const ev = {
+          target: {
+            closest: jest.fn(() => false),
           },
         };
 
-        tableToolbarBalloon.methods.show.call(mockedThis);
+        TableFullHeightBalloon.methods.onClick.call(mockedThis, ev);
 
-        expect(mockedThis.$refs.popper.doShow).toHaveBeenCalled();
+        expect(ev.target.closest).toHaveBeenCalledWith('.table-full-height-balloon');
+        expect(mockedThis.close).toHaveBeenCalled();
       });
     });
-    describe('hide', () => {
-      it('should call doClose func', () => {
+
+    describe('close: ', () => {
+      it('should call event close', () => {
         const mockedThis = {
-          $refs: {
-            popper: {
-              doClose: jest.fn(),
-            },
-          },
+          $emit: jest.fn(),
         };
 
-        tableToolbarBalloon.methods.hide.call(mockedThis);
+        TableFullHeightBalloon.methods.close.call(mockedThis);
 
-        expect(mockedThis.$refs.popper.doClose).toHaveBeenCalled();
-      });
-    });
-    describe('onShow', () => {
-      it('should change isShown status', () => {
-        const mockedThis = {
-          isShown: false,
-        };
-
-        tableToolbarBalloon.methods.onShow.call(mockedThis);
-
-        expect(mockedThis.isShown).toEqual(true);
-      });
-    });
-    describe('onHide', () => {
-      it('should change isShown status', () => {
-        const mockedThis = {
-          isShown: true,
-        };
-
-        tableToolbarBalloon.methods.onHide.call(mockedThis);
-
-        expect(mockedThis.isShown).toEqual(false);
+        expect(mockedThis.$emit).toHaveBeenCalledWith('close');
       });
     });
   });
