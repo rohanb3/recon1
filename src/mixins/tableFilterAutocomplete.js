@@ -35,11 +35,11 @@ export default {
     },
   },
   methods: {
-    toggleItem({ itemKeyName, itemKeyVal }) {
+    toggleItem({ itemKeyName, itemKeyVal, isApplyFilter = true }) {
       const itemIndex = this[this.filterName].findIndex(item => item[itemKeyName] === itemKeyVal);
       if (itemIndex >= 0) {
         this.selectOneItem(itemIndex, !this[this.filterName][itemIndex].selected);
-        this.applyFilter(this.selectedItems);
+        if (isApplyFilter) this.applyFilter(this.selectedItems);
       }
     },
     selectOneItem(itemIndex, status) {
@@ -82,7 +82,7 @@ export default {
     },
     displayPreselectItems({ itemKeyName = 'id' } = {}) {
       this.preselectedItems.forEach(item => {
-        this.toggleItem({ itemKeyName, itemKeyVal: item });
+        this.toggleItem({ itemKeyName, itemKeyVal: item, isApplyFilter: false });
       });
     },
     async loadingPreselectedItems({ itemKeyName = 'id', displayedFieldName, getItemById }) {
@@ -97,7 +97,7 @@ export default {
             selected: true,
           });
         } else {
-          this.toggleItem({ itemKeyName, itemKeyVal: itemId });
+          this.toggleItem({ itemKeyName, itemKeyVal: itemId, isApplyFilter: false });
         }
       }
     },
