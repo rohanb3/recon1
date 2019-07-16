@@ -321,4 +321,41 @@ describe('tableFilterAutocomplete mixin', () => {
       });
     });
   });
+
+  describe('watch', () => {
+    describe('preselectedItems', () => {
+      it('should set false for property selected in each filter if passed array empty ', () => {
+        const items = [];
+        const filterName = 'filter';
+        const mockedThis = {
+          filterName,
+          [filterName]: [
+            {
+              id: 1,
+            },
+            {
+              id: 3,
+            },
+          ],
+          $set: jest.fn(),
+        };
+
+        tableFilterAutocomplete.watch.preselectedItems.call(mockedThis, items);
+
+        expect(mockedThis[filterName][0].selected).toBeFalsy();
+        expect(mockedThis[filterName][1].selected).toBeFalsy();
+      });
+
+      it('should not call method $set if passed array not empty ', () => {
+        const items = [1, 2, 3];
+        const mockedThis = {
+          $set: jest.fn(),
+        };
+
+        tableFilterAutocomplete.watch.preselectedItems.call(mockedThis, items);
+
+        expect(mockedThis.$set).not.toHaveBeenCalled();
+      });
+    });
+  });
 });

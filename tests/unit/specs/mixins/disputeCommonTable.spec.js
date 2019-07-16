@@ -20,6 +20,16 @@ describe('disputeCommonTable', () => {
 
         expect(result).toEqual(displayName);
       });
+
+      it('should return empty string if displayName is not defined', () => {
+        const mockedThis = {
+          profileData: {},
+        };
+
+        const result = disputeCommonTable.computed.displayName.call(mockedThis);
+
+        expect(result).toEqual('');
+      });
     });
   });
   describe('disputeCommonTable: methods', () => {

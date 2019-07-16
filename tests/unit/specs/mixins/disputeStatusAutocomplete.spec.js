@@ -1,7 +1,23 @@
 import disputeStatusAutocomplete from '@/mixins/disputeStatusAutocomplete';
+import * as utils from '@/services/utils';
 
 describe('disputeStatusAutocomplete', () => {
   describe('disputeStatusAutocomplete: computed', () => {
+    describe('disputeId', () => {
+      it('should return id', () => {
+        const mockedThis = {
+          item: {
+            id: 7,
+          },
+        };
+
+        const id = disputeStatusAutocomplete.computed.disputeId.call(mockedThis);
+
+        const expectedId = 7;
+
+        expect(id).toEqual(expectedId);
+      });
+    });
     describe('disputeStatusId', () => {
       it('should return id', () => {
         const mockedThis = {
@@ -92,6 +108,158 @@ describe('disputeStatusAutocomplete', () => {
         );
 
         expect(isConfirmRejected).toEqual(true);
+      });
+    });
+
+    describe('isStatusEditableBySAM', () => {
+      it('should return true if status editable by sam', () => {
+        const mockedThis = {
+          scopes: ['scope1', 'scope2'],
+        };
+
+        const result = disputeStatusAutocomplete.computed.isStatusEditableBySAM.call(mockedThis);
+
+        expect(result).toBeTruthy();
+      });
+    });
+
+    describe('isStatusEditableOrStatusProcessing', () => {
+      it('should return true if defined isStatusEditableBySAM as true', () => {
+        const mockedThis = {
+          isStatusEditableBySAM: true,
+        };
+
+        const result = disputeStatusAutocomplete.computed.isStatusEditableOrStatusProcessing.call(
+          mockedThis
+        );
+
+        expect(result).toBeTruthy();
+      });
+
+      it('should return true if defined statusProcessing as true', () => {
+        const mockedThis = {
+          statusProcessing: true,
+        };
+
+        const result = disputeStatusAutocomplete.computed.isStatusEditableOrStatusProcessing.call(
+          mockedThis
+        );
+
+        expect(result).toBeTruthy();
+      });
+    });
+
+    describe('statusProcessing', () => {
+      it('should return true if disputeId is contained in the array processingDisputeIds', () => {
+        const mockedThis = {
+          disputeId: 123,
+          processingDisputeIds: [123, 312],
+        };
+
+        const result = disputeStatusAutocomplete.computed.statusProcessing.call(mockedThis);
+
+        expect(result).toBeTruthy();
+      });
+
+      it('should return false if disputeId is not contained in the array processingDisputeIds', () => {
+        const mockedThis = {
+          disputeId: 7,
+          processingDisputeIds: [123, 312],
+        };
+
+        const result = disputeStatusAutocomplete.computed.statusProcessing.call(mockedThis);
+
+        expect(result).toBeFalsy();
+      });
+    });
+  });
+
+  describe('methods', () => {
+    describe('getLastDisputeStatus', () => {
+      it('should return last dispute status if such status is in the array', () => {
+        const statusId = 7;
+        const mockedThis = {
+          disputeStatusHistoryList: [
+            {
+              status: {
+                id: 7,
+                day: 1,
+              },
+            },
+            {
+              status: {
+                id: 3,
+                day: 2,
+              },
+            },
+            {
+              status: {
+                id: 7,
+                day: 3,
+              },
+            },
+          ],
+        };
+
+        utils.sortingRuleForObject = jest.fn();
+
+        const result = disputeStatusAutocomplete.methods.getLastDisputeStatus.call(
+          mockedThis,
+          statusId
+        );
+
+        const expectedResult = { status: { day: 3, id: 7 } };
+        expect(result).toEqual(expectedResult);
+      });
+
+      it('should call function sortingRuleForObject with parameter', () => {
+        const statusId = 7;
+        const mockedThis = {
+          disputeStatusHistoryList: [
+            {
+              status: {
+                id: 7,
+                day: 1,
+              },
+            },
+          ],
+        };
+
+        utils.sortingRuleForObject = jest.fn();
+
+        disputeStatusAutocomplete.methods.getLastDisputeStatus.call(mockedThis, statusId);
+
+        expect(utils.sortingRuleForObject).toHaveBeenCalledWith('timeStamp');
+      });
+    });
+
+    describe('isContainsStatusInHistory', () => {
+      it('should return true if such status is in the array', () => {
+        const statusId = 7;
+        const mockedThis = {
+          disputeStatusHistoryList: [{ status: { id: 7 } }],
+        };
+
+        const result = disputeStatusAutocomplete.methods.isContainsStatusInHistory.call(
+          mockedThis,
+          statusId
+        );
+
+        expect(result).toBeTruthy();
+      });
+
+      it('should return false if status is not contained in the array', () => {
+        const statusId = 7;
+        const mockedThis = {
+          disputeStatusHistoryList: [{ status: { id: 5 } }],
+        };
+
+        const result = disputeStatusAutocomplete.methods.isContainsStatusInHistory.call(
+          mockedThis,
+          statusId
+        );
+
+        expect(result).toBeFalsy();
       });
     });
   });
