@@ -68,9 +68,7 @@ export default {
       return this.filters[FILTER_NAMES.DISPUTE_ID];
     },
     selectedDispute() {
-      return (
-        this.$store.getters.getItemById(this.disputeId, this.parentTableName, item => item.id) || {}
-      );
+      return this.$store.getters.getItemById(this.disputeId, this.parentTableName, item => item.id) || {};
     },
     orderId() {
       return this.selectedDispute.orderNumber;

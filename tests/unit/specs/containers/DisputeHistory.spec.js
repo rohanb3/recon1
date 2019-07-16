@@ -88,16 +88,102 @@ describe('DisputeHistory', () => {
 
     describe('disputeId', () => {
       it('should return value of filter by dispute id if defined filters', () => {
-
         const mockedThis = {
           filters: {
             [FILTER_NAMES.DISPUTE_ID]: 'qwerty',
           },
         };
 
-        const result = DisputeHistory.computed.filters.call(mockedThis);
+        const result = DisputeHistory.computed.disputeId.call(mockedThis);
 
         expect(result).toEqual('qwerty');
+      });
+    });
+
+    describe('selectedDispute', () => {
+      it('should call method getItemById', () => {
+        const mockedThis = {
+          $store: {
+            getters: {
+              getItemById: jest.fn(),
+            },
+          },
+          disputeId: 7,
+          parentTableName: 'company',
+        };
+
+        DisputeHistory.computed.selectedDispute.call(mockedThis);
+
+        expect(mockedThis.$store.getters.getItemById).toHaveBeenCalledWith(
+          mockedThis.disputeId,
+          mockedThis.parentTableName,
+          expect.any(Function)
+        );
+      });
+
+      it('should return object with data', () => {
+        const mockedThis = {
+          $store: {
+            getters: {
+              getItemById: jest.fn(() => ({
+                id: 123,
+              })),
+            },
+          },
+          disputeId: 7,
+          parentTableName: 'company',
+        };
+
+        const result = DisputeHistory.computed.selectedDispute.call(mockedThis);
+
+        expect(result).toEqual({
+          id: 123,
+        });
+      });
+
+      it('should return empty object if method getItemById returned empty object', () => {
+        const mockedThis = {
+          $store: {
+            getters: {
+              getItemById: jest.fn(() => {}),
+            },
+          },
+          disputeId: 7,
+          parentTableName: 'company',
+        };
+
+        const result = DisputeHistory.computed.selectedDispute.call(mockedThis);
+
+        expect(result).toEqual({});
+      });
+    });
+
+    describe('orderId', () => {
+      it('should return order number', () => {
+        const orderNumber = 789;
+        const mockedThis = {
+          selectedDispute: {
+            orderNumber,
+          },
+        };
+
+        const result = DisputeHistory.computed.orderId.call(mockedThis);
+
+        expect(result).toEqual(orderNumber);
+      });
+    });
+  });
+
+  describe('methods', () => {
+    describe('close', () => {
+      it('should call event close', () => {
+        const mockedThis = {
+          $emit: jest.fn(),
+        };
+
+        DisputeHistory.methods.close.call(mockedThis);
+
+        expect(mockedThis.$emit).toHaveBeenCalledWith('close');
       });
     });
   });
