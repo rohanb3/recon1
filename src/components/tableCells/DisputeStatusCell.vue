@@ -6,11 +6,11 @@
 import { DISPUTE_STATUSES_ID } from '@/constants';
 
 const statusesMap = {
-        [DISPUTE_STATUSES_ID.CONFIRM_APPROVED]: 'approved',
-        [DISPUTE_STATUSES_ID.RE_SENT]: 'rejected',
-        [DISPUTE_STATUSES_ID.CONFIRM_REJECTED]: 'rejected',
-        [DISPUTE_STATUSES_ID.SENT]: 'new'
-      }
+  [DISPUTE_STATUSES_ID.CONFIRM_APPROVED]: 'approved',
+  [DISPUTE_STATUSES_ID.RE_SENT]: 'rejected',
+  [DISPUTE_STATUSES_ID.CONFIRM_REJECTED]: 'rejected',
+  [DISPUTE_STATUSES_ID.SENT]: 'new',
+};
 
 export default {
   name: 'DisputeStatusCell',
