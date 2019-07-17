@@ -36,6 +36,19 @@ describe('utils', () => {
   });
 
   describe('selectedItemsForTitle: ', () => {
+    it('should return empty string if passed empty itemKey', () => {
+      const items = [
+        { id: 1, name: 'Alabama', value: 'AL', selected: true },
+        { id: 2, name: 'Alaska', value: 'AK' },
+      ];
+
+      const result = getStringFromValuesByKey('', items, 3);
+
+      const expectedString = '';
+
+      expect(result).toEqual(expectedString);
+    });
+
     it('should return string without dots at the end', () => {
       const items = [
         { id: 1, name: 'Alabama', value: 'AL', selected: true },
@@ -122,10 +135,19 @@ describe('utils', () => {
     it('should return sorted array', () => {
       const arr = [
         {
+          id: 10,
+        },
+        {
           id: 2,
         },
         {
           id: 1,
+        },
+        {
+          id: 5,
+        },
+        {
+          id: 2,
         },
       ];
 
@@ -137,6 +159,15 @@ describe('utils', () => {
         },
         {
           id: 2,
+        },
+        {
+          id: 2,
+        },
+        {
+          id: 5,
+        },
+        {
+          id: 10,
         },
       ];
 

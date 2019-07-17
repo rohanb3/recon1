@@ -8,6 +8,7 @@ import {
   CHANGE_ITEM,
   REMOVE_ITEM,
   SET_SYNC_ORDERS_STATUS,
+  SET_ITEMS_TOTAL,
 } from '@/store/storage/mutationTypes';
 import { ENTITY_TYPES } from '@/constants';
 
@@ -58,6 +59,21 @@ describe('storage mutations: ', () => {
       mutations[SET_ALL_ITEMS_LOADED](state, ENTITY_TYPES.ORDERS);
 
       expect(state[ENTITY_TYPES.ORDERS].allItemsLoaded).toBeTruthy();
+    });
+  });
+
+  describe('SET_ITEMS_TOTAL: ', () => {
+    it('should set total items', () => {
+      const totalItems = 7;
+      const state = {
+        [ENTITY_TYPES.ORDERS]: {
+          total: 0,
+        },
+      };
+
+      mutations[SET_ITEMS_TOTAL](state, { itemType: ENTITY_TYPES.ORDERS, total: totalItems });
+
+      expect(state[ENTITY_TYPES.ORDERS].total).toEqual(totalItems);
     });
   });
 
