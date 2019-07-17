@@ -61,6 +61,22 @@ describe('tableFilterAutocomplete mixin', () => {
 
         expect(expectedTableData).toEqual(tableData);
       });
+
+      it('should return empty object if not defined table', () => {
+        const tableName = 'tableName';
+        const mockedThis = {
+          tableName,
+          $store: {
+            state: {
+              tables: {},
+            },
+          },
+        };
+
+        const tableData = tableFilterAutocomplete.computed.tableData.call(mockedThis);
+
+        expect(tableData).toEqual({});
+      });
     });
 
     describe('filters', () => {
@@ -82,6 +98,16 @@ describe('tableFilterAutocomplete mixin', () => {
 
         expect(expectedFilters).toEqual(filters);
       });
+
+      it('should return empty object if not defined filters', () => {
+        const mockedThis = {
+          tableData: {},
+        };
+
+        const filters = tableFilterAutocomplete.computed.filters.call(mockedThis);
+
+        expect(filters).toEqual({});
+      });
     });
 
     describe('preselectedItems', () => {
@@ -99,6 +125,18 @@ describe('tableFilterAutocomplete mixin', () => {
         const expectedItems = ['createOn'];
 
         expect(expectedItems).toEqual(preselectedItems);
+      });
+
+      it('should return empty array if not defined filter', () => {
+        const filterName = 'filterName';
+        const mockedThis = {
+          filterName,
+          filters: {},
+        };
+
+        const preselectedItems = tableFilterAutocomplete.computed.preselectedItems.call(mockedThis);
+
+        expect(preselectedItems).toEqual([]);
       });
     });
   });

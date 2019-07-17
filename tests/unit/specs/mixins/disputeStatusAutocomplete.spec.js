@@ -83,6 +83,18 @@ describe('disputeStatusAutocomplete', () => {
 
         expect(history).toEqual(expectedResult);
       });
+
+      it('should return empty array if not defined disputeStatusHistory', () => {
+        const mockedThis = {
+          item: {},
+        };
+
+        const history = disputeStatusAutocomplete.computed.disputeStatusHistoryList.call(
+          mockedThis
+        );
+
+        expect(history).toEqual([]);
+      });
     });
     describe('isConfirmApprovedStatus', () => {
       it('should check confirm approved status', () => {
