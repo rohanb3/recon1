@@ -31,9 +31,10 @@ import {
 } from '@/services/identityRepository';
 
 export default {
-  async [GET_PROFILE_DATA]({ commit }) {
+  async [GET_PROFILE_DATA]({ commit, dispatch }) {
     const profileData = await getProfileData();
     commit(SET_PROFILE_DATA, profileData);
+    dispatch(GET_PHOTO);
   },
   async [LOGIN]({ commit }, { email, password }) {
     const emailLowerCase = email.toLowerCase();
