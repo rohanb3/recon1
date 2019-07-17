@@ -33,10 +33,7 @@ export default {
     return {
       emailRules: [
         validateFieldCantBeEmpty('email.is.required'),
-        validateMaxTextLength(
-          MAX_EMAIL_LENGTH,
-          'email.should.not.be.longer.than.50.symbols'
-        ),
+        validateMaxTextLength(MAX_EMAIL_LENGTH, 'email.should.not.be.longer.than.50.symbols'),
         validateEmail(),
       ],
     };
