@@ -8,7 +8,7 @@ import {
   getOrdersCsvFile,
   getFiscalPeriods,
 } from '@/services/ordersRepository';
-import { paramsSerializer } from '@/services/serializers';
+import { paramsSerializer } from '@/services/repositoryUtils';
 
 describe('ordersRepository', () => {
   describe('getOrders', () => {
@@ -27,7 +27,7 @@ describe('ordersRepository', () => {
       const response = await getOrders(filters);
 
       expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith('/order/orders/disputing', {
+      expect(disputesApi.get).toHaveBeenCalledWith('/order', {
         params: { ...filters },
         paramsSerializer,
       });
@@ -56,7 +56,7 @@ describe('ordersRepository', () => {
       const response = await getOrderStatusList();
 
       expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith('/order/disputing/status');
+      expect(disputesApi.get).toHaveBeenCalledWith('/order/status');
     });
   });
 
@@ -106,10 +106,7 @@ describe('ordersRepository', () => {
       const response = await getOrdersCsvFile(filters);
 
       expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith(
-        '/order/orders/disputing/csv',
-        expect.any(Object)
-      );
+      expect(disputesApi.get).toHaveBeenCalledWith('/order/csv', expect.any(Object));
     });
   });
 });

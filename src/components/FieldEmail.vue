@@ -9,7 +9,6 @@
     :rules="emailRules"
     :validate-on-blur="true"
     @input="validate"
-    @keydown.space.prevent
   ></v-text-field>
 </template>
 

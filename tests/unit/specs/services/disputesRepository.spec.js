@@ -10,7 +10,6 @@ import {
   removeDisputeAttachment,
   changeStatusDispute,
   getDisputesCsvFile,
-  getDisputeHistory,
 } from '@/services/disputesRepository';
 
 import { RESPONSE_STATUSES } from '@/constants';
@@ -186,25 +185,6 @@ describe('disputesRepository', () => {
 
       expect(response).toEqual(data);
       expect(disputesApi.get).toHaveBeenCalledWith('/dispute/csv', expect.any(Object));
-    });
-  });
-
-  describe('getDisputeHistory', () => {
-    it('should call api.get and return corect data', async () => {
-      const disputeId = '4hfysb547fj347sh278rf';
-
-      const params = {
-        Skip: 0,
-        Take: 10,
-      };
-
-      const data = { id: '777' };
-      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
-
-      const response = await getDisputeHistory({ disputeId, ...params });
-
-      expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith(`/dispute/${disputeId}/history`, { params });
     });
   });
 });

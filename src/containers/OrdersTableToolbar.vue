@@ -1,70 +1,49 @@
 <template>
   <div class="orders-table-toolbar">
-    <quick-search-filter :table-name="tableName" :filter-name="quickSearchFilterName" />
+    <quick-search-filter :tableName="tableName" />
     <div class="table-filter-container">
       <order-status-filter :table-name="tableName" />
       <order-age-filter :table-name="tableName" />
+      <installation-age-filter :table-name="tableName" />
     </div>
     <v-spacer></v-spacer>
-    <div class="table-filter-container">
-      <table-button
-        :disabled="isOrdersSyncing"
-        :preloader="isOrdersSyncing"
-        :title="$t('sync.orders')"
-        @click="$emit('syncOrders')"
-      />
-      <export-to-csv-file-button
-        :tableName="tableName"
-        :filters="filters"
-        :repository="handlerCsvFile()"
-      />
-      <fiscal-period-filter :tableName="tableName" />
-      <custom-range-filter :table-name="tableName" />
-    </div>
+    <table-button
+      :disabled="isOrdersSyncing"
+      :title="$t('sync.orders')"
+      @click="$emit('syncOrders')"
+    />
+    <table-button :title="$t('export')" @click="$emit('exportToCsvFile')" />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import OrderStatusFilter from '@/containers/OrderStatusFilter';
+import OrderAgeFilter from './OrderAgeFilter';
+import InstallationAgeFilter from './InstallationAgeFilter';
 import TableButton from '@/components/TableButton';
-import OrderAgeFilter from '@/containers/OrderAgeFilter';
-import { ENTITY_TYPES, ORDER_SYNC_STATUS, FILTER_NAMES } from '@/constants';
-import CustomRangeFilter from '@/containers/CustomRangeFilter';
-import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
-import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
-import { getOrdersCsvFile } from '@/services/ordersRepository';
+import { ENTITY_TYPES, ORDER_SYNC_STATUS } from '@/constants';
 
 export default {
   name: 'OrdersTableToolbar',
   components: {
-    CustomRangeFilter,
     QuickSearchFilter,
     OrderStatusFilter,
-    TableButton,
-    FiscalPeriodFilter,
-    ExportToCsvFileButton,
     OrderAgeFilter,
+    InstallationAgeFilter,
+    TableButton,
   },
   data() {
     return {
       tableName: ENTITY_TYPES.ORDERS,
-      quickSearchFilterName: FILTER_NAMES.SEARCH_ORDERS,
     };
   },
   computed: {
-    ...mapGetters(['tableData', 'storageData']),
+    storageData() {
+      return this.$store.state.storage[this.tableName] || {};
+    },
     isOrdersSyncing() {
-      return this.storageData(this.tableName).syncOrdersStatus === ORDER_SYNC_STATUS.WORKING;
-    },
-    filters() {
-      return this.tableData(this.tableName).filters;
-    },
-  },
-  methods: {
-    handlerCsvFile() {
-      return getOrdersCsvFile;
+      return this.storageData.syncOrdersStatus === ORDER_SYNC_STATUS.WORKING;
     },
   },
 };

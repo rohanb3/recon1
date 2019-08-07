@@ -13,7 +13,6 @@
     @input="validate"
     @update:error="validate"
     @click:append="() => (isShowPassword = !isShowPassword)"
-    @keydown.space.prevent
   ></v-text-field>
 </template>
 

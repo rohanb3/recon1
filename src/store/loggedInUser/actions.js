@@ -9,8 +9,6 @@ import {
   USER_LOGOUT,
 } from './actionTypes';
 
-import { RESET_ALL_FILTERS } from '@/store/tables/actionTypes';
-
 import {
   SET_PROFILE_DATA,
   SET_TOKEN,
@@ -66,9 +64,8 @@ export default {
     } = await verifyCode(email, code);
     commit(SET_RESET_TOKEN, resetToken);
   },
-  [USER_LOGOUT]({ commit, dispatch }) {
+  [USER_LOGOUT]({ commit }) {
     commit(REMOVE_TOKEN);
     commit(CLEAR_PROFILE_DATA);
-    dispatch(RESET_ALL_FILTERS);
   },
 };

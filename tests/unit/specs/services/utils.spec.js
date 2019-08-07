@@ -1,9 +1,4 @@
-import {
-  extractPropertiesFromArrObj,
-  getStringFromValuesByKey,
-  notEmpty,
-  sortingRuleForObject,
-} from '@/services/utils';
+import { extractPropertiesFromArrObj, getStringFromValuesByKey } from '@/services/utils';
 
 describe('utils', () => {
   describe('extractPropertiesFromArrObj', () => {
@@ -44,7 +39,7 @@ describe('utils', () => {
 
       const result = getStringFromValuesByKey('name', items, 3);
 
-      const expectedString = 'Alabama, Alaska';
+      const expectedString = ': Alabama, Alaska';
 
       expect(result).toEqual(expectedString);
     });
@@ -58,7 +53,7 @@ describe('utils', () => {
 
       const result = getStringFromValuesByKey('name', items, 3);
 
-      const expectedString = 'Alabama, Alaska, Arizona';
+      const expectedString = ': Alabama, Alaska, Arizona';
 
       expect(result).toEqual(expectedString);
     });
@@ -73,7 +68,7 @@ describe('utils', () => {
 
       const result = getStringFromValuesByKey('name', items, 3);
 
-      const expectedString = 'Alabama, Alaska, Arizona...';
+      const expectedString = ': Alabama, Alaska, Arizona...';
 
       expect(result).toEqual(expectedString);
     });
@@ -96,51 +91,6 @@ describe('utils', () => {
       const expectedString = '';
 
       expect(result).toEqual(expectedString);
-    });
-  });
-  describe('notEmpty', () => {
-    it('should return true if value is not empty', () => {
-      const obj = {
-        id: 1,
-      };
-
-      const result = notEmpty(obj);
-
-      expect(result).toEqual(true);
-    });
-
-    it('should return false if value empty', () => {
-      let value;
-
-      const result = notEmpty(value);
-
-      expect(result).toEqual(false);
-    });
-  });
-
-  describe('sortingRuleForObject', () => {
-    it('should return sorted array', () => {
-      const arr = [
-        {
-          id: 2,
-        },
-        {
-          id: 1,
-        },
-      ];
-
-      const result = arr.filter(item => item).sort(sortingRuleForObject('id'));
-
-      const expectedResult = [
-        {
-          id: 1,
-        },
-        {
-          id: 2,
-        },
-      ];
-
-      expect(result).toEqual(expectedResult);
     });
   });
 });

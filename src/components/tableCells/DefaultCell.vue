@@ -1,6 +1,6 @@
 <template>
-  <div class="default-cell" :title="title">
-    {{ filteredValue }}
+  <div class="default-cell">
+    {{ value }}
   </div>
 </template>
 

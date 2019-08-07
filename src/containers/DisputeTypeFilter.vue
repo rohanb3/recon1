@@ -6,9 +6,7 @@
       :items="disputeTypeList"
       :useQuickBtn="false"
       :useSearchField="false"
-      :show-clear-button="true"
       @select="toggleItem"
-      @clearAll="onClearAllItemDisplayed"
     />
   </div>
 </template>
@@ -40,7 +38,7 @@ export default {
         },
         {
           id: DISPUTE_TYPES_ID.EXPECTED_COMMISION,
-          name: this.$t('dispute.order.not.canceled'),
+          name: this.$t('dispute.expected.commision'),
         },
         {
           id: DISPUTE_TYPES_ID.MISSING_TRANSACTION,

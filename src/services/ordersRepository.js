@@ -1,11 +1,9 @@
 import apiDisputes from './disputesApi';
-import { paramsSerializer } from '@/services/serializers';
+import { paramsSerializer } from '@/services/repositoryUtils';
 
 export const getOrders = filters => {
   const params = { ...filters };
-  return apiDisputes
-    .get('/order/orders/disputing', { params, paramsSerializer })
-    .then(({ data }) => data);
+  return apiDisputes.get('/order', { params, paramsSerializer }).then(({ data }) => data);
 };
 
 export const getServiceList = () => {
@@ -13,7 +11,7 @@ export const getServiceList = () => {
 };
 
 export const getOrderStatusList = () => {
-  return apiDisputes.get('/order/disputing/status').then(({ data }) => data);
+  return apiDisputes.get('/order/status').then(({ data }) => data);
 };
 
 export const orderSync = dateRange => {
@@ -26,9 +24,7 @@ export const checkOrderSync = taskId => {
 
 export const getOrdersCsvFile = filters => {
   const params = { ...filters };
-  return apiDisputes
-    .get('/order/orders/disputing/csv', { params, paramsSerializer })
-    .then(({ data }) => data);
+  return apiDisputes.get('/order/csv', { params, paramsSerializer }).then(({ data }) => data);
 };
 
 export const getFiscalPeriods = () => {

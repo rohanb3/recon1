@@ -14,12 +14,12 @@ export function getStringFromValuesByKey(itemKey, items = [], outputItems = 3) {
     .reduce((acc, item) => (item[itemKey] ? [...acc, item[itemKey]] : acc), []);
 
   if (shortItemList.length > 0 && shortItemList.length <= outputItems) {
-    return shortItemList.join(', ');
+    return `: ${shortItemList.join(', ')}`;
   }
 
   if (shortItemList.length > outputItems) {
     shortItemList.pop();
-    return `${shortItemList.join(', ')}...`;
+    return `: ${shortItemList.join(', ')}...`;
   }
 
   return '';
@@ -35,6 +35,20 @@ export function sortingRuleForObject(propertyName) {
     }
     return 0;
   };
+}
+
+export function addBackgroundBlur() {
+  const applicationWrap = document.querySelector('.application--wrap');
+  if (applicationWrap) {
+    applicationWrap.classList.add('blurred');
+  }
+}
+
+export function removeBackgroundBlur() {
+  const applicationWrap = document.querySelector('.application--wrap');
+  if (applicationWrap) {
+    applicationWrap.classList.remove('blurred');
+  }
 }
 
 export function imageEncode(arrayBuffer) {

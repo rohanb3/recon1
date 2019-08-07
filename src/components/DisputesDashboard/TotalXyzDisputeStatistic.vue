@@ -1,16 +1,14 @@
 <template>
   <disput-statistic
     :title="$t('disputes.dashboard.total.xyz.statistic')"
-    :total-statistics="totalStatistics"
     :statistics="disputeStatistics"
   />
 </template>
 
 <script>
-import DisputStatistic from './DisputStatistic/DisputStatistic';
-import { DISPUTE_SECTION_NAME } from '@/constants';
+import DisputStatistic from './DisputStatistic';
+import { DISPUTE_STATUSES_NAME } from '@/constants';
 import disputesDashboard from '@/mixins/disputesDashboard';
-import { STATISTIC_COLOR_SCHEMA } from '@/services/statisticColorSchema';
 
 export default {
   name: 'TotalXyzDisputeStatistic',
@@ -28,21 +26,39 @@ export default {
     disputeStatistics() {
       return [
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.WAITING_FOR_ANSWER),
           sectionName: this.$t('waiting.for.answer'),
-          color: STATISTIC_COLOR_SCHEMA.GREEN,
+          totalQuantity:
+            this.approvedDisputeStatistics.totalQuantity +
+            this.rejectedDisputeStatistics.totalQuantity,
+          percent: this.approvedDisputeStatistics.Percent + this.rejectedDisputeStatistics.Percent,
+          commissionDifference:
+            this.approvedDisputeStatistics.Commission + this.rejectedDisputeStatistics.Commission,
         },
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.RE_SENT_DISPUTES),
-          sectionName: this.$t('re.sent.disputes'),
-          color: STATISTIC_COLOR_SCHEMA.BLUE,
+          sectionName: this.$t('confirm.approved.disputes'),
+          totalQuantity: this.confirmApprovedDisputeStatistics.totalQuantity,
+          percent: this.confirmApprovedDisputeStatistics.Percent,
+          commissionDifference: this.confirmApprovedDisputeStatistics.Commission,
         },
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.CONFIRM_REJECTED),
           sectionName: this.$t('confirm.rejected.disputes'),
-          color: STATISTIC_COLOR_SCHEMA.ORANGE,
+          totalQuantity: this.confirmRejectedDisputeStatistics.totalQuantity,
+          percent: this.confirmRejectedDisputeStatistics.Percent,
+          commissionDifference: this.confirmRejectedDisputeStatistics.Commission,
         },
       ];
+    },
+    confirmApprovedDisputeStatistics() {
+      return this.getSection(DISPUTE_STATUSES_NAME.CONFIRM_APPROVED);
+    },
+    confirmRejectedDisputeStatistics() {
+      return this.getSection(DISPUTE_STATUSES_NAME.CONFIRM_REJECTED);
+    },
+    approvedDisputeStatistics() {
+      return this.getSection(DISPUTE_STATUSES_NAME.APPROVED);
+    },
+    rejectedDisputeStatistics() {
+      return this.getSection(DISPUTE_STATUSES_NAME.REJECTED);
     },
   },
 };
