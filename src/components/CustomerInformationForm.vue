@@ -36,18 +36,25 @@
         </v-flex>
         <v-flex md6 ml-5>
           <v-text-field
-            v-model="legacyCompany"
+            v-model="instalationUnits"
             disabled
-            :label="$t('dispute.legacy.company')"
+            :label="$t('dispute.installed.units')"
           ></v-text-field>
         </v-flex>
       </v-layout>
-      <v-layout row mb-2 mr-5>
-        <v-flex md6 pr-0>
+      <v-layout row mb-2>
+        <v-flex md6>
           <v-text-field
             v-model="serviceName"
             disabled
             :label="$t('dispute.service.name')"
+          ></v-text-field>
+        </v-flex>
+        <v-flex md6 ml-5>
+          <v-text-field
+            v-model="legacyCompany"
+            disabled
+            :label="$t('dispute.legacy.company')"
           ></v-text-field>
         </v-flex>
       </v-layout>
@@ -82,6 +89,9 @@ export default {
   computed: {
     orderedUnits() {
       return this.value.orderedUnits || ' ';
+    },
+    instalationUnits() {
+      return this.value.instalationUnits || ' ';
     },
     legacyCompany() {
       return this.value.legacyCompany || ' ';

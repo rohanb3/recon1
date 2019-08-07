@@ -1,20 +1,8 @@
 <template>
   <div class="dispute-button-cell">
-    <template v-if="isRejectedStatus">
-      <table-button
-        class="disput-button button-blue"
-        :title="$t('confirm')"
-        :disabled="isDenyChangeXYZStatusOrStatusProcessing"
-        :preloader="statusProcessing"
-        @click="onConfirm"
-      />
-      <table-button
-        class="disput-button"
-        :title="$t('resubmit')"
-        :disabled="isDenyChangeXYZStatusOrStatusProcessing"
-        :preloader="statusProcessing"
-        @click="onResubmit"
-      />
+    <template v-if="isApprovedOrRejectedStatus">
+      <table-button class="disput-button button-blue" :title="$t('confirm')" @click="onConfirm" />
+      <table-button class="disput-button" :title="$t('resubmit')" @click="onResubmit" />
     </template>
     <span v-show="isConfirmRejectedOrConfirmApprovedStatus" class="confirmed-status">{{
       $t('confirmed')
@@ -27,7 +15,7 @@
 <script>
 import TableButton from '@/components/TableButton';
 import disputeStatusAutocomplete from '@/mixins/disputeStatusAutocomplete';
-import { DISPUTE_STATUSES_ID, SCOPES } from '@/constants';
+import { DISPUTE_STATUSES_ID } from '@/constants';
 
 export default {
   name: 'XYZStatusCell',
@@ -35,10 +23,6 @@ export default {
   props: {
     item: {
       type: Object,
-      required: true,
-    },
-    scopes: {
-      type: Array,
       required: true,
     },
   },
@@ -58,6 +42,9 @@ export default {
     isRejectedStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.REJECTED;
     },
+    isApprovedOrRejectedStatus() {
+      return this.isApprovedStatus || this.isRejectedStatus;
+    },
     statusIdForConfirmDispute() {
       if (this.isApprovedStatus) {
         return DISPUTE_STATUSES_ID.CONFIRM_APPROVED;
@@ -65,24 +52,18 @@ export default {
       return DISPUTE_STATUSES_ID.CONFIRM_REJECTED;
     },
     isConfirmRejectedOrConfirmApprovedStatus() {
-      return this.isConfirmApprovedStatus || this.isConfirmRejectedStatus || this.isApprovedStatus;
-    },
-    isDenyChangeXYZStatus() {
-      return !this.scopes.includes(SCOPES.DISPUTE_PATCH);
-    },
-    isDenyChangeXYZStatusOrStatusProcessing() {
-      return this.isDenyChangeXYZStatus || this.statusProcessing;
+      return this.isConfirmApprovedStatus || this.isConfirmRejectedStatus;
     },
   },
   methods: {
     onResubmit() {
-      this.$emit('confirmResubmitDisputeStatus', {
+      this.$emit('changeDisputeStatus', {
         disputeId: this.item.id,
         statusId: DISPUTE_STATUSES_ID.RE_SENT,
       });
     },
     onConfirm() {
-      this.$emit('confirmDisputeStatus', {
+      this.$emit('changeDisputeStatus', {
         disputeId: this.item.id,
         statusId: this.statusIdForConfirmDispute,
       });
@@ -116,7 +97,7 @@ export default {
 
   .disput-button {
     line-height: 0;
-    &.button-blue:not(.disabled-button) {
+    &.button-blue {
       color: $base-white;
       background: $base-blue;
     }

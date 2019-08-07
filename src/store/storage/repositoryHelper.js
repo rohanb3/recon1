@@ -1,11 +1,7 @@
 import { ENTITY_TYPES } from '@/constants';
 import { getOrders } from '@/services/ordersRepository';
+import { getDisputes } from '@/services/disputesRepository';
 import { getDisputes as getDisputeStatistics } from '@/services/statisticsRepository';
-import {
-  getDisputes,
-  getDisputeHistory,
-  getDisputesStatisticsBySubmitters,
-} from '@/services/disputesRepository';
 
 const handlers = {
   [ENTITY_TYPES.ORDERS]: {
@@ -17,14 +13,8 @@ const handlers = {
   [ENTITY_TYPES.RESUBMISSION]: {
     getAll: getDisputes,
   },
-  [ENTITY_TYPES.DISPUTES_BY_SUBMITTERS]: {
-    getAll: getDisputesStatisticsBySubmitters,
-  },
   [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
     getAll: getDisputeStatistics,
-  },
-  [ENTITY_TYPES.DISPUTE_HISTORY]: {
-    getAll: getDisputeHistory,
   },
 };
 

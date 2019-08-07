@@ -4,8 +4,6 @@
       v-if="isInprogressStatus"
       class="disput-button button-blue"
       :title="$t('approve')"
-      :disabled="isStatusEditableOrStatusProcessing"
-      :preloader="statusProcessing"
       @click="onResubmit"
     />
     <span
@@ -35,17 +33,17 @@ export default {
   },
   computed: {
     approveDate() {
-      return this.getLastDisputeStatus(DISPUTE_STATUSES_ID.CONFIRM_APPROVED).timeStamp || '';
+      return this.getLastDisputeStatus(DISPUTE_STATUSES_ID.APPROVED).timeStamp || '';
     },
     isContainsApprovedStatus() {
-      return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.CONFIRM_APPROVED);
+      return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.APPROVED);
     },
   },
   methods: {
     onResubmit() {
       this.$emit('confirmApproveDisputeStatus', {
         disputeId: this.item.id,
-        statusId: DISPUTE_STATUSES_ID.CONFIRM_APPROVED,
+        statusId: DISPUTE_STATUSES_ID.APPROVED,
       });
     },
   },
@@ -64,7 +62,7 @@ export default {
   .disput-button {
     line-height: 0;
 
-    &.button-blue:not(.disabled-button) {
+    &.button-blue {
       color: $base-white;
       background: $base-blue;
     }

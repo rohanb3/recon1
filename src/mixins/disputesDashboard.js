@@ -1,11 +1,4 @@
-const SECTION_TOTAL_DISPUTES = 'Total Disputes';
-
 export default {
-  computed: {
-    totalStatistics() {
-      return this.getSection(SECTION_TOTAL_DISPUTES);
-    },
-  },
   methods: {
     getSection(sectionName) {
       return this.parseStatistics(
@@ -15,13 +8,10 @@ export default {
     parseStatistics(statistics) {
       const {
         sectionName,
-        data: {
-          total: totalQuantity,
-          rows: { Percent: percent, Commission: commission } = {},
-        } = {},
+        data: { total: totalQuantity, rows: { Percent, Commission } = {} } = {},
       } = statistics;
 
-      return { sectionName, totalQuantity, percent, commission };
+      return { sectionName, totalQuantity, Percent, Commission };
     },
   },
 };

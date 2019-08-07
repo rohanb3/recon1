@@ -1,84 +1,196 @@
 <template>
-  <div class="resubmission-table" v-if="isShowResubmissionTable">
-    <table-toolbar :title="$t('resubmission.table.title')" :table-name="tableName">
-      <resubmission-table-toolbar :tableName="tableName" slot="filters" />
-    </table-toolbar>
-    <lazy-load-table :tableName="tableName">
+  <div class="disputes-table" v-if="false">
+    <div class="table-toolbar">
+      <div class="table-title">{{ $t('resubmission.table.title') }}</div>
+      <disputes-table-toolbar :tableName="tableName" @exportToCsvFile="onExportToCsvFile" />
+    </div>
+    <div class="selected-date-range" v-show="isSelectedDateRange">
+      {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
+    </div>
+    <wombat-table
+      :items="rows"
+      :columns="columns"
+      :item-height="50"
+      :infinite-loading="!allItemsLoaded"
+      :loading-items="loading"
+      @bottomReached="checkAndLoadItems"
+      @columnsResized="onColumnsResized"
+      @columnsReordered="onColumnsReordered"
+    >
       <component
-        slot="row-cell"
-        slot-scope="rowCell"
-        class="row-cell"
-        :is="rowComponentsHash[rowCell.column.fieldType] || rowComponentsHash.default"
-        :item="rowCell.item"
-        :column="rowCell.column"
-        :filter="rowCell.column.filter"
-        :scopes="scopes"
-        :processing-dispute-ids="processingDisputeIds"
-        @changeDisputeStatus="changeDisputeStatus"
-        @confirmApproveDisputeStatus="onConfirmApproveDisputeStatus"
-        @confirmRejectDisputeStatus="onConfirmRejectDisputeStatus"
-        @selectId="onSelectIdDispute"
+        slot="header-cell"
+        slot-scope="headerCell"
+        class="header-cell"
+        :is="
+          headerComponentsHash[headerCell.column.fieldHeaderType] || headerComponentsHash.default
+        "
+        :column="headerCell.column"
+        :sortingField="sortingField"
+        :sortDirection="sortDirection"
+        @sortDirectionChanged="onSortDirectionChanged"
       />
-    </lazy-load-table>
+      <div
+        v-if="rows && rows.length"
+        slot="row"
+        slot-scope="row"
+        :class="{ blurred: applyingFilters }"
+      >
+        <wombat-row :item="row.item" :columns="row.columns" :height="row.item.height">
+          <component
+            slot="row-cell"
+            slot-scope="rowCell"
+            class="row-cell"
+            :is="rowComponentsHash[rowCell.column.fieldType] || rowComponentsHash.default"
+            :item="rowCell.item"
+            :column="rowCell.column"
+            @changeDisputeStatus="onChangeDisputeStatus"
+            @confirmApproveDisputeStatus="onConfirmApproveDisputeStatus"
+            @confirmRejectDisputeStatus="onConfirmRejectDisputeStatus"
+          />
+        </wombat-row>
+      </div>
+      <table-loader v-if="loading" slot="loader" />
+    </wombat-table>
+    <v-progress-circular
+      v-if="applyingFilters"
+      class="big-spinner"
+      :size="70"
+      :width="7"
+      color="blue"
+      indeterminate
+    ></v-progress-circular>
     <confirm-approve-dispute-popup
       :visible-popup="isShowApproveConfirmationPopup"
       :dispute-info="selectedDispute"
-      @save="changeDisputeStatus"
+      @save="onChangeDisputeStatus"
       @close="isShowApproveConfirmationPopup = false"
     />
     <confirm-reject-dispute-popup
       :visible-popup="isShowRejectConfirmationPopup"
       :dispute-info="selectedDispute"
-      @save="changeDisputeStatus"
+      @save="onChangeDisputeStatus"
       @close="isShowRejectConfirmationPopup = false"
-    />
-    <dispute-history
-      v-if="disputeHistoryShown"
-      :parent-table-name="tableName"
-      @close="disputeHistoryShown = false"
     />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
-import ResubmissionTableToolbar from '@/containers/ResubmissionTableToolbar';
-
+import WombatTable from '@/components/WombatTable/Table';
+import WombatRow from '@/components/WombatTable/Row';
+import TableLoader from '@/components/TableLoader';
+import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
+import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
+import DefaultCell from '@/components/tableCells/DefaultCell';
+import DateMonthYearCell from '@/components/tableCells/DateMonthYearCell';
+import RecievedComissonCell from '@/components/tableCells/RecievedComissonCell';
+import DifferenceComissonCell from '@/components/tableCells/DifferenceComissonCell';
+import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
+import XYZStatusCell from '@/components/tableCells/XYZStatusCell';
+import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
+import PriceCell from '@/components/tableCells/PriceCell';
+import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
+import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatusCell';
+import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
+import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
+import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
 import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
 import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmRejectDisputePopup';
 
-import disputeCommonTable from '@/mixins/disputeCommonTable';
+import DisputesTableToolbar from '@/containers/DisputesTableToolbar';
 
+import configurableColumnsTable from '@/mixins/configurableColumnsTable';
+import lazyLoadTable from '@/mixins/lazyLoadTable';
 import { ENTITY_TYPES } from '@/constants';
-import TableToolbar from '@/components/TableToolbar';
+import { changeStatusDispute, getDispute, getDisputesCsvFile } from '@/services/disputesRepository';
+import { errorMessage } from '@/services/notifications';
+import { CHANGE_ITEM } from '@/store/storage/mutationTypes';
+import { generateCSVFile } from '@/services/utils';
+import { mapState } from 'vuex';
+import dateRange from '@/filters/boundaries';
 
 export default {
   name: 'ResubmissionTable',
   components: {
-    TableToolbar,
+    WombatTable,
+    WombatRow,
+    TableLoader,
+    DefaultCell,
+    DateMonthYearCell,
+    RecievedComissonCell,
+    DifferenceComissonCell,
+    DateYearMonthDayCell,
+    OrderAgeCell,
+    XYZStatusCell,
+    PriceCell,
+    DefaultHeaderCell,
+    SortingHeaderCell,
+    ResubmitClaimCell,
+    RejectDisputeStatusCell,
+    ApproveDisputeStatusCell,
+    DisputesTableToolbar,
     ConfirmApproveDisputePopup,
     ConfirmRejectDisputePopup,
-    ResubmissionTableToolbar,
+    DisputeStatusCell,
+    OrderNumberCell,
   },
-  mixins: [disputeCommonTable],
+  filters: {
+    dateRange,
+  },
+  mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
     return {
       tableName: ENTITY_TYPES.RESUBMISSION,
       isShowApproveConfirmationPopup: false,
       isShowRejectConfirmationPopup: false,
+      selectedDispute: {},
+      headerComponentsHash: {
+        default: 'DefaultHeaderCell',
+        sortingHeader: 'SortingHeaderCell',
+      },
       rowComponentsHash: {
+        default: 'DefaultCell',
+        dateMonthYear: 'DateMonthYearCell',
+        price: 'PriceCell',
+        recievedComisson: 'RecievedComissonCell',
+        differenceComisson: 'DifferenceComissonCell',
+        dateYearMonthDay: 'DateYearMonthDayCell',
+        ageAfterOrder: 'OrderAgeCell',
+        ageAfterInstallation: 'OrderAgeCell',
+        ageAfterDispute: 'OrderAgeCell',
+        xyzStatus: 'XYZStatusCell',
         resubmitClaim: 'ResubmitClaimCell',
         rejectDisputeStatus: 'RejectDisputeStatusCell',
         approveDisputeStatus: 'ApproveDisputeStatusCell',
+        disputeStatus: 'DisputeStatusCell',
+        orderNumber: 'OrderNumberCell',
       },
     };
   },
+  computed: {
+    ...mapState({
+      profileData: state => state.loggedInUser.profileData || {},
+    }),
+    displayName() {
+      return this.profileData.displayName || '';
+    },
+  },
   methods: {
-    async changeDisputeStatus({ disputeId, statusId, comments }) {
+    async onChangeDisputeStatus({ disputeId, statusId, comments }) {
       this.isShowApproveConfirmationPopup = false;
       this.isShowRejectConfirmationPopup = false;
-      await this.onChangeDisputeStatus({ disputeId, statusId, comments });
+      const userName = this.displayName;
+      const status = statusId;
+      try {
+        await changeStatusDispute({ disputeId, status, userName, comments });
+        const disputeInfo = await getDispute(disputeId);
+        this.$store.commit(CHANGE_ITEM, {
+          itemType: this.tableName,
+          id: disputeId,
+          ...disputeInfo,
+        });
+      } catch {
+        errorMessage();
+      }
     },
     onConfirmApproveDisputeStatus({ disputeId, statusId }) {
       this.selectedDispute = { disputeId, statusId };
@@ -88,16 +200,17 @@ export default {
       this.selectedDispute = { disputeId, statusId };
       this.isShowRejectConfirmationPopup = true;
     },
-  },
-  computed: {
-    ...mapGetters(['isShowResubmissionTable', 'scopes']),
+    async onExportToCsvFile() {
+      const CSVFile = await getDisputesCsvFile(this.filters);
+      generateCSVFile(CSVFile, this.tableName);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins.scss';
-.resubmission-table {
+.disputes-table {
   @include table-base-container;
 }
 .table-toolbar {
@@ -106,18 +219,12 @@ export default {
 .table-title {
   @include table-base-title;
 }
-
-.resubmission-table__header {
-  @include table__header;
-}
-
-.resubmission-table /deep/ {
+.disputes-table /deep/ {
   height: 100%;
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
-        #{$table-header-height-offset}
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
     );
   }
 }

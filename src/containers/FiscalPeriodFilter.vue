@@ -4,9 +4,8 @@
       :title="$t('choose.fiscal.period')"
       :items="fiscalPeriodListWithSelected"
       :loading-status="loading"
-      :boundariesSelector="`.${getTableName}-table`"
+      boundariesSelector=".disputes-table"
       @selectFiscalPeriod="handleFiscalPeriod"
-      @clearFiscalPeriod="onClearFiscalPeriod"
     />
   </div>
 </template>
@@ -55,9 +54,6 @@ export default {
     fiscalPeriodId() {
       return this.filters[FILTER_NAMES.FISCAL_PERIOD_ID];
     },
-    getTableName() {
-      return this.tableName.toLowerCase();
-    },
   },
   methods: {
     loadFiscalPeriodList() {
@@ -71,7 +67,6 @@ export default {
         });
     },
     handleFiscalPeriod(fiscalPeriodId) {
-      const fiscalPeriod = this.fiscalPeriodList.find(fp => fp.id === fiscalPeriodId);
       const data = {
         tableName: this.tableName,
         filters: [
@@ -87,29 +82,9 @@ export default {
             name: FILTER_NAMES.FISCAL_PERIOD_ID,
             value: fiscalPeriodId,
           },
-          {
-            name: FILTER_NAMES.FISCAL_PERIOD_TO,
-            value: fiscalPeriod.name,
-          },
         ],
       };
 
-      this.$store.dispatch(APPLY_FILTERS, data);
-    },
-    onClearFiscalPeriod() {
-      const data = {
-        tableName: this.tableName,
-        filters: [
-          {
-            name: FILTER_NAMES.FISCAL_PERIOD_ID,
-            value: null,
-          },
-          {
-            name: FILTER_NAMES.FISCAL_PERIOD_TO,
-            value: '',
-          },
-        ],
-      };
       this.$store.dispatch(APPLY_FILTERS, data);
     },
   },

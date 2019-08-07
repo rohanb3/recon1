@@ -1,21 +1,12 @@
 import apiDisputes from './disputesApi';
-import { paramsSerializer } from '@/services/serializers';
+import { paramsSerializer } from '@/services/repositoryUtils';
 
 export const getDispute = id => {
   return apiDisputes.get(`/dispute/${id}`).then(({ data }) => data);
 };
 
-export const getDisputesStatisticsBySubmitters = filters => {
+export const getDisputes = filters => {
   const params = { ...filters };
-
-  return apiDisputes.get(`/disputes/statistic/submitters`, { params }).then(data =>
-    Object.assign(data, {
-      data: (data.data.data || []).map(item => ({ ...item, id: item.creator.ObjectId })),
-    })
-  );
-};
-
-export const getDisputes = params => {
   return apiDisputes.get('/dispute', { params, paramsSerializer }).then(({ data }) => data);
 };
 
@@ -73,9 +64,4 @@ export const getDisputesBySubmittersCsvFile = filters => {
   return apiDisputes
     .get('/disputes/statistic/submitters/csv', { params, paramsSerializer })
     .then(({ data }) => data);
-};
-
-export const getDisputeHistory = filters => {
-  const { disputeId, ...params } = filters;
-  return apiDisputes.get(`/dispute/${disputeId}/history`, { params }).then(({ data }) => data);
 };

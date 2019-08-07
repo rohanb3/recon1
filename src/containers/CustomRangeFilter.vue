@@ -1,11 +1,10 @@
 <template>
   <table-dates-editor
-    :boundaries-selector="`.${getTableName}-table`"
+    boundaries-selector=".disputes-table"
     :start-date="startDate"
     :title="$t('custom.range')"
     :end-date="endDate"
     @applyDateRange="handleFilterByDate"
-    @clearDateRange="onClearDateRange"
   />
 </template>
 
@@ -38,9 +37,6 @@ export default {
     endDate() {
       return this.filters[FILTER_NAMES.CREATED_TO];
     },
-    getTableName() {
-      return this.tableName.toLowerCase();
-    },
   },
   methods: {
     handleFilterByDate(value) {
@@ -56,28 +52,16 @@ export default {
             value: value.endDate,
           },
           {
+            name: FILTER_NAMES.FISCAL_PERIOD_FROM,
+            value: '',
+          },
+          {
             name: FILTER_NAMES.FISCAL_PERIOD_TO,
             value: '',
           },
           {
             name: FILTER_NAMES.FISCAL_PERIOD_ID,
             value: null,
-          },
-        ],
-      };
-      this.$store.dispatch(APPLY_FILTERS, data);
-    },
-    onClearDateRange() {
-      const data = {
-        tableName: this.tableName,
-        filters: [
-          {
-            name: FILTER_NAMES.CREATED_FROM,
-            value: '',
-          },
-          {
-            name: FILTER_NAMES.CREATED_TO,
-            value: '',
           },
         ],
       };

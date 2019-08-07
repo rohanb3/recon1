@@ -42,14 +42,6 @@ export default {
   mounted() {
     this.$refs.datePicker.selectDate(this.startDate);
   },
-  watch: {
-    startDate() {
-      this.$refs.datePicker.isSelectingDate1 = false;
-    },
-    endDate() {
-      this.$refs.datePicker.isSelectingDate1 = false;
-    },
-  },
 };
 </script>
 

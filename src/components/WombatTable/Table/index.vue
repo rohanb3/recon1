@@ -20,7 +20,6 @@
     <RecycleScroller
       v-show="scrollbarShown"
       class="scroller virtual-list ps"
-      :class="['table-' + name]"
       ref="scroller"
       :items="items"
       :item-size="50"

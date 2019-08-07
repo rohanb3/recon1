@@ -1,101 +1,150 @@
 <template>
-  <div class="orders-table" v-if="isShowOrder">
-    <table-toolbar :title="$t('orders.select.order')" :table-name="tableName">
-      <orders-table-toolbar :table-name="tableName" @syncOrders="onSyncOrders" slot="filters" />
-    </table-toolbar>
-    <lazy-load-table
-      :tableName="tableName"
-      :item-key-name="columnIdName"
+  <div class="orders-table">
+    <div class="table-toolbar">
+      <div class="table-title">{{ $t('orders.select.order') }}</div>
+      <orders-table-toolbar
+        :tableName="tableName"
+        @exportToCsvFile="onExportToCsvFile"
+        @syncOrders="onSyncOrders"
+      />
+    </div>
+    <wombat-table
+      :items="rows"
       :columns="columns"
-      :resetDataBeforeLeave="false"
+      :item-height="50"
+      :infinite-loading="!allItemsLoaded"
+      :item-key-name="columnIdName"
+      :loading-items="loading"
+      @bottomReached="checkAndLoadItems"
+      @columnsResized="onColumnsResized"
+      @columnsReordered="onColumnsReordered"
     >
       <component
-        slot="row-cell"
-        slot-scope="rowCell"
-        class="row-cell"
-        :is="rowComponentsHash[rowCell.column.fieldType] || rowComponentsHash.default"
-        :item="rowCell.item"
-        :column="rowCell.column"
-        :scopes="scopes"
+        slot="header-cell"
+        slot-scope="headerCell"
+        class="header-cell"
+        :is="
+          headerComponentsHash[headerCell.column.fieldHeaderType] || headerComponentsHash.default
+        "
+        :column="headerCell.column"
+        :sortingField="sortingField"
+        :sortDirection="sortDirection"
+        @sortDirectionChanged="onSortDirectionChanged"
       />
-    </lazy-load-table>
+      <div
+        v-if="rows && rows.length"
+        slot="row"
+        slot-scope="row"
+        :class="{ blurred: applyingFilters }"
+      >
+        <wombat-row :item="row.item" :columns="row.columns" :height="row.item.height">
+          <component
+            slot="row-cell"
+            slot-scope="rowCell"
+            class="row-cell"
+            :is="rowComponentsHash[rowCell.column.fieldType] || rowComponentsHash.default"
+            :item="rowCell.item"
+            :column="rowCell.column"
+          />
+        </wombat-row>
+      </div>
+
+      <table-loader v-if="loading" slot="loader" />
+    </wombat-table>
+    <v-progress-circular
+      v-if="applyingFilters"
+      class="big-spinner"
+      :size="70"
+      :width="7"
+      color="blue"
+      indeterminate
+    ></v-progress-circular>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import WombatTable from '@/components/WombatTable/Table';
+import WombatRow from '@/components/WombatTable/Row';
+import TableLoader from '@/components/TableLoader';
 
-import LazyLoadTable from '@/containers/LazyLoadTable';
+import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
+import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
+
 import DefaultCell from '@/components/tableCells/DefaultCell';
+import DifferenceComissonCell from '@/components/tableCells/DifferenceComissonCell';
 import OrderStatusCell from '@/components/tableCells/OrderStatusCell';
 import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
 import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
 import PriceCell from '@/components/tableCells/PriceCell';
 import DisputeButtonCell from '@/components/tableCells/DisputeButtonCell';
-import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
+import RecievedComissonCell from '@/components/tableCells/RecievedComissonCell';
 
 import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
 
+import configurableColumnsTable from '@/mixins/configurableColumnsTable';
+import lazyLoadTable from '@/mixins/lazyLoadTable';
+
 import { ENTITY_TYPES, TABLE_COLUMN_ID_NAMES } from '@/constants';
+import { getOrdersCsvFile } from '@/services/ordersRepository';
+import { generateCSVFile } from '@/services/utils';
 
 import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
 
 import { successMessage } from '@/services/notifications';
-import SelectedRangeFilter from '../components/SelectedRangeFilter';
-import TableToolbar from '@/components/TableToolbar';
 
 export default {
   name: 'OrdersPage',
   components: {
-    TableToolbar,
-    SelectedRangeFilter,
-    LazyLoadTable,
+    WombatTable,
+    WombatRow,
+    TableLoader,
     DefaultCell,
+    DefaultHeaderCell,
+    SortingHeaderCell,
     OrdersTableToolbar,
+    DifferenceComissonCell,
     OrderAgeCell,
     OrderStatusCell,
     OrderNumberCell,
     PriceCell,
     DisputeButtonCell,
-    DateYearMonthDayCell,
+    RecievedComissonCell,
   },
+  mixins: [configurableColumnsTable, lazyLoadTable],
   data() {
     return {
       tableName: ENTITY_TYPES.ORDERS,
+      headerComponentsHash: {
+        default: 'DefaultHeaderCell',
+        sortingHeader: 'SortingHeaderCell',
+      },
       rowComponentsHash: {
         default: 'DefaultCell',
+        differenceComisson: 'DifferenceComissonCell',
         creationAge: 'OrderAgeCell',
+        installationAge: 'OrderAgeCell',
         orderStatus: 'OrderStatusCell',
         orderNumber: 'OrderNumberCell',
         price: 'PriceCell',
+        recievedComisson: 'RecievedComissonCell',
         disputeButton: 'DisputeButtonCell',
-        dateYearMonthDay: 'DateYearMonthDayCell',
+        orderDifference: 'DifferenceComissonCell',
       },
     };
   },
   computed: {
-    ...mapGetters([
-      'isShowOrderWithoutExpectedComission',
-      'isShowOrderWithExpectedComission',
-      'tableData',
-      'scopes',
-    ]),
-    isShowOrder() {
-      return this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission;
-    },
     columnIdName() {
       return TABLE_COLUMN_ID_NAMES[this.tableName];
-    },
-    columns() {
-      return this.tableData(this.tableName).columns.filter(
-        column => column.name !== 'expectedCommission' || this.isShowOrderWithExpectedComission
-      );
     },
   },
   methods: {
     onSyncOrders() {
       this.$store.dispatch(START_SYNC_ORDERS);
       successMessage('sync.started', 'sync.info');
+    },
+    async onExportToCsvFile() {
+      const CSVFile = await getOrdersCsvFile(this.filters);
+      generateCSVFile(CSVFile, this.tableName);
     },
   },
 };
@@ -109,6 +158,14 @@ export default {
   @include table-base-container;
 }
 
+.table-toolbar {
+  @include table-base-toolbar;
+}
+
+.table-title {
+  @include table-base-title;
+}
+
 .orders-table {
   @extend %blurred-this;
 }
@@ -118,16 +175,8 @@ export default {
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
-        #{$table-header-height-offset}
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height}
     );
-  }
-}
-
-.grey-text-cell {
-  .row-cell {
-    color: $base-text-color;
-    opacity: 0.6;
   }
 }
 </style>

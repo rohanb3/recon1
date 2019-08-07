@@ -35,11 +35,10 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
-
 import LhsItemHeader from '@/components/LHS/LHSItemHeader';
 import LhsItem from '@/components/LHS/LHSItem';
 import { ROUTE_NAMES } from '@/constants';
+import { mapState } from 'vuex';
 
 export default {
   name: 'lhs',
@@ -50,27 +49,7 @@ export default {
   data() {
     return {
       activeIndex: 0,
-    };
-  },
-  computed: {
-    ...mapGetters([
-      'isShowOrderWithoutExpectedComission',
-      'isShowDisputeDashboard',
-      'isShowDispute',
-      'isShowResubmissionTable',
-      'isShowOrderWithExpectedComission',
-    ]),
-    ...mapState({
-      isTinySidebar: state => state.uiState.tinySidebarStatus,
-    }),
-    navigationLinks() {
-      return this.items.filter(item => item.url || item.routeName);
-    },
-    groupOfItems() {
-      return this.items.filter(item => item.items && item.items.length);
-    },
-    items() {
-      return [
+      items: [
         {
           action: 'dashboard',
           title: this.$t('disputes.dashboard'),
@@ -81,25 +60,16 @@ export default {
           action: 'play_arrow',
           title: this.$t('orders'),
           routeName: ROUTE_NAMES.SELECT_ORDER,
-          visible:
-            this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission,
         },
         {
           action: 'list_alt',
           title: this.$t('disputes'),
           routeName: ROUTE_NAMES.DISPUTE_LIST,
-          visible: this.isShowDispute,
         },
         {
           action: 'view_list',
           title: this.$t('resubmission.table.title'),
           routeName: ROUTE_NAMES.RESUBMISSION_TABLE,
-          visible: this.isShowResubmissionTable,
-        },
-        {
-          action: 'face',
-          title: this.$t('disputes.by.submitters'),
-          routeName: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
           visible: false,
         },
         {
@@ -107,7 +77,18 @@ export default {
           title: 'System',
           items: [],
         },
-      ];
+      ],
+    };
+  },
+  computed: {
+    ...mapState({
+      isTinySidebar: state => state.uiState.tinySidebarStatus,
+    }),
+    navigationLinks() {
+      return this.items.filter(item => item.url || item.routeName);
+    },
+    groupOfItems() {
+      return this.items.filter(item => item.items && item.items.length);
     },
   },
 };

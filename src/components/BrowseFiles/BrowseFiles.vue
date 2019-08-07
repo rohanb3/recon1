@@ -2,12 +2,7 @@
   <div class="browse-files">
     <div class="browse-files-header">
       <span>{{ $t('browse.files.or.images') }}</span>
-      <table-button
-        :title="$t('choose.file')"
-        :disabled="loadingStatus"
-        :preloader="loadingStatus"
-        @click="onChangePhoto"
-      />
+      <table-button :title="$t('choose.file')" :disabled="loadingStatus" @click="onChangePhoto" />
       <input
         class="field-file-hidden"
         multiple

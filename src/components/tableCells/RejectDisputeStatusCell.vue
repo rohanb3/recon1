@@ -4,8 +4,6 @@
       v-if="isInprogressStatus"
       class="disput-button"
       :title="$t('reject')"
-      :disabled="isStatusEditableOrStatusProcessing"
-      :preloader="statusProcessing"
       @click="onResubmit"
     />
     <span
@@ -27,10 +25,6 @@ export default {
   props: {
     item: {
       type: Object,
-      required: true,
-    },
-    scopes: {
-      type: Array,
       required: true,
     },
   },
@@ -67,13 +61,11 @@ export default {
 
   .disput-button {
     line-height: 0;
-    &:not(.disabled-button) {
-      border: 1px solid $base-red;
-      color: $base-red;
+    border: 1px solid $base-red;
+    color: $base-red;
 
-      &.brown-button {
-        color: $button-brown-color;
-      }
+    &.brown-button {
+      color: $button-brown-color;
     }
   }
 }

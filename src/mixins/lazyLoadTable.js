@@ -1,9 +1,9 @@
-import { mapGetters } from 'vuex';
 import { RESET_ITEMS } from '@/store/storage/mutationTypes';
 import { LOAD_ITEMS, LOAD_MORE_ITEMS } from '@/store/storage/actionTypes';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 import { RESET_FILTERS } from '@/store/tables/mutationTypes';
-import { FILTER_NAMES, SORTING_DIRECTION } from '@/constants';
+import { FILTER_NAMES, SORTING_DIRECTION, DATE_FORMATS } from '@/constants';
+import moment from 'moment';
 
 export default {
   data() {
@@ -12,26 +12,30 @@ export default {
     };
   },
   mounted() {
-    if (this.initialLoad) {
-      this.loadItems();
-    }
+    this.loadItems();
   },
   beforeDestroy() {
-    if (this.resetDataBeforeLeave) {
-      this.resetItems();
-      this.resetFilters();
-    }
+    this.resetItems();
+    this.resetFilters();
   },
   computed: {
-    ...mapGetters(['storageData', 'tableData']),
+    storageData() {
+      return this.$store.state.storage[this.tableName] || {};
+    },
+    tableData() {
+      return this.$store.state.tables[this.tableName] || {};
+    },
+    rows() {
+      return this.storageData.items || [];
+    },
     allItemsLoaded() {
-      return this.storageData(this.tableName).allItemsLoaded;
+      return this.storageData.allItemsLoaded;
     },
     totalItems() {
-      return this.storageData(this.tableName).total;
+      return this.storageData.total;
     },
     filters() {
-      return this.tableData(this.tableName).filters || {};
+      return this.tableData.filters || {};
     },
     sortingField() {
       return this.filters[FILTER_NAMES.SORT];
@@ -43,24 +47,27 @@ export default {
       return this.$store.getters.role;
     },
     applyingFilters() {
-      return Boolean(this.tableData(this.tableName).applyingFilters);
+      return Boolean(this.tableData.applyingFilters);
     },
-    tableRows() {
-      if (this.isContainRows) return this.rows;
-      return this.storageData(this.tableName).items || [];
+    usersDashboardStatistics() {
+      return this.storageData.usersDashboardStatistics || {};
     },
-    isContainRows() {
-      return this.rows && this.rows.length;
+    selectedDateRangeFrom() {
+      return moment(this.filters[FILTER_NAMES.CREATED_FROM]).format(
+        DATE_FORMATS.MONTH_DAY_FULL_YEAR
+      );
     },
-    tableColumns() {
-      if (this.isContainColumns) return this.columns;
-      return this.tableData(this.tableName).columns;
+    selectedDateRangeTo() {
+      return moment(this.filters[FILTER_NAMES.CREATED_TO]).format(DATE_FORMATS.MONTH_DAY_FULL_YEAR);
     },
-    isContainColumns() {
-      return this.columns && this.columns.length;
+    selectedDateRange() {
+      return {
+        from: this.selectedDateRangeFrom,
+        to: this.selectedDateRangeTo,
+      };
     },
-    tableNameLowerCase() {
-      return this.tableName.toLowerCase();
+    isSelectedDateRange() {
+      return this.filters[FILTER_NAMES.CREATED_FROM] && this.filters[FILTER_NAMES.CREATED_TO];
     },
   },
   methods: {
@@ -119,10 +126,17 @@ export default {
       }
 
       if (sortingFieldName !== this.sortingField || state[this.sortDirection].order === null) {
+        if (!state[this.sortDirection].order) {
+          order.value = SORTING_DIRECTION.ASC;
+        }
+
         this.applyFilters(sort, order);
       } else {
         this.applyFilters(order);
       }
+    },
+    onFiltersApplied(arrayFilters) {
+      this.applyFilters(...arrayFilters);
     },
   },
 };

@@ -1,14 +1,12 @@
 export const DATE_FORMATS = {
-  DEFAULT_DATE_FORMAT: 'DD MMM YYYY, hh:mm a',
+  DEFAULT_DATE_FORMAT: 'DD MMM YYYY, hh:mm',
   DAY_FULL_MONTH: 'DD MMMM',
-  DAY_SHORT_MONTH: 'DD MMM',
   FULL_YEAR_SHORT_MONTH_SHORT_DAY: 'YYYY-MM-DD',
   MONTH_ONLY: 'MMMM',
   SHORT_DAY_SHORT_MONTH_FULL_YEAR: 'DD MMM YYYY',
   SHORT_DAY_MONTH_FULL_YEAR: 'DD MMMM YYYY',
   MONTH_FULL_YEAR: 'MMMM YYYY',
   MONTH_DAY_FULL_YEAR: 'MM-DD-YYYY',
-  FULL_MONTH_DAY: 'MMMM DD',
 };
 
 export const DISPUTE_STATUSES_ID = {
@@ -22,18 +20,15 @@ export const DISPUTE_STATUSES_ID = {
   CONFIRM_APPROVED: '2a4b15f3-9ed3-4bc7-9788-fedbd3404f14',
 };
 
-export const DISPUTE_SECTION_NAME = {
-  WAITED_SPECTRUM_ANSWER: 'Waited Spectrum answer',
-  WAITED_XYZ_ANSWER: 'Waited Xyz answer',
-  APPROVED_FOR_PAY: 'Approved for pay',
-  DENIED_FOR_PAY: 'Denied for pay',
-  ANSWERED: 'Answered',
-  CONFIRM_REJECTED: 'Confirm rejected disputes',
-  CONFIRM_APPROVED: 'Confirm approved disputes',
-  WAITING_FOR_ANSWER: 'Waiting for answer',
+export const DISPUTE_STATUSES_NAME = {
   APPROVED: 'Approved',
+  RE_SENT: 'Re-sent',
+  SENT: 'Sent',
+  DRAFT: 'Draft',
   REJECTED: 'Rejected',
-  RE_SENT_DISPUTES: 'Re-sent disputes',
+  IN_PROGRESS: 'In progress',
+  CONFIRM_REJECTED: 'Confirm Rejected',
+  CONFIRM_APPROVED: 'Confirm Approved',
 };
 
 export const DISPUTE_TYPES_ID = {
@@ -89,9 +84,6 @@ export const TABLE_ORDER_COLUMNS_SORTED = {
   EXPECTED_COMISSION: 'expectedCommission',
   RECIEVED_COMISSON: 'receivedCommission',
   DIFFERENCE: 'difference',
-  BUNDLE_NAME: 'bundleName',
-  INSTALLED_UNITS: 'installedUnits',
-  CREATED_ON: 'createdOn',
 };
 
 export const TABLE_DISPUTE_COLUMNS_SORTED = {
@@ -112,38 +104,13 @@ export const TABLE_DISPUTE_COLUMNS_SORTED = {
   STATUS: 'disputeStatus',
   STATUS_DESCRIPTION: 'disputeStatusDescription',
   ORDER_NUMBER: 'ordernumber',
-  ORDER_CREATION_DATE: 'orderCreationDate',
-};
-
-export const TABLE_DISPUTES_BY_SUBMITTERS_COLUMNS_SORTED = {
-  CREATOR: 'creatorName',
-  ENTERED: 'entered',
-  UNITS: 'units',
-  CLOSED: 'closed',
-  CLOSED_PERCENT: 'closedPercent',
-  APPROVED: 'approved',
-  APPROVED_PERCENT: 'approvedPercent',
-  REJECTED: 'rejected',
-  REJECTED_PERCENT: 'rejectedPercent',
-  APPROVED_COMMISSION: 'approvedComission',
-  RESUBMITTED: 'resubmited',
-  RESUBMITTED_PERCENT: 'resubmitedPercent',
-  PENDING: 'pending',
-  PENDING_PERCENT: 'pendingPercent',
 };
 
 export const ENTITY_TYPES = {
   ORDERS: 'ORDERS',
   DISPUTES: 'DISPUTES',
   RESUBMISSION: 'RESUBMISSION',
-  DISPUTES_BY_SUBMITTERS: 'DISPUTES_BY_SUBMITTERS',
   DISPUTES_DASHBOARD: 'DISPUTES_DASHBOARD',
-  DISPUTE_HISTORY: 'DISPUTE_HISTORY',
-};
-
-export const DISPUTES_BY_SUBMITTERS_STATISTICS_TYPES = {
-  BY_APPROVE: 'Confirm Approved',
-  BY_REJECTION: 'Confirm Rejected',
 };
 
 export const FILTER_NAMES = {
@@ -160,14 +127,11 @@ export const FILTER_NAMES = {
   CREATED_FROM: 'CreatedFrom',
   CREATED_TO: 'CreatedTo',
   FISCAL_PERIOD_ID: 'FiscalPeriodId',
+  FISCAL_PERIOD_FROM: 'FiscalPeriodFrom',
   FISCAL_PERIOD_TO: 'FiscalPeriodTo',
-  FISCAL_PERIOD: 'FiscalPeriod',
   DISPUTE_AGE_FROM: 'DisputeAgeFrom',
   DISPUTE_AGE_TO: 'DisputeAgeTo',
   DISPUTE_STATUS_IDS: 'DisputeStatusIds',
-  XYZ_STATUS_IDS: 'XYZStatusIds',
-  SPECTRUM_STATUS_IDS: 'SpectrumStatusIds',
-  DISPUTE_ID: 'disputeId',
 };
 
 export const TABLE_COLUMN_ID_NAMES = {
@@ -179,7 +143,6 @@ export const ROUTE_NAMES = {
   EDIT_DISPUTE: 'edit-dispute',
   CREAT_DISPUTE: 'creat-dispute',
   DISPUTE_LIST: 'dispute-list',
-  DISPUTES_BY_SUBMITTERS: 'disputes-by-submitters',
   RESUBMISSION_TABLE: 'resubmission-table',
   LOGIN: 'login',
   LOGOUT: 'logout',
@@ -205,6 +168,28 @@ export const ORDER_SYNC_STATUS = {
   WORKING: 'Working',
   FINISHED: 'Finished',
   ERROR: 'Error',
+};
+
+export const DISPUTES_BY_SUBMITTERS_STATISTICS_TYPES = {
+  BY_APPROVE: 'Confirm Approved',
+  BY_REJECTION: 'Confirm Rejected',
+};
+
+export const TABLE_DISPUTES_BY_SUBMITTERS_COLUMNS_SORTED = {
+  CREATOR: 'creatorName',
+  ENTERED: 'entered',
+  UNITS: 'units',
+  CLOSED: 'closed',
+  CLOSED_PERCENT: 'closedPercent',
+  APPROVED: 'approved',
+  APPROVED_PERCENT: 'approvedPercent',
+  REJECTED: 'rejected',
+  REJECTED_PERCENT: 'rejectedPercent',
+  APPROVED_COMMISSION: 'approvedComission',
+  RESUBMITTED: 'resubmited',
+  RESUBMITTED_PERCENT: 'resubmitedPercent',
+  PENDING: 'pending',
+  PENDING_PERCENT: 'pendingPercent',
 };
 
 export const SCOPES = {

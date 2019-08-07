@@ -7,10 +7,9 @@
       :items="statusList"
       :useQuickBtn="false"
       :useSearchField="false"
-      :show-clear-button="true"
       @select="toggleItem"
-      @clearAll="onClearAllItemDisplayed"
     />
+    <table-loader v-if="loading" slot="loader" />
   </div>
 </template>
 
@@ -18,6 +17,7 @@
 import TableFilter from '@/components/TableFilter';
 import { FILTER_NAMES, ORDER_STATUS_NAME_TRANSLATION_KEYS } from '@/constants';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
+import TableLoader from '@/components/TableLoader';
 import { getOrderStatusList } from '@/services/ordersRepository';
 
 export default {
@@ -31,6 +31,7 @@ export default {
   },
   components: {
     TableFilter,
+    TableLoader,
   },
   mounted() {
     this.loadStatusesList();

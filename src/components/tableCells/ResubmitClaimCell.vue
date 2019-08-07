@@ -4,8 +4,6 @@
       v-if="isSentOrResentStatus"
       class="disput-button"
       :title="$t('resubmit')"
-      :disabled="isStatusEditableOrStatusProcessing"
-      :preloader="statusProcessing"
       @click="onResubmit"
     />
     <span
@@ -27,10 +25,6 @@ export default {
   props: {
     item: {
       type: Object,
-      required: true,
-    },
-    scopes: {
-      type: Array,
       required: true,
     },
   },

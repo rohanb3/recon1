@@ -1,16 +1,14 @@
 <template>
   <disput-statistic
     :title="$t('disputes.dashboard.total.spectrum.statistic')"
-    :total-statistics="totalStatistics"
     :statistics="disputeStatistics"
   />
 </template>
 
 <script>
-import DisputStatistic from './DisputStatistic/DisputStatistic';
-import { DISPUTE_SECTION_NAME } from '@/constants';
+import DisputStatistic from './DisputStatistic';
+import { DISPUTE_STATUSES_NAME } from '@/constants';
 import disputesDashboard from '@/mixins/disputesDashboard';
-import { STATISTIC_COLOR_SCHEMA } from '@/services/statisticColorSchema';
 
 export default {
   name: 'TotalSpectrumDisputeStatistic',
@@ -28,21 +26,33 @@ export default {
     disputeStatistics() {
       return [
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.ANSWERED),
           sectionName: this.$t('in.progress'),
-          color: STATISTIC_COLOR_SCHEMA.GREEN,
+          totalQuantity: this.inProgressDisputeStatistics.totalQuantity,
+          percent: this.inProgressDisputeStatistics.Percent,
+          commissionDifference: this.inProgressDisputeStatistics.Commission,
         },
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.REJECTED),
           sectionName: this.$t('rejected'),
-          color: STATISTIC_COLOR_SCHEMA.BLUE,
+          totalQuantity: this.rejectedDisputeStatistics.totalQuantity,
+          percent: this.rejectedDisputeStatistics.Percent,
+          commissionDifference: this.rejectedDisputeStatistics.Commission,
         },
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.APPROVED),
           sectionName: this.$t('approved'),
-          color: STATISTIC_COLOR_SCHEMA.ORANGE,
+          totalQuantity: this.approvedDisputeStatistics.totalQuantity,
+          percent: this.approvedDisputeStatistics.Percent,
+          commissionDifference: this.approvedDisputeStatistics.Commission,
         },
       ];
+    },
+    inProgressDisputeStatistics() {
+      return this.getSection(DISPUTE_STATUSES_NAME.IN_PROGRESS);
+    },
+    approvedDisputeStatistics() {
+      return this.getSection(DISPUTE_STATUSES_NAME.APPROVED);
+    },
+    rejectedDisputeStatistics() {
+      return this.getSection(DISPUTE_STATUSES_NAME.REJECTED);
     },
   },
 };

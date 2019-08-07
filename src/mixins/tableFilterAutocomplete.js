@@ -63,7 +63,16 @@ export default {
       this.selectAllItem(itemKeyName, items, false);
     }, // eslint-disable-next-line func-names
     applyFilter: debounce(function(selectedItems) {
-      this.apply(selectedItems);
+      const data = {
+        tableName: this.tableName,
+        filters: [
+          {
+            name: this.filterName,
+            value: extractPropertiesFromArrObj(selectedItems, this.sendFieldName),
+          },
+        ],
+      };
+      this.$store.dispatch(APPLY_FILTERS, data);
     }, TIMEOUT_APPLY_FILTER),
     onNotFoundItem({ itemKey, searchField, getItemList }) {
       this.loading = true;
@@ -99,27 +108,6 @@ export default {
         } else {
           this.toggleItem({ itemKeyName, itemKeyVal: itemId });
         }
-      }
-    },
-    apply(selectedItems) {
-      const data = {
-        tableName: this.tableName,
-        filters: [
-          {
-            name: this.filterName,
-            value: extractPropertiesFromArrObj(selectedItems, this.sendFieldName),
-          },
-        ],
-      };
-      this.$store.dispatch(APPLY_FILTERS, data);
-    },
-  },
-  watch: {
-    preselectedItems(items) {
-      if (!items.length) {
-        this[this.filterName].forEach((item, index) => {
-          this.$set(this[this.filterName][index], 'selected', false);
-        });
       }
     },
   },
