@@ -1,35 +1,16 @@
-import { CLAIMS, DISPUTES } from '../../constants';
+import getters from './getters';
+import actions from './actions';
+import mutations from './mutations';
+import { ENTITY_TYPES } from '@/constants';
 
-const state = {
-  active: CLAIMS,
-  tabs: [CLAIMS, DISPUTES],
-};
-
-const getters = {
-  tabs() {
-    return state.tabs;
-  },
-  activeTab() {
-    return state.active;
-  },
-};
-
-const actions = {
-  changeTab({ commit }, tab) {
-    commit('changeTab', tab);
-  },
-};
-
-const mutations = {
-  changeTab(store, tab) {
-    // eslint-disable-next-line
-    store.active = tab;
-  },
-};
+const { CLAIMS, DISPUTES } = ENTITY_TYPES;
 
 export default {
   namespaced: true,
-  state,
+  state: {
+    active: CLAIMS,
+    tabs: [CLAIMS, DISPUTES],
+  },
   getters,
   actions,
   mutations,

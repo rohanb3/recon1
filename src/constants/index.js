@@ -139,6 +139,7 @@ export const ENTITY_TYPES = {
   DISPUTES_BY_SUBMITTERS: 'DISPUTES_BY_SUBMITTERS',
   DISPUTES_DASHBOARD: 'DISPUTES_DASHBOARD',
   DISPUTE_HISTORY: 'DISPUTE_HISTORY',
+  CLAIMS: 'CLAIMS',
 };
 
 export const DISPUTES_BY_SUBMITTERS_STATISTICS_TYPES = {
@@ -221,6 +222,3 @@ export const SCOPES = {
   TEAM_STATISTIC: 'xyzies.reconciliation.web.teamstatistic',
   ORDER_READ_WITH_EXPECTED_COMISSION: 'xyzies.reconciliation.web.order.read.systemadmin',
 };
-
-export const DISPUTES = 'tab.disputes';
-export const CLAIMS = 'tab.claims';

@@ -1,16 +1,16 @@
 <template>
   <div class="app-content">
-    <switcher />
+    <types-switcher />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Switcher from './Switcher';
+import TypesSwitcher from './TypesSwitcher';
 
 export default {
   name: 'AppContent',
-  components: { Switcher },
+  components: { TypesSwitcher },
 };
 </script>
 

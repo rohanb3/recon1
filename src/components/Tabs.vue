@@ -4,29 +4,30 @@
       v-for="(tab, index) in tabs"
       :key="index"
       :class="{ active: tab === activeTab }"
-      @click="changeTab(tab)"
+      @click="$emit('changeTab', tab)"
       class="tab"
     >
-      {{ $t(tab) }}
+      {{ tab }}
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-
 export default {
-  name: 'Switcher',
-  computed: {
-    ...mapGetters({
-      tabs: 'switcher/tabs',
-      activeTab: 'switcher/activeTab',
-    }),
-  },
-  methods: {
-    ...mapActions({
-      changeTab: 'switcher/changeTab',
-    }),
+  name: 'Tabs',
+  props: {
+    tabs: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+    activeTab: {
+      type: String,
+      default() {
+        return '';
+      },
+    },
   },
 };
 </script>
