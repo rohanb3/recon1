@@ -231,5 +231,7 @@
   "dispute.history.status.description": "Status Description",
   "selected.fiscal.period": "Selected fiscal period",
   "date": "Date",
-  "money": "Money"
+  "money": "Money",
+  "tab.disputes": "disputes",
+  "tab.claims": "claims"
 }

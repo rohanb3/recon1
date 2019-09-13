@@ -221,3 +221,6 @@ export const SCOPES = {
   TEAM_STATISTIC: 'xyzies.reconciliation.web.teamstatistic',
   ORDER_READ_WITH_EXPECTED_COMISSION: 'xyzies.reconciliation.web.order.read.systemadmin',
 };
+
+export const DISPUTES = 'tab.disputes';
+export const CLAIMS = 'tab.claims';
