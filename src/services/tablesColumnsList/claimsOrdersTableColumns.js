@@ -7,7 +7,7 @@ export default () => [
     field: 'orderNumber',
     fieldType: 'orderNumber',
     class: 'text',
-    title: i18n.t('orders.number'),
+    title: i18n.t('company.order.number'),
     width: '4',
     minWidth: '90px',
     sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.NUMBER,

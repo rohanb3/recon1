@@ -1,9 +1,10 @@
 import {
-  getOrdersTableColumns,
+  getClaimsOrdersTableColumns,
   getDisputesTableColumns,
   getResubmissionTableColumns,
   getDisputesBySubmittersColumns,
   getDisputeHistoryTableColumns,
+  getDisputesOrdersTableColumns,
 } from '@/services/tablesColumnsList';
 import { ENTITY_TYPES } from '@/constants';
 
@@ -14,7 +15,17 @@ import getDefaultFilters from './filtersHelper';
 
 const state = {
   [ENTITY_TYPES.ORDERS]: {
-    columns: getOrdersTableColumns(),
+    columns: getClaimsOrdersTableColumns(),
+    filters: getDefaultFilters(ENTITY_TYPES.ORDERS),
+    applyingFilters: false,
+  },
+  [ENTITY_TYPES.CLAIMS_ORDERS]: {
+    columns: getClaimsOrdersTableColumns(),
+    filters: getDefaultFilters(ENTITY_TYPES.CLAIMS_ORDERS),
+    applyingFilters: false,
+  },
+  [ENTITY_TYPES.DISPUTES_ORDERS]: {
+    columns: getDisputesOrdersTableColumns(),
     filters: getDefaultFilters(ENTITY_TYPES.ORDERS),
     applyingFilters: false,
   },

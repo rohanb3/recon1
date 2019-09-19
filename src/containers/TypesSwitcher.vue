@@ -11,13 +11,13 @@ export default {
   components: { Tabs },
   computed: {
     ...mapGetters({
-      tabs: 'switcher/tabs',
-      activeTab: 'switcher/activeTab',
+      tabs: 'tabs',
+      activeTab: 'activeTab',
     }),
   },
   methods: {
     ...mapActions({
-      changeTab: 'switcher/changeTab',
+      changeTab: 'changeTab',
     }),
   },
 };

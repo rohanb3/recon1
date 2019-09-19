@@ -232,6 +232,11 @@
   "selected.fiscal.period": "Selected fiscal period",
   "date": "Date",
   "money": "Money",
-  "tab.disputes": "disputes",
-  "tab.claims": "claims"
+
+  "company.order.number": "Company Order Number",
+  "claims.dashboard": "Claims Dashboard",
+  "claims.list": "Claims List",
+  "claims.by.submitters": "Claims by Submitters",
+  "orders.select.order.dispute": "Select order to create a new dispute",
+  "orders.select.order.claim": "Select order to create a new claim"
 }

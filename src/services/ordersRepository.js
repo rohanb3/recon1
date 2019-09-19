@@ -34,3 +34,10 @@ export const getOrdersCsvFile = filters => {
 export const getFiscalPeriods = () => {
   return apiDisputes.get('/order/fiscalperiod').then(({ data }) => data);
 };
+
+export const getClaimsOrders = filters => {
+  const params = { ...filters };
+  return apiDisputes
+    .get('/order/orders/claiming', { params, paramsSerializer })
+    .then(({ data }) => data);
+};
