@@ -79,6 +79,7 @@ export default {
         price: 'PriceCell',
         disputeButton: 'DisputeButtonCell',
         dateYearMonthDay: 'DateYearMonthDayCell',
+        installationAge: 'OrderAgeCell',
       },
     };
   },

@@ -93,7 +93,7 @@ export default () => [
     name: 'newDisputeButton',
     fieldType: 'disputeButton',
     class: 'text',
-    title: i18n.t('orders.new.dispute'),
+    title: i18n.t('orders.new.claim'),
     width: '5',
     minWidth: '105px',
     sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.DISPUTE_STATUS,

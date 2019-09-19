@@ -92,6 +92,7 @@ export const TABLE_ORDER_COLUMNS_SORTED = {
   BUNDLE_NAME: 'bundleName',
   INSTALLED_UNITS: 'installedUnits',
   CREATED_ON: 'createdOn',
+  INSTALLATION_DATE: 'installationDate',
 };
 
 export const TABLE_DISPUTE_COLUMNS_SORTED = {
