@@ -10,7 +10,7 @@ export const dateMonthYear = date => {
 };
 
 export const dateYearMonthDay = date => {
-  if (date === '' || !date) return '';
+  if (!date) return '';
   return moment
     .utc(date)
     .local()

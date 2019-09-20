@@ -14,11 +14,6 @@ import getters from './getters';
 import getDefaultFilters from './filtersHelper';
 
 const state = {
-  [ENTITY_TYPES.ORDERS]: {
-    columns: getClaimsOrdersTableColumns(),
-    filters: getDefaultFilters(ENTITY_TYPES.ORDERS),
-    applyingFilters: false,
-  },
   [ENTITY_TYPES.CLAIMS_ORDERS]: {
     columns: getClaimsOrdersTableColumns(),
     filters: getDefaultFilters(ENTITY_TYPES.CLAIMS_ORDERS),
@@ -26,7 +21,7 @@ const state = {
   },
   [ENTITY_TYPES.DISPUTES_ORDERS]: {
     columns: getDisputesOrdersTableColumns(),
-    filters: getDefaultFilters(ENTITY_TYPES.ORDERS),
+    filters: getDefaultFilters(ENTITY_TYPES.DISPUTES_ORDERS),
     applyingFilters: false,
   },
   [ENTITY_TYPES.DISPUTES]: {

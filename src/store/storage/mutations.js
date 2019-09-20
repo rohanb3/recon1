@@ -40,7 +40,7 @@ export default {
     state[itemType].total = total;
   },
   [SET_SYNC_ORDERS_STATUS](state, status) {
-    state[ENTITY_TYPES.ORDERS].syncOrdersStatus = status;
+    state[ENTITY_TYPES.CLAIMS_ORDERS].syncOrdersStatus = status;
   },
   /* eslint-enable no-param-reassign */
 };

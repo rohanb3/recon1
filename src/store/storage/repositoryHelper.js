@@ -8,9 +8,6 @@ import {
 } from '@/services/disputesRepository';
 
 const handlers = {
-  [ENTITY_TYPES.ORDERS]: {
-    getAll: getOrders,
-  },
   [ENTITY_TYPES.CLAIMS_ORDERS]: {
     getAll: getClaimsOrders,
   },

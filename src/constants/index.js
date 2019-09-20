@@ -175,7 +175,6 @@ export const FILTER_NAMES = {
 };
 
 export const TABLE_COLUMN_ID_NAMES = {
-  [ENTITY_TYPES.ORDERS]: 'orderId',
   [ENTITY_TYPES.CLAIMS_ORDERS]: 'orderId',
   [ENTITY_TYPES.DISPUTES_ORDERS]: 'orderId',
 };

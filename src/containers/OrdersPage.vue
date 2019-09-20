@@ -12,7 +12,6 @@ export default {
   components: { OrdersContent },
   computed: {
     ...mapGetters({
-      activeTab: 'activeTab',
       isClaims: 'isClaims',
     }),
     tableName() {
