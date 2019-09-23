@@ -1,27 +1,20 @@
 <template>
-  <orders-content :toolbar-title="toolbarTitle" :table-name="tableName" :key="tableName" />
+  <claims-orders v-if="isClaims" />
+  <disputes-orders v-else />
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import { ENTITY_TYPES } from '@/constants';
-import OrdersContent from './OrdersContent';
+import DisputesOrders from './DisputesOrders';
+import ClaimsOrders from './ClaimsOrders';
 
 export default {
   name: 'OrdersPage',
-  components: { OrdersContent },
+  components: { ClaimsOrders, DisputesOrders },
   computed: {
     ...mapGetters({
       isClaims: 'isClaims',
     }),
-    tableName() {
-      return this.isClaims ? ENTITY_TYPES.CLAIMS_ORDERS : ENTITY_TYPES.DISPUTES_ORDERS;
-    },
-    toolbarTitle() {
-      return this.isClaims ? 'orders.select.order.claim' : 'orders.select.order.dispute';
-    },
   },
 };
 </script>
-
-<style scoped></style>
