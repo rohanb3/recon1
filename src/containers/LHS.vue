@@ -11,11 +11,6 @@ import LhsDisputes from '@/containers/LHS-Disputes';
 export default {
   name: 'lhs',
   components: { LhsDisputes, LhsClaims },
-  data() {
-    return {
-      activeIndex: 0,
-    };
-  },
   computed: {
     ...mapGetters(['isClaims']),
   },
