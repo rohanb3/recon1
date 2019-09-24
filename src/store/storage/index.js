@@ -5,7 +5,12 @@ import mutations from './mutations';
 
 export default {
   state: {
-    [ENTITY_TYPES.ORDERS]: {
+    [ENTITY_TYPES.CLAIMS_ORDERS]: {
+      items: [],
+      allItemsLoaded: false,
+      syncOrdersStatus: null,
+    },
+    [ENTITY_TYPES.DISPUTES_ORDERS]: {
       items: [],
       allItemsLoaded: false,
       syncOrdersStatus: null,

@@ -10,7 +10,7 @@ export default {
   name: 'SyncNotifier',
   computed: {
     syncOrderStatus() {
-      return this.$store.state.storage[ENTITY_TYPES.ORDERS].syncOrdersStatus;
+      return this.$store.state.storage[ENTITY_TYPES.CLAIMS_ORDERS].syncOrdersStatus;
     },
   },
   watch: {

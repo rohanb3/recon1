@@ -92,6 +92,7 @@ export const TABLE_ORDER_COLUMNS_SORTED = {
   BUNDLE_NAME: 'bundleName',
   INSTALLED_UNITS: 'installedUnits',
   CREATED_ON: 'createdOn',
+  INSTALLATION_DATE: 'installationDate',
 };
 
 export const TABLE_DISPUTE_COLUMNS_SORTED = {
@@ -140,6 +141,8 @@ export const ENTITY_TYPES = {
   DISPUTES_DASHBOARD: 'DISPUTES_DASHBOARD',
   DISPUTE_HISTORY: 'DISPUTE_HISTORY',
   CLAIMS: 'CLAIMS',
+  CLAIMS_ORDERS: 'CLAIMS_ORDERS',
+  DISPUTES_ORDERS: 'DISPUTES_ORDERS',
 };
 
 export const DISPUTES_BY_SUBMITTERS_STATISTICS_TYPES = {
@@ -172,7 +175,8 @@ export const FILTER_NAMES = {
 };
 
 export const TABLE_COLUMN_ID_NAMES = {
-  [ENTITY_TYPES.ORDERS]: 'orderId',
+  [ENTITY_TYPES.CLAIMS_ORDERS]: 'orderId',
+  [ENTITY_TYPES.DISPUTES_ORDERS]: 'orderId',
 };
 
 export const ROUTE_NAMES = {

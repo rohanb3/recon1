@@ -4,7 +4,7 @@ import { getEntityActions } from '@/store/storage/repositoryHelper';
 describe('repositoryHelper', () => {
   describe('getEntityActions: ', () => {
     it('should return object with entity actions', () => {
-      const result = getEntityActions(ENTITY_TYPES.ORDERS);
+      const result = getEntityActions(ENTITY_TYPES.CLAIMS_ORDERS);
 
       const expectedResult = {
         create: expect.any(Function),
@@ -18,7 +18,7 @@ describe('repositoryHelper', () => {
     it('shold throw an exception if handler not defined', () => {
       let isThrowed = false;
 
-      const result = getEntityActions(ENTITY_TYPES.ORDERS);
+      const result = getEntityActions(ENTITY_TYPES.CLAIMS_ORDERS);
 
       try {
         result.update();

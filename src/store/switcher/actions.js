@@ -1,5 +1,7 @@
 export default {
-  changeTab({ commit }, tab) {
-    commit('changeTab', tab);
+  changeTab({ commit, state }, tab) {
+    if (state.active !== tab) {
+      commit('changeTab', tab);
+    }
   },
 };

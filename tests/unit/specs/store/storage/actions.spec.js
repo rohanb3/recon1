@@ -281,7 +281,7 @@ describe('storage actions: ', () => {
         dispatch: jest.fn(),
         rootState: {
           tables: {
-            [ENTITY_TYPES.ORDERS]: {
+            [ENTITY_TYPES.CLAIMS_ORDERS]: {
               filters: {},
             },
           },
@@ -295,8 +295,8 @@ describe('storage actions: ', () => {
       await actions[POLLING_ORDER_SYNC](fakeStore, taskId);
 
       expect(fakeStore.dispatch).toHaveBeenCalledWith(LOAD_ITEMS, {
-        itemType: ENTITY_TYPES.ORDERS,
-        filters: fakeStore.rootState.tables[ENTITY_TYPES.ORDERS].filters,
+        itemType: ENTITY_TYPES.CLAIMS_ORDERS,
+        filters: fakeStore.rootState.tables[ENTITY_TYPES.CLAIMS_ORDERS].filters,
       });
       expect(ordersRepository.checkOrderSync).toHaveBeenCalledWith(taskId);
       expect(fakeStore.commit).toHaveBeenCalledWith(
