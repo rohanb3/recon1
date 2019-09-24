@@ -1,14 +1,10 @@
 import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
 
-const GREEN = 15;
-const ORANGE = 30;
-const RED = 45;
-
 describe('OrderAgeCell: ', () => {
   describe('computed: ', () => {
     describe('GREEN: ', () => {
       it('should return true if created date order less than 16', () => {
-        for (let value = 0; value <= GREEN; value += 1) {
+        for (let value = 0; value < 16; value += 1) {
           const mockedThis = {
             value,
           };
@@ -21,7 +17,7 @@ describe('OrderAgeCell: ', () => {
 
       it('should return false if created date order more than 15', () => {
         const mockedThis = {
-          value: ORANGE,
+          value: 20,
         };
 
         const result = OrderAgeCell.computed.green.call(mockedThis);
@@ -32,7 +28,7 @@ describe('OrderAgeCell: ', () => {
 
     describe('ORANGE: ', () => {
       it('should return true if created date order more than 16', () => {
-        for (let value = GREEN + 1; value <= ORANGE; value += 1) {
+        for (let value = 16; value < 31; value += 1) {
           const mockedThis = {
             value,
           };
@@ -45,7 +41,7 @@ describe('OrderAgeCell: ', () => {
 
       it('should return false if created date order more than 30', () => {
         const mockedThis = {
-          value: RED,
+          value: 31,
         };
 
         const result = OrderAgeCell.computed.orange.call(mockedThis);
@@ -56,7 +52,7 @@ describe('OrderAgeCell: ', () => {
 
     describe('RED: ', () => {
       it('should return true if created date order more than 30', () => {
-        for (let value = ORANGE + 1; value <= RED; value += 1) {
+        for (let value = 31; value < 46; value += 1) {
           const mockedThis = {
             value,
           };
