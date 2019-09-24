@@ -1,79 +1,92 @@
 import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
 
-const NEWLY_CREATED_ORDER = 10;
-const WAITING_ORDER = 34;
+const GREEN = 15;
+const ORANGE = 30;
+const RED = 45;
 
 describe('OrderAgeCell: ', () => {
   describe('computed: ', () => {
-    describe('isNewOrder: ', () => {
-      it('should return true if newly created order', () => {
-        for (let value = 0; value <= NEWLY_CREATED_ORDER; value += 1) {
+    describe('GREEN: ', () => {
+      it('should return true if created date order less than 16', () => {
+        for (let value = 0; value <= GREEN; value += 1) {
           const mockedThis = {
             value,
           };
 
-          const result = OrderAgeCell.computed.isNewOrder.call(mockedThis);
+          const result = OrderAgeCell.computed.green.call(mockedThis);
 
           expect(result).toBeTruthy();
         }
       });
 
-      it('should return false if order in not new', () => {
+      it('should return false if created date order more than 15', () => {
         const mockedThis = {
-          value: 11,
+          value: ORANGE,
         };
 
-        const result = OrderAgeCell.computed.isNewOrder.call(mockedThis);
+        const result = OrderAgeCell.computed.green.call(mockedThis);
 
         expect(result).toBeFalsy();
       });
     });
 
-    describe('isWaitingOrder: ', () => {
-      it('should return true if onrder not newly created and not overdue', () => {
-        for (let value = NEWLY_CREATED_ORDER + 1; value <= WAITING_ORDER; value += 1) {
+    describe('ORANGE: ', () => {
+      it('should return true if created date order more than 16', () => {
+        for (let value = GREEN + 1; value <= ORANGE; value += 1) {
           const mockedThis = {
             value,
           };
 
-          const result = OrderAgeCell.computed.isWaitingOrder.call(mockedThis);
+          const result = OrderAgeCell.computed.orange.call(mockedThis);
 
           expect(result).toBeTruthy();
         }
       });
 
-      it('should return false if order overdue', () => {
+      it('should return false if created date order more than 30', () => {
         const mockedThis = {
-          value: 35,
+          value: RED,
         };
 
-        const result = OrderAgeCell.computed.isWaitingOrder.call(mockedThis);
+        const result = OrderAgeCell.computed.orange.call(mockedThis);
 
         expect(result).toBeFalsy();
       });
     });
 
-    describe('isWaitingOrder: ', () => {
-      it('should return true if onrder overdue', () => {
-        for (let value = WAITING_ORDER + 1; value <= WAITING_ORDER + 10; value += 1) {
+    describe('RED: ', () => {
+      it('should return true if created date order more than 30', () => {
+        for (let value = ORANGE + 1; value <= RED; value += 1) {
           const mockedThis = {
             value,
           };
 
-          const result = OrderAgeCell.computed.isOverdueOrder.call(mockedThis);
+          const result = OrderAgeCell.computed.red.call(mockedThis);
 
           expect(result).toBeTruthy();
         }
       });
 
-      it('should return false if order not overdue', () => {
+      it('should return false if created date order more than 45', () => {
         const mockedThis = {
-          value: 34,
+          value: 46,
         };
 
-        const result = OrderAgeCell.computed.isOverdueOrder.call(mockedThis);
+        const result = OrderAgeCell.computed.red.call(mockedThis);
 
         expect(result).toBeFalsy();
+      });
+    });
+
+    describe('BLACK: ', () => {
+      it('should return true if created date order more than 45', () => {
+        const mockedThis = {
+          value: 50,
+        };
+
+        const result = OrderAgeCell.computed.black.call(mockedThis);
+
+        expect(result).toBeTruthy();
       });
     });
   });
