@@ -5,8 +5,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import LhsClaims from '@/containers/LHS-Claims';
-import LhsDisputes from '@/containers/LHS-Disputes';
+import LhsClaims from '@/containers/LHS/Claims';
+import LhsDisputes from '@/containers/LHS/Disputes';
 
 export default {
   name: 'lhs',
