@@ -60,9 +60,10 @@ export function generateCSVFile(CSVFile, fileName = 'report') {
   document.body.removeChild(link);
 }
 
-export function getObjectFromArrayByKey(array, key = 'key') {
+export function getObjectFromArrayByKey(array, ...props) {
+  const [key, value] = props || ['key'];
   return array.reduce((acc, item) => {
-    acc[item[key]] = item;
+    acc[item[key]] = value ? item[value] : item;
     return acc;
   }, {});
 }

@@ -48,7 +48,7 @@ async function loadItems({ commit, state }, { itemType, filters = {} }, resetPre
   const { getAll } = getEntityActions(itemType);
   const { data, total, totalSum } = await getAll(filtersToApply);
 
-  const totalCommissions = totalSum ? getObjectFromArrayByKey(totalSum) : null;
+  const totalCommissions = totalSum ? getObjectFromArrayByKey(totalSum, 'key', 'value') : null;
 
   if (resetPrevious) {
     commit(RESET_ITEMS, itemType);
