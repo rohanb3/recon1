@@ -1,4 +1,5 @@
 import { getEntityActions } from './repositoryHelper';
+import { getObjectFromArrayByKey } from '@/services/utils';
 
 import {
   LOAD_ITEMS,
@@ -19,6 +20,7 @@ import {
   SET_ITEMS_TOTAL,
   RESET_ITEMS,
   SET_SYNC_ORDERS_STATUS,
+  SET_COMMISSIONS,
 } from './mutationTypes';
 
 import { ITEMS_TO_LOAD } from './constants';
@@ -44,13 +46,19 @@ async function loadItems({ commit, state }, { itemType, filters = {} }, resetPre
   };
 
   const { getAll } = getEntityActions(itemType);
-  const { data, total } = await getAll(filtersToApply);
+  const { data, total, totalSum } = await getAll(filtersToApply);
+
+  const totalCommissions = totalSum ? getObjectFromArrayByKey(totalSum) : null;
 
   if (resetPrevious) {
     commit(RESET_ITEMS, itemType);
   }
 
+  if (totalCommissions) {
+    commit(SET_COMMISSIONS, { itemType, totalCommissions });
+  }
   commit(INSERT_ITEMS, { itemType, items: data });
+
   commit(SET_ITEMS_TOTAL, { itemType, total });
   if (data.length < ITEMS_TO_LOAD) {
     commit(SET_ALL_ITEMS_LOADED, itemType);

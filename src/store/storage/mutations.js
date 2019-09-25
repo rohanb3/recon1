@@ -7,6 +7,7 @@ import {
   SET_ALL_ITEMS_LOADED,
   SET_ITEMS_TOTAL,
   SET_SYNC_ORDERS_STATUS,
+  SET_COMMISSIONS,
 } from './mutationTypes';
 
 import { ENTITY_TYPES } from '@/constants';
@@ -41,6 +42,9 @@ export default {
   },
   [SET_SYNC_ORDERS_STATUS](state, status) {
     state[ENTITY_TYPES.CLAIMS_ORDERS].syncOrdersStatus = status;
+  },
+  [SET_COMMISSIONS](state, { itemType, totalCommissions }) {
+    state[itemType].totalCommissions = { ...totalCommissions };
   },
   /* eslint-enable no-param-reassign */
 };

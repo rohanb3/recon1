@@ -5,4 +5,7 @@ export default {
   storageData: state => entityName => {
     return state[entityName] || {};
   },
+  totalCommissions: state => entityName => {
+    return state[entityName].totalCommissions;
+  },
 };

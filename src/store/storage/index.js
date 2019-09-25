@@ -3,42 +3,35 @@ import getters from './getters';
 import actions from './actions';
 import mutations from './mutations';
 
+class TableData {
+  constructor() {
+    this.items = [];
+    this.allItemsLoaded = false;
+  }
+}
+
+class OrdersTableData extends TableData {
+  constructor() {
+    super();
+
+    this.syncOrdersStatus = null;
+    this.totalCommissions = {
+      expectedCommission: null,
+      receivedCommission: null,
+    };
+  }
+}
+
 export default {
   state: {
-    [ENTITY_TYPES.CLAIMS_ORDERS]: {
-      items: [],
-      allItemsLoaded: false,
-      syncOrdersStatus: null,
-    },
-    [ENTITY_TYPES.DISPUTES_ORDERS]: {
-      items: [],
-      allItemsLoaded: false,
-      syncOrdersStatus: null,
-    },
-    [ENTITY_TYPES.DISPUTES]: {
-      items: [],
-      allItemsLoaded: false,
-    },
-    [ENTITY_TYPES.RESUBMISSION]: {
-      items: [],
-      allItemsLoaded: false,
-    },
-    [ENTITY_TYPES.DISPUTES_BY_SUBMITTERS]: {
-      items: [],
-      allItemsLoaded: false,
-    },
-    [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
-      items: [],
-      allItemsLoaded: false,
-    },
-    [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
-      items: [],
-      allItemsLoaded: false,
-    },
-    [ENTITY_TYPES.DISPUTE_HISTORY]: {
-      items: [],
-      allItemsLoaded: false,
-    },
+    [ENTITY_TYPES.CLAIMS_ORDERS]: new OrdersTableData(),
+    [ENTITY_TYPES.DISPUTES_ORDERS]: new OrdersTableData(),
+    [ENTITY_TYPES.DISPUTES]: new TableData(),
+    [ENTITY_TYPES.RESUBMISSION]: new TableData(),
+    [ENTITY_TYPES.DISPUTES_BY_SUBMITTERS]: new TableData(),
+    [ENTITY_TYPES.DISPUTES_DASHBOARD]: new TableData(),
+    [ENTITY_TYPES.DISPUTES_DASHBOARD]: new TableData(),
+    [ENTITY_TYPES.DISPUTE_HISTORY]: new TableData(),
   },
   getters,
   actions,

@@ -1,6 +1,6 @@
 <template>
   <div class="sorting-header-cell" @click="onClickSortingHeaderCell">
-    <span class="sorting-header-title">{{ column.title }}</span>
+    <span class="sorting-header-title">{{ $t(column.title, args) }}</span>
     <v-icon v-show="arrowDirection === true" class="sorting-header-icon" small
       >fas arrow_downward</v-icon
     >
@@ -36,6 +36,12 @@ export default {
       required: true,
       validator(value) {
         return [SORTING_DIRECTION.DESC, SORTING_DIRECTION.ASC, null].includes(value);
+      },
+    },
+    args: {
+      type: Object,
+      default() {
+        return {};
       },
     },
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="default-header-cell">
-    <span>{{ column.title }}</span>
+    <span>{{ $t(column.title) }}</span>
   </div>
 </template>
 
