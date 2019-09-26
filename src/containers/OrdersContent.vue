@@ -1,7 +1,20 @@
 <template>
-  <div class="orders-table" :class="`${this.tableName.toLowerCase()}-table`" v-if="isShowOrder">
+  <div class="orders-table" :class="`${this.getTableName}-table`" v-if="isShowOrder">
     <table-toolbar :title="$t(toolbarTitle)" :table-name="tableName">
-      <orders-table-toolbar :table-name="tableName" @syncOrders="onSyncOrders" slot="filters" />
+      <orders-table-toolbar :table-name="tableName" @syncOrders="onSyncOrders" slot="filters">
+        <template slot="period-filters">
+          <fiscal-period-filter
+            :table-name="tableName"
+            :filtered-field-from="filteredFieldFrom"
+            :filtered-field-to="filteredFieldTo"
+          />
+          <custom-range-filter
+            :table-name="tableName"
+            :filtered-field-from="filteredFieldFrom"
+            :filtered-field-to="filteredFieldTo"
+          />
+        </template>
+      </orders-table-toolbar>
     </table-toolbar>
     <lazy-load-table
       :tableName="tableName"
@@ -43,10 +56,14 @@ import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
 import { successMessage } from '@/services/notifications';
 import SelectedRangeFilter from '../components/SelectedRangeFilter';
 import TableToolbar from '@/components/TableToolbar';
+import CustomRangeFilter from './CustomRangeFilter';
+import FiscalPeriodFilter from './FiscalPeriodFilter';
 
 export default {
   name: 'OrdersContent',
   components: {
+    FiscalPeriodFilter,
+    CustomRangeFilter,
     TableToolbar,
     SelectedRangeFilter,
     LazyLoadTable,
@@ -65,6 +82,14 @@ export default {
       required: true,
     },
     toolbarTitle: {
+      type: String,
+      required: true,
+    },
+    filteredFieldFrom: {
+      type: String,
+      required: true,
+    },
+    filteredFieldTo: {
       type: String,
       required: true,
     },
@@ -98,6 +123,9 @@ export default {
     },
     columns() {
       return this.tableData(this.tableName).columns;
+    },
+    getTableName() {
+      return this.tableName.toLowerCase();
     },
   },
   methods: {

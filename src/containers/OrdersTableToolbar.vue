@@ -18,8 +18,7 @@
         :filters="filters"
         :repository="handlerCsvFile()"
       />
-      <fiscal-period-filter :tableName="tableName" />
-      <custom-range-filter :table-name="tableName" />
+      <slot name="period-filters" />
     </div>
   </div>
 </template>
@@ -31,19 +30,15 @@ import OrderStatusFilter from '@/containers/OrderStatusFilter';
 import TableButton from '@/components/TableButton';
 import OrderAgeFilter from '@/containers/OrderAgeFilter';
 import { ORDER_SYNC_STATUS, FILTER_NAMES } from '@/constants';
-import CustomRangeFilter from '@/containers/CustomRangeFilter';
-import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
 import { getOrdersCsvFile } from '@/services/ordersRepository';
 
 export default {
   name: 'OrdersTableToolbar',
   components: {
-    CustomRangeFilter,
     QuickSearchFilter,
     OrderStatusFilter,
     TableButton,
-    FiscalPeriodFilter,
     ExportToCsvFileButton,
     OrderAgeFilter,
   },

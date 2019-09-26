@@ -172,6 +172,8 @@ export const FILTER_NAMES = {
   XYZ_STATUS_IDS: 'XYZStatusIds',
   SPECTRUM_STATUS_IDS: 'SpectrumStatusIds',
   DISPUTE_ID: 'disputeId',
+  INSTALLATION_DATE_FROM: 'InstallationDateFrom',
+  INSTALLATION_DATE_TO: 'InstallationDateTo',
 };
 
 export const TABLE_COLUMN_ID_NAMES = {
@@ -193,6 +195,8 @@ export const ROUTE_NAMES = {
   RESET_PASSWORD: 'reset-password',
   MAIN_PAGE: 'main-page',
   DISPUTES_DASHBOARD: 'disputes-dashboard',
+  SELECT_ORDER_CLAIMS: 'select-order-claims',
+  SELECT_ORDER_DISPUTES: 'select-order-disputes',
 };
 
 export const ROLE_TYPES = {

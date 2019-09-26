@@ -27,6 +27,9 @@ import identityApi from '@/services/identityApi';
 import disputesApi from '@/services/disputesApi';
 import applyAuthInterceptors from '@/services/authInterceptors';
 
+import ClaimsOrders from '../containers/ClaimsOrders';
+import DisputesOrders from '../containers/DisputesOrders';
+
 Vue.use(Router);
 
 function authGuard(to, from, next) {
@@ -101,7 +104,28 @@ const router = new Router({
             {
               path: 'select-order',
               component: OrdersPage,
+              redirect: { name: ROUTE_NAMES.SELECT_ORDER_CLAIMS },
               name: ROUTE_NAMES.SELECT_ORDER,
+              children: [
+                {
+                  path: 'claims',
+                  name: ROUTE_NAMES.SELECT_ORDER_CLAIMS,
+                  components: {
+                    content: ClaimsOrders,
+                  },
+                },
+                {
+                  path: 'disputes',
+                  name: ROUTE_NAMES.SELECT_ORDER_DISPUTES,
+                  components: {
+                    content: DisputesOrders,
+                  },
+                },
+                {
+                  path: '*',
+                  redirect: { name: ROUTE_NAMES.SELECT_ORDER_CLAIMS },
+                },
+              ],
             },
             {
               path: 'edit-dispute/:disputeId',

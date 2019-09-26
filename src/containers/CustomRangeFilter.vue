@@ -24,6 +24,15 @@ export default {
       type: String,
       required: true,
     },
+
+    filteredFieldFrom: {
+      type: String,
+      required: true,
+    },
+    filteredFieldTo: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     filters() {
@@ -33,10 +42,10 @@ export default {
       return this.$store.state.tables[this.tableName] || {};
     },
     startDate() {
-      return this.filters[FILTER_NAMES.CREATED_FROM];
+      return this.filters[this.filteredFieldFrom];
     },
     endDate() {
-      return this.filters[FILTER_NAMES.CREATED_TO];
+      return this.filters[this.filteredFieldTo];
     },
     getTableName() {
       return this.tableName.toLowerCase();
@@ -48,11 +57,11 @@ export default {
         tableName: this.tableName,
         filters: [
           {
-            name: FILTER_NAMES.CREATED_FROM,
+            name: this.filteredFieldFrom,
             value: value.startDate,
           },
           {
-            name: FILTER_NAMES.CREATED_TO,
+            name: this.filteredFieldTo,
             value: value.endDate,
           },
           {
@@ -72,11 +81,11 @@ export default {
         tableName: this.tableName,
         filters: [
           {
-            name: FILTER_NAMES.CREATED_FROM,
+            name: this.filteredFieldFrom,
             value: '',
           },
           {
-            name: FILTER_NAMES.CREATED_TO,
+            name: this.filteredFieldTo,
             value: '',
           },
         ],
