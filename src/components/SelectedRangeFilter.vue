@@ -26,6 +26,14 @@ export default {
       type: String,
       required: true,
     },
+    filteredFieldFrom: {
+      type: String,
+      required: true,
+    },
+    filteredFieldTo: {
+      type: String,
+      required: true,
+    },
   },
   mixins: [tableDateRange],
   filters: {

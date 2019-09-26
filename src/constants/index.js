@@ -42,6 +42,12 @@ export const DISPUTE_TYPES_ID = {
   MISSING_TRANSACTION: 'e0e82612-96d7-4602-bc24-56436a25240c',
 };
 
+export const ORDERS_DISPUTE_TYPES = {
+  ORDER_INSTALLED_WITHOUT_COMMISSION_RECEIVED: 'OrderInstalledWithoutCommissionReceived',
+  COMMISSION_RECEIVED_LESS_EXPECTED: 'CommissionReceivedLessExpected',
+  COMMISSION_RECEIVED_MORE_EXPECTED: 'CommissionReceivedMoreExpected',
+};
+
 export const ORDER_STATUSES_NAME = {
   NOT_INSTALLED: 'Not Installed',
   INSTALLED: 'Installed',
@@ -50,6 +56,7 @@ export const ORDER_STATUSES_NAME = {
   ONLINE_ORDER: 'OnlineOrder',
   PENDING: 'Pending',
   CALL_IN_ORDER: 'CallInOrder',
+  PAID: 'Paid',
 };
 
 export const ORDER_STATUS_NAME_TRANSLATION_KEYS = {
@@ -60,6 +67,7 @@ export const ORDER_STATUS_NAME_TRANSLATION_KEYS = {
   [ORDER_STATUSES_NAME.ONLINE_ORDER]: 'orders.order.status.online.order',
   [ORDER_STATUSES_NAME.PENDING]: 'orders.order.status.pending',
   [ORDER_STATUSES_NAME.CALL_IN_ORDER]: 'orders.order.status.call.in.order',
+  [ORDER_STATUSES_NAME.PAID]: 'orders.order.status.paid',
 };
 
 export const RESPONSE_STATUSES = {
@@ -174,6 +182,7 @@ export const FILTER_NAMES = {
   DISPUTE_ID: 'disputeId',
   INSTALLATION_DATE_FROM: 'InstallationDateFrom',
   INSTALLATION_DATE_TO: 'InstallationDateTo',
+  TYPE: 'Type',
 };
 
 export const TABLE_COLUMN_ID_NAMES = {

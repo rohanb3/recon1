@@ -96,6 +96,7 @@ const filters = {
     [FILTER_NAMES.FISCAL_PERIOD_TO]: '',
     [FILTER_NAMES.INSTALLATION_DATE_FROM]: '',
     [FILTER_NAMES.INSTALLATION_DATE_TO]: '',
+    [FILTER_NAMES.TYPE]: null,
   },
 };
 

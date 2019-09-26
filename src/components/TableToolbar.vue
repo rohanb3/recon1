@@ -5,7 +5,11 @@
       <slot name="filters"></slot>
     </div>
     <div class="table-toolbar-info">
-      <selected-range-filter :tableName="tableName" />
+      <selected-range-filter
+        :tableName="tableName"
+        :filtered-field-from="filteredFieldFrom"
+        :filtered-field-to="filteredFieldTo"
+      />
       <v-spacer />
       <clear-all-filters :tableName="tableName" />
     </div>
@@ -25,6 +29,14 @@ export default {
       required: true,
     },
     tableName: {
+      type: String,
+      required: true,
+    },
+    filteredFieldFrom: {
+      type: String,
+      required: true,
+    },
+    filteredFieldTo: {
       type: String,
       required: true,
     },

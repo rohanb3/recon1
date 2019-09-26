@@ -4,16 +4,25 @@
     :toolbar-title="toolbarTitle"
     :filtered-field-from="filteredFieldFrom"
     :filtered-field-to="filteredFieldTo"
-  />
+  >
+    <disputes-orders-toolbar
+      slot="toolbar"
+      :table-name="tableName"
+      :filtered-field-from="filteredFieldFrom"
+      :filtered-field-to="filteredFieldTo"
+    />
+  </orders-content>
 </template>
 
 <script>
 import { ENTITY_TYPES, FILTER_NAMES } from '@/constants';
 import OrdersContent from './OrdersContent';
+import DisputesOrdersToolbar from './DisputesOrdersToolbar';
 
 export default {
   name: 'DisputesOrders',
   components: {
+    DisputesOrdersToolbar,
     OrdersContent,
   },
   computed: {

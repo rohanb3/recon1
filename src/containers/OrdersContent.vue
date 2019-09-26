@@ -1,20 +1,12 @@
 <template>
   <div class="orders-table" :class="`${this.getTableName}-table`" v-if="isShowOrder">
-    <table-toolbar :title="$t(toolbarTitle)" :table-name="tableName">
-      <orders-table-toolbar :table-name="tableName" @syncOrders="onSyncOrders" slot="filters">
-        <template slot="period-filters">
-          <fiscal-period-filter
-            :table-name="tableName"
-            :filtered-field-from="filteredFieldFrom"
-            :filtered-field-to="filteredFieldTo"
-          />
-          <custom-range-filter
-            :table-name="tableName"
-            :filtered-field-from="filteredFieldFrom"
-            :filtered-field-to="filteredFieldTo"
-          />
-        </template>
-      </orders-table-toolbar>
+    <table-toolbar
+      :title="$t(toolbarTitle)"
+      :table-name="tableName"
+      :filtered-field-from="filteredFieldFrom"
+      :filtered-field-to="filteredFieldTo"
+    >
+      <slot slot="filters" name="toolbar" />
     </table-toolbar>
     <lazy-load-table
       :tableName="tableName"
@@ -47,13 +39,8 @@ import PriceCell from '@/components/tableCells/PriceCell';
 import DisputeButtonCell from '@/components/tableCells/DisputeButtonCell';
 import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
 
-import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
-
 import { TABLE_COLUMN_ID_NAMES } from '@/constants';
 
-import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
-
-import { successMessage } from '@/services/notifications';
 import SelectedRangeFilter from '../components/SelectedRangeFilter';
 import TableToolbar from '@/components/TableToolbar';
 import CustomRangeFilter from './CustomRangeFilter';
@@ -68,7 +55,6 @@ export default {
     SelectedRangeFilter,
     LazyLoadTable,
     DefaultCell,
-    OrdersTableToolbar,
     OrderAgeCell,
     OrderStatusCell,
     OrderNumberCell,
@@ -126,12 +112,6 @@ export default {
     },
     getTableName() {
       return this.tableName.toLowerCase();
-    },
-  },
-  methods: {
-    onSyncOrders() {
-      this.$store.dispatch(START_SYNC_ORDERS);
-      successMessage('sync.started', 'sync.info');
     },
   },
 };
