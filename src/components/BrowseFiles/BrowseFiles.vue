@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import TableButton from '@/components/TableButton';
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
+import TableButton from '@/components/TableButton';
 import FileInfo from './FileInfo';
 
 export default {

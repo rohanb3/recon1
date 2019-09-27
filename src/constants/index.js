@@ -195,8 +195,9 @@ export const ROUTE_NAMES = {
   RESET_PASSWORD: 'reset-password',
   MAIN_PAGE: 'main-page',
   DISPUTES_DASHBOARD: 'disputes-dashboard',
-  SELECT_ORDER_CLAIMS: 'select-order-claims',
-  SELECT_ORDER_DISPUTES: 'select-order-disputes',
+  CLAIMS_DASHBOARD: 'claims-dashboard',
+  CLAIMS_ORDERS: 'claims-orders',
+  DISPUTES_ORDERS: 'disputes-orders',
 };
 
 export const ROLE_TYPES = {
