@@ -1,13 +1,13 @@
 <template>
   <div class="tabs">
     <div
-      v-for="(tab, index) in tabs"
-      :key="index"
-      :class="{ active: tab === activeTab }"
+      v-for="tab in tabs"
+      :key="tab.name"
+      :class="{ active: tab.name === activeTab.name }"
       @click="$emit('changeTab', tab)"
       class="tab"
     >
-      {{ tab }}
+      {{ tab.label }}
     </div>
   </div>
 </template>
@@ -23,9 +23,9 @@ export default {
       },
     },
     activeTab: {
-      type: String,
+      type: Object,
       default() {
-        return '';
+        return {};
       },
     },
   },

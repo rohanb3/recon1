@@ -1,5 +1,5 @@
 <template>
-  <div class="orders-table" :class="`${this.getTableName}-table`" v-if="isShowOrder">
+  <div class="orders-table" :class="`${this.getTableName}-table`">
     <table-toolbar
       :title="$t(toolbarTitle)"
       :table-name="tableName"
@@ -95,15 +95,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      'isShowOrderWithoutExpectedComission',
-      'isShowOrderWithExpectedComission',
-      'tableData',
-      'scopes',
-    ]),
-    isShowOrder() {
-      return this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission;
-    },
+    ...mapGetters(['tableData', 'scopes']),
     columnIdName() {
       return TABLE_COLUMN_ID_NAMES[this.tableName];
     },

@@ -15,12 +15,12 @@ export default {
         {
           action: 'dashboard',
           title: this.$t('claims.dashboard'),
-          routeName: ROUTE_NAMES.DISPUTES_DASHBOARD,
+          routeName: ROUTE_NAMES.CLAIMS_DASHBOARD,
         },
         {
           action: 'play_arrow',
           title: this.$t('orders'),
-          routeName: ROUTE_NAMES.SELECT_ORDER,
+          routeName: ROUTE_NAMES.CLAIMS_ORDERS,
           visible:
             this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission,
         },
