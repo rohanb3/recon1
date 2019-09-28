@@ -5,11 +5,7 @@
       <slot name="filters"></slot>
     </div>
     <div class="table-toolbar-info">
-      <selected-range-filter
-        :tableName="tableName"
-        :filtered-field-from="filteredFieldFrom"
-        :filtered-field-to="filteredFieldTo"
-      />
+      <slot name="toolbar-info"></slot>
       <v-spacer />
       <clear-all-filters :tableName="tableName" />
     </div>
@@ -17,26 +13,17 @@
 </template>
 
 <script>
-import SelectedRangeFilter from '@/components/SelectedRangeFilter';
 import ClearAllFilters from '@/containers/ClearAllFilters';
 
 export default {
   name: 'TableToolbar',
-  components: { SelectedRangeFilter, ClearAllFilters },
+  components: { ClearAllFilters },
   props: {
     title: {
       type: String,
       required: true,
     },
     tableName: {
-      type: String,
-      required: true,
-    },
-    filteredFieldFrom: {
-      type: String,
-      required: true,
-    },
-    filteredFieldTo: {
       type: String,
       required: true,
     },

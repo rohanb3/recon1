@@ -2,6 +2,16 @@ import moment from 'moment';
 import { DATE_FORMATS } from '@/constants';
 
 export default {
+  props: {
+    filteredFieldFrom: {
+      type: String,
+      required: true,
+    },
+    filteredFieldTo: {
+      type: String,
+      required: true,
+    },
+  },
   computed: {
     tableData() {
       return this.$store.state.tables[this.tableName] || {};

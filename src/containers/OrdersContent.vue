@@ -1,13 +1,6 @@
 <template>
   <div class="orders-table" :class="`${this.getTableName}-table`">
-    <table-toolbar
-      :title="$t(toolbarTitle)"
-      :table-name="tableName"
-      :filtered-field-from="filteredFieldFrom"
-      :filtered-field-to="filteredFieldTo"
-    >
-      <slot slot="filters" name="toolbar" />
-    </table-toolbar>
+    <slot name="toolbar" />
     <lazy-load-table
       :tableName="tableName"
       :item-key-name="columnIdName"
@@ -64,18 +57,6 @@ export default {
   },
   props: {
     tableName: {
-      type: String,
-      required: true,
-    },
-    toolbarTitle: {
-      type: String,
-      required: true,
-    },
-    filteredFieldFrom: {
-      type: String,
-      required: true,
-    },
-    filteredFieldTo: {
       type: String,
       required: true,
     },
