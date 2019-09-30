@@ -1,5 +1,6 @@
 import { getEntityActions } from './repositoryHelper';
-import { getObjectFromArrayByKey } from '@/services/utils';
+
+import { ItemsLoaderWithCommission } from './ItemsLoader';
 
 import {
   LOAD_ITEMS,
@@ -12,18 +13,7 @@ import {
   POLLING_ORDER_SYNC,
 } from './actionTypes';
 
-import {
-  INSERT_ITEMS,
-  CHANGE_ITEM,
-  REMOVE_ITEM,
-  SET_ALL_ITEMS_LOADED,
-  SET_ITEMS_TOTAL,
-  RESET_ITEMS,
-  SET_SYNC_ORDERS_STATUS,
-  SET_COMMISSIONS,
-} from './mutationTypes';
-
-import { ITEMS_TO_LOAD } from './constants';
+import { INSERT_ITEMS, CHANGE_ITEM, REMOVE_ITEM, SET_SYNC_ORDERS_STATUS } from './mutationTypes';
 
 import { ORDER_SYNC_STATUS, ENTITY_TYPES } from '@/constants';
 
@@ -36,70 +26,6 @@ import config from '@/../config.json';
 const LAST_SIX_MONTHS = 6;
 
 let syncOrdersIntervalId = null;
-
-class ItemsLoader {
-  constructor() {
-    this.result = null;
-  }
-
-  async loadItems({ commit, state }, { itemType, filters = {} }, reset) {
-    const { items } = state[itemType];
-
-    const filtersToApply = {
-      ...filters,
-      skip: reset ? 0 : items.length,
-      take: ITEMS_TO_LOAD,
-    };
-
-    const { getAll } = getEntityActions(itemType);
-
-    this.result = await getAll(filtersToApply);
-
-    if (reset) {
-      this.resetPrevious(commit, itemType);
-    }
-
-    this.setItems(commit, itemType);
-  }
-
-  setItems(commit, itemType) {
-    commit(INSERT_ITEMS, { itemType, items: this.result.data });
-
-    commit(SET_ITEMS_TOTAL, { itemType, total: this.result.total });
-    if (this.result.data.length < ITEMS_TO_LOAD) {
-      commit(SET_ALL_ITEMS_LOADED, itemType);
-    }
-  }
-
-  // eslint-disable-next-line
-  resetPrevious(commit, itemType) {
-    commit(RESET_ITEMS, itemType);
-  }
-}
-
-class ItemsLoaderWithCommission extends ItemsLoader {
-  // eslint-disable-next-line
-  constructor() {
-    super();
-  }
-
-  async loadItems({ commit, state }, { itemType, filters = {} }, resetPrevious) {
-    await super.loadItems({ commit, state }, { itemType, filters }, resetPrevious);
-
-    if (this.result.totalSum) {
-      this.setCommission(commit, itemType, this.result);
-    }
-  }
-
-  // eslint-disable-next-line
-  setCommission(commit, itemType, { totalSum }) {
-    const totalCommissions = totalSum ? getObjectFromArrayByKey(totalSum, 'key', 'value') : null;
-
-    if (totalCommissions) {
-      commit(SET_COMMISSIONS, { itemType, totalCommissions });
-    }
-  }
-}
 
 export default {
   [LOAD_ITEMS](store, data) {

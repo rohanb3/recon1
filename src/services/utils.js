@@ -59,11 +59,3 @@ export function generateCSVFile(CSVFile, fileName = 'report') {
   URL.revokeObjectURL(link.href);
   document.body.removeChild(link);
 }
-
-export function getObjectFromArrayByKey(array, ...props) {
-  const [key, value] = props || ['key'];
-  return array.reduce((acc, item) => {
-    acc[item[key]] = value ? item[value] : item;
-    return acc;
-  }, {});
-}

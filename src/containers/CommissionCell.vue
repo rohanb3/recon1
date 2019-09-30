@@ -3,7 +3,7 @@
     :column="column"
     :sorting-field="sortingField"
     :sort-direction="sortDirection"
-    :args="args"
+    :props="props"
   />
 </template>
 
@@ -12,6 +12,7 @@ import { mapGetters } from 'vuex';
 import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
 import { SORTING_DIRECTION } from '@/constants';
 
+// TODO: Refactor
 export default {
   name: 'CommissionCell',
   components: { SortingHeaderCell },
@@ -37,11 +38,11 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['storageData', 'totalCommissions']),
+    ...mapGetters(['storageData']),
     total() {
-      return this.totalCommissions(this.tableName);
+      return this.storageData(this.tableName).totalCommissions;
     },
-    args() {
+    props() {
       return { total: this.total[this.column.name] };
     },
   },
