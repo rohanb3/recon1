@@ -17,11 +17,11 @@ function getDisputesFiltersNames() {
 }
 
 export default tableName => {
-  console.log(tableName);
-  switch (tableName) {
-    case ENTITY_TYPES.DISPUTES_ORDERS:
+  const [entityTypes] = tableName.split('_');
+  switch (entityTypes) {
+    case ENTITY_TYPES.DISPUTES:
       return getDisputesFiltersNames();
-    case ENTITY_TYPES.CLAIMS_ORDERS:
+    case ENTITY_TYPES.CLAIMS:
       return getClaimsFilterNames();
     default:
       return {};

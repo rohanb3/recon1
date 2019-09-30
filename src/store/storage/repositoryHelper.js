@@ -1,4 +1,4 @@
-import { ENTITY_TYPES } from '@/constants';
+import { ENTITY_TYPES, TABLE_NAMES } from '@/constants';
 import { getOrders, getClaimsOrders } from '@/services/ordersRepository';
 import { getDisputes as getDisputeStatistics } from '@/services/statisticsRepository';
 import {
@@ -8,10 +8,10 @@ import {
 } from '@/services/disputesRepository';
 
 const handlers = {
-  [ENTITY_TYPES.CLAIMS_ORDERS]: {
+  [TABLE_NAMES.CLAIMS_ORDERS]: {
     getAll: getClaimsOrders,
   },
-  [ENTITY_TYPES.DISPUTES_ORDERS]: {
+  [TABLE_NAMES.DISPUTES_ORDERS]: {
     getAll: getOrders,
   },
   [ENTITY_TYPES.DISPUTES]: {

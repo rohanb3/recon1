@@ -9,7 +9,7 @@ import {
   SET_SYNC_ORDERS_STATUS,
 } from './mutationTypes';
 
-import { ENTITY_TYPES } from '@/constants';
+import { TABLE_NAMES } from '@/constants';
 
 export default {
   /* eslint-disable no-param-reassign */
@@ -40,7 +40,7 @@ export default {
     state[itemType].total = total;
   },
   [SET_SYNC_ORDERS_STATUS](state, status) {
-    state[ENTITY_TYPES.CLAIMS_ORDERS].syncOrdersStatus = status;
+    state[TABLE_NAMES.CLAIMS_ORDERS].syncOrdersStatus = status;
   },
   /* eslint-enable no-param-reassign */
 };
