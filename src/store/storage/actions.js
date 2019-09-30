@@ -37,40 +37,76 @@ const LAST_SIX_MONTHS = 6;
 
 let syncOrdersIntervalId = null;
 
-async function loadItems({ commit, state }, { itemType, filters = {} }, resetPrevious) {
-  const { items } = state[itemType];
-  const filtersToApply = {
-    ...filters,
-    skip: resetPrevious ? 0 : items.length,
-    take: ITEMS_TO_LOAD,
-  };
+class ItemsLoader {
+  constructor() {
+    this.result = null;
+  }
 
-  const { getAll } = getEntityActions(itemType);
-  const { data, total, totalSum } = await getAll(filtersToApply);
+  async loadItems({ commit, state }, { itemType, filters = {} }, reset) {
+    const { items } = state[itemType];
 
-  const totalCommissions = totalSum ? getObjectFromArrayByKey(totalSum, 'key', 'value') : null;
+    const filtersToApply = {
+      ...filters,
+      skip: reset ? 0 : items.length,
+      take: ITEMS_TO_LOAD,
+    };
 
-  if (resetPrevious) {
+    const { getAll } = getEntityActions(itemType);
+
+    this.result = await getAll(filtersToApply);
+
+    if (reset) {
+      this.resetPrevious(commit, itemType);
+    }
+
+    this.setItems(commit, itemType);
+  }
+
+  setItems(commit, itemType) {
+    commit(INSERT_ITEMS, { itemType, items: this.result.data });
+
+    commit(SET_ITEMS_TOTAL, { itemType, total: this.result.total });
+    if (this.result.data.length < ITEMS_TO_LOAD) {
+      commit(SET_ALL_ITEMS_LOADED, itemType);
+    }
+  }
+
+  // eslint-disable-next-line
+  resetPrevious(commit, itemType) {
     commit(RESET_ITEMS, itemType);
   }
+}
 
-  if (totalCommissions) {
-    commit(SET_COMMISSIONS, { itemType, totalCommissions });
+class ItemsLoaderWithCommission extends ItemsLoader {
+  // eslint-disable-next-line
+  constructor() {
+    super();
   }
-  commit(INSERT_ITEMS, { itemType, items: data });
 
-  commit(SET_ITEMS_TOTAL, { itemType, total });
-  if (data.length < ITEMS_TO_LOAD) {
-    commit(SET_ALL_ITEMS_LOADED, itemType);
+  async loadItems({ commit, state }, { itemType, filters = {} }, resetPrevious) {
+    await super.loadItems({ commit, state }, { itemType, filters }, resetPrevious);
+
+    if (this.result.totalSum) {
+      this.setCommission(commit, itemType, this.result);
+    }
+  }
+
+  // eslint-disable-next-line
+  setCommission(commit, itemType, { totalSum }) {
+    const totalCommissions = totalSum ? getObjectFromArrayByKey(totalSum, 'key', 'value') : null;
+
+    if (totalCommissions) {
+      commit(SET_COMMISSIONS, { itemType, totalCommissions });
+    }
   }
 }
 
 export default {
   [LOAD_ITEMS](store, data) {
-    return loadItems(store, data, true);
+    return new ItemsLoaderWithCommission().loadItems(store, data, true);
   },
   [LOAD_MORE_ITEMS](store, data) {
-    return loadItems(store, data, false);
+    return new ItemsLoaderWithCommission().loadItems(store, data, false);
   },
   async [CREATE_ITEM]({ commit }, { itemType, ...data }) {
     const { create } = getEntityActions(itemType);

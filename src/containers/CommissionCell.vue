@@ -13,7 +13,7 @@ import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
 import { SORTING_DIRECTION } from '@/constants';
 
 export default {
-  name: 'SortingCellWithData',
+  name: 'CommissionCell',
   components: { SortingHeaderCell },
   props: {
     column: {

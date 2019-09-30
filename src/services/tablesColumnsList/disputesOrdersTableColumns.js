@@ -107,7 +107,7 @@ export default () => [
     width: '6',
     minWidth: '85px',
     sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.EXPECTED_COMISSION,
-    fieldHeaderType: 'sortingCellWithData',
+    fieldHeaderType: 'commissionCell',
   },
   {
     name: 'receivedCommission',
@@ -118,7 +118,7 @@ export default () => [
     width: '6',
     minWidth: '85px',
     sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.RECIEVED_COMISSON,
-    fieldHeaderType: 'sortingCellWithData',
+    fieldHeaderType: 'commissionCell',
   },
   {
     name: 'difference',

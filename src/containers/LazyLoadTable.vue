@@ -59,7 +59,7 @@ import lazyLoadTable from '@/mixins/lazyLoadTable';
 import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
 import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
 
-import SortingCellWithData from '@/containers/SortingCellWithData';
+import CommissionCell from '@/containers/CommissionCell';
 
 export default {
   name: 'LazyLoadTable',
@@ -69,7 +69,7 @@ export default {
     TableLoader,
     DefaultHeaderCell,
     SortingHeaderCell,
-    SortingCellWithData,
+    CommissionCell,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   props: {
@@ -103,7 +103,7 @@ export default {
       headerComponentsHash: {
         default: 'DefaultHeaderCell',
         sortingHeader: 'SortingHeaderCell',
-        sortingCellWithData: 'SortingCellWithData',
+        commissionCell: 'CommissionCell',
       },
     };
   },
