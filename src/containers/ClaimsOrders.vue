@@ -1,14 +1,20 @@
 <template>
-  <orders-content toolbar-title="orders.select.order.claim" :table-name="tableName" />
+  <orders-content :table-name="tableName">
+    <claims-orders-toolbar slot="toolbar" :table-name="tableName" />
+  </orders-content>
 </template>
 
 <script>
-import OrdersContent from '@/containers/OrdersContent';
 import { ENTITY_TYPES } from '@/constants';
+import OrdersContent from './OrdersContent';
+import ClaimsOrdersToolbar from './ClaimsOrdersToolbar';
 
 export default {
   name: 'ClaimsOrders',
-  components: { OrdersContent },
+  components: {
+    ClaimsOrdersToolbar,
+    OrdersContent,
+  },
   computed: {
     tableName() {
       return ENTITY_TYPES.CLAIMS_ORDERS;

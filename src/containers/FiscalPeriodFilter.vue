@@ -27,6 +27,14 @@ export default {
       type: String,
       required: true,
     },
+    filteredFieldFrom: {
+      type: String,
+      required: true,
+    },
+    filteredFieldTo: {
+      type: String,
+      required: true,
+    },
   },
   mounted() {
     this.loadFiscalPeriodList();
@@ -76,11 +84,11 @@ export default {
         tableName: this.tableName,
         filters: [
           {
-            name: FILTER_NAMES.CREATED_FROM,
+            name: this.filteredFieldFrom,
             value: '',
           },
           {
-            name: FILTER_NAMES.CREATED_TO,
+            name: this.filteredFieldTo,
             value: '',
           },
           {

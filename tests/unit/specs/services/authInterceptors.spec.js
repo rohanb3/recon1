@@ -1,9 +1,9 @@
+import axios from 'axios';
 import interceptors, { authInterceptors } from '@/services/authInterceptors';
 import store from '@/store';
 import { SET_TOKEN } from '@/store/loggedInUser/mutationTypes';
 import { RESPONSE_STATUSES, ROUTE_NAMES } from '@/constants';
 import { REFRESH_TOKEN, USER_LOGOUT } from '@/store/loggedInUser/actionTypes';
-import axios from 'axios';
 
 describe('authInterceptors', () => {
   describe('requestInterceptor', () => {

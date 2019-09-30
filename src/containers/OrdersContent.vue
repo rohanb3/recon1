@@ -1,8 +1,6 @@
 <template>
-  <div class="orders-table" :class="`${this.tableName.toLowerCase()}-table`" v-if="isShowOrder">
-    <table-toolbar :title="$t(toolbarTitle)" :table-name="tableName">
-      <orders-table-toolbar :table-name="tableName" @syncOrders="onSyncOrders" slot="filters" />
-    </table-toolbar>
+  <div class="orders-table" :class="`${this.getTableName}-table`">
+    <slot name="toolbar" />
     <lazy-load-table
       :tableName="tableName"
       :item-key-name="columnIdName"
@@ -34,24 +32,22 @@ import PriceCell from '@/components/tableCells/PriceCell';
 import DisputeButtonCell from '@/components/tableCells/DisputeButtonCell';
 import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
 
-import OrdersTableToolbar from '@/containers/OrdersTableToolbar';
-
 import { TABLE_COLUMN_ID_NAMES } from '@/constants';
 
-import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
-
-import { successMessage } from '@/services/notifications';
 import SelectedRangeFilter from '../components/SelectedRangeFilter';
 import TableToolbar from '@/components/TableToolbar';
+import CustomRangeFilter from './CustomRangeFilter';
+import FiscalPeriodFilter from './FiscalPeriodFilter';
 
 export default {
   name: 'OrdersContent',
   components: {
+    FiscalPeriodFilter,
+    CustomRangeFilter,
     TableToolbar,
     SelectedRangeFilter,
     LazyLoadTable,
     DefaultCell,
-    OrdersTableToolbar,
     OrderAgeCell,
     OrderStatusCell,
     OrderNumberCell,
@@ -61,10 +57,6 @@ export default {
   },
   props: {
     tableName: {
-      type: String,
-      required: true,
-    },
-    toolbarTitle: {
       type: String,
       required: true,
     },
@@ -84,26 +76,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      'isShowOrderWithoutExpectedComission',
-      'isShowOrderWithExpectedComission',
-      'tableData',
-      'scopes',
-    ]),
-    isShowOrder() {
-      return this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission;
-    },
+    ...mapGetters(['tableData', 'scopes']),
     columnIdName() {
       return TABLE_COLUMN_ID_NAMES[this.tableName];
     },
     columns() {
       return this.tableData(this.tableName).columns;
     },
-  },
-  methods: {
-    onSyncOrders() {
-      this.$store.dispatch(START_SYNC_ORDERS);
-      successMessage('sync.started', 'sync.info');
+    getTableName() {
+      return this.tableName.toLowerCase();
     },
   },
 };

@@ -1,6 +1,6 @@
+import { mapState } from 'vuex';
 import { errorMessage } from '@/services/notifications';
 import { ENTITY_TYPES, FILTER_NAMES } from '@/constants';
-import { mapState } from 'vuex';
 import { CHANGE_ITEM } from '@/store/storage/mutationTypes';
 import { changeStatusDispute, getDispute } from '@/services/disputesRepository';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';

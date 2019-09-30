@@ -1,6 +1,6 @@
 import axios from 'axios';
-import store from '@/store';
 import debounce from 'lodash.debounce';
+import store from '@/store';
 import { REFRESH_TOKEN, USER_LOGOUT } from '@/store/loggedInUser/actionTypes';
 import { RESPONSE_STATUSES, ROUTE_NAMES } from '@/constants';
 import { SET_TOKEN, SET_PROMISE_REFRESH_TOKEN } from '@/store/loggedInUser/mutationTypes';
@@ -12,10 +12,12 @@ function requestInterceptor(request) {
   const { token } = store.state.loggedInUser;
 
   if (!request.disableAuthHeader && token) {
-    request.headers = {
+    const headers = {
       ...request.headers,
       Authorization: `Bearer ${token.accessToken}`,
     };
+
+    Object.assign(request, { headers });
   }
   return request;
 }

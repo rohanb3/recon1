@@ -21,11 +21,17 @@ import { ROUTE_NAMES } from '@/constants';
 import { USER_LOGOUT } from '@/store/loggedInUser/actionTypes';
 
 import AppHeader from '@/containers/AppHeader';
-import LHS from '@/containers/LHS';
+import DashboardSwitcher from '@/containers/typesSwitcher/DashboardSwitcher';
+import OrdersSwitcher from '@/containers/typesSwitcher/OrdersSwitcher';
+import LhsClaims from '@/containers/LHS/ClaimsLHS';
+import LhsDisputes from '@/containers/LHS/DisputesLHS';
 
 import identityApi from '@/services/identityApi';
 import disputesApi from '@/services/disputesApi';
 import applyAuthInterceptors from '@/services/authInterceptors';
+
+import ClaimsOrders from '@/containers/ClaimsOrders';
+import DisputesOrders from '@/containers/DisputesOrders';
 
 Vue.use(Router);
 
@@ -42,6 +48,17 @@ function loginGuard(to, from, next) {
     next({ name: ROUTE_NAMES.MAIN_PAGE });
   } else {
     next();
+  }
+}
+
+function ordersGuard(to, from, next) {
+  if (
+    store.getters.isShowOrderWithoutExpectedComission ||
+    store.getters.isShowOrderWithExpectedComission
+  ) {
+    next();
+  } else {
+    next({ name: ROUTE_NAMES.CLAIMS_DASHBOARD });
   }
 }
 
@@ -84,54 +101,85 @@ const router = new Router({
     {
       path: '/',
       name: ROUTE_NAMES.MAIN_PAGE,
-      redirect: { name: ROUTE_NAMES.SELECT_ORDER },
+      redirect: 'claims',
       component: Base,
       beforeEnter: authGuard,
       children: [
         {
           path: '',
-          redirect: 'select-order',
+          redirect: 'claims',
           components: {
             header: AppHeader,
-            lhs: LHS,
             main: AppContent,
             syncNotifier: SyncNotifier,
           },
           children: [
             {
-              path: 'select-order',
-              component: OrdersPage,
-              name: ROUTE_NAMES.SELECT_ORDER,
+              path: 'claims',
+              redirect: { name: ROUTE_NAMES.CLAIMS_ORDERS },
+              components: {
+                lhs: LhsClaims,
+                default: OrdersPage,
+              },
+              children: [
+                {
+                  path: 'dashboard',
+                  name: ROUTE_NAMES.CLAIMS_DASHBOARD,
+                  components: { switcher: DashboardSwitcher, content: DisputesDashboardPage },
+                },
+                {
+                  path: 'orders',
+                  name: ROUTE_NAMES.CLAIMS_ORDERS,
+                  components: { switcher: OrdersSwitcher, content: ClaimsOrders },
+                  beforeEnter: ordersGuard,
+                },
+                {
+                  path: 'list',
+                  name: ROUTE_NAMES.DISPUTE_LIST,
+                  components: { content: DisputesPage },
+                },
+                {
+                  path: 'edit/:disputeId',
+                  name: ROUTE_NAMES.EDIT_DISPUTE,
+                  components: { content: DisputePage },
+                },
+                {
+                  path: 'create/:orderId',
+                  name: ROUTE_NAMES.CREAT_DISPUTE,
+                  components: { content: DisputePage },
+                },
+                {
+                  path: 'by-submitters',
+                  name: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
+                  components: { content: DisputesBySubmittersTable },
+                },
+                {
+                  path: 'resubmission-table',
+                  components: { content: ResubmissionTable },
+                  name: ROUTE_NAMES.RESUBMISSION_TABLE,
+                },
+              ],
             },
             {
-              path: 'edit-dispute/:disputeId',
-              component: DisputePage,
-              name: ROUTE_NAMES.EDIT_DISPUTE,
-            },
-            {
-              path: 'creat-dispute/:orderId',
-              component: DisputePage,
-              name: ROUTE_NAMES.CREAT_DISPUTE,
-            },
-            {
-              path: 'dispute-list',
-              component: DisputesPage,
-              name: ROUTE_NAMES.DISPUTE_LIST,
-            },
-            {
-              path: 'disputes-by-submitters',
-              component: DisputesBySubmittersTable,
-              name: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
-            },
-            {
-              path: 'resubmission-table',
-              component: ResubmissionTable,
-              name: ROUTE_NAMES.RESUBMISSION_TABLE,
-            },
-            {
-              path: 'disputes-dashboard',
-              component: DisputesDashboardPage,
-              name: ROUTE_NAMES.DISPUTES_DASHBOARD,
+              path: 'disputes',
+              redirect: { name: ROUTE_NAMES.DISPUTES_ORDERS },
+              components: {
+                lhs: LhsDisputes,
+                default: OrdersPage,
+              },
+              children: [
+                {
+                  path: 'dashboard',
+                  name: ROUTE_NAMES.DISPUTES_DASHBOARD,
+                  components: { switcher: DashboardSwitcher, content: DisputesDashboardPage },
+                },
+                {
+                  path: 'orders',
+                  name: ROUTE_NAMES.DISPUTES_ORDERS,
+                  components: { switcher: OrdersSwitcher, content: DisputesOrders },
+                  beforeEnter: ordersGuard,
+                },
+              ],
             },
           ],
         },

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { getEntityActions } from './repositoryHelper';
 
 import {
@@ -26,8 +27,6 @@ import { ITEMS_TO_LOAD } from './constants';
 import { ORDER_SYNC_STATUS, ENTITY_TYPES } from '@/constants';
 
 import { orderSync, checkOrderSync } from '@/services/ordersRepository';
-
-import moment from 'moment';
 
 import config from '@/../config.json';
 
