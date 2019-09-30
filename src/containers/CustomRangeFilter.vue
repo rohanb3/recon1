@@ -13,6 +13,7 @@
 import TableDatesEditor from '@/components/TableDatesEditor';
 import { FILTER_NAMES } from '@/constants';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
+import contextRageFilterData from '@/mixins/contextRageFilterData';
 
 export default {
   name: 'CustomRangeFilter',
@@ -24,16 +25,8 @@ export default {
       type: String,
       required: true,
     },
-
-    filteredFieldFrom: {
-      type: String,
-      required: true,
-    },
-    filteredFieldTo: {
-      type: String,
-      required: true,
-    },
   },
+  mixins: [contextRageFilterData],
   computed: {
     filters() {
       return this.tableData.filters || {};
@@ -42,10 +35,10 @@ export default {
       return this.$store.state.tables[this.tableName] || {};
     },
     startDate() {
-      return this.filters[this.filteredFieldFrom];
+      return this.filters[this.fromFilterName];
     },
     endDate() {
-      return this.filters[this.filteredFieldTo];
+      return this.filters[this.toFilterName];
     },
     getTableName() {
       return this.tableName.toLowerCase();
@@ -57,11 +50,11 @@ export default {
         tableName: this.tableName,
         filters: [
           {
-            name: this.filteredFieldFrom,
+            name: this.fromFilterName,
             value: value.startDate,
           },
           {
-            name: this.filteredFieldTo,
+            name: this.toFilterName,
             value: value.endDate,
           },
           {
@@ -81,11 +74,11 @@ export default {
         tableName: this.tableName,
         filters: [
           {
-            name: this.filteredFieldFrom,
+            name: this.fromFilterName,
             value: '',
           },
           {
-            name: this.filteredFieldTo,
+            name: this.toFilterName,
             value: '',
           },
         ],

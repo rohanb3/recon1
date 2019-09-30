@@ -1,13 +1,8 @@
 <template>
   <table-toolbar :title="$t('orders.select.order.dispute')" :table-name="tableName">
-    <selected-range-filter
-      slot="toolbar-info"
-      :tableName="tableName"
-      :filtered-field-from="filteredFieldFrom"
-      :filtered-field-to="filteredFieldTo"
-    />
+    <selected-range-filter slot="toolbar-info" :tableName="tableName" />
     <div slot="filters" class="orders-table-toolbar">
-      <quick-search-filter :table-name="tableName" :filter-name="quickSearchFilterName" />
+      <quick-search-filter :table-name="tableName" />
       <div class="table-filter-container">
         <disputes-order-status-filter :table-name="tableName" />
         <orders-dispute-type-filter :table-name="tableName" />
@@ -16,16 +11,8 @@
       <div class="table-filter-container">
         <sync-orders :table-name="tableName" />
         <export-to-cvs-disputes :tableName="tableName" />
-        <fiscal-period-filter
-          :table-name="tableName"
-          :filtered-field-from="filteredFieldFrom"
-          :filtered-field-to="filteredFieldTo"
-        />
-        <custom-range-filter
-          :table-name="tableName"
-          :filtered-field-from="filteredFieldFrom"
-          :filtered-field-to="filteredFieldTo"
-        />
+        <fiscal-period-filter :table-name="tableName" />
+        <custom-range-filter :table-name="tableName" />
       </div>
     </div>
   </table-toolbar>
@@ -41,7 +28,6 @@ import ExportToCvsDisputes from './ExportToCvsDisputes';
 import DisputesOrderStatusFilter from './DisputesOrderStatusFilter';
 import OrdersDisputeTypeFilter from './OrdersDisputeTypeFilter';
 import SelectedRangeFilter from '@/components/SelectedRangeFilter';
-import { FILTER_NAMES } from '@/constants';
 
 export default {
   name: 'DisputesOrdersToolbar',
@@ -56,17 +42,6 @@ export default {
     QuickSearchFilter,
     TableToolbar,
     SelectedRangeFilter,
-  },
-  computed: {
-    filteredFieldFrom() {
-      return FILTER_NAMES.INSTALLATION_DATE_FROM;
-    },
-    filteredFieldTo() {
-      return FILTER_NAMES.INSTALLATION_DATE_TO;
-    },
-    quickSearchFilterName() {
-      return FILTER_NAMES.SEARCH_ORDERS;
-    },
   },
 };
 </script>
