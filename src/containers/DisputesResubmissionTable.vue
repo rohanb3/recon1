@@ -1,5 +1,5 @@
 <template>
-  <div class="resubmission-table" v-if="isShowResubmissionTable">
+  <div class="resubmission-table">
     <table-toolbar :title="$t('resubmission.table.title')" :table-name="tableName">
       <resubmission-table-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
@@ -50,7 +50,7 @@ import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmR
 
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 
-import { ENTITY_TYPES } from '@/constants';
+import { TABLE_NAMES } from '@/constants';
 import TableToolbar from '@/components/TableToolbar';
 
 export default {
@@ -64,7 +64,7 @@ export default {
   mixins: [disputeCommonTable],
   data() {
     return {
-      tableName: ENTITY_TYPES.RESUBMISSION,
+      tableName: TABLE_NAMES.DISPUTES_RESUBMISSION,
       isShowApproveConfirmationPopup: false,
       isShowRejectConfirmationPopup: false,
       rowComponentsHash: {
@@ -90,7 +90,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['isShowResubmissionTable', 'scopes']),
+    ...mapGetters(['scopes']),
   },
 };
 </script>
@@ -116,8 +116,8 @@ export default {
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
-        #{$table-header-height-offset}
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} -
+        #{$table-header-height} - #{$table-header-height-offset}
     );
   }
 }

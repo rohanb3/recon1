@@ -29,6 +29,10 @@ export const getDisputes = params => {
   return apiDisputes.get('/dispute', { params, paramsSerializer }).then(({ data }) => data);
 };
 
+export const getClaims = params => {
+  return apiDisputes.get('/claim', { params, paramsSerializer }).then(({ data }) => data);
+};
+
 export const createDispute = orderId => {
   return apiDisputes.post(`/dispute?orderId=${orderId}`).then(({ data }) => data);
 };

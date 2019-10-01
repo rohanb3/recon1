@@ -19,7 +19,11 @@ export default {
       items: [],
       allItemsLoaded: false,
     },
-    [ENTITY_TYPES.RESUBMISSION]: {
+    [TABLE_NAMES.CLAIMS_RESUBMISSION]: {
+      items: [],
+      allItemsLoaded: false,
+    },
+    [TABLE_NAMES.DISPUTES_RESUBMISSION]: {
       items: [],
       allItemsLoaded: false,
     },

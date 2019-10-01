@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { ROUTE_NAMES } from '@/constants';
 import LhsMenu from './LhsMenu';
 
@@ -10,6 +11,12 @@ export default {
   name: 'disputes',
   components: { LhsMenu },
   computed: {
+    ...mapGetters([
+      'isShowOrderWithoutExpectedComission',
+      'isShowOrderWithExpectedComission',
+      'isShowDispute',
+      'isShowResubmissionTable',
+    ]),
     items() {
       return [
         {
@@ -22,7 +29,14 @@ export default {
           title: this.$t('orders'),
           routeName: ROUTE_NAMES.DISPUTES_ORDERS,
           visible:
-            this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission,
+            this.isShowOrderWithoutExpectedComission ||
+            this.isShowOrderWithExpectedComission,
+        },
+        {
+          action: 'view_list',
+          title: this.$t('resubmission.table.title'),
+          routeName: ROUTE_NAMES.DISPUTES_RESUBMISSION,
+          visible: this.isShowResubmissionTable,
         },
         {
           action: 'face',
