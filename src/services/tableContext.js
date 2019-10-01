@@ -18,7 +18,10 @@ function getDisputesFiltersNames() {
 
 export default tableName => {
   const [entityTypes] = tableName.split('_');
+  // console.log(entityTypes);
   switch (entityTypes) {
+    // dashboard
+    // orders
     case ENTITY_TYPES.DISPUTES:
       return getDisputesFiltersNames();
     case ENTITY_TYPES.CLAIMS:

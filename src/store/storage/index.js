@@ -27,11 +27,11 @@ export default {
       items: [],
       allItemsLoaded: false,
     },
-    [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
+    [TABLE_NAMES.CLAIMS_DASHBOARD]: {
       items: [],
       allItemsLoaded: false,
     },
-    [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
+    [TABLE_NAMES.DISPUTES_DASHBOARD]: {
       items: [],
       allItemsLoaded: false,
     },

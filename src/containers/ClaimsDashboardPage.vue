@@ -35,7 +35,7 @@ export default {
   mixins: [lazyLoadTable],
   data() {
     return {
-      tableName: TABLE_NAMES.DISPUTES_DASHBOARD,
+      tableName: TABLE_NAMES.CLAIMS_DASHBOARD,
       initialLoad: true,
       resetDataBeforeLeave: true,
     };
