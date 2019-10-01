@@ -1,10 +1,8 @@
 <template>
-  <div class="disputes-table disputes_by_submitters-table">
-    <div class="table-toolbar">
-      <table-toolbar :table-name="tableName" :title="$t('disputes.statistics.by.submitters')">
-        <disputes-by-submitters-table-toolbar :tableName="tableName" slot="filters" />
-      </table-toolbar>
-    </div>
+  <div class="claims-table claims_by_submitters-table">
+    <table-toolbar :table-name="tableName" :title="$t('claims.statistics.by.submitters')">
+      <disputes-by-submitters-table-toolbar :tableName="tableName" slot="filters" />
+    </table-toolbar>
     <disputes-by-submitters-badges />
     <lazy-load-table :tableName="tableName">
       <component
@@ -34,7 +32,7 @@ import DisputesBySubmittersBadges from '@/containers/DisputesBySubmittersBadges'
 
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 
-import { ENTITY_TYPES } from '@/constants';
+import { TABLE_NAMES } from '@/constants';
 
 import dateRange from '@/filters/boundaries';
 import TableToolbar from '../components/TableToolbar';
@@ -59,7 +57,7 @@ export default {
   mixins: [disputeCommonTable],
   data() {
     return {
-      tableName: ENTITY_TYPES.DISPUTES_BY_SUBMITTERS,
+      tableName: TABLE_NAMES.CLAIMS_BY_SUBMITTERS,
       rowComponentsHash: {
         default: 'DefaultCell',
         percent: 'PercentCell',
@@ -71,24 +69,20 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins.scss';
-.disputes_by_submitters-table {
+.claims_by_submitters-table {
   @include table-base-container;
 }
-.table-toolbar {
-  @include table-base-toolbar;
-  padding: 0;
-  height: 95px;
-}
+
 .table-title {
   @include table-base-title;
 }
-.disputes_by_submitters-table /deep/ {
+.claims_by_submitters-table /deep/ {
   height: 100%;
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
-        80px
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} -
+        #{$table-header-height} - 80px
     );
   }
 

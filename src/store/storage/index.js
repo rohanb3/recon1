@@ -23,7 +23,11 @@ export default {
       items: [],
       allItemsLoaded: false,
     },
-    [ENTITY_TYPES.DISPUTES_BY_SUBMITTERS]: {
+    [TABLE_NAMES.CLAIMS_BY_SUBMITTERS]: {
+      items: [],
+      allItemsLoaded: false,
+    },
+    [TABLE_NAMES.DISPUTES_BY_SUBMITTERS]: {
       items: [],
       allItemsLoaded: false,
     },

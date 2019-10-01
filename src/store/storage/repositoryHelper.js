@@ -8,6 +8,7 @@ import {
   getDisputes,
   getDisputeHistory,
   getDisputesStatisticsBySubmitters,
+  getClaimsStatisticsBySubmitters,
 } from '@/services/disputesRepository';
 
 const handlers = {
@@ -23,7 +24,10 @@ const handlers = {
   [ENTITY_TYPES.RESUBMISSION]: {
     getAll: getDisputes,
   },
-  [ENTITY_TYPES.DISPUTES_BY_SUBMITTERS]: {
+  [TABLE_NAMES.CLAIMS_BY_SUBMITTERS]: {
+    getAll: getClaimsStatisticsBySubmitters,
+  },
+  [TABLE_NAMES.DISPUTES_BY_SUBMITTERS]: {
     getAll: getDisputesStatisticsBySubmitters,
   },
   [TABLE_NAMES.CLAIMS_DASHBOARD]: {
