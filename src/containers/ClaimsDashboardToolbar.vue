@@ -19,7 +19,7 @@ import OrderAgeFilter from '@/containers/OrderAgeFilter';
 import DisputAgeFilter from '@/containers/DisputAgeFilter';
 
 export default {
-  name: 'DisputesDashboardToolbar',
+  name: 'ClaimsDashboardToolbar',
   components: {
     OrderAgeFilter,
     DisputAgeFilter,

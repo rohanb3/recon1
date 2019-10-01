@@ -23,7 +23,7 @@ import { TABLE_NAMES } from '@/constants';
 import TableToolbar from '@/components/TableToolbar';
 
 export default {
-  name: 'DisputesDashboardPage',
+  name: 'ClaimsDashboardPage',
   components: {
     TableToolbar,
     ClaimsDashboardToolbar,
