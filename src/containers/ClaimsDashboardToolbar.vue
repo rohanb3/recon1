@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid grid-list-md class="disputes-dashboard-toolbar">
+  <v-container fluid grid-list-md class="claims-dashboard-toolbar">
     <div class="table-filter-container">
-      <installation-age-filter :table-name="tableName" />
+      <order-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
     </div>
     <v-spacer />
@@ -15,13 +15,13 @@
 <script>
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
-import InstallationAgeFilter from '@/containers/InstallationAgeFilter';
+import OrderAgeFilter from '@/containers/OrderAgeFilter';
 import DisputAgeFilter from '@/containers/DisputAgeFilter';
 
 export default {
   name: 'DisputesDashboardToolbar',
   components: {
-    InstallationAgeFilter,
+    OrderAgeFilter,
     DisputAgeFilter,
     FiscalPeriodFilter,
     CustomRangeFilter,
@@ -38,7 +38,7 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins.scss';
 
-.disputes-dashboard-toolbar {
+.claims-dashboard-toolbar {
   align-items: center;
   display: flex;
   flex: 1;
