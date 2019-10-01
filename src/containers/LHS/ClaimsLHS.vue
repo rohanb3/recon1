@@ -29,8 +29,7 @@ export default {
           title: this.$t('orders'),
           routeName: ROUTE_NAMES.CLAIMS_ORDERS,
           visible:
-            this.isShowOrderWithoutExpectedComission ||
-            this.isShowOrderWithExpectedComission,
+            this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission,
         },
         {
           action: 'list_alt',
