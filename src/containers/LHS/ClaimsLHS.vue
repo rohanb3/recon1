@@ -22,7 +22,8 @@ export default {
           title: this.$t('orders'),
           routeName: ROUTE_NAMES.CLAIMS_ORDERS,
           visible:
-            this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission,
+            this.isShowOrderWithoutExpectedComission ||
+            this.isShowOrderWithExpectedComission,
         },
         {
           action: 'list_alt',
@@ -39,7 +40,7 @@ export default {
         {
           action: 'face',
           title: this.$t('claims.by.submitters'),
-          routeName: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
+          routeName: ROUTE_NAMES.CLAIMS_BY_SUBMITTERS,
         },
         {
           action: 'build',

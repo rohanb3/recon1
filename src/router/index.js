@@ -10,6 +10,7 @@ import DisputesPage from '@/containers/DisputesPage';
 import ResubmissionTable from '@/containers/ResubmissionTable';
 import SyncNotifier from '@/containers/SyncNotifier';
 import DisputesBySubmittersTable from '@/containers/DisputesBySubmittersTable';
+import ClaimsBySubmittersTable from '@/containers/ClaimsBySubmittersTable';
 
 import LoginPage from '@/containers/LoginPage';
 import PasswordRecoveryPage from '@/containers/PasswordRecoveryPage';
@@ -24,6 +25,7 @@ import { USER_LOGOUT } from '@/store/loggedInUser/actionTypes';
 import AppHeader from '@/containers/AppHeader';
 import DashboardSwitcher from '@/containers/typesSwitcher/DashboardSwitcher';
 import OrdersSwitcher from '@/containers/typesSwitcher/OrdersSwitcher';
+import SubmittersSwitcher from '@/containers/typesSwitcher/SubmittersSwitcher';
 import LhsClaims from '@/containers/LHS/ClaimsLHS';
 import LhsDisputes from '@/containers/LHS/DisputesLHS';
 
@@ -151,8 +153,8 @@ const router = new Router({
                 },
                 {
                   path: 'by-submitters',
-                  name: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
-                  components: { content: DisputesBySubmittersTable },
+                  name: ROUTE_NAMES.CLAIMS_BY_SUBMITTERS,
+                  components: { switcher: SubmittersSwitcher, content: ClaimsBySubmittersTable },
                 },
                 {
                   path: 'resubmission-table',
@@ -179,6 +181,11 @@ const router = new Router({
                   name: ROUTE_NAMES.DISPUTES_ORDERS,
                   components: { switcher: OrdersSwitcher, content: DisputesOrders },
                   beforeEnter: ordersGuard,
+                },
+                {
+                  path: 'by-submitters',
+                  name: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
+                  components: { switcher: SubmittersSwitcher, content: DisputesBySubmittersTable },
                 },
               ],
             },

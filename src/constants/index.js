@@ -199,6 +199,7 @@ export const ROUTE_NAMES = {
   EDIT_DISPUTE: 'edit-dispute',
   CREAT_DISPUTE: 'creat-dispute',
   DISPUTE_LIST: 'dispute-list',
+  CLAIMS_BY_SUBMITTERS: 'claims-by-submitters',
   DISPUTES_BY_SUBMITTERS: 'disputes-by-submitters',
   RESUBMISSION_TABLE: 'resubmission-table',
   LOGIN: 'login',
