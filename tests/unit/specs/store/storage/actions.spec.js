@@ -26,7 +26,7 @@ import {
 import * as repositoryHelper from '@/store/storage/repositoryHelper';
 import * as ordersRepository from '@/services/ordersRepository';
 
-import { ORDER_SYNC_STATUS, ENTITY_TYPES } from '@/constants';
+import { ORDER_SYNC_STATUS, TABLE_NAMES } from '@/constants';
 
 const itemType = 'SOME_TYPE';
 
@@ -281,7 +281,7 @@ describe('storage actions: ', () => {
         dispatch: jest.fn(),
         rootState: {
           tables: {
-            [ENTITY_TYPES.CLAIMS_ORDERS]: {
+            [TABLE_NAMES.CLAIMS_ORDERS]: {
               filters: {},
             },
           },
@@ -295,8 +295,8 @@ describe('storage actions: ', () => {
       await actions[POLLING_ORDER_SYNC](fakeStore, taskId);
 
       expect(fakeStore.dispatch).toHaveBeenCalledWith(LOAD_ITEMS, {
-        itemType: ENTITY_TYPES.CLAIMS_ORDERS,
-        filters: fakeStore.rootState.tables[ENTITY_TYPES.CLAIMS_ORDERS].filters,
+        itemType: TABLE_NAMES.CLAIMS_ORDERS,
+        filters: fakeStore.rootState.tables[TABLE_NAMES.CLAIMS_ORDERS].filters,
       });
       expect(ordersRepository.checkOrderSync).toHaveBeenCalledWith(taskId);
       expect(fakeStore.commit).toHaveBeenCalledWith(

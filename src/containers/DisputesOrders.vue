@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { ENTITY_TYPES } from '@/constants';
+import { TABLE_NAMES } from '@/constants';
 import OrdersContent from './OrdersContent';
 import DisputesOrdersToolbar from './DisputesOrdersToolbar';
 
@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     tableName() {
-      return ENTITY_TYPES.DISPUTES_ORDERS;
+      return TABLE_NAMES.DISPUTES_ORDERS;
     },
   },
 };

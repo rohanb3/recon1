@@ -16,6 +16,7 @@ import PasswordRecoveryPage from '@/containers/PasswordRecoveryPage';
 import VerificationCodePage from '@/containers/VerificationCodePage';
 import ResetPasswordPage from '@/containers/ResetPasswordPage';
 import DisputesDashboardPage from '@/containers/DisputesDashboardPage';
+import ClaimsDashboardPage from '@/containers/ClaimsDashboardPage';
 
 import { ROUTE_NAMES } from '@/constants';
 import { USER_LOGOUT } from '@/store/loggedInUser/actionTypes';
@@ -125,7 +126,7 @@ const router = new Router({
                 {
                   path: 'dashboard',
                   name: ROUTE_NAMES.CLAIMS_DASHBOARD,
-                  components: { switcher: DashboardSwitcher, content: DisputesDashboardPage },
+                  components: { switcher: DashboardSwitcher, content: ClaimsDashboardPage },
                 },
                 {
                   path: 'orders',

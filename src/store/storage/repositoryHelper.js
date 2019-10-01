@@ -1,6 +1,9 @@
-import { ENTITY_TYPES } from '@/constants';
+import { ENTITY_TYPES, TABLE_NAMES } from '@/constants';
 import { getOrders, getClaimsOrders } from '@/services/ordersRepository';
-import { getDisputes as getDisputeStatistics } from '@/services/statisticsRepository';
+import {
+  getDisputes as getDisputeStatistics,
+  getClaims as getClaimsStatistics,
+} from '@/services/statisticsRepository';
 import {
   getDisputes,
   getDisputeHistory,
@@ -8,10 +11,10 @@ import {
 } from '@/services/disputesRepository';
 
 const handlers = {
-  [ENTITY_TYPES.CLAIMS_ORDERS]: {
+  [TABLE_NAMES.CLAIMS_ORDERS]: {
     getAll: getClaimsOrders,
   },
-  [ENTITY_TYPES.DISPUTES_ORDERS]: {
+  [TABLE_NAMES.DISPUTES_ORDERS]: {
     getAll: getOrders,
   },
   [ENTITY_TYPES.DISPUTES]: {
@@ -23,7 +26,10 @@ const handlers = {
   [ENTITY_TYPES.DISPUTES_BY_SUBMITTERS]: {
     getAll: getDisputesStatisticsBySubmitters,
   },
-  [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
+  [TABLE_NAMES.CLAIMS_DASHBOARD]: {
+    getAll: getClaimsStatistics,
+  },
+  [TABLE_NAMES.DISPUTES_DASHBOARD]: {
     getAll: getDisputeStatistics,
   },
   [ENTITY_TYPES.DISPUTE_HISTORY]: {
