@@ -1,5 +1,5 @@
 <template>
-  <div class="resubmission-table">
+  <div class="disputes_resubmission-table">
     <table-toolbar :title="$t('resubmission.table.title')" :table-name="tableName">
       <resubmission-table-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
@@ -97,7 +97,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins.scss';
-.resubmission-table {
+.disputes_resubmission-table {
   @include table-base-container;
 }
 .table-toolbar {
@@ -107,17 +107,17 @@ export default {
   @include table-base-title;
 }
 
-.resubmission-table__header {
+.disputes_resubmission-table__header {
   @include table__header;
 }
 
-.resubmission-table /deep/ {
+.disputes_resubmission-table /deep/ {
   height: 100%;
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
-        #{$table-header-height-offset}
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} -
+        #{$table-header-height} - #{$table-header-height-offset}
     );
   }
 }
