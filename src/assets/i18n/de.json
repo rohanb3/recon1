@@ -231,5 +231,6 @@
   "dispute.history.status.description": "TBD Status Description",
   "selected.fiscal.period": "TBD Selected fiscal period",
   "date": "TBD Date",
-  "money": "TBD Money"
+  "money": "TBD Money",
+  "claims.statistics.by.submitters": "TBD Claims statistics by submitters"
 }
