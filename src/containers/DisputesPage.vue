@@ -1,5 +1,5 @@
 <template>
-  <div class="disputes-table" v-if="isShowDispute">
+  <div class="disputes-table">
     <table-toolbar :title="$t('disputes.title')" :table-name="tableName">
       <disputes-table-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
@@ -90,7 +90,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['isShowDispute', 'isPatchDispute', 'scopes']),
+    ...mapGetters(['isPatchDispute', 'scopes']),
   },
 };
 </script>
