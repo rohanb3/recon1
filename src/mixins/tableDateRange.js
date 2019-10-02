@@ -5,11 +5,15 @@ export default {
   props: {
     filteredFieldFrom: {
       type: String,
-      required: true,
+      default() {
+        return '';
+      },
     },
     filteredFieldTo: {
       type: String,
-      required: true,
+      default() {
+        return '';
+      },
     },
   },
   computed: {

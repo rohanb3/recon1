@@ -243,5 +243,9 @@
   "orders.order.status.paid": "Paid",
   "order.installed.without.commission.received": "Order Installed Without Commission Received",
   "commission.received.more.expected": "Commission Received More Expected",
-  "commission.received.less.expected": "Commission Received Less Expected"
+  "commission.received.less.expected": "Commission Received Less Expected",
+  "disputes.age.after.claim": "Age (after claim)",
+  "disputes.claims.status": "Spectrum Claim status",
+  "claim.title": "Claim List With Statuses",
+  "disputes.claim.type": "Claim type"
 }

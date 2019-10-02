@@ -23,6 +23,7 @@ import { USER_LOGOUT } from '@/store/loggedInUser/actionTypes';
 import AppHeader from '@/containers/AppHeader';
 import DashboardSwitcher from '@/containers/typesSwitcher/DashboardSwitcher';
 import OrdersSwitcher from '@/containers/typesSwitcher/OrdersSwitcher';
+import DisputesSwitcher from '@/containers/typesSwitcher/DisputesSwitcher';
 import LhsClaims from '@/containers/LHS/ClaimsLHS';
 import LhsDisputes from '@/containers/LHS/DisputesLHS';
 
@@ -32,6 +33,8 @@ import applyAuthInterceptors from '@/services/authInterceptors';
 
 import ClaimsOrders from '@/containers/ClaimsOrders';
 import DisputesOrders from '@/containers/DisputesOrders';
+
+import ClaimsDisputes from '../containers/ClaimsDisputes';
 
 Vue.use(Router);
 
@@ -131,6 +134,12 @@ const router = new Router({
                   path: 'orders',
                   name: ROUTE_NAMES.CLAIMS_ORDERS,
                   components: { switcher: OrdersSwitcher, content: ClaimsOrders },
+                  beforeEnter: ordersGuard,
+                },
+                {
+                  path: 'disputes',
+                  name: ROUTE_NAMES.CLAIMS_DISPUTES,
+                  components: { switcher: DisputesSwitcher, content: ClaimsDisputes },
                   beforeEnter: ordersGuard,
                 },
                 {

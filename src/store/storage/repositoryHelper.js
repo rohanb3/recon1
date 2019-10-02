@@ -5,6 +5,7 @@ import {
   getDisputes,
   getDisputeHistory,
   getDisputesStatisticsBySubmitters,
+  getClaims,
 } from '@/services/disputesRepository';
 
 const handlers = {
@@ -28,6 +29,9 @@ const handlers = {
   },
   [ENTITY_TYPES.DISPUTE_HISTORY]: {
     getAll: getDisputeHistory,
+  },
+  [ENTITY_TYPES.CLAIMS_DISPUTES]: {
+    getAll: getClaims,
   },
 };
 

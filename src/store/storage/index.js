@@ -39,6 +39,10 @@ export default {
       items: [],
       allItemsLoaded: false,
     },
+    [ENTITY_TYPES.CLAIMS_DISPUTES]: {
+      items: [],
+      allItemsLoaded: false,
+    },
   },
   getters,
   actions,

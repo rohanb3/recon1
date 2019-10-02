@@ -5,6 +5,7 @@ import {
   getDisputesBySubmittersColumns,
   getDisputeHistoryTableColumns,
   getDisputesOrdersTableColumns,
+  getClaimsDisputesTableColumns,
 } from '@/services/tablesColumnsList';
 import { ENTITY_TYPES } from '@/constants';
 
@@ -47,6 +48,11 @@ const state = {
     columns: getDisputeHistoryTableColumns(),
     filters: getDefaultFilters(ENTITY_TYPES.DISPUTE_HISTORY),
     applyingFilters: true,
+  },
+  [ENTITY_TYPES.CLAIMS_DISPUTES]: {
+    columns: getClaimsDisputesTableColumns(),
+    filters: getDefaultFilters(ENTITY_TYPES.CLAIMS_DISPUTES),
+    applyingFilters: false,
   },
 };
 

@@ -79,3 +79,11 @@ export const getDisputeHistory = filters => {
   const { disputeId, ...params } = filters;
   return apiDisputes.get(`/dispute/${disputeId}/history`, { params }).then(({ data }) => data);
 };
+
+export const getClaims = params => {
+  return apiDisputes.get('/claim', { params, paramsSerializer }).then(({ data }) => data);
+};
+
+export const getClaimTypes = () => {
+  return apiDisputes.get('/claim/type').then(({ data }) => data);
+};

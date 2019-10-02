@@ -151,6 +151,7 @@ export const ENTITY_TYPES = {
   CLAIMS: 'CLAIMS',
   CLAIMS_ORDERS: 'CLAIMS_ORDERS',
   DISPUTES_ORDERS: 'DISPUTES_ORDERS',
+  CLAIMS_DISPUTES: 'CLAIMS_DISPUTES',
 };
 
 export const DISPUTES_BY_SUBMITTERS_STATISTICS_TYPES = {
@@ -183,6 +184,8 @@ export const FILTER_NAMES = {
   INSTALLATION_DATE_FROM: 'InstallationDateFrom',
   INSTALLATION_DATE_TO: 'InstallationDateTo',
   TYPE: 'Type',
+  CLAIMS_AGE_FROM: 'CreationAgeFrom',
+  CLAIMS_AGE_TO: 'CreationAgeTo',
 };
 
 export const TABLE_COLUMN_ID_NAMES = {
@@ -207,6 +210,7 @@ export const ROUTE_NAMES = {
   CLAIMS_DASHBOARD: 'claims-dashboard',
   CLAIMS_ORDERS: 'claims-orders',
   DISPUTES_ORDERS: 'disputes-orders',
+  CLAIMS_DISPUTES: 'claims-disputes',
 };
 
 export const ROLE_TYPES = {
