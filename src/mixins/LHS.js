@@ -1,4 +1,4 @@
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 import LhsItemHeader from '@/components/LHS/LHSItemHeader';
 import LhsItem from '@/components/LHS/LHSItem';
@@ -14,13 +14,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      'isShowOrderWithoutExpectedComission',
-      'isShowDisputeDashboard',
-      'isShowDispute',
-      'isShowResubmissionTable',
-      'isShowOrderWithExpectedComission',
-    ]),
     ...mapState({
       isTinySidebar: state => state.uiState.tinySidebarStatus,
     }),

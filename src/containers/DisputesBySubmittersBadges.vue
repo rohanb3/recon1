@@ -8,7 +8,7 @@
 <script>
 import badgeLoadData from '@/mixins/badgeLoadData';
 
-import { ENTITY_TYPES } from '@/constants';
+import { TABLE_NAMES } from '@/constants';
 
 import { getDisputesStatistics } from '@/services/disputesRepository';
 import transformDataFromResponse from '@/services/disputesBySubmitters/transformDataFromResponse';
@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      tableName: ENTITY_TYPES.DISPUTES_BY_SUBMITTERS,
+      tableName: TABLE_NAMES.DISPUTES_BY_SUBMITTERS,
       statistics: {},
     };
   },

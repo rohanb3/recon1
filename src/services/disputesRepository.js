@@ -15,8 +15,22 @@ export const getDisputesStatisticsBySubmitters = filters => {
   );
 };
 
+export const getClaimsStatisticsBySubmitters = filters => {
+  const params = { ...filters };
+
+  return apiDisputes.get(`/claims/statistic/submitters`, { params }).then(data =>
+    Object.assign(data, {
+      data: (data.data.data || []).map(item => ({ ...item, id: item.creator.ObjectId })),
+    })
+  );
+};
+
 export const getDisputes = params => {
   return apiDisputes.get('/dispute', { params, paramsSerializer }).then(({ data }) => data);
+};
+
+export const getClaims = params => {
+  return apiDisputes.get('/claim', { params, paramsSerializer }).then(({ data }) => data);
 };
 
 export const createDispute = orderId => {

@@ -7,9 +7,11 @@ import AppContent from '@/containers/AppContent';
 import OrdersPage from '@/containers/OrdersPage';
 import DisputePage from '@/containers/DisputePage';
 import DisputesPage from '@/containers/DisputesPage';
-import ResubmissionTable from '@/containers/ResubmissionTable';
+import ClaimsResubmissionTable from '@/containers/ClaimsResubmissionTable';
+import DisputesResubmissionTable from '@/containers/DisputesResubmissionTable';
 import SyncNotifier from '@/containers/SyncNotifier';
 import DisputesBySubmittersTable from '@/containers/DisputesBySubmittersTable';
+import ClaimsBySubmittersTable from '@/containers/ClaimsBySubmittersTable';
 
 import LoginPage from '@/containers/LoginPage';
 import PasswordRecoveryPage from '@/containers/PasswordRecoveryPage';
@@ -24,6 +26,8 @@ import { USER_LOGOUT } from '@/store/loggedInUser/actionTypes';
 import AppHeader from '@/containers/AppHeader';
 import DashboardSwitcher from '@/containers/typesSwitcher/DashboardSwitcher';
 import OrdersSwitcher from '@/containers/typesSwitcher/OrdersSwitcher';
+import SubmittersSwitcher from '@/containers/typesSwitcher/SubmittersSwitcher';
+import ResubmissionTableSwitcher from '@/containers/typesSwitcher/ResubmissionTableSwitcher';
 import LhsClaims from '@/containers/LHS/ClaimsLHS';
 import LhsDisputes from '@/containers/LHS/DisputesLHS';
 
@@ -57,6 +61,14 @@ function ordersGuard(to, from, next) {
     store.getters.isShowOrderWithoutExpectedComission ||
     store.getters.isShowOrderWithExpectedComission
   ) {
+    next();
+  } else {
+    next({ name: ROUTE_NAMES.CLAIMS_DASHBOARD });
+  }
+}
+
+function resubmissionGuard(to, from, next) {
+  if (store.getters.isShowResubmissionTable) {
     next();
   } else {
     next({ name: ROUTE_NAMES.CLAIMS_DASHBOARD });
@@ -150,14 +162,18 @@ const router = new Router({
                   components: { content: DisputePage },
                 },
                 {
-                  path: 'by-submitters',
-                  name: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
-                  components: { content: DisputesBySubmittersTable },
+                  path: 'submitters',
+                  name: ROUTE_NAMES.CLAIMS_BY_SUBMITTERS,
+                  components: { switcher: SubmittersSwitcher, content: ClaimsBySubmittersTable },
                 },
                 {
-                  path: 'resubmission-table',
-                  components: { content: ResubmissionTable },
-                  name: ROUTE_NAMES.RESUBMISSION_TABLE,
+                  path: 'resubmission',
+                  name: ROUTE_NAMES.CLAIMS_RESUBMISSION,
+                  components: {
+                    switcher: ResubmissionTableSwitcher,
+                    content: ClaimsResubmissionTable,
+                  },
+                  beforeEnter: resubmissionGuard,
                 },
               ],
             },
@@ -179,6 +195,20 @@ const router = new Router({
                   name: ROUTE_NAMES.DISPUTES_ORDERS,
                   components: { switcher: OrdersSwitcher, content: DisputesOrders },
                   beforeEnter: ordersGuard,
+                },
+                {
+                  path: 'submitters',
+                  name: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
+                  components: { switcher: SubmittersSwitcher, content: DisputesBySubmittersTable },
+                },
+                {
+                  path: 'resubmission',
+                  name: ROUTE_NAMES.DISPUTES_RESUBMISSION,
+                  components: {
+                    switcher: ResubmissionTableSwitcher,
+                    content: DisputesResubmissionTable,
+                  },
+                  beforeEnter: resubmissionGuard,
                 },
               ],
             },

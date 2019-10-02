@@ -29,14 +29,24 @@ const state = {
     filters: getDefaultFilters(ENTITY_TYPES.DISPUTES),
     applyingFilters: false,
   },
-  [ENTITY_TYPES.RESUBMISSION]: {
+  [TABLE_NAMES.CLAIMS_RESUBMISSION]: {
     columns: getResubmissionTableColumns(),
-    filters: getDefaultFilters(ENTITY_TYPES.RESUBMISSION),
+    filters: getDefaultFilters(TABLE_NAMES.CLAIMS_RESUBMISSION),
     applyingFilters: false,
   },
-  [ENTITY_TYPES.DISPUTES_BY_SUBMITTERS]: {
+  [TABLE_NAMES.DISPUTES_RESUBMISSION]: {
+    columns: getResubmissionTableColumns(),
+    filters: getDefaultFilters(TABLE_NAMES.DISPUTES_RESUBMISSION),
+    applyingFilters: false,
+  },
+  [TABLE_NAMES.CLAIMS_BY_SUBMITTERS]: {
     columns: getDisputesBySubmittersColumns(),
-    filters: getDefaultFilters(ENTITY_TYPES.DISPUTES_BY_SUBMITTERS),
+    filters: getDefaultFilters(TABLE_NAMES.CLAIMS_BY_SUBMITTERS),
+    applyingFilters: false,
+  },
+  [TABLE_NAMES.DISPUTES_BY_SUBMITTERS]: {
+    columns: getDisputesBySubmittersColumns(),
+    filters: getDefaultFilters(TABLE_NAMES.DISPUTES_BY_SUBMITTERS),
     applyingFilters: false,
   },
   [TABLE_NAMES.CLAIMS_DASHBOARD]: {

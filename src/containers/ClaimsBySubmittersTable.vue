@@ -1,6 +1,6 @@
 <template>
-  <div class="disputes-table disputes_by_submitters-table">
-    <table-toolbar :table-name="tableName" :title="$t('disputes.statistics.by.submitters')">
+  <div class="claims-table claims_by_submitters-table">
+    <table-toolbar :table-name="tableName" :title="$t('claims.statistics.by.submitters')">
       <disputes-by-submitters-table-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
     <disputes-by-submitters-badges />
@@ -57,7 +57,7 @@ export default {
   mixins: [disputeCommonTable],
   data() {
     return {
-      tableName: TABLE_NAMES.DISPUTES_BY_SUBMITTERS,
+      tableName: TABLE_NAMES.CLAIMS_BY_SUBMITTERS,
       rowComponentsHash: {
         default: 'DefaultCell',
         percent: 'PercentCell',
@@ -69,13 +69,14 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins.scss';
-.disputes_by_submitters-table {
+.claims_by_submitters-table {
   @include table-base-container;
 }
+
 .table-title {
   @include table-base-title;
 }
-.disputes_by_submitters-table /deep/ {
+.claims_by_submitters-table /deep/ {
   height: 100%;
   .virtual-list {
     height: 100vh;

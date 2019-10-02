@@ -208,6 +208,7 @@
   "fiscal.period.not.found": "Fiscal period not found",
   "disputes.statistics.by.submitters": "Disputes statistics by submitters",
   "disputes.by.submitters": "Disputes by Submitters",
+  "claims.statistics.by.submitters": "Claims statistics by submitters",
   "dispute.creator.name": "Dispute creator name",
   "opened.disputes": "Opened Disputes",
   "number.of.units": "Number of Units",
@@ -232,7 +233,6 @@
   "selected.fiscal.period": "Selected fiscal period",
   "date": "Date",
   "money": "Money",
-
   "company.order.number": "Company Order Number",
   "claims.dashboard": "Claims Dashboard",
   "claims.list": "Claims List",

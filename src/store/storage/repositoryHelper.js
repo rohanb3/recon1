@@ -6,8 +6,10 @@ import {
 } from '@/services/statisticsRepository';
 import {
   getDisputes,
+  getClaims,
   getDisputeHistory,
   getDisputesStatisticsBySubmitters,
+  getClaimsStatisticsBySubmitters,
 } from '@/services/disputesRepository';
 
 const handlers = {
@@ -20,10 +22,16 @@ const handlers = {
   [ENTITY_TYPES.DISPUTES]: {
     getAll: getDisputes,
   },
-  [ENTITY_TYPES.RESUBMISSION]: {
+  [TABLE_NAMES.CLAIMS_RESUBMISSION]: {
+    getAll: getClaims,
+  },
+  [TABLE_NAMES.DISPUTES_RESUBMISSION]: {
     getAll: getDisputes,
   },
-  [ENTITY_TYPES.DISPUTES_BY_SUBMITTERS]: {
+  [TABLE_NAMES.CLAIMS_BY_SUBMITTERS]: {
+    getAll: getClaimsStatisticsBySubmitters,
+  },
+  [TABLE_NAMES.DISPUTES_BY_SUBMITTERS]: {
     getAll: getDisputesStatisticsBySubmitters,
   },
   [TABLE_NAMES.CLAIMS_DASHBOARD]: {
