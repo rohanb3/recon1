@@ -18,7 +18,7 @@ export default () => [
     field: 'orderNumber',
     fieldType: 'orderNumber',
     class: 'text',
-    title: i18n.t('dispute.orders.number'),
+    title: i18n.t('orders.number'),
     width: '4',
     minWidth: '16px',
     sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.ORDER_NUMBER,
