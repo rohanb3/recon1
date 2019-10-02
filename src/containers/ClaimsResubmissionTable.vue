@@ -1,7 +1,7 @@
 <template>
   <div class="claims_resubmission-table">
     <table-toolbar :title="$t('resubmission.table.title')" :table-name="tableName">
-      <resubmission-table-toolbar :tableName="tableName" slot="filters" />
+      <claims-resubmission-table-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
     <lazy-load-table :tableName="tableName">
       <component
@@ -43,7 +43,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import ResubmissionTableToolbar from '@/containers/ResubmissionTableToolbar';
+import ClaimsResubmissionTableToolbar from '@/containers/ClaimsResubmissionTableToolbar';
 
 import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
 import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmRejectDisputePopup';
@@ -59,7 +59,7 @@ export default {
     TableToolbar,
     ConfirmApproveDisputePopup,
     ConfirmRejectDisputePopup,
-    ResubmissionTableToolbar,
+    ClaimsResubmissionTableToolbar,
   },
   mixins: [disputeCommonTable],
   data() {
