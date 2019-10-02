@@ -132,6 +132,7 @@
   "resubmission.table.approve": "Approve",
   "resubmission.table.reject": "Reject",
   "resubmission.table.resubmit.claim": "Resubmit claim",
+  "resubmission.table.resubmit.dispute": "Resubmit dispute",
   "resubmission.table.reject.description": "Dispute Reject Description",
   "resubmission.table.approve.description": "Dispute Approve Description",
   "resubmission.table.enter.reject.comment.below": "To reject the dispute enter comment below:",

@@ -68,7 +68,7 @@ export default {
       isShowApproveConfirmationPopup: false,
       isShowRejectConfirmationPopup: false,
       rowComponentsHash: {
-        resubmitClaim: 'ResubmitClaimCell',
+        resubmitDispute: 'ResubmitCell',
         rejectDisputeStatus: 'RejectDisputeStatusCell',
         approveDisputeStatus: 'ApproveDisputeStatusCell',
       },

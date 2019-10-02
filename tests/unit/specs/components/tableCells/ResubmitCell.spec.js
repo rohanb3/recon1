@@ -1,7 +1,7 @@
-import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
+import ResubmitCell from '@/components/tableCells/ResubmitCell';
 import { DISPUTE_STATUSES_ID } from '@/constants';
 
-describe('ResubmitClaimCell: ', () => {
+describe('ResubmitCell: ', () => {
   describe('computed: ', () => {
     describe('isSentOrResentStatus: ', () => {
       it('should return true if defined sent status', () => {
@@ -9,7 +9,7 @@ describe('ResubmitClaimCell: ', () => {
           isSentStatus: true,
         };
 
-        const result = ResubmitClaimCell.computed.isSentOrResentStatus.call(mockedThis);
+        const result = ResubmitCell.computed.isSentOrResentStatus.call(mockedThis);
 
         expect(result).toBeTruthy();
       });
@@ -19,13 +19,13 @@ describe('ResubmitClaimCell: ', () => {
           isResentStatus: true,
         };
 
-        const result = ResubmitClaimCell.computed.isSentOrResentStatus.call(mockedThis);
+        const result = ResubmitCell.computed.isSentOrResentStatus.call(mockedThis);
 
         expect(result).toBeTruthy();
       });
 
       it('should return false if not defined sent and resent status', () => {
-        const result = ResubmitClaimCell.computed.isSentOrResentStatus();
+        const result = ResubmitCell.computed.isSentOrResentStatus();
 
         expect(result).toBeFalsy();
       });
@@ -39,7 +39,7 @@ describe('ResubmitClaimCell: ', () => {
           getLastDisputeStatus: jest.fn(() => ({ timeStamp })),
         };
 
-        const result = ResubmitClaimCell.computed.resubmitDate.call(mockedThis);
+        const result = ResubmitCell.computed.resubmitDate.call(mockedThis);
 
         expect(result).toEqual(timeStamp);
       });
@@ -49,7 +49,7 @@ describe('ResubmitClaimCell: ', () => {
           getLastDisputeStatus: jest.fn(() => ({})),
         };
 
-        const result = ResubmitClaimCell.computed.resubmitDate.call(mockedThis);
+        const result = ResubmitCell.computed.resubmitDate.call(mockedThis);
 
         expect(result).toEqual('');
       });
@@ -61,7 +61,7 @@ describe('ResubmitClaimCell: ', () => {
           isContainsStatusInHistory: jest.fn(),
         };
 
-        ResubmitClaimCell.computed.isContainsInprogressStatus.call(mockedThis);
+        ResubmitCell.computed.isContainsInprogressStatus.call(mockedThis);
 
         expect(mockedThis.isContainsStatusInHistory).toHaveBeenCalledWith(
           DISPUTE_STATUSES_ID.IN_PROGRESS
@@ -79,7 +79,7 @@ describe('ResubmitClaimCell: ', () => {
           item: { id },
         };
 
-        ResubmitClaimCell.methods.onResubmit.call(mockedThis);
+        ResubmitCell.methods.onResubmit.call(mockedThis);
 
         expect(mockedThis.$emit).toHaveBeenCalledWith('changeDisputeStatus', {
           disputeId: id,

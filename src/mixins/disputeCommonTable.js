@@ -12,7 +12,7 @@ import DifferenceComissonCell from '@/components/tableCells/DifferenceComissonCe
 import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
 import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
 import PriceCell from '@/components/tableCells/PriceCell';
-import ResubmitClaimCell from '@/components/tableCells/ResubmitClaimCell';
+import ResubmitCell from '@/components/tableCells/ResubmitCell';
 import RejectDisputeStatusCell from '@/components/tableCells/RejectDisputeStatusCell';
 import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStatusCell';
 import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
@@ -34,7 +34,7 @@ export default {
     DateYearMonthDayCell,
     OrderAgeCell,
     PriceCell,
-    ResubmitClaimCell,
+    ResubmitCell,
     RejectDisputeStatusCell,
     ApproveDisputeStatusCell,
     DisputeStatusCell,

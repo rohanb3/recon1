@@ -132,6 +132,7 @@
   "resubmission.table.approve": "TBD Approve",
   "resubmission.table.reject": "TBD Reject",
   "resubmission.table.resubmit.claim": "TBD Resubmit claim",
+  "resubmission.table.resubmit.dispute": "TBD Resubmit dispute",
   "resubmission.table.reject.description": "TBD Dispute Reject Description",
   "resubmission.table.approve.description": "TBD Dispute Approve Description",
   "resubmission.table.enter.reject.comment.below": "TBD To reject the dispute enter comment below:",
