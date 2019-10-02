@@ -75,6 +75,22 @@ function resubmissionGuard(to, from, next) {
   }
 }
 
+function disputesGuard(to, from, next) {
+  if (store.getters.isShowDispute) {
+    next();
+  } else {
+    next({ name: ROUTE_NAMES.CLAIMS_DASHBOARD });
+  }
+}
+
+function disputeGuard(to, from, next) {
+  if (store.getters.isUpdateDispute) {
+    next();
+  } else {
+    next({ name: ROUTE_NAMES.CLAIMS_DASHBOARD });
+  }
+}
+
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -150,16 +166,19 @@ const router = new Router({
                   path: 'list',
                   name: ROUTE_NAMES.DISPUTE_LIST,
                   components: { content: DisputesPage },
+                  beforeEnter: disputesGuard,
                 },
                 {
                   path: 'edit/:disputeId',
                   name: ROUTE_NAMES.EDIT_DISPUTE,
                   components: { content: DisputePage },
+                  beforeEnter: disputeGuard,
                 },
                 {
                   path: 'create/:orderId',
                   name: ROUTE_NAMES.CREAT_DISPUTE,
                   components: { content: DisputePage },
+                  beforeEnter: disputeGuard,
                 },
                 {
                   path: 'submitters',
