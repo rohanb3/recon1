@@ -54,9 +54,7 @@ export default {
   overflow-y: auto;
   margin-top: 30px;
   padding: 0 10px 0;
-  height: calc(
-    100vh - #{$header-height} - #{$table-toolbar-height} - 60px - #{$switcher-height}
-  );
+  height: calc(100vh - #{$header-height} - #{$table-toolbar-height} - 60px - #{$switcher-height});
 }
 
 .disputes_dashboard-table {
