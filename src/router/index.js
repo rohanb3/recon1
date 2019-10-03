@@ -38,8 +38,8 @@ import applyAuthInterceptors from '@/services/authInterceptors';
 import ClaimsOrders from '@/containers/ClaimsOrders';
 import DisputesOrders from '@/containers/DisputesOrders';
 
-import ClaimsDisputes from '../containers/ClaimsDisputes';
-import DisputeDisputes from '../containers/DisputeDisputes';
+import ClaimsList from '../containers/ClaimsList';
+import DisputeList from '../containers/DisputeList';
 
 Vue.use(Router);
 
@@ -168,7 +168,7 @@ const router = new Router({
                 {
                   path: 'disputes',
                   name: ROUTE_NAMES.CLAIMS_DISPUTES,
-                  components: { switcher: DisputesSwitcher, content: ClaimsDisputes },
+                  components: { switcher: DisputesSwitcher, content: ClaimsList },
                   beforeEnter: disputesGuard,
                 },
                 {
@@ -221,7 +221,7 @@ const router = new Router({
                 {
                   path: 'list',
                   name: ROUTE_NAMES.DISPUTE_LIST,
-                  components: { switcher: DisputesSwitcher, content: DisputeDisputes },
+                  components: { switcher: DisputesSwitcher, content: DisputeList },
                   beforeEnter: ordersGuard,
                 },
                 {

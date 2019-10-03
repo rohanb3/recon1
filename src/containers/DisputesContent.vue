@@ -1,5 +1,5 @@
 <template>
-  <div class="disputes-table" :class="`${this.getTableName}-table`" v-if="isShowDispute">
+  <div class="disputes-table" :class="`${this.getTableName}-table`">
     <slot name="toolbar" />
     <lazy-load-table :tableName="tableName">
       <component

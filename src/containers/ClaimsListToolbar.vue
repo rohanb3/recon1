@@ -1,11 +1,6 @@
 <template>
   <table-toolbar :title="$t('claim.title')" :table-name="tableName">
-    <selected-range-filter
-      slot="toolbar-info"
-      :tableName="tableName"
-      :filtered-field-from="filteredFieldFrom"
-      :filtered-field-to="filteredFieldTo"
-    />
+    <selected-range-filter slot="toolbar-info" :tableName="tableName" />
     <div slot="filters" class="orders-table-toolbar">
       <quick-search-filter :table-name="tableName" :filter-name="quickSearchFilterName" />
       <div class="table-filter-container">
@@ -18,11 +13,7 @@
       <v-spacer></v-spacer>
       <div class="table-filter-container">
         <export-to-cvs-disputes-claims :table-name="tableName" />
-        <fiscal-period-filter
-          :table-name="tableName"
-          :filtered-field-from="filteredFieldFrom"
-          :filtered-field-to="filteredFieldTo"
-        />
+        <fiscal-period-filter :table-name="tableName" />
         <custom-range-filter :table-name="tableName" />
       </div>
     </div>
@@ -44,7 +35,7 @@ import SpectrumDisputeStatusFilter from './SpectrumDisputeStatusFilter';
 import ExportToCvsDisputesClaims from './ExportToCvsDisputesClaims';
 
 export default {
-  name: 'ClaimsDisputesToolbar',
+  name: 'ClaimsListToolbar',
   props: ['tableName'],
   components: {
     ExportToCvsDisputesClaims,
@@ -60,12 +51,6 @@ export default {
     SelectedRangeFilter,
   },
   computed: {
-    filteredFieldFrom() {
-      return FILTER_NAMES.CREATED_FROM;
-    },
-    filteredFieldTo() {
-      return FILTER_NAMES.CREATED_TO;
-    },
     quickSearchFilterName() {
       return FILTER_NAMES.SEARCH_DISPUTES;
     },

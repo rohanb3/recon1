@@ -10,7 +10,7 @@ import DisputesContent from './DisputesContent';
 import DisputesListToolbar from './DisputesListToolbar';
 
 export default {
-  name: 'DisputesDisputes',
+  name: 'DisputesList',
   components: {
     DisputesListToolbar,
     DisputesContent,

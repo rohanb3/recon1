@@ -1,18 +1,18 @@
 <template>
   <disputes-content :table-name="tableName">
-    <claims-disputes-toolbar slot="toolbar" :table-name="tableName" />
+    <claims-list-toolbar slot="toolbar" :table-name="tableName" />
   </disputes-content>
 </template>
 
 <script>
 import { TABLE_NAMES } from '@/constants';
 import DisputesContent from './DisputesContent';
-import ClaimsDisputesToolbar from './ClaimsDisputesToolbar';
+import ClaimsListToolbar from './ClaimsListToolbar';
 
 export default {
-  name: 'ClaimsDisputes',
+  name: 'ClaimsList',
   components: {
-    ClaimsDisputesToolbar,
+    ClaimsListToolbar,
     DisputesContent,
   },
   computed: {
