@@ -127,7 +127,6 @@
   "disputes.rejection.approve.description": "TBD Dispute Rejection Approve Description",
   "disputes.enter.comment.for.resubmit.dispute": "TBD To resubmit this dispute enter comment...",
   "disputes.enter.comment.for.dispute": "TBD To approve rejection enter comment...",
-
   "resubmission.table.title": "TBD Resubmission Table",
   "resubmission.table.approve": "TBD Approve",
   "resubmission.table.reject": "TBD Reject",
@@ -232,5 +231,14 @@
   "selected.fiscal.period": "TBD Selected fiscal period",
   "date": "TBD Date",
   "money": "TBD Money",
-  "claims.statistics.by.submitters": "TBD Claims statistics by submitters"
+  "claims.statistics.by.submitters": "TBD Claims statistics by submitters",
+  "claim.id": "TBD Claim ID",
+  "claim.creator.name": "TBD Claim creator name",
+  "claim.creation.date": "TBD Claim creation date",
+  "claim.type": "TBD Claim type",
+  "spectrum.claim.status": "TBD Spectrum Claim status",
+  "claim.status.description": "TBD Claim Status Description",
+  "claim.opened": "TBD Opened claims",
+  "claim.closed": "TBD Closed claims",
+  "claim.closed.in": "TBD Closed claims in %"
 }
