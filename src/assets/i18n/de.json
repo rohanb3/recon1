@@ -254,8 +254,6 @@
   "disputes.age.after.claim": "TBD Age (after claim)",
   "disputes.claims.status": "TBD Spectrum Claim status",
   "claim.title": "TBD Claim List With Statuses",
-  "disputes.claim.type": "TBD Claim type",
   "disputes.status.not.canceled": "TBD Order is not canceled",
-  "disputes.status.missing.transaction": "TBD Missing Transaction",
-  "claims.creator.name": "TBD Claim creator name"
+  "disputes.status.missing.transaction": "TBD Missing Transaction"
 }

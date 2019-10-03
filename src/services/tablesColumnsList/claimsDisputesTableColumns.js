@@ -60,7 +60,7 @@ export default () => [
     name: 'creatorName',
     field: 'creatorName',
     class: 'text',
-    title: i18n.t('claims.creator.name'),
+    title: i18n.t('claim.creator.name'),
     width: '4',
     minWidth: '16px',
     sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.CREATOR_NAME,

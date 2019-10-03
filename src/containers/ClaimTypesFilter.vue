@@ -1,6 +1,6 @@
 <template>
   <type-filter
-    title="disputes.claim.type"
+    title="claim.type"
     :table-name="tableName"
     :load-data="getDisputesOrderStatusList"
     :filter-name="filterName"
