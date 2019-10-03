@@ -1,16 +1,16 @@
-import { ENTITY_TYPES } from '@/constants';
+import { ENTITY_TYPES, TABLE_NAMES } from '@/constants';
 import getters from './getters';
 import actions from './actions';
 import mutations from './mutations';
 
 export default {
   state: {
-    [ENTITY_TYPES.CLAIMS_ORDERS]: {
+    [TABLE_NAMES.CLAIMS_ORDERS]: {
       items: [],
       allItemsLoaded: false,
       syncOrdersStatus: null,
     },
-    [ENTITY_TYPES.DISPUTES_ORDERS]: {
+    [TABLE_NAMES.DISPUTES_ORDERS]: {
       items: [],
       allItemsLoaded: false,
       syncOrdersStatus: null,
@@ -27,11 +27,11 @@ export default {
       items: [],
       allItemsLoaded: false,
     },
-    [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
+    [TABLE_NAMES.CLAIMS_DASHBOARD]: {
       items: [],
       allItemsLoaded: false,
     },
-    [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
+    [TABLE_NAMES.DISPUTES_DASHBOARD]: {
       items: [],
       allItemsLoaded: false,
     },
@@ -39,7 +39,11 @@ export default {
       items: [],
       allItemsLoaded: false,
     },
-    [ENTITY_TYPES.CLAIMS_DISPUTES]: {
+    [TABLE_NAMES.CLAIMS_DISPUTES]: {
+      items: [],
+      allItemsLoaded: false,
+    },
+    [TABLE_NAMES.DISPUTES_LIST]: {
       items: [],
       allItemsLoaded: false,
     },

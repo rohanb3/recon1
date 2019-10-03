@@ -1,5 +1,5 @@
 <template>
-  <table-toolbar :title="$t('claim.title')" :table-name="tableName">
+  <table-toolbar :title="$t('disputes.title')" :table-name="tableName">
     <selected-range-filter
       slot="toolbar-info"
       :tableName="tableName"
@@ -11,13 +11,13 @@
       <div class="table-filter-container">
         <order-age-filter :table-name="tableName" />
         <claims-age-filter :table-name="tableName" />
-        <claim-types-filter :table-name="tableName" />
-        <claims-xyz-status-filter :table-name="tableName" />
+        <dispute-types-filter :table-name="tableName" />
+        <disputes-xyz-status-filter :table-name="tableName" />
         <spectrum-dispute-status-filter :table-name="tableName" :filter-field="filterField" />
       </div>
       <v-spacer></v-spacer>
       <div class="table-filter-container">
-        <export-to-cvs-disputes-claims :table-name="tableName" />
+        <export-to-cvs-disputes-list :table-name="tableName" />
         <fiscal-period-filter
           :table-name="tableName"
           :filtered-field-from="filteredFieldFrom"
@@ -38,19 +38,19 @@ import CustomRangeFilter from './CustomRangeFilter';
 import SelectedRangeFilter from '@/components/SelectedRangeFilter';
 import { FILTER_NAMES } from '@/constants';
 import ClaimsAgeFilter from './ClaimsAgeFilter';
-import ClaimTypesFilter from './ClaimTypesFilter';
-import ClaimsXyzStatusFilter from './ClaimsXyzStatusFilter';
+import DisputesXyzStatusFilter from './DisputesXyzStatusFilter';
+import DisputeTypesFilter from './DisputeTypesFilter';
 import SpectrumDisputeStatusFilter from './SpectrumDisputeStatusFilter';
-import ExportToCvsDisputesClaims from './ExportToCvsDisputesClaims';
+import ExportToCvsDisputesList from './ExportToCvsDisputesList';
 
 export default {
-  name: 'ClaimsDisputesToolbar',
+  name: 'DisputesListToolbar',
   props: ['tableName'],
   components: {
-    ExportToCvsDisputesClaims,
+    ExportToCvsDisputesList,
     SpectrumDisputeStatusFilter,
-    ClaimsXyzStatusFilter,
-    ClaimTypesFilter,
+    DisputeTypesFilter,
+    DisputesXyzStatusFilter,
     ClaimsAgeFilter,
     CustomRangeFilter,
     FiscalPeriodFilter,
@@ -70,7 +70,7 @@ export default {
       return FILTER_NAMES.SEARCH_DISPUTES;
     },
     filterField() {
-      return FILTER_NAMES.CLAIMS_STATUS_IDS;
+      return FILTER_NAMES.DISPUTE_STATUS_IDS;
     },
   },
 };

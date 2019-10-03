@@ -16,7 +16,6 @@
 
 <script>
 import TableFilter from '@/components/TableFilter';
-import { FILTER_NAMES, ORDER_STATUS_NAME_TRANSLATION_KEYS } from '@/constants';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
 
 export default {
@@ -35,6 +34,14 @@ export default {
       type: String,
       required: true,
     },
+    filterName: {
+      type: String,
+      required: true,
+    },
+    translationKeys: {
+      type: Object,
+      required: true,
+    },
   },
   components: {
     TableFilter,
@@ -44,17 +51,16 @@ export default {
   },
   data() {
     return {
-      filterName: FILTER_NAMES.ORDER_STATUS,
-      [FILTER_NAMES.ORDER_STATUS]: [],
+      [this.filterName]: [],
     };
   },
   computed: {
     typesList() {
-      return this[this.filterName].map(({ id, orderStatusName, selected }) => {
-        const translationKey = ORDER_STATUS_NAME_TRANSLATION_KEYS[orderStatusName];
+      return this[this.filterName].map(({ id, name, selected }) => {
+        const translationKey = [this.translationKeys][name];
         return {
           id,
-          name: translationKey ? this.$t(translationKey) : orderStatusName,
+          name: translationKey ? this.$t(translationKey) : name,
           selected,
         };
       });

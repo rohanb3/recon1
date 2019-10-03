@@ -1,7 +1,7 @@
 <template>
-  <div class="disputes_dashboard-table">
-    <table-toolbar :title="$t('disputes.dashboard')" :table-name="tableName">
-      <Disputes-Dashboard-Toolbar :tableName="tableName" slot="filters" />
+  <div class="claims_dashboard-table">
+    <table-toolbar :title="$t('claims.dashboard')" :table-name="tableName">
+      <claims-dashboard-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
     <div class="statistic-list">
       <total-disputes-statistic :statistics="tableRows" />
@@ -16,17 +16,17 @@
 import TotalDisputesStatistic from '@/components/DisputesDashboard/TotalDisputesStatistic';
 import TotalSpectrumDisputeStatistic from '@/components/DisputesDashboard/TotalSpectrumDisputeStatistic';
 import TotalXyzDisputeStatistic from '@/components/DisputesDashboard/TotalXyzDisputeStatistic';
-import DisputesDashboardToolbar from '@/containers/DisputesDashboardToolbar';
+import ClaimsDashboardToolbar from '@/containers/ClaimsDashboardToolbar';
 import TotalCreatedDisputesChart from '@/containers/TotalCreatedDisputesChart';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 import { TABLE_NAMES } from '@/constants';
 import TableToolbar from '@/components/TableToolbar';
 
 export default {
-  name: 'DisputesDashboardPage',
+  name: 'ClaimsDashboardPage',
   components: {
     TableToolbar,
-    DisputesDashboardToolbar,
+    ClaimsDashboardToolbar,
     TotalDisputesStatistic,
     TotalSpectrumDisputeStatistic,
     TotalXyzDisputeStatistic,
@@ -35,7 +35,7 @@ export default {
   mixins: [lazyLoadTable],
   data() {
     return {
-      tableName: TABLE_NAMES.DISPUTES_DASHBOARD,
+      tableName: TABLE_NAMES.CLAIMS_DASHBOARD,
       initialLoad: true,
       resetDataBeforeLeave: true,
     };
@@ -57,7 +57,7 @@ export default {
   height: calc(100vh - #{$header-height} - #{$table-toolbar-height} - 60px);
 }
 
-.disputes_dashboard-table {
+.claims_dashboard-table {
   .table__header {
     @include table-base-container;
 

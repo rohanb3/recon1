@@ -70,6 +70,28 @@ export const ORDER_STATUS_NAME_TRANSLATION_KEYS = {
   [ORDER_STATUSES_NAME.PAID]: 'orders.order.status.paid',
 };
 
+export const CLAIMS_STATUSES_NAME = {
+  NOT_CANCELED: 'Order is not canceled',
+  MISSING_TRANSACTION: 'Missing Transaction',
+};
+
+export const CLAIMS_STATUS_NAME_TRANSLATION_KEYS = {
+  [CLAIMS_STATUSES_NAME.NOT_CANCELED]: 'disputes.status.not.canceled',
+  [CLAIMS_STATUSES_NAME.MISSING_TRANSACTION]: 'disputes.status.missing.transaction',
+};
+
+export const DISPUTES_STATUSES_NAME = {
+  MORE_EXPECTED: 'Commission received is more than expected',
+  LESS_EXPECTED: 'Commission received is less than expected',
+  COMMISSION_NOT_RECEIVED: 'Order was installed but commission is not received',
+};
+
+export const DISPUTES_STATUS_NAME_TRANSLATION_KEYS = {
+  [DISPUTES_STATUSES_NAME.MORE_EXPECTED]: 'commission.received.more.expected',
+  [DISPUTES_STATUSES_NAME.LESS_EXPECTED]: 'commission.received.less.expected',
+  [DISPUTES_STATUSES_NAME.COMMISSION_NOT_RECEIVED]: 'order.installed.without.commission.received',
+};
+
 export const RESPONSE_STATUSES = {
   OK: 200,
   NO_CONTENT: 204,
@@ -146,12 +168,17 @@ export const ENTITY_TYPES = {
   DISPUTES: 'DISPUTES',
   RESUBMISSION: 'RESUBMISSION',
   DISPUTES_BY_SUBMITTERS: 'DISPUTES_BY_SUBMITTERS',
-  DISPUTES_DASHBOARD: 'DISPUTES_DASHBOARD',
   DISPUTE_HISTORY: 'DISPUTE_HISTORY',
   CLAIMS: 'CLAIMS',
+};
+
+export const TABLE_NAMES = {
   CLAIMS_ORDERS: 'CLAIMS_ORDERS',
+  CLAIMS_DASHBOARD: 'CLAIMS_DASHBOARD',
   DISPUTES_ORDERS: 'DISPUTES_ORDERS',
+  DISPUTES_DASHBOARD: 'DISPUTES_DASHBOARD',
   CLAIMS_DISPUTES: 'CLAIMS_DISPUTES',
+  DISPUTES_LIST: 'DISPUTES_LIST',
 };
 
 export const DISPUTES_BY_SUBMITTERS_STATISTICS_TYPES = {
@@ -186,11 +213,13 @@ export const FILTER_NAMES = {
   TYPE: 'Type',
   CLAIMS_AGE_FROM: 'CreationAgeFrom',
   CLAIMS_AGE_TO: 'CreationAgeTo',
+  CLAIMS_TYPE_IDS: 'ClaimTypeIds',
+  CLAIMS_STATUS_IDS: 'ClaimStatusIds',
 };
 
 export const TABLE_COLUMN_ID_NAMES = {
-  [ENTITY_TYPES.CLAIMS_ORDERS]: 'orderId',
-  [ENTITY_TYPES.DISPUTES_ORDERS]: 'orderId',
+  [TABLE_NAMES.CLAIMS_ORDERS]: 'orderId',
+  [TABLE_NAMES.DISPUTES_ORDERS]: 'orderId',
 };
 
 export const ROUTE_NAMES = {

@@ -91,14 +91,14 @@ describe('tableDateRange', () => {
   });
   describe('isSelectedDateRange', () => {
     it('should return true if date range selected', () => {
-      const filteredFieldFrom = moment().format();
-      const filteredFieldTo = moment().format();
+      const fromFilterName = moment().format();
+      const toFilterName = moment().format();
       const mockedThis = {
-        filteredFieldFrom,
-        filteredFieldTo,
+        fromFilterName,
+        toFilterName,
         filters: {
-          [filteredFieldFrom]: moment().format(),
-          [filteredFieldTo]: moment().format(),
+          [fromFilterName]: moment().format(),
+          [toFilterName]: moment().format(),
         },
       };
 

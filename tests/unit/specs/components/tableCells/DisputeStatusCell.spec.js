@@ -10,9 +10,7 @@ describe('DisputeStatusCell: ', () => {
         };
 
         const mockedThis = {
-          item: {
-            disputeStatus,
-          },
+          item: { status: disputeStatus },
         };
 
         const result = DisputeStatusCell.computed.disputeStatus.call(mockedThis);

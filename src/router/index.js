@@ -6,7 +6,6 @@ import Base from '@/containers/Base';
 import AppContent from '@/containers/AppContent';
 import OrdersPage from '@/containers/OrdersPage';
 import DisputePage from '@/containers/DisputePage';
-import DisputesPage from '@/containers/DisputesPage';
 import ResubmissionTable from '@/containers/ResubmissionTable';
 import SyncNotifier from '@/containers/SyncNotifier';
 import DisputesBySubmittersTable from '@/containers/DisputesBySubmittersTable';
@@ -16,6 +15,7 @@ import PasswordRecoveryPage from '@/containers/PasswordRecoveryPage';
 import VerificationCodePage from '@/containers/VerificationCodePage';
 import ResetPasswordPage from '@/containers/ResetPasswordPage';
 import DisputesDashboardPage from '@/containers/DisputesDashboardPage';
+import ClaimsDashboardPage from '@/containers/ClaimsDashboardPage';
 
 import { ROUTE_NAMES } from '@/constants';
 import { USER_LOGOUT } from '@/store/loggedInUser/actionTypes';
@@ -35,6 +35,7 @@ import ClaimsOrders from '@/containers/ClaimsOrders';
 import DisputesOrders from '@/containers/DisputesOrders';
 
 import ClaimsDisputes from '../containers/ClaimsDisputes';
+import DisputeDisputes from '../containers/DisputeDisputes';
 
 Vue.use(Router);
 
@@ -128,7 +129,7 @@ const router = new Router({
                 {
                   path: 'dashboard',
                   name: ROUTE_NAMES.CLAIMS_DASHBOARD,
-                  components: { switcher: DashboardSwitcher, content: DisputesDashboardPage },
+                  components: { switcher: DashboardSwitcher, content: ClaimsDashboardPage },
                 },
                 {
                   path: 'orders',
@@ -140,13 +141,12 @@ const router = new Router({
                   path: 'disputes',
                   name: ROUTE_NAMES.CLAIMS_DISPUTES,
                   components: { switcher: DisputesSwitcher, content: ClaimsDisputes },
-                  beforeEnter: ordersGuard,
                 },
-                {
-                  path: 'list',
-                  name: ROUTE_NAMES.DISPUTE_LIST,
-                  components: { content: DisputesPage },
-                },
+                // {
+                //   path: 'list',
+                //   name: ROUTE_NAMES.DISPUTE_LIST,
+                //   components: { content: DisputesPage },
+                // },
                 {
                   path: 'edit/:disputeId',
                   name: ROUTE_NAMES.EDIT_DISPUTE,
@@ -186,6 +186,12 @@ const router = new Router({
                   path: 'orders',
                   name: ROUTE_NAMES.DISPUTES_ORDERS,
                   components: { switcher: OrdersSwitcher, content: DisputesOrders },
+                  beforeEnter: ordersGuard,
+                },
+                {
+                  path: 'list',
+                  name: ROUTE_NAMES.DISPUTE_LIST,
+                  components: { switcher: DisputesSwitcher, content: DisputeDisputes },
                   beforeEnter: ordersGuard,
                 },
               ],

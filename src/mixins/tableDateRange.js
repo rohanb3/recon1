@@ -1,21 +1,9 @@
 import moment from 'moment';
 import { DATE_FORMATS } from '@/constants';
+import contextRageFilterData from '@/mixins/contextRageFilterData';
 
 export default {
-  props: {
-    filteredFieldFrom: {
-      type: String,
-      default() {
-        return '';
-      },
-    },
-    filteredFieldTo: {
-      type: String,
-      default() {
-        return '';
-      },
-    },
-  },
+  mixins: [contextRageFilterData],
   computed: {
     tableData() {
       return this.$store.state.tables[this.tableName] || {};
@@ -24,10 +12,10 @@ export default {
       return this.tableData.filters || {};
     },
     selectedDateRangeFrom() {
-      return moment(this.filters[this.filteredFieldFrom]).format(DATE_FORMATS.MONTH_DAY_FULL_YEAR);
+      return moment(this.filters[this.fromFilterName]).format(DATE_FORMATS.MONTH_DAY_FULL_YEAR);
     },
     selectedDateRangeTo() {
-      return moment(this.filters[this.filteredFieldTo]).format(DATE_FORMATS.MONTH_DAY_FULL_YEAR);
+      return moment(this.filters[this.toFilterName]).format(DATE_FORMATS.MONTH_DAY_FULL_YEAR);
     },
     selectedDateRange() {
       return {
@@ -36,7 +24,7 @@ export default {
       };
     },
     isSelectedDateRange() {
-      return this.filters[this.filteredFieldFrom] && this.filters[this.filteredFieldTo];
+      return this.filters[this.fromFilterName] && this.filters[this.toFilterName];
     },
   },
 };

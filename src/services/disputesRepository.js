@@ -61,6 +61,11 @@ export const getDisputesCsvFile = filters => {
   return apiDisputes.get('/dispute/csv', { params, paramsSerializer }).then(({ data }) => data);
 };
 
+export const getDisputesClaimsCsvFile = filters => {
+  const params = { ...filters };
+  return apiDisputes.get('/claim/csv', { params, paramsSerializer }).then(({ data }) => data);
+};
+
 export const getDisputesStatistics = filters => {
   const params = { ...filters };
   return apiDisputes
@@ -86,4 +91,8 @@ export const getClaims = params => {
 
 export const getClaimTypes = () => {
   return apiDisputes.get('/claim/type').then(({ data }) => data);
+};
+
+export const getDisputeTypes = () => {
+  return apiDisputes.get('/dispute/type').then(({ data }) => data);
 };
