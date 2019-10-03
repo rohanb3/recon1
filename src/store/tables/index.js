@@ -7,6 +7,7 @@ import {
   getClaimsResubmissionTableColumns,
   getDisputesResubmissionTableColumns,
   getClaimsDisputesTableColumns,
+  getClaimsBySubmittersColumns,
 } from '@/services/tablesColumnsList';
 import { ENTITY_TYPES, TABLE_NAMES } from '@/constants';
 
@@ -42,7 +43,7 @@ const state = {
     applyingFilters: false,
   },
   [TABLE_NAMES.CLAIMS_BY_SUBMITTERS]: {
-    columns: getDisputesBySubmittersColumns(),
+    columns: getClaimsBySubmittersColumns(),
     filters: getDefaultFilters(TABLE_NAMES.CLAIMS_BY_SUBMITTERS),
     applyingFilters: false,
   },

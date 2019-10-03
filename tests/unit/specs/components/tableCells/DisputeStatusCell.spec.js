@@ -5,17 +5,19 @@ describe('DisputeStatusCell: ', () => {
   describe('computed: ', () => {
     describe('disputeStatus: ', () => {
       it('should return object with dispute status', () => {
-        const disputeStatus = {
+        const status = {
           status: 132,
         };
 
         const mockedThis = {
-          item: { status: disputeStatus },
+          item: {
+            status,
+          },
         };
 
         const result = DisputeStatusCell.computed.disputeStatus.call(mockedThis);
 
-        expect(result).toEqual(disputeStatus);
+        expect(result).toEqual(status);
       });
 
       it('should return empty object if not defined disputeStatus', () => {

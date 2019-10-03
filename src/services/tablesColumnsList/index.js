@@ -6,6 +6,7 @@ import disputesBySubmittersColumns from './disputesBySubmittersColumns';
 import disputeHistoryTableColumns from './disputeHistoryTableColumns';
 import disputesOrdersTableColumns from './disputesOrdersTableColumns';
 import claimsDisputesTableColumns from './claimsDisputesTableColumns';
+import claimsBySubmittersColumns from './claimsBySubmittersColumns';
 
 export const getDisputesTableColumns = disputesTableColumns;
 export const getClaimsOrdersTableColumns = claimsOrdersTableColumns;
@@ -15,3 +16,4 @@ export const getDisputesOrdersTableColumns = disputesOrdersTableColumns;
 export const getClaimsResubmissionTableColumns = claimsResubmissionTableColumns;
 export const getDisputesResubmissionTableColumns = disputesResubmissionTableColumns;
 export const getClaimsDisputesTableColumns = claimsDisputesTableColumns;
+export const getClaimsBySubmittersColumns = claimsBySubmittersColumns;

@@ -22,7 +22,7 @@ export default {
       return this.item.id;
     },
     disputeStatusId() {
-      return (this.item.disputeStatus || {}).id;
+      return (this.item.status || {}).id;
     },
     isSentStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.SENT;
