@@ -90,8 +90,8 @@ export default () => [
     showTitle: true,
   },
   {
-    name: 'disputeType',
-    field: 'disputeType.name',
+    name: 'type',
+    field: 'type.name',
     class: 'text',
     title: i18n.t('disputes.dispute.type'),
     width: '4',

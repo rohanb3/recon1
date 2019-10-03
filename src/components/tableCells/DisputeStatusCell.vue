@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     disputeStatus() {
-      return this.item.disputeStatus || {};
+      return this.item.status || {};
     },
     status() {
       return statusesMap[this.disputeStatus.id] || this.disputeStatus.disputeStatusName;

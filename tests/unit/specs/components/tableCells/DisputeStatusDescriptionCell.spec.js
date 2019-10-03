@@ -18,13 +18,13 @@ describe('DisputeStatusDescriptionCell: ', () => {
       it('should return dispute status description if submitterComment not defined', () => {
         const mockedThis = {
           item: {
-            disputeStatusDescription: 'test comment',
+            statusDescription: 'test comment',
           },
         };
 
         const result = DisputeStatusDescriptionCell.computed.disputeComment.call(mockedThis);
 
-        expect(result).toEqual(mockedThis.item.disputeStatusDescription);
+        expect(result).toEqual(mockedThis.item.statusDescription);
       });
     });
   });
