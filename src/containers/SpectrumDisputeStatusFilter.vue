@@ -7,6 +7,7 @@
       :dependentFilterName="dependentFilterName"
       :displayedOptions="displayedOptions"
       :send-field-name="sendFieldName"
+      :filter-field="filterField"
     />
   </div>
 </template>
@@ -22,6 +23,10 @@ export default {
   },
   props: {
     tableName: {
+      type: String,
+      required: true,
+    },
+    filterField: {
       type: String,
       required: true,
     },

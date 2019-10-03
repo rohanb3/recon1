@@ -251,5 +251,12 @@
   "claim.status.description": "Claim Status Description",
   "claim.opened": "Opened claims",
   "claim.closed": "Closed claims",
-  "claim.closed.in": "Closed claims in %"
+  "claim.closed.in": "Closed claims in %",
+  "disputes.age.after.claim": "Age (after claim)",
+  "disputes.claims.status": "Spectrum Claim status",
+  "claim.title": "Claim List With Statuses",
+  "disputes.claim.type": "Claim type",
+  "disputes.status.not.canceled": "Order is not canceled",
+  "disputes.status.missing.transaction": "Missing Transaction",
+  "claims.creator.name": "Claim creator name"
 }

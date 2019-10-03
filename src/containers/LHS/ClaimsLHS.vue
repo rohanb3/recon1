@@ -34,7 +34,7 @@ export default {
         {
           action: 'list_alt',
           title: this.$t('claims.list'),
-          routeName: ROUTE_NAMES.DISPUTE_LIST,
+          routeName: ROUTE_NAMES.CLAIMS_DISPUTES,
           visible: this.isShowDispute,
         },
         {

@@ -6,7 +6,6 @@ import Base from '@/containers/Base';
 import AppContent from '@/containers/AppContent';
 import OrdersPage from '@/containers/OrdersPage';
 import DisputePage from '@/containers/DisputePage';
-import DisputesPage from '@/containers/DisputesPage';
 import ClaimsResubmissionTable from '@/containers/ClaimsResubmissionTable';
 import DisputesResubmissionTable from '@/containers/DisputesResubmissionTable';
 import SyncNotifier from '@/containers/SyncNotifier';
@@ -28,6 +27,7 @@ import DashboardSwitcher from '@/containers/typesSwitcher/DashboardSwitcher';
 import OrdersSwitcher from '@/containers/typesSwitcher/OrdersSwitcher';
 import SubmittersSwitcher from '@/containers/typesSwitcher/SubmittersSwitcher';
 import ResubmissionTableSwitcher from '@/containers/typesSwitcher/ResubmissionTableSwitcher';
+import DisputesSwitcher from '@/containers/typesSwitcher/DisputesSwitcher';
 import LhsClaims from '@/containers/LHS/ClaimsLHS';
 import LhsDisputes from '@/containers/LHS/DisputesLHS';
 
@@ -37,6 +37,9 @@ import applyAuthInterceptors from '@/services/authInterceptors';
 
 import ClaimsOrders from '@/containers/ClaimsOrders';
 import DisputesOrders from '@/containers/DisputesOrders';
+
+import ClaimsList from '../containers/ClaimsList';
+import DisputeList from '../containers/DisputeList';
 
 Vue.use(Router);
 
@@ -163,9 +166,9 @@ const router = new Router({
                   beforeEnter: ordersGuard,
                 },
                 {
-                  path: 'list',
-                  name: ROUTE_NAMES.DISPUTE_LIST,
-                  components: { content: DisputesPage },
+                  path: 'disputes',
+                  name: ROUTE_NAMES.CLAIMS_DISPUTES,
+                  components: { switcher: DisputesSwitcher, content: ClaimsList },
                   beforeEnter: disputesGuard,
                 },
                 {
@@ -213,6 +216,12 @@ const router = new Router({
                   path: 'orders',
                   name: ROUTE_NAMES.DISPUTES_ORDERS,
                   components: { switcher: OrdersSwitcher, content: DisputesOrders },
+                  beforeEnter: ordersGuard,
+                },
+                {
+                  path: 'list',
+                  name: ROUTE_NAMES.DISPUTE_LIST,
+                  components: { switcher: DisputesSwitcher, content: DisputeList },
                   beforeEnter: ordersGuard,
                 },
                 {

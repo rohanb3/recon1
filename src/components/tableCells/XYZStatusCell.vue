@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     disputeStatusId() {
-      return (this.item.disputeStatus || {}).id;
+      return (this.item.status || {}).id;
     },
     isSentOrInProgressStatus() {
       return this.isSentStatus || this.isInprogressStatus;

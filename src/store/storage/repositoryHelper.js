@@ -43,6 +43,12 @@ const handlers = {
   [ENTITY_TYPES.DISPUTE_HISTORY]: {
     getAll: getDisputeHistory,
   },
+  [TABLE_NAMES.CLAIMS_DISPUTES]: {
+    getAll: getClaims,
+  },
+  [TABLE_NAMES.DISPUTES_LIST]: {
+    getAll: getDisputes,
+  },
 };
 
 const defaultHandler = itemType => () => {

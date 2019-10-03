@@ -29,10 +29,6 @@ export const getDisputes = params => {
   return apiDisputes.get('/dispute', { params, paramsSerializer }).then(({ data }) => data);
 };
 
-export const getClaims = params => {
-  return apiDisputes.get('/claim', { params, paramsSerializer }).then(({ data }) => data);
-};
-
 export const createDispute = orderId => {
   return apiDisputes.post(`/dispute?orderId=${orderId}`).then(({ data }) => data);
 };
@@ -75,6 +71,11 @@ export const getDisputesCsvFile = filters => {
   return apiDisputes.get('/dispute/csv', { params, paramsSerializer }).then(({ data }) => data);
 };
 
+export const getDisputesClaimsCsvFile = filters => {
+  const params = { ...filters };
+  return apiDisputes.get('/claim/csv', { params, paramsSerializer }).then(({ data }) => data);
+};
+
 export const getDisputesStatistics = filters => {
   const params = { ...filters };
   return apiDisputes
@@ -92,4 +93,16 @@ export const getDisputesBySubmittersCsvFile = filters => {
 export const getDisputeHistory = filters => {
   const { disputeId, ...params } = filters;
   return apiDisputes.get(`/dispute/${disputeId}/history`, { params }).then(({ data }) => data);
+};
+
+export const getClaims = params => {
+  return apiDisputes.get('/claim', { params, paramsSerializer }).then(({ data }) => data);
+};
+
+export const getClaimTypes = () => {
+  return apiDisputes.get('/claim/type').then(({ data }) => data);
+};
+
+export const getDisputeTypes = () => {
+  return apiDisputes.get('/dispute/type').then(({ data }) => data);
 };

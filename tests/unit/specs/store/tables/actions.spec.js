@@ -45,6 +45,8 @@ describe('tables actions', () => {
     it('should apply only selected filter if dependent filter is not applied', () => {
       const dependentFilterName = FILTER_NAMES.SPECTRUM_STATUS_IDS;
 
+      const filterField = FILTER_NAMES.DISPUTE_STATUS_IDS;
+
       const selectedFilter = {
         name: FILTER_NAMES.XYZ_STATUS_IDS,
         value: [1, 2, 34],
@@ -64,6 +66,7 @@ describe('tables actions', () => {
         tableName: itemType,
         dependentFilterName,
         selectedFilter,
+        filterField,
       });
 
       const expectedDisputeStatusFilters = {
@@ -79,6 +82,7 @@ describe('tables actions', () => {
     it('should apply only dependent filter if selected filter is not applied', () => {
       const dependentFilterName = FILTER_NAMES.SPECTRUM_STATUS_IDS;
       const dependentFilterValues = [4, 8, 9, 2];
+      const filterField = FILTER_NAMES.DISPUTE_STATUS_IDS;
 
       const selectedFilter = {
         name: FILTER_NAMES.XYZ_STATUS_IDS,
@@ -101,6 +105,7 @@ describe('tables actions', () => {
         tableName: itemType,
         dependentFilterName,
         selectedFilter,
+        filterField,
       });
 
       const expectedDisputeStatusFilters = {
@@ -115,6 +120,7 @@ describe('tables actions', () => {
 
     it('should apply two filters as intersection if selected filter and dependent filter is applied', () => {
       const dependentFilterName = FILTER_NAMES.SPECTRUM_STATUS_IDS;
+      const filterField = FILTER_NAMES.DISPUTE_STATUS_IDS;
 
       const selectedFilter = {
         name: FILTER_NAMES.XYZ_STATUS_IDS,
@@ -137,6 +143,7 @@ describe('tables actions', () => {
         tableName: itemType,
         dependentFilterName,
         selectedFilter,
+        filterField,
       });
 
       const expectedDisputeStatusFilters = {
@@ -149,6 +156,7 @@ describe('tables actions', () => {
 
     it('filter should not be applied if identifiers do not match', () => {
       const dependentFilterName = FILTER_NAMES.SPECTRUM_STATUS_IDS;
+      const filterField = FILTER_NAMES.DISPUTE_STATUS_IDS;
 
       const selectedFilter = {
         name: FILTER_NAMES.XYZ_STATUS_IDS,
@@ -171,6 +179,7 @@ describe('tables actions', () => {
         tableName: itemType,
         dependentFilterName,
         selectedFilter,
+        filterField,
       });
 
       const expectedDisputeStatusFilters = {

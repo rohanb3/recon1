@@ -70,6 +70,28 @@ export const ORDER_STATUS_NAME_TRANSLATION_KEYS = {
   [ORDER_STATUSES_NAME.PAID]: 'orders.order.status.paid',
 };
 
+export const CLAIMS_STATUSES_NAME = {
+  NOT_CANCELED: 'Order is not canceled',
+  MISSING_TRANSACTION: 'Missing Transaction',
+};
+
+export const CLAIMS_STATUS_NAME_TRANSLATION_KEYS = {
+  [CLAIMS_STATUSES_NAME.NOT_CANCELED]: 'disputes.status.not.canceled',
+  [CLAIMS_STATUSES_NAME.MISSING_TRANSACTION]: 'disputes.status.missing.transaction',
+};
+
+export const DISPUTES_STATUSES_NAME = {
+  MORE_EXPECTED: 'Commission received is more than expected',
+  LESS_EXPECTED: 'Commission received is less than expected',
+  COMMISSION_NOT_RECEIVED: 'Order was installed but commission is not received',
+};
+
+export const DISPUTES_STATUS_NAME_TRANSLATION_KEYS = {
+  [DISPUTES_STATUSES_NAME.MORE_EXPECTED]: 'commission.received.more.expected',
+  [DISPUTES_STATUSES_NAME.LESS_EXPECTED]: 'commission.received.less.expected',
+  [DISPUTES_STATUSES_NAME.COMMISSION_NOT_RECEIVED]: 'order.installed.without.commission.received',
+};
+
 export const RESPONSE_STATUSES = {
   OK: 200,
   NO_CONTENT: 204,
@@ -155,6 +177,8 @@ export const TABLE_NAMES = {
   CLAIMS_RESUBMISSION: 'CLAIMS_RESUBMISSION',
   DISPUTES_ORDERS: 'DISPUTES_ORDERS',
   DISPUTES_DASHBOARD: 'DISPUTES_DASHBOARD',
+  CLAIMS_DISPUTES: 'CLAIMS_DISPUTES',
+  DISPUTES_LIST: 'DISPUTES_LIST',
   DISPUTES_BY_SUBMITTERS: 'DISPUTES_BY_SUBMITTERS',
   DISPUTES_RESUBMISSION: 'DISPUTES_RESUBMISSION',
 };
@@ -189,6 +213,10 @@ export const FILTER_NAMES = {
   INSTALLATION_DATE_FROM: 'InstallationDateFrom',
   INSTALLATION_DATE_TO: 'InstallationDateTo',
   TYPE: 'Type',
+  CLAIMS_AGE_FROM: 'CreationAgeFrom',
+  CLAIMS_AGE_TO: 'CreationAgeTo',
+  CLAIMS_TYPE_IDS: 'ClaimTypeIds',
+  CLAIMS_STATUS_IDS: 'ClaimStatusIds',
 };
 
 export const TABLE_COLUMN_ID_NAMES = {
@@ -215,6 +243,7 @@ export const ROUTE_NAMES = {
   CLAIMS_DASHBOARD: 'claims-dashboard',
   CLAIMS_ORDERS: 'claims-orders',
   DISPUTES_ORDERS: 'disputes-orders',
+  CLAIMS_DISPUTES: 'claims-disputes',
 };
 
 export const ROLE_TYPES = {

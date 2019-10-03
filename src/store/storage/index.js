@@ -47,6 +47,14 @@ export default {
       items: [],
       allItemsLoaded: false,
     },
+    [TABLE_NAMES.CLAIMS_DISPUTES]: {
+      items: [],
+      allItemsLoaded: false,
+    },
+    [TABLE_NAMES.DISPUTES_LIST]: {
+      items: [],
+      allItemsLoaded: false,
+    },
   },
   getters,
   actions,

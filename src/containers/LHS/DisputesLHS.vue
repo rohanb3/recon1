@@ -32,6 +32,12 @@ export default {
             this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission,
         },
         {
+          action: 'list_alt',
+          title: this.$t('claims.list'),
+          routeName: ROUTE_NAMES.DISPUTE_LIST,
+          visible: this.isShowDispute,
+        },
+        {
           action: 'view_list',
           title: this.$t('resubmission.table.title'),
           routeName: ROUTE_NAMES.DISPUTES_RESUBMISSION,
