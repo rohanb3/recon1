@@ -240,5 +240,22 @@
   "claim.status.description": "TBD Claim Status Description",
   "claim.opened": "TBD Opened claims",
   "claim.closed": "TBD Closed claims",
-  "claim.closed.in": "TBD Closed claims in %"
+  "claim.closed.in": "TBD Closed claims in %",
+  "claims.dashboard": "TBD Claims Dashboard",
+  "claims.list": "TBD Claims List",
+  "claims.by.submitters": "TBD Claims by Submitters",
+  "orders.select.order.dispute": "TBD Select order to create a new dispute",
+  "orders.select.order.claim": "TBD Select order to create a new claim",
+  "orders.new.claim": "TBD New Claim",
+  "orders.order.status.paid": "TBD Paid",
+  "order.installed.without.commission.received": "TBD Order Installed Without Commission Received",
+  "commission.received.more.expected": "TBD Commission Received More Expected",
+  "commission.received.less.expected": "TBD Commission Received Less Expected",
+  "disputes.age.after.claim": "TBD Age (after claim)",
+  "disputes.claims.status": "TBD Spectrum Claim status",
+  "claim.title": "TBD Claim List With Statuses",
+  "disputes.claim.type": "TBD Claim type",
+  "disputes.status.not.canceled": "TBD Order is not canceled",
+  "disputes.status.missing.transaction": "TBD Missing Transaction",
+  "claims.creator.name": "TBD Claim creator name"
 }
