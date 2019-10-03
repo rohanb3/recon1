@@ -3,7 +3,7 @@
     <type-filter
       :table-name="tableName"
       :load-data="getDisputesOrderStatusList"
-      title="disputes.claim.type"
+      title="claim.type"
     />
   </div>
 </template>
