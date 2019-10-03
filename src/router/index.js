@@ -6,9 +6,11 @@ import Base from '@/containers/Base';
 import AppContent from '@/containers/AppContent';
 import OrdersPage from '@/containers/OrdersPage';
 import DisputePage from '@/containers/DisputePage';
-import ResubmissionTable from '@/containers/ResubmissionTable';
+import ClaimsResubmissionTable from '@/containers/ClaimsResubmissionTable';
+import DisputesResubmissionTable from '@/containers/DisputesResubmissionTable';
 import SyncNotifier from '@/containers/SyncNotifier';
 import DisputesBySubmittersTable from '@/containers/DisputesBySubmittersTable';
+import ClaimsBySubmittersTable from '@/containers/ClaimsBySubmittersTable';
 
 import LoginPage from '@/containers/LoginPage';
 import PasswordRecoveryPage from '@/containers/PasswordRecoveryPage';
@@ -23,6 +25,8 @@ import { USER_LOGOUT } from '@/store/loggedInUser/actionTypes';
 import AppHeader from '@/containers/AppHeader';
 import DashboardSwitcher from '@/containers/typesSwitcher/DashboardSwitcher';
 import OrdersSwitcher from '@/containers/typesSwitcher/OrdersSwitcher';
+import SubmittersSwitcher from '@/containers/typesSwitcher/SubmittersSwitcher';
+import ResubmissionTableSwitcher from '@/containers/typesSwitcher/ResubmissionTableSwitcher';
 import DisputesSwitcher from '@/containers/typesSwitcher/DisputesSwitcher';
 import LhsClaims from '@/containers/LHS/ClaimsLHS';
 import LhsDisputes from '@/containers/LHS/DisputesLHS';
@@ -60,6 +64,30 @@ function ordersGuard(to, from, next) {
     store.getters.isShowOrderWithoutExpectedComission ||
     store.getters.isShowOrderWithExpectedComission
   ) {
+    next();
+  } else {
+    next({ name: ROUTE_NAMES.CLAIMS_DASHBOARD });
+  }
+}
+
+function resubmissionGuard(to, from, next) {
+  if (store.getters.isShowResubmissionTable) {
+    next();
+  } else {
+    next({ name: ROUTE_NAMES.CLAIMS_DASHBOARD });
+  }
+}
+
+function disputesGuard(to, from, next) {
+  if (store.getters.isShowDispute) {
+    next();
+  } else {
+    next({ name: ROUTE_NAMES.CLAIMS_DASHBOARD });
+  }
+}
+
+function disputeGuard(to, from, next) {
+  if (store.getters.isUpdateDispute) {
     next();
   } else {
     next({ name: ROUTE_NAMES.CLAIMS_DASHBOARD });
@@ -141,31 +169,33 @@ const router = new Router({
                   path: 'disputes',
                   name: ROUTE_NAMES.CLAIMS_DISPUTES,
                   components: { switcher: DisputesSwitcher, content: ClaimsDisputes },
+                  beforeEnter: disputesGuard,
                 },
-                // {
-                //   path: 'list',
-                //   name: ROUTE_NAMES.DISPUTE_LIST,
-                //   components: { content: DisputesPage },
-                // },
                 {
                   path: 'edit/:disputeId',
                   name: ROUTE_NAMES.EDIT_DISPUTE,
                   components: { content: DisputePage },
+                  beforeEnter: disputeGuard,
                 },
                 {
                   path: 'create/:orderId',
                   name: ROUTE_NAMES.CREAT_DISPUTE,
                   components: { content: DisputePage },
+                  beforeEnter: disputeGuard,
                 },
                 {
-                  path: 'by-submitters',
-                  name: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
-                  components: { content: DisputesBySubmittersTable },
+                  path: 'submitters',
+                  name: ROUTE_NAMES.CLAIMS_BY_SUBMITTERS,
+                  components: { switcher: SubmittersSwitcher, content: ClaimsBySubmittersTable },
                 },
                 {
-                  path: 'resubmission-table',
-                  components: { content: ResubmissionTable },
-                  name: ROUTE_NAMES.RESUBMISSION_TABLE,
+                  path: 'resubmission',
+                  name: ROUTE_NAMES.CLAIMS_RESUBMISSION,
+                  components: {
+                    switcher: ResubmissionTableSwitcher,
+                    content: ClaimsResubmissionTable,
+                  },
+                  beforeEnter: resubmissionGuard,
                 },
               ],
             },
@@ -193,6 +223,20 @@ const router = new Router({
                   name: ROUTE_NAMES.DISPUTE_LIST,
                   components: { switcher: DisputesSwitcher, content: DisputeDisputes },
                   beforeEnter: ordersGuard,
+                },
+                {
+                  path: 'submitters',
+                  name: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
+                  components: { switcher: SubmittersSwitcher, content: DisputesBySubmittersTable },
+                },
+                {
+                  path: 'resubmission',
+                  name: ROUTE_NAMES.DISPUTES_RESUBMISSION,
+                  components: {
+                    switcher: ResubmissionTableSwitcher,
+                    content: DisputesResubmissionTable,
+                  },
+                  beforeEnter: resubmissionGuard,
                 },
               ],
             },

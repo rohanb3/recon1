@@ -108,7 +108,7 @@ export default {
     height: 100vh;
     max-height: calc(
       100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
-        #{$table-header-height-offset}
+        #{$table-header-height-offset} - #{$switcher-height}
     );
   }
 }
