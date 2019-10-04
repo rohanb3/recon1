@@ -3,7 +3,7 @@
     :column="column"
     :sorting-field="sortingField"
     :sort-direction="sortDirection"
-    :params="commission"
+    :translation="commission"
   />
 </template>
 

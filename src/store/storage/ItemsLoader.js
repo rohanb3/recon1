@@ -65,7 +65,7 @@ class ItemsLoaderWithCommission extends ItemsLoader {
 
   // eslint-disable-next-line
   setCommission(commit, itemType, { totalSum }) {
-    const totalCommissions = totalSum ? getObjectFromArrayByKey(totalSum, 'key', 'value') : null;
+    const totalCommissions = totalSum ? getObjectFromArrayByKey(totalSum) : null;
 
     if (totalCommissions) {
       commit(SET_COMMISSIONS, { itemType, totalCommissions });

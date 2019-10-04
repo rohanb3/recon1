@@ -1,12 +1,16 @@
-function getObjectValue(obj, key) {
-  return obj[key];
+function extractObjectKey(obj) {
+  return obj.key;
 }
 
-const getObjectFromArrayByKey = (array, key, value) => {
+function extractObjectValue(obj) {
+  return obj.value;
+}
+
+const getObjectFromArrayByKey = (array, key = extractObjectKey, value = extractObjectValue) => {
   return array.reduce(
     (acc, item) =>
       Object.assign(acc, {
-        [getObjectValue(item, key)]: value ? getObjectValue(item, value) : item,
+        [key(item)]: value(item) || item,
       }),
     {}
   );

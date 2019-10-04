@@ -5,7 +5,7 @@ describe('transformer', () => {
     it('should return transform array to object', () => {
       const data = [{ key: 'expectedCommission', value: 100 }];
 
-      const result = getObjectFromArrayByKey(data, 'key', 'value');
+      const result = getObjectFromArrayByKey(data);
 
       const expectedData = { expectedCommission: 100 };
 
