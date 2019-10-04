@@ -5,7 +5,7 @@
       <installation-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
       <dispute-type-filter :tableName="tableName" />
-      <spectrum-dispute-status-filter :tableName="tableName" />
+      <spectrum-dispute-status-filter :tableName="tableName" :filterField="filterField" />
     </div>
     <v-spacer></v-spacer>
     <div class="table-filter-container">
@@ -60,6 +60,9 @@ export default {
     ...mapGetters(['tableData']),
     filters() {
       return this.tableData(this.tableName).filters;
+    },
+    filterField() {
+      return FILTER_NAMES.DISPUTE_STATUS_IDS;
     },
   },
   methods: {
