@@ -10,7 +10,7 @@ const getObjectFromArrayByKey = (array, key = extractObjectKey, value = extractO
   return array.reduce(
     (acc, item) =>
       Object.assign(acc, {
-        [key(item)]: value(item) || item,
+        [key(item)]: value(item),
       }),
     {}
   );
