@@ -3,7 +3,7 @@
     :column="column"
     :sorting-field="sortingField"
     :sort-direction="sortDirection"
-    :props="props"
+    :params="commission"
   />
 </template>
 
@@ -42,7 +42,7 @@ export default {
     total() {
       return this.storageData(this.tableName).totalCommissions;
     },
-    props() {
+    commission() {
       return { total: this.total[this.column.name] };
     },
   },
