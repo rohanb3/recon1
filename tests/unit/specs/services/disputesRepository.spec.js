@@ -152,7 +152,7 @@ describe('disputesRepository', () => {
 
   describe('changeStatusDispute', () => {
     it('should call api.patch and return corect data', async () => {
-      const disputeId = 7;
+      const id = 7;
       const status = '4f5yh3s257yh6';
       const userName = 'Dmitry';
       const comments = 'test1234';
@@ -167,9 +167,9 @@ describe('disputesRepository', () => {
 
       disputesApi.patch = jest.fn(() => Promise.resolve({ data }));
 
-      const response = await changeStatusDispute({ disputeId, ...params });
+      const response = await changeStatusDispute({ id, ...params });
       expect(response).toEqual(data);
-      expect(disputesApi.patch).toHaveBeenCalledWith(`/dispute/${disputeId}`, null, { params });
+      expect(disputesApi.patch).toHaveBeenCalledWith(`/dispute/${id}`, null, { params });
     });
   });
 
@@ -194,7 +194,7 @@ describe('disputesRepository', () => {
 
   describe('getDisputeHistory', () => {
     it('should call api.get and return corect data', async () => {
-      const disputeId = '4hfysb547fj347sh278rf';
+      const id = '4hfysb547fj347sh278rf';
 
       const params = {
         Skip: 0,
@@ -204,10 +204,10 @@ describe('disputesRepository', () => {
       const data = { id: '777' };
       disputesApi.get = jest.fn(() => Promise.resolve({ data }));
 
-      const response = await getDisputeHistory({ disputeId, ...params });
+      const response = await getDisputeHistory({ id, ...params });
 
       expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith(`/dispute/${disputeId}/history`, { params });
+      expect(disputesApi.get).toHaveBeenCalledWith(`/dispute/${id}/history`, { params });
     });
   });
 

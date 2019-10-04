@@ -209,7 +209,7 @@ export const FILTER_NAMES = {
   DISPUTE_STATUS_IDS: 'DisputeStatusIds',
   XYZ_STATUS_IDS: 'XYZStatusIds',
   SPECTRUM_STATUS_IDS: 'SpectrumStatusIds',
-  DISPUTE_ID: 'disputeId',
+  DISPUTE_ID: 'id',
   INSTALLATION_DATE_FROM: 'InstallationDateFrom',
   INSTALLATION_DATE_TO: 'InstallationDateTo',
   TYPE: 'Type',

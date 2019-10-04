@@ -67,13 +67,13 @@ export default {
     disputeId() {
       return this.filters[FILTER_NAMES.DISPUTE_ID];
     },
-    selectedDispute() {
+    selected() {
       return (
         this.$store.getters.getItemById(this.disputeId, this.parentTableName, item => item.id) || {}
       );
     },
     orderId() {
-      return this.selectedDispute.orderNumber;
+      return this.selected.orderNumber;
     },
   },
   methods: {

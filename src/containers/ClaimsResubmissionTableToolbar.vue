@@ -4,8 +4,8 @@
     <div class="table-filter-container">
       <order-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
-      <dispute-type-filter :tableName="tableName" />
-      <spectrum-dispute-status-filter :tableName="tableName" />
+      <claim-types-filter :tableName="tableName" />
+      <spectrum-dispute-status-filter :tableName="tableName" :filterField="filterField" />
     </div>
     <v-spacer></v-spacer>
     <div class="table-filter-container">
@@ -24,20 +24,20 @@
 import { mapGetters } from 'vuex';
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
-import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
+import ClaimTypesFilter from '@/containers/ClaimTypesFilter';
 import OrderAgeFilter from '@/containers/OrderAgeFilter';
 import DisputAgeFilter from '@/containers/DisputAgeFilter';
 import SpectrumDisputeStatusFilter from '@/containers/SpectrumDisputeStatusFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
-import { getDisputesCsvFile } from '@/services/disputesRepository';
+import { getClaimsCsvFile } from '@/services/disputesRepository';
 import { FILTER_NAMES } from '@/constants';
 
 export default {
   name: 'ClaimsResubmissionTableToolbar',
   components: {
     QuickSearchFilter,
-    DisputeTypeFilter,
+    ClaimTypesFilter,
     FiscalPeriodFilter,
     CustomRangeFilter,
     OrderAgeFilter,
@@ -61,10 +61,13 @@ export default {
     filters() {
       return this.tableData(this.tableName).filters;
     },
+    filterField() {
+      return FILTER_NAMES.CLAIMS_STATUS_IDS;
+    },
   },
   methods: {
     handlerCsvFile() {
-      return getDisputesCsvFile;
+      return getClaimsCsvFile;
     },
   },
 };

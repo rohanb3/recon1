@@ -1,5 +1,5 @@
 import { ENTITY_TYPES, FILTER_NAMES } from '@/constants';
-import { changeStatusDispute, getDispute } from '@/services/disputesRepository';
+import { changeStatusClaim, getClaim } from '@/services/disputesRepository';
 import DefaultCell from '@/components/tableCells/DefaultCell';
 import RecievedComissonCell from '@/components/tableCells/RecievedComissonCell';
 import DifferenceComissonCell from '@/components/tableCells/DifferenceComissonCell';
@@ -51,10 +51,10 @@ export default {
   },
   methods: {
     changeStatus(data) {
-      return changeStatusDispute(data);
+      return changeStatusClaim(data);
     },
     getEntityInfo(id) {
-      return getDispute(id);
+      return getClaim(id);
     },
     getSelectionFilters(id) {
       return {

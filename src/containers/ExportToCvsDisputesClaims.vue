@@ -9,7 +9,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import ExportToCsvFileButton from './ExportToCsvFileButton';
-import { getDisputesClaimsCsvFile } from '@/services/disputesRepository';
+import { getClaimsCsvFile } from '@/services/disputesRepository';
 
 export default {
   name: 'ExportToCvsDisputesClaims',
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     handlerCsvFile() {
-      return getDisputesClaimsCsvFile;
+      return getClaimsCsvFile;
     },
   },
 };

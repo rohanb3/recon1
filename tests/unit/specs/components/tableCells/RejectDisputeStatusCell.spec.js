@@ -54,7 +54,7 @@ describe('RejectDisputeStatusCell: ', () => {
         RejectDisputeStatusCell.methods.onResubmit.call(mockedThis);
 
         expect(mockedThis.$emit).toHaveBeenCalledWith('confirmRejectDisputeStatus', {
-          disputeId: id,
+          id,
           statusId: DISPUTE_STATUSES_ID.REJECTED,
         });
       });

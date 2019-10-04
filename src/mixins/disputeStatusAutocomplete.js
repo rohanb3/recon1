@@ -8,7 +8,7 @@ export default {
       type: Array,
       required: true,
     },
-    processingDisputeIds: {
+    processingIds: {
       type: Array,
       required: true,
     },
@@ -49,7 +49,7 @@ export default {
       return this.isStatusEditableBySAM || this.statusProcessing;
     },
     statusProcessing() {
-      return this.processingDisputeIds.includes(this.disputeId);
+      return this.processingIds.includes(this.disputeId);
     },
   },
   methods: {
