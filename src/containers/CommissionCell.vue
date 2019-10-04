@@ -43,7 +43,9 @@ export default {
       return this.storageData(this.tableName).totalCommissions;
     },
     commission() {
-      return { total: this.total[this.column.name] };
+      return this.total[this.column.name]
+        ? { total: `/ ${this.$t('total')}: $  ${this.total[this.column.name]}` }
+        : { total: '' };
     },
   },
 };

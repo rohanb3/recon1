@@ -22,8 +22,8 @@
   "no.sync.occurred": "No sync occurred",
   "orders.age.after.order": "Age (after order)",
   "orders.age.after.installation": "Age (after Installation)",
-  "orders.expected.comission": "Expected Commission / Total: $%{total}",
-  "orders.recieved.comisson": "Received Commission / Total: $%{total}",
+  "orders.expected.comission": "Expected Commission %{total}",
+  "orders.recieved.comisson": "Received Commission %{total}",
   "orders.difference": "Difference",
   "orders.new.dispute": "New Dispute",
   "orders.restore.draft": "Restore Draft",
@@ -256,5 +256,6 @@
   "disputes.claims.status": "Spectrum Claim status",
   "claim.title": "Claim List With Statuses",
   "disputes.status.not.canceled": "Order is not canceled",
-  "disputes.status.missing.transaction": "Missing Transaction"
+  "disputes.status.missing.transaction": "Missing Transaction",
+  "total": "Total"
 }

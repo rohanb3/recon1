@@ -10,15 +10,22 @@ class TableData {
   }
 }
 
-class OrdersTableData extends TableData {
+class TableDataWithCommission extends TableData {
   constructor() {
     super();
 
-    this.syncOrdersStatus = null;
     this.totalCommissions = {
       expectedCommission: null,
       receivedCommission: null,
     };
+  }
+}
+
+class OrdersTableData extends TableDataWithCommission {
+  constructor() {
+    super();
+
+    this.syncOrdersStatus = null;
   }
 }
 
@@ -27,27 +34,15 @@ export default {
     [TABLE_NAMES.CLAIMS_ORDERS]: new OrdersTableData(),
     [TABLE_NAMES.DISPUTES_ORDERS]: new OrdersTableData(),
     [ENTITY_TYPES.DISPUTES]: new TableData(),
-    [TABLE_NAMES.CLAIMS_RESUBMISSION]: new TableData(),
-    [TABLE_NAMES.DISPUTES_RESUBMISSION]: {
-      items: [],
-      allItemsLoaded: false,
-    },
-    [TABLE_NAMES.CLAIMS_BY_SUBMITTERS]: {
-      items: [],
-      allItemsLoaded: false,
-    },
+    [TABLE_NAMES.CLAIMS_RESUBMISSION]: new TableDataWithCommission(),
+    [TABLE_NAMES.DISPUTES_RESUBMISSION]: new TableDataWithCommission(),
+    [TABLE_NAMES.CLAIMS_BY_SUBMITTERS]: new TableData(),
     [TABLE_NAMES.DISPUTES_BY_SUBMITTERS]: new TableData(),
     [TABLE_NAMES.CLAIMS_DASHBOARD]: new TableData(),
     [TABLE_NAMES.DISPUTES_DASHBOARD]: new TableData(),
     [ENTITY_TYPES.DISPUTE_HISTORY]: new TableData(),
-    [TABLE_NAMES.CLAIMS_DISPUTES]: {
-      items: [],
-      allItemsLoaded: false,
-    },
-    [TABLE_NAMES.DISPUTES_LIST]: {
-      items: [],
-      allItemsLoaded: false,
-    },
+    [TABLE_NAMES.CLAIMS_DISPUTES]: new TableDataWithCommission(),
+    [TABLE_NAMES.DISPUTES_LIST]: new TableDataWithCommission(),
   },
   getters,
   actions,

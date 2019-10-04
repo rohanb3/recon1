@@ -255,5 +255,6 @@
   "disputes.claims.status": "TBD Spectrum Claim status",
   "claim.title": "TBD Claim List With Statuses",
   "disputes.status.not.canceled": "TBD Order is not canceled",
-  "disputes.status.missing.transaction": "TBD Missing Transaction"
+  "disputes.status.missing.transaction": "TBD Missing Transaction",
+  "total": "TBD Total"
 }

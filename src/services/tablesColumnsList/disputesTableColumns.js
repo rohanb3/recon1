@@ -96,6 +96,7 @@ export default () => [
     title: 'orders.expected.comission',
     width: '5',
     minWidth: '85px',
+    fieldHeaderType: 'commissionCell',
   },
   {
     name: 'receivedCommission',
@@ -105,6 +106,7 @@ export default () => [
     title: 'orders.recieved.comisson',
     width: '5',
     minWidth: '85px',
+    fieldHeaderType: 'commissionCell',
   },
   {
     name: 'difference',
