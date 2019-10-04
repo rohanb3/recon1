@@ -22,8 +22,8 @@
   "no.sync.occurred": "TBD No sync occurred",
   "orders.age.after.order": "TBD Age (after order)",
   "orders.age.after.installation": "TBD Age (after Installation)",
-  "orders.expected.comission": "TBD Expected Commission",
-  "orders.recieved.comisson": "TBD Received Commission",
+  "orders.expected.comission": "TBD Expected Commission %{total}",
+  "orders.recieved.comisson": "TBD Received Commission %{total}",
   "orders.difference": "TBD Difference",
   "orders.new.dispute": "TBD New Dispute",
   "orders.restore.draft": "TBD Restore Draft",
@@ -255,5 +255,6 @@
   "disputes.claims.status": "TBD Spectrum Claim status",
   "claim.title": "TBD Claim List With Statuses",
   "disputes.status.not.canceled": "TBD Order is not canceled",
-  "disputes.status.missing.transaction": "TBD Missing Transaction"
+  "disputes.status.missing.transaction": "TBD Missing Transaction",
+  "total": "TBD Total"
 }
