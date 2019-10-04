@@ -30,7 +30,7 @@ import DisputAgeFilter from '@/containers/DisputAgeFilter';
 import SpectrumDisputeStatusFilter from '@/containers/SpectrumDisputeStatusFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
-import { getDisputesCsvFile } from '@/services/disputesRepository';
+import { getClaimsCsvFile } from '@/services/disputesRepository';
 import { FILTER_NAMES } from '@/constants';
 
 export default {
@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     handlerCsvFile() {
-      return getDisputesCsvFile;
+      return getClaimsCsvFile;
     },
   },
 };
