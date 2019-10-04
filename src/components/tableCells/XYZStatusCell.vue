@@ -16,9 +16,9 @@
         @click="onResubmit"
       />
     </template>
-    <span v-show="isConfirmRejectedOrConfirmApprovedStatus" class="confirmed-status">{{
-      $t('confirmed')
-    }}</span>
+    <span v-show="isConfirmRejectedOrConfirmApprovedStatus" class="confirmed-status">
+      {{ $t('confirmed') }}
+    </span>
     <span v-show="isResentStatus" class="resubmited-status">{{ $t('resubmited') }}</span>
     <span v-show="isSentOrInProgressStatus">{{ $t('pending') }}</span>
   </div>
@@ -77,13 +77,13 @@ export default {
   methods: {
     onResubmit() {
       this.$emit('confirmResubmitDisputeStatus', {
-        disputeId: this.item.id,
+        id: this.item.id,
         statusId: DISPUTE_STATUSES_ID.RE_SENT,
       });
     },
     onConfirm() {
       this.$emit('confirmDisputeStatus', {
-        disputeId: this.item.id,
+        id: this.item.id,
         statusId: this.statusIdForConfirmDispute,
       });
     },

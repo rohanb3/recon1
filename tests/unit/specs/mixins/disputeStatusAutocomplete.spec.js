@@ -162,10 +162,10 @@ describe('disputeStatusAutocomplete', () => {
     });
 
     describe('statusProcessing', () => {
-      it('should return true if disputeId is contained in the array processingDisputeIds', () => {
+      it('should return true if disputeId is contained in the array processingIds', () => {
         const mockedThis = {
           disputeId: 123,
-          processingDisputeIds: [123, 312],
+          processingIds: [123, 312],
         };
 
         const result = disputeStatusAutocomplete.computed.statusProcessing.call(mockedThis);
@@ -173,10 +173,10 @@ describe('disputeStatusAutocomplete', () => {
         expect(result).toBeTruthy();
       });
 
-      it('should return false if disputeId is not contained in the array processingDisputeIds', () => {
+      it('should return false if disputeId is not contained in the array processingIds', () => {
         const mockedThis = {
           disputeId: 7,
-          processingDisputeIds: [123, 312],
+          processingIds: [123, 312],
         };
 
         const result = disputeStatusAutocomplete.computed.statusProcessing.call(mockedThis);

@@ -67,7 +67,7 @@ describe('ApproveDisputeStatusCell: ', () => {
         ApproveDisputeStatusCell.methods.onResubmit.call(mockedThis);
 
         expect(mockedThis.$emit).toHaveBeenCalledWith('confirmApproveDisputeStatus', {
-          disputeId: 7,
+          id: 7,
           statusId: DISPUTE_STATUSES_ID.CONFIRM_APPROVED,
         });
       });

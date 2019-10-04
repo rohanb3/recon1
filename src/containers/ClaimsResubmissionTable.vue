@@ -13,29 +13,29 @@
         :column="rowCell.column"
         :filter="rowCell.column.filter"
         :scopes="scopes"
-        :processing-dispute-ids="processingDisputeIds"
+        :processing-ids="processingIds"
         @changeDisputeStatus="changeDisputeStatus"
         @confirmApproveDisputeStatus="onConfirmApproveDisputeStatus"
         @confirmRejectDisputeStatus="onConfirmRejectDisputeStatus"
-        @selectId="onSelectIdDispute"
+        @selectId="onSelectId"
       />
     </lazy-load-table>
     <confirm-approve-dispute-popup
       :visible-popup="isShowApproveConfirmationPopup"
-      :dispute-info="selectedDispute"
+      :dispute-info="selected"
       @save="changeDisputeStatus"
       @close="isShowApproveConfirmationPopup = false"
     />
     <confirm-reject-dispute-popup
       :visible-popup="isShowRejectConfirmationPopup"
-      :dispute-info="selectedDispute"
+      :dispute-info="selected"
       @save="changeDisputeStatus"
       @close="isShowRejectConfirmationPopup = false"
     />
     <dispute-history
-      v-if="disputeHistoryShown"
+      v-if="historyShown"
       :parent-table-name="tableName"
-      @close="disputeHistoryShown = false"
+      @close="historyShown = false"
     />
   </div>
 </template>
@@ -48,7 +48,7 @@ import ClaimsResubmissionTableToolbar from '@/containers/ClaimsResubmissionTable
 import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
 import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmRejectDisputePopup';
 
-import disputeCommonTable from '@/mixins/disputeCommonTable';
+import claimCommonTable from '@/mixins/claimCommonTable';
 
 import { TABLE_NAMES } from '@/constants';
 import TableToolbar from '@/components/TableToolbar';
@@ -61,7 +61,7 @@ export default {
     ConfirmRejectDisputePopup,
     ClaimsResubmissionTableToolbar,
   },
-  mixins: [disputeCommonTable],
+  mixins: [claimCommonTable],
   data() {
     return {
       tableName: TABLE_NAMES.CLAIMS_RESUBMISSION,
@@ -75,17 +75,17 @@ export default {
     };
   },
   methods: {
-    async changeDisputeStatus({ disputeId, statusId, comments }) {
+    async changeDisputeStatus(data) {
       this.isShowApproveConfirmationPopup = false;
       this.isShowRejectConfirmationPopup = false;
-      await this.onChangeDisputeStatus({ disputeId, statusId, comments });
+      await this.onChangeStatus(data);
     },
-    onConfirmApproveDisputeStatus({ disputeId, statusId }) {
-      this.selectedDispute = { disputeId, statusId };
+    onConfirmApproveDisputeStatus(data) {
+      this.selected = data;
       this.isShowApproveConfirmationPopup = true;
     },
-    onConfirmRejectDisputeStatus({ disputeId, statusId }) {
-      this.selectedDispute = { disputeId, statusId };
+    onConfirmRejectDisputeStatus(data) {
+      this.selected = data;
       this.isShowRejectConfirmationPopup = true;
     },
   },

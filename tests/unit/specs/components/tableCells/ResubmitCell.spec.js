@@ -82,7 +82,7 @@ describe('ResubmitCell: ', () => {
         ResubmitCell.methods.onResubmit.call(mockedThis);
 
         expect(mockedThis.$emit).toHaveBeenCalledWith('changeDisputeStatus', {
-          disputeId: id,
+          id,
           statusId: DISPUTE_STATUSES_ID.IN_PROGRESS,
         });
       });

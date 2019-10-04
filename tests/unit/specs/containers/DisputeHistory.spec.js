@@ -100,7 +100,7 @@ describe('DisputeHistory', () => {
       });
     });
 
-    describe('selectedDispute', () => {
+    describe('selected', () => {
       it('should call method getItemById', () => {
         const mockedThis = {
           $store: {
@@ -112,7 +112,7 @@ describe('DisputeHistory', () => {
           parentTableName: 'company',
         };
 
-        DisputeHistory.computed.selectedDispute.call(mockedThis);
+        DisputeHistory.computed.selected.call(mockedThis);
 
         expect(mockedThis.$store.getters.getItemById).toHaveBeenCalledWith(
           mockedThis.disputeId,
@@ -134,7 +134,7 @@ describe('DisputeHistory', () => {
           parentTableName: 'company',
         };
 
-        const result = DisputeHistory.computed.selectedDispute.call(mockedThis);
+        const result = DisputeHistory.computed.selected.call(mockedThis);
 
         expect(result).toEqual({
           id: 123,
@@ -152,7 +152,7 @@ describe('DisputeHistory', () => {
           parentTableName: 'company',
         };
 
-        const result = DisputeHistory.computed.selectedDispute.call(mockedThis);
+        const result = DisputeHistory.computed.selected.call(mockedThis);
 
         expect(result).toEqual({});
       });
@@ -162,7 +162,7 @@ describe('DisputeHistory', () => {
       it('should return order number', () => {
         const orderNumber = 789;
         const mockedThis = {
-          selectedDispute: {
+          selected: {
             orderNumber,
           },
         };

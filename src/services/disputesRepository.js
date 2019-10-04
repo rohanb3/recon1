@@ -5,6 +5,10 @@ export const getDispute = id => {
   return apiDisputes.get(`/dispute/${id}`).then(({ data }) => data);
 };
 
+export const getClaim = id => {
+  return apiDisputes.get(`/claim/${id}`).then(({ data }) => data);
+};
+
 export const getDisputesStatisticsBySubmitters = filters => {
   const params = { ...filters };
 
@@ -62,8 +66,12 @@ export const removeDisputeAttachment = (id, filename) => {
     .then(({ status }) => status);
 };
 
-export const changeStatusDispute = ({ disputeId, ...params }) => {
-  return apiDisputes.patch(`/dispute/${disputeId}`, null, { params }).then(({ data }) => data);
+export const changeStatusDispute = ({ id, ...params }) => {
+  return apiDisputes.patch(`/dispute/${id}`, null, { params }).then(({ data }) => data);
+};
+
+export const changeStatusClaim = ({ id, ...params }) => {
+  return apiDisputes.patch(`/claim/${id}`, null, { params }).then(({ data }) => data);
 };
 
 export const getDisputesCsvFile = filters => {
@@ -98,8 +106,8 @@ export const getClaimsBySubmittersCsvFile = filters => {
 };
 
 export const getDisputeHistory = filters => {
-  const { disputeId, ...params } = filters;
-  return apiDisputes.get(`/dispute/${disputeId}/history`, { params }).then(({ data }) => data);
+  const { id, ...params } = filters;
+  return apiDisputes.get(`/dispute/${id}/history`, { params }).then(({ data }) => data);
 };
 
 export const getClaims = params => {
