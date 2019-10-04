@@ -6,7 +6,7 @@ export default () => [
     field: 'orderNumber',
     fieldType: 'orderNumber',
     class: 'text',
-    title: 'company.order.number',
+    title: 'orders.number',
     width: '4',
     minWidth: '90px',
     sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.NUMBER,

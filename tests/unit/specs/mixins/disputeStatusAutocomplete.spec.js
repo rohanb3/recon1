@@ -22,7 +22,7 @@ describe('disputeStatusAutocomplete', () => {
       it('should return id', () => {
         const mockedThis = {
           item: {
-            disputeStatus: {
+            status: {
               id: 1,
             },
           },

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { getEntityActions } from './repositoryHelper';
 
 import { ItemsLoaderWithCommission } from './ItemsLoader';
@@ -15,11 +16,9 @@ import {
 
 import { INSERT_ITEMS, CHANGE_ITEM, REMOVE_ITEM, SET_SYNC_ORDERS_STATUS } from './mutationTypes';
 
-import { ORDER_SYNC_STATUS, ENTITY_TYPES } from '@/constants';
+import { ORDER_SYNC_STATUS, TABLE_NAMES } from '@/constants';
 
 import { orderSync, checkOrderSync } from '@/services/ordersRepository';
-
-import moment from 'moment';
 
 import config from '@/../config.json';
 
@@ -82,8 +81,8 @@ export default {
         clearInterval(syncOrdersIntervalId);
         syncOrdersIntervalId = null;
         await dispatch(LOAD_ITEMS, {
-          itemType: ENTITY_TYPES.CLAIMS_ORDERS,
-          filters: rootState.tables[ENTITY_TYPES.CLAIMS_ORDERS].filters,
+          itemType: TABLE_NAMES.CLAIMS_ORDERS,
+          filters: rootState.tables[TABLE_NAMES.CLAIMS_ORDERS].filters,
         });
         commit(SET_SYNC_ORDERS_STATUS, ORDER_SYNC_STATUS.FINISHED);
       }

@@ -7,6 +7,7 @@
       :dependentFilterName="dependentFilterName"
       :displayedOptions="displayedOptions"
       :send-field-name="sendFieldName"
+      :filter-field="filterField"
     />
   </div>
 </template>
@@ -16,12 +17,16 @@ import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
 import { FILTER_NAMES, DISPUTE_STATUSES_ID } from '@/constants';
 
 export default {
-  name: 'DisputeXyzStatusFilter',
+  name: 'XyzStatusFilter',
   components: {
     DisputeStatusFilter,
   },
   props: {
     tableName: {
+      type: String,
+      required: true,
+    },
+    filterField: {
       type: String,
       required: true,
     },

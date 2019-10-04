@@ -1,17 +1,23 @@
 <template>
-  <orders-content toolbar-title="orders.select.order.dispute" :table-name="tableName" />
+  <orders-content :table-name="tableName">
+    <disputes-orders-toolbar slot="toolbar" :table-name="tableName" />
+  </orders-content>
 </template>
 
 <script>
-import OrdersContent from '@/containers/OrdersContent';
-import { ENTITY_TYPES } from '@/constants';
+import { TABLE_NAMES } from '@/constants';
+import OrdersContent from './OrdersContent';
+import DisputesOrdersToolbar from './DisputesOrdersToolbar';
 
 export default {
   name: 'DisputesOrders',
-  components: { OrdersContent },
+  components: {
+    DisputesOrdersToolbar,
+    OrdersContent,
+  },
   computed: {
     tableName() {
-      return ENTITY_TYPES.DISPUTES_ORDERS;
+      return TABLE_NAMES.DISPUTES_ORDERS;
     },
   },
 };

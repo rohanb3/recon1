@@ -16,6 +16,7 @@ import TableFiscalPeriodFilter from '@/components/TableFiscalPeriodFilter/TableF
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 import { FILTER_NAMES } from '@/constants';
 import { getFiscalPeriods } from '@/services/ordersRepository';
+import contextRageFilterData from '@/mixins/contextRageFilterData';
 
 export default {
   name: 'FiscalPeriodFilter',
@@ -28,6 +29,7 @@ export default {
       required: true,
     },
   },
+  mixins: [contextRageFilterData],
   mounted() {
     this.loadFiscalPeriodList();
   },
@@ -76,11 +78,11 @@ export default {
         tableName: this.tableName,
         filters: [
           {
-            name: FILTER_NAMES.CREATED_FROM,
+            name: this.fromFilterName,
             value: '',
           },
           {
-            name: FILTER_NAMES.CREATED_TO,
+            name: this.toFilterName,
             value: '',
           },
           {

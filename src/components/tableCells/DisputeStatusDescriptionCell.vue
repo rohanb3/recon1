@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     disputeComment() {
-      return this.item.submitterComment || this.item.disputeStatusDescription;
+      return this.item.submitterComment || this.item.statusDescription;
     },
   },
 };

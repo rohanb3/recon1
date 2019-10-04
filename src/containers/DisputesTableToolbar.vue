@@ -5,7 +5,6 @@
       <order-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
       <dispute-type-filter :tableName="tableName" />
-      <dispute-xyz-status-filter :tableName="tableName" />
       <spectrum-dispute-status-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
@@ -28,7 +27,6 @@ import CustomRangeFilter from '@/containers/CustomRangeFilter';
 import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
 import OrderAgeFilter from '@/containers/OrderAgeFilter';
 import DisputAgeFilter from '@/containers/DisputAgeFilter';
-import DisputeXyzStatusFilter from '@/containers/DisputeXyzStatusFilter';
 import SpectrumDisputeStatusFilter from '@/containers/SpectrumDisputeStatusFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
@@ -44,7 +42,6 @@ export default {
     CustomRangeFilter,
     OrderAgeFilter,
     DisputAgeFilter,
-    DisputeXyzStatusFilter,
     SpectrumDisputeStatusFilter,
     ExportToCsvFileButton,
   },

@@ -1,25 +1,21 @@
 <template>
-  <div class="orders-table-toolbar">
+  <div class="disputes-table-toolbar">
     <quick-search-filter :table-name="tableName" :filter-name="quickSearchFilterName" />
     <div class="table-filter-container">
-      <order-status-filter :table-name="tableName" />
       <order-age-filter :table-name="tableName" />
+      <disput-age-filter :table-name="tableName" />
+      <dispute-type-filter :tableName="tableName" />
+      <spectrum-dispute-status-filter :tableName="tableName" />
     </div>
     <v-spacer></v-spacer>
     <div class="table-filter-container">
-      <table-button
-        :disabled="isOrdersSyncing"
-        :preloader="isOrdersSyncing"
-        :title="$t('sync.orders')"
-        @click="$emit('syncOrders')"
-      />
       <export-to-csv-file-button
         :tableName="tableName"
         :filters="filters"
         :repository="handlerCsvFile()"
       />
       <fiscal-period-filter :tableName="tableName" />
-      <custom-range-filter :table-name="tableName" />
+      <custom-range-filter :tableName="tableName" />
     </div>
   </div>
 </template>
@@ -27,25 +23,27 @@
 <script>
 import { mapGetters } from 'vuex';
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
-import OrderStatusFilter from '@/containers/OrderStatusFilter';
-import TableButton from '@/components/TableButton';
-import OrderAgeFilter from '@/containers/OrderAgeFilter';
-import { ORDER_SYNC_STATUS, FILTER_NAMES } from '@/constants';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
+import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
+import OrderAgeFilter from '@/containers/OrderAgeFilter';
+import DisputAgeFilter from '@/containers/DisputAgeFilter';
+import SpectrumDisputeStatusFilter from '@/containers/SpectrumDisputeStatusFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
-import { getOrdersCsvFile } from '@/services/ordersRepository';
+import { getDisputesCsvFile } from '@/services/disputesRepository';
+import { FILTER_NAMES } from '@/constants';
 
 export default {
-  name: 'OrdersTableToolbar',
+  name: 'ClaimsResubmissionTableToolbar',
   components: {
-    CustomRangeFilter,
     QuickSearchFilter,
-    OrderStatusFilter,
-    TableButton,
+    DisputeTypeFilter,
     FiscalPeriodFilter,
-    ExportToCsvFileButton,
+    CustomRangeFilter,
     OrderAgeFilter,
+    DisputAgeFilter,
+    SpectrumDisputeStatusFilter,
+    ExportToCsvFileButton,
   },
   props: {
     tableName: {
@@ -55,21 +53,18 @@ export default {
   },
   data() {
     return {
-      quickSearchFilterName: FILTER_NAMES.SEARCH_ORDERS,
+      quickSearchFilterName: FILTER_NAMES.SEARCH_DISPUTES,
     };
   },
   computed: {
-    ...mapGetters(['tableData', 'storageData']),
-    isOrdersSyncing() {
-      return this.storageData(this.tableName).syncOrdersStatus === ORDER_SYNC_STATUS.WORKING;
-    },
+    ...mapGetters(['tableData']),
     filters() {
       return this.tableData(this.tableName).filters;
     },
   },
   methods: {
     handlerCsvFile() {
-      return getOrdersCsvFile;
+      return getDisputesCsvFile;
     },
   },
 };
@@ -79,7 +74,7 @@ export default {
 @import '@/assets/styles/variables.scss';
 @import '@/assets/styles/mixins.scss';
 
-.orders-table-toolbar {
+.disputes-table-toolbar {
   display: flex;
   flex: 1;
   margin-left: 20px;
@@ -92,6 +87,5 @@ export default {
 
 .table-filter-container /deep/ {
   @include table-filter-container;
-  flex-wrap: wrap;
 }
 </style>

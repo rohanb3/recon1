@@ -45,6 +45,10 @@ export default {
       type: Array,
       required: true,
     },
+    filterField: {
+      type: String,
+      required: true,
+    },
   },
   components: {
     TableFilter,
@@ -73,6 +77,7 @@ export default {
           name: this.filterName,
           value: this.selectedStatusIds(selectedItems),
         },
+        filterField: this.filterField,
       };
       this.$store.dispatch(APPLY_DISPUTE_STATUS_FILTER, data);
     },
