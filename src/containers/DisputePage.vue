@@ -6,7 +6,6 @@
       </div>
       <v-layout row wrap>
         <v-flex xs12 lg6 class="general-information-form">
-          <!--<general-information-form v-model="disputeInfo" ref="generalInfo" />-->
           <general-information-form-dispute v-model="disputeInfo" ref="generalInfo" />
           <additional-info-block-form-disputes
             v-model="disputeInfo"
