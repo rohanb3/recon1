@@ -1,6 +1,6 @@
 <template>
   <div class="disputes-table-toolbar">
-    <quick-search-filter :table-name="tableName" :filter-name="quickSearchFilterName" />
+    <quick-search-filter :table-name="tableName" />
     <div class="table-filter-container">
       <order-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
@@ -31,7 +31,6 @@ import SpectrumDisputeStatusFilter from '@/containers/SpectrumDisputeStatusFilte
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
 import { getDisputesCsvFile } from '@/services/disputesRepository';
-import { FILTER_NAMES } from '@/constants';
 
 export default {
   name: 'DisputesTableToolbar',
@@ -50,11 +49,6 @@ export default {
       type: String,
       required: true,
     },
-  },
-  data() {
-    return {
-      quickSearchFilterName: FILTER_NAMES.SEARCH_DISPUTES,
-    };
   },
   computed: {
     ...mapGetters(['tableData']),

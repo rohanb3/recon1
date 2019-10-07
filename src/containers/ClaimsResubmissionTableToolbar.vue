@@ -1,6 +1,6 @@
 <template>
   <div class="disputes-table-toolbar">
-    <quick-search-filter :table-name="tableName" :filter-name="quickSearchFilterName" />
+    <quick-search-filter :table-name="tableName" />
     <div class="table-filter-container">
       <order-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
@@ -53,7 +53,7 @@ export default {
   },
   data() {
     return {
-      quickSearchFilterName: FILTER_NAMES.SEARCH_DISPUTES,
+      quickSearchFilterName: FILTER_NAMES.SEARCH,
     };
   },
   computed: {
