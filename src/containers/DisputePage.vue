@@ -107,14 +107,14 @@ export default {
     },
     disputeStatusId: {
       get() {
-        return (this.disputeInfo.disputeStatus || {}).id;
+        return (this.disputeInfo.status || {}).id;
       },
       set(statusId) {
-        this.disputeInfo.disputeStatus.id = statusId;
+        this.disputeInfo.status.id = statusId;
       },
     },
     disputeTypeId() {
-      return (this.disputeInfo.disputeType || {}).id;
+      return (this.disputeInfo.type || {}).id;
     },
     isDisputeStatusSent() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.SENT;

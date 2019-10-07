@@ -23,7 +23,7 @@ import BrowseFiles from '@/components/BrowseFiles/BrowseFiles';
 import TextareaSubmitterComment from '@/components/TextareaSubmitterComment';
 import ClaimTypesSelect from '../containers/ClaimTypesSelect';
 
-const PATH_TO_ATTACHMENT_FILES = '/api/disputs/disputeattachment/';
+const PATH_TO_ATTACHMENT_FILES = '/api/disputs/attachment/claim/';
 
 export default {
   name: 'AdditionalInfoBlockForm',

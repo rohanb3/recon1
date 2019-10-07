@@ -2,7 +2,7 @@
   <v-container fluid grid-list-md class="dispute-page">
     <div class="dispute-page-wrapper" :class="{ blurred: loading }">
       <div class="dispute-toolbar">
-        <div class="dispute-title">{{ $t('dispute.page.title') }}</div>
+        <div class="dispute-title">{{ $t('orders.new.claim') }}</div>
       </div>
       <v-layout row wrap>
         <v-flex xs12 lg6 class="general-information-form">
@@ -69,10 +69,10 @@ import { addBackgroundBlur, removeBackgroundBlur } from '@/services/background';
 import { RESPONSE_STATUSES, DISPUTE_STATUSES_ID, ROUTE_NAMES } from '@/constants';
 
 import {
-  getDispute,
-  deleteDispute,
-  uploadDisputeAttachment,
-  removeDisputeAttachment,
+  getClaim,
+  deleteClaim,
+  uploadClaimAttachment,
+  removeClaimAttachment,
   createClaim,
   updateClaim,
 } from '@/services/disputesRepository';
@@ -106,14 +106,14 @@ export default {
     },
     disputeStatusId: {
       get() {
-        return (this.disputeInfo.claimStatus || {}).id;
+        return (this.disputeInfo.status || {}).id || null;
       },
       set(statusId) {
-        this.disputeInfo.disputeStatus.id = statusId;
+        this.disputeInfo.status.id = statusId;
       },
     },
     disputeTypeId() {
-      return (this.disputeInfo.claimType || {}).id;
+      return (this.disputeInfo.type || {}).id;
     },
     isDisputeStatusSent() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.SENT;
@@ -148,7 +148,7 @@ export default {
     },
     async onRemoveDraft() {
       try {
-        await deleteDispute(this.disputeInfo.id);
+        await deleteClaim(this.disputeInfo.id);
         this.savedDispute = true;
         this.$router.push({ name: this.routeNameForRedirect });
       } catch {
@@ -170,7 +170,7 @@ export default {
       const { disputeId, orderId } = this.$route.params;
       try {
         if (disputeId) {
-          this.disputeInfo = await getDispute(disputeId);
+          this.disputeInfo = await getClaim(disputeId);
         } else {
           this.disputeInfo = await createClaim(orderId);
         }
@@ -190,7 +190,7 @@ export default {
     },
     async onRemoveFile(filename) {
       try {
-        await removeDisputeAttachment(this.disputeInfo.id, filename);
+        await removeClaimAttachment(this.disputeInfo.id, filename);
         await this.loadSttachments();
       } catch {
         errorMessage();
@@ -202,7 +202,7 @@ export default {
         const uploadFileList = [].map.call(files, file => {
           const formData = new FormData();
           formData.append('attachments', file, file.name);
-          return uploadDisputeAttachment(this.disputeInfo.id, formData);
+          return uploadClaimAttachment(this.disputeInfo.id, formData);
         });
 
         await Promise.all(uploadFileList);
@@ -222,7 +222,7 @@ export default {
       }
     },
     async loadSttachments() {
-      const { attachments } = await getDispute(this.disputeInfo.id);
+      const { attachments } = await getClaim(this.disputeInfo.id);
       this.disputeInfo.attachments = attachments;
     },
     validate() {

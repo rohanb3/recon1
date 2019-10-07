@@ -33,7 +33,7 @@ import TextareaSubmitterComment from '@/components/TextareaSubmitterComment';
 import DisputeTypesSelect from '../containers/DisputeTypesSelect';
 import DisputeCommentTable from '../containers/DisputeCommentTable';
 
-const PATH_TO_ATTACHMENT_FILES = '/api/disputs/disputeattachment/';
+const PATH_TO_ATTACHMENT_FILES = '/api/disputs/attachment/dispute/';
 
 export default {
   name: 'AdditionalInfoBlockFormDisputes',

@@ -38,12 +38,12 @@ export default {
     },
     claimType: {
       get() {
-        return (this.value.claimType || {}).id || null;
+        return (this.value.type || {}).id || null;
       },
       set(value) {
         this.$emit('input', {
           ...this.value,
-          claimType: this.typesList.find(claim => claim.id === value),
+          type: this.typesList.find(claim => claim.id === value),
         });
       },
     },

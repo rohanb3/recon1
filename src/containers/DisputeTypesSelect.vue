@@ -38,12 +38,12 @@ export default {
     },
     claimType: {
       get() {
-        return (this.value.disputeType || {}).id || null;
+        return (this.value.type || {}).id || null;
       },
       set(value) {
         this.$emit('input', {
           ...this.value,
-          disputeType: this.typesList.find(dispute => dispute.id === value),
+          type: this.typesList.find(dispute => dispute.id === value),
         });
       },
     },
