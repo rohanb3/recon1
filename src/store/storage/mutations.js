@@ -7,9 +7,10 @@ import {
   SET_ALL_ITEMS_LOADED,
   SET_ITEMS_TOTAL,
   SET_SYNC_ORDERS_STATUS,
+  SET_COMMISSIONS,
 } from './mutationTypes';
 
-import { ENTITY_TYPES } from '@/constants';
+import { TABLE_NAMES } from '@/constants';
 
 export default {
   /* eslint-disable no-param-reassign */
@@ -40,7 +41,10 @@ export default {
     state[itemType].total = total;
   },
   [SET_SYNC_ORDERS_STATUS](state, status) {
-    state[ENTITY_TYPES.ORDERS].syncOrdersStatus = status;
+    state[TABLE_NAMES.CLAIMS_ORDERS].syncOrdersStatus = status;
+  },
+  [SET_COMMISSIONS](state, { itemType, totalCommissions }) {
+    state[itemType].totalCommissions = { ...totalCommissions };
   },
   /* eslint-enable no-param-reassign */
 };

@@ -1,4 +1,7 @@
+import moment from 'moment';
 import { getEntityActions } from './repositoryHelper';
+
+import { ItemsLoaderWithCommission } from './ItemsLoader';
 
 import {
   LOAD_ITEMS,
@@ -11,23 +14,11 @@ import {
   POLLING_ORDER_SYNC,
 } from './actionTypes';
 
-import {
-  INSERT_ITEMS,
-  CHANGE_ITEM,
-  REMOVE_ITEM,
-  SET_ALL_ITEMS_LOADED,
-  SET_ITEMS_TOTAL,
-  RESET_ITEMS,
-  SET_SYNC_ORDERS_STATUS,
-} from './mutationTypes';
+import { INSERT_ITEMS, CHANGE_ITEM, REMOVE_ITEM, SET_SYNC_ORDERS_STATUS } from './mutationTypes';
 
-import { ITEMS_TO_LOAD } from './constants';
-
-import { ORDER_SYNC_STATUS, ENTITY_TYPES } from '@/constants';
+import { ORDER_SYNC_STATUS, TABLE_NAMES } from '@/constants';
 
 import { orderSync, checkOrderSync } from '@/services/ordersRepository';
-
-import moment from 'moment';
 
 import config from '@/../config.json';
 
@@ -35,34 +26,12 @@ const LAST_SIX_MONTHS = 6;
 
 let syncOrdersIntervalId = null;
 
-async function loadItems({ commit, state }, { itemType, filters = {} }, resetPrevious) {
-  const { items } = state[itemType];
-  const filtersToApply = {
-    ...filters,
-    skip: resetPrevious ? 0 : items.length,
-    take: ITEMS_TO_LOAD,
-  };
-
-  const { getAll } = getEntityActions(itemType);
-  const { data, total } = await getAll(filtersToApply);
-
-  if (resetPrevious) {
-    commit(RESET_ITEMS, itemType);
-  }
-
-  commit(INSERT_ITEMS, { itemType, items: data });
-  commit(SET_ITEMS_TOTAL, { itemType, total });
-  if (data.length < ITEMS_TO_LOAD) {
-    commit(SET_ALL_ITEMS_LOADED, itemType);
-  }
-}
-
 export default {
   [LOAD_ITEMS](store, data) {
-    return loadItems(store, data, true);
+    return new ItemsLoaderWithCommission().loadItems(store, data, true);
   },
   [LOAD_MORE_ITEMS](store, data) {
-    return loadItems(store, data, false);
+    return new ItemsLoaderWithCommission().loadItems(store, data, false);
   },
   async [CREATE_ITEM]({ commit }, { itemType, ...data }) {
     const { create } = getEntityActions(itemType);
@@ -112,8 +81,8 @@ export default {
         clearInterval(syncOrdersIntervalId);
         syncOrdersIntervalId = null;
         await dispatch(LOAD_ITEMS, {
-          itemType: ENTITY_TYPES.ORDERS,
-          filters: rootState.tables[ENTITY_TYPES.ORDERS].filters,
+          itemType: TABLE_NAMES.CLAIMS_ORDERS,
+          filters: rootState.tables[TABLE_NAMES.CLAIMS_ORDERS].filters,
         });
         commit(SET_SYNC_ORDERS_STATUS, ORDER_SYNC_STATUS.FINISHED);
       }

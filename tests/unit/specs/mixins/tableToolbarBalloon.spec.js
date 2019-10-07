@@ -1,9 +1,13 @@
 import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
 
-describe('tableToolbarBalloon', () => {
-  describe('tableToolbarBalloon: computed', () => {
-    describe('options', () => {
-      it('should return options', () => {
+const DELAY_BEFORE_OPENING = 10;
+
+describe('tableToolbarBalloon: ', () => {
+  describe('computed: ', () => {
+    describe('options: ', () => {
+      it('should return object', () => {
+        const result = tableToolbarBalloon.computed.options();
+
         const expectedResult = {
           modifiers: {
             preventOverflow: { boundariesElement: 'scrollParent' },
@@ -11,21 +15,72 @@ describe('tableToolbarBalloon', () => {
           },
         };
 
-        const result = tableToolbarBalloon.computed.options.call(null);
-
         expect(result).toEqual(expectedResult);
       });
     });
   });
-  describe('tableToolbarBalloon: methods', () => {
-    describe('show', () => {
-      it('should call doShow func', () => {
+
+  describe('methods: ', () => {
+    describe('checkAndShow: ', () => {
+      it('should call setTimeout with parameters if defined isShown as false', () => {
         const mockedThis = {
-          $refs: {
-            popper: {
-              doShow: jest.fn(),
-            },
-          },
+          isShown: false,
+          show: jest.fn(),
+        };
+
+        window.setTimeout = jest.fn();
+
+        tableToolbarBalloon.methods.checkAndShow.call(mockedThis);
+
+        expect(window.setTimeout).toHaveBeenCalledWith(expect.any(Function), DELAY_BEFORE_OPENING);
+      });
+
+      it('should not call setTimeout if defined isShown as true', () => {
+        const mockedThis = {
+          isShown: true,
+          show: jest.fn(),
+        };
+
+        window.setTimeout = jest.fn();
+
+        tableToolbarBalloon.methods.checkAndShow.call(mockedThis);
+
+        expect(window.setTimeout).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('checkAndHide: ', () => {
+      it('should call setTimeout with parameters if defined isShown as true', () => {
+        const mockedThis = {
+          isShown: true,
+          hide: jest.fn(),
+        };
+
+        window.setTimeout = jest.fn();
+
+        tableToolbarBalloon.methods.checkAndHide.call(mockedThis);
+
+        expect(window.setTimeout).toHaveBeenCalledWith(expect.any(Function), DELAY_BEFORE_OPENING);
+      });
+
+      it('should not call setTimeout if defined isShown as false', () => {
+        const mockedThis = {
+          isShown: false,
+          hide: jest.fn(),
+        };
+
+        window.setTimeout = jest.fn();
+
+        tableToolbarBalloon.methods.checkAndHide.call(mockedThis);
+
+        expect(window.setTimeout).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('show: ', () => {
+      it('should call doShow', () => {
+        const mockedThis = {
+          $refs: { popper: { doShow: jest.fn() } },
         };
 
         tableToolbarBalloon.methods.show.call(mockedThis);
@@ -33,14 +88,11 @@ describe('tableToolbarBalloon', () => {
         expect(mockedThis.$refs.popper.doShow).toHaveBeenCalled();
       });
     });
-    describe('hide', () => {
-      it('should call doClose func', () => {
+
+    describe('hide: ', () => {
+      it('should call doClose', () => {
         const mockedThis = {
-          $refs: {
-            popper: {
-              doClose: jest.fn(),
-            },
-          },
+          $refs: { popper: { doClose: jest.fn() } },
         };
 
         tableToolbarBalloon.methods.hide.call(mockedThis);
@@ -48,26 +100,28 @@ describe('tableToolbarBalloon', () => {
         expect(mockedThis.$refs.popper.doClose).toHaveBeenCalled();
       });
     });
-    describe('onShow', () => {
-      it('should change isShown status', () => {
+
+    describe('onShow: ', () => {
+      it('should set true for property isShown', () => {
         const mockedThis = {
-          isShown: false,
+          isShown: null,
         };
 
         tableToolbarBalloon.methods.onShow.call(mockedThis);
 
-        expect(mockedThis.isShown).toEqual(true);
+        expect(mockedThis.isShown).toBeTruthy();
       });
     });
-    describe('onHide', () => {
-      it('should change isShown status', () => {
+
+    describe('onHide: ', () => {
+      it('should set false for property isShown', () => {
         const mockedThis = {
-          isShown: true,
+          isShown: null,
         };
 
         tableToolbarBalloon.methods.onHide.call(mockedThis);
 
-        expect(mockedThis.isShown).toEqual(false);
+        expect(mockedThis.isShown).toBeFalsy();
       });
     });
   });

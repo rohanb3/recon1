@@ -8,7 +8,7 @@ export default {
       type: Array,
       required: true,
     },
-    processingDisputeIds: {
+    processingIds: {
       type: Array,
       required: true,
     },
@@ -22,7 +22,7 @@ export default {
       return this.item.id;
     },
     disputeStatusId() {
-      return (this.item.disputeStatus || {}).id;
+      return (this.item.status || {}).id;
     },
     isSentStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.SENT;
@@ -49,7 +49,7 @@ export default {
       return this.isStatusEditableBySAM || this.statusProcessing;
     },
     statusProcessing() {
-      return this.processingDisputeIds.includes(this.disputeId);
+      return this.processingIds.includes(this.disputeId);
     },
   },
   methods: {

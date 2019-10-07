@@ -42,6 +42,12 @@ export const DISPUTE_TYPES_ID = {
   MISSING_TRANSACTION: 'e0e82612-96d7-4602-bc24-56436a25240c',
 };
 
+export const ORDERS_DISPUTE_TYPES = {
+  ORDER_INSTALLED_WITHOUT_COMMISSION_RECEIVED: 'OrderInstalledWithoutCommissionReceived',
+  COMMISSION_RECEIVED_LESS_EXPECTED: 'CommissionReceivedLessExpected',
+  COMMISSION_RECEIVED_MORE_EXPECTED: 'CommissionReceivedMoreExpected',
+};
+
 export const ORDER_STATUSES_NAME = {
   NOT_INSTALLED: 'Not Installed',
   INSTALLED: 'Installed',
@@ -50,6 +56,7 @@ export const ORDER_STATUSES_NAME = {
   ONLINE_ORDER: 'OnlineOrder',
   PENDING: 'Pending',
   CALL_IN_ORDER: 'CallInOrder',
+  PAID: 'Paid',
 };
 
 export const ORDER_STATUS_NAME_TRANSLATION_KEYS = {
@@ -60,6 +67,29 @@ export const ORDER_STATUS_NAME_TRANSLATION_KEYS = {
   [ORDER_STATUSES_NAME.ONLINE_ORDER]: 'orders.order.status.online.order',
   [ORDER_STATUSES_NAME.PENDING]: 'orders.order.status.pending',
   [ORDER_STATUSES_NAME.CALL_IN_ORDER]: 'orders.order.status.call.in.order',
+  [ORDER_STATUSES_NAME.PAID]: 'orders.order.status.paid',
+};
+
+export const CLAIMS_STATUSES_NAME = {
+  NOT_CANCELED: 'Order is not canceled',
+  MISSING_TRANSACTION: 'Missing Transaction',
+};
+
+export const CLAIMS_STATUS_NAME_TRANSLATION_KEYS = {
+  [CLAIMS_STATUSES_NAME.NOT_CANCELED]: 'disputes.status.not.canceled',
+  [CLAIMS_STATUSES_NAME.MISSING_TRANSACTION]: 'disputes.status.missing.transaction',
+};
+
+export const DISPUTES_STATUSES_NAME = {
+  MORE_EXPECTED: 'Commission received is more than expected',
+  LESS_EXPECTED: 'Commission received is less than expected',
+  COMMISSION_NOT_RECEIVED: 'Order was installed but commission is not received',
+};
+
+export const DISPUTES_STATUS_NAME_TRANSLATION_KEYS = {
+  [DISPUTES_STATUSES_NAME.MORE_EXPECTED]: 'commission.received.more.expected',
+  [DISPUTES_STATUSES_NAME.LESS_EXPECTED]: 'commission.received.less.expected',
+  [DISPUTES_STATUSES_NAME.COMMISSION_NOT_RECEIVED]: 'order.installed.without.commission.received',
 };
 
 export const RESPONSE_STATUSES = {
@@ -92,6 +122,7 @@ export const TABLE_ORDER_COLUMNS_SORTED = {
   BUNDLE_NAME: 'bundleName',
   INSTALLED_UNITS: 'installedUnits',
   CREATED_ON: 'createdOn',
+  INSTALLATION_DATE: 'installationDate',
 };
 
 export const TABLE_DISPUTE_COLUMNS_SORTED = {
@@ -135,10 +166,21 @@ export const TABLE_DISPUTES_BY_SUBMITTERS_COLUMNS_SORTED = {
 export const ENTITY_TYPES = {
   ORDERS: 'ORDERS',
   DISPUTES: 'DISPUTES',
-  RESUBMISSION: 'RESUBMISSION',
-  DISPUTES_BY_SUBMITTERS: 'DISPUTES_BY_SUBMITTERS',
-  DISPUTES_DASHBOARD: 'DISPUTES_DASHBOARD',
   DISPUTE_HISTORY: 'DISPUTE_HISTORY',
+  CLAIMS: 'CLAIMS',
+};
+
+export const TABLE_NAMES = {
+  CLAIMS_ORDERS: 'CLAIMS_ORDERS',
+  CLAIMS_DASHBOARD: 'CLAIMS_DASHBOARD',
+  CLAIMS_BY_SUBMITTERS: 'CLAIMS_BY_SUBMITTERS',
+  CLAIMS_RESUBMISSION: 'CLAIMS_RESUBMISSION',
+  DISPUTES_ORDERS: 'DISPUTES_ORDERS',
+  DISPUTES_DASHBOARD: 'DISPUTES_DASHBOARD',
+  CLAIMS_DISPUTES: 'CLAIMS_DISPUTES',
+  DISPUTES_LIST: 'DISPUTES_LIST',
+  DISPUTES_BY_SUBMITTERS: 'DISPUTES_BY_SUBMITTERS',
+  DISPUTES_RESUBMISSION: 'DISPUTES_RESUBMISSION',
 };
 
 export const DISPUTES_BY_SUBMITTERS_STATISTICS_TYPES = {
@@ -167,11 +209,19 @@ export const FILTER_NAMES = {
   DISPUTE_STATUS_IDS: 'DisputeStatusIds',
   XYZ_STATUS_IDS: 'XYZStatusIds',
   SPECTRUM_STATUS_IDS: 'SpectrumStatusIds',
-  DISPUTE_ID: 'disputeId',
+  DISPUTE_ID: 'id',
+  INSTALLATION_DATE_FROM: 'InstallationDateFrom',
+  INSTALLATION_DATE_TO: 'InstallationDateTo',
+  TYPE: 'Type',
+  CLAIMS_AGE_FROM: 'CreationAgeFrom',
+  CLAIMS_AGE_TO: 'CreationAgeTo',
+  CLAIMS_TYPE_IDS: 'ClaimTypeIds',
+  CLAIMS_STATUS_IDS: 'ClaimStatusIds',
 };
 
 export const TABLE_COLUMN_ID_NAMES = {
-  [ENTITY_TYPES.ORDERS]: 'orderId',
+  [TABLE_NAMES.CLAIMS_ORDERS]: 'orderId',
+  [TABLE_NAMES.DISPUTES_ORDERS]: 'orderId',
 };
 
 export const ROUTE_NAMES = {
@@ -179,8 +229,10 @@ export const ROUTE_NAMES = {
   EDIT_DISPUTE: 'edit-dispute',
   CREAT_DISPUTE: 'creat-dispute',
   DISPUTE_LIST: 'dispute-list',
+  CLAIMS_BY_SUBMITTERS: 'claims-by-submitters',
   DISPUTES_BY_SUBMITTERS: 'disputes-by-submitters',
-  RESUBMISSION_TABLE: 'resubmission-table',
+  CLAIMS_RESUBMISSION: 'claims-resubmission',
+  DISPUTES_RESUBMISSION: 'disputes-resubmission',
   LOGIN: 'login',
   LOGOUT: 'logout',
   PASSWORD_RECOVERY: 'password-recovery',
@@ -188,6 +240,10 @@ export const ROUTE_NAMES = {
   RESET_PASSWORD: 'reset-password',
   MAIN_PAGE: 'main-page',
   DISPUTES_DASHBOARD: 'disputes-dashboard',
+  CLAIMS_DASHBOARD: 'claims-dashboard',
+  CLAIMS_ORDERS: 'claims-orders',
+  DISPUTES_ORDERS: 'disputes-orders',
+  CLAIMS_DISPUTES: 'claims-disputes',
 };
 
 export const ROLE_TYPES = {

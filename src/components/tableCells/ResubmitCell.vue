@@ -1,5 +1,5 @@
 <template>
-  <div class="resubmit-claim-cell">
+  <div class="resubmit-cell">
     <table-button
       v-if="isSentOrResentStatus"
       class="disput-button"
@@ -22,7 +22,7 @@ import disputeStatusAutocomplete from '@/mixins/disputeStatusAutocomplete';
 import { DISPUTE_STATUSES_ID } from '@/constants';
 
 export default {
-  name: 'ResubmitClaimCell',
+  name: 'ResubmitCell',
   mixins: [disputeStatusAutocomplete],
   props: {
     item: {
@@ -51,7 +51,7 @@ export default {
   methods: {
     onResubmit() {
       this.$emit('changeDisputeStatus', {
-        disputeId: this.item.id,
+        id: this.item.id,
         statusId: DISPUTE_STATUSES_ID.IN_PROGRESS,
       });
     },
@@ -62,7 +62,7 @@ export default {
 <style lang="scss" scoped>
 @import '~@/assets/styles/variables.scss';
 
-.resubmit-claim-cell {
+.resubmit-cell {
   display: flex;
   justify-content: center;
   align-items: center;

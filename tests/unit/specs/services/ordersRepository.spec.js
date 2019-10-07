@@ -2,10 +2,10 @@ import disputesApi from '@/services/disputesApi';
 import {
   getOrders,
   getServiceList,
-  getOrderStatusList,
+  getDisputesOrderStatusList,
   orderSync,
   checkOrderSync,
-  getOrdersCsvFile,
+  getDisputesOrdersCsvFile,
   getFiscalPeriods,
 } from '@/services/ordersRepository';
 import { paramsSerializer } from '@/services/serializers';
@@ -47,13 +47,13 @@ describe('ordersRepository', () => {
     });
   });
 
-  describe('getOrderStatusList', () => {
+  describe('getDisputesOrderStatusList', () => {
     it('should call api.get and return correct data', async () => {
       const data = [{ id: 0, statusName: 'canceled' }, { id: 1, statusName: 'not_canceled' }];
 
       disputesApi.get = jest.fn(() => Promise.resolve({ data }));
 
-      const response = await getOrderStatusList();
+      const response = await getDisputesOrderStatusList();
 
       expect(response).toEqual(data);
       expect(disputesApi.get).toHaveBeenCalledWith('/order/disputing/status');
@@ -91,7 +91,7 @@ describe('ordersRepository', () => {
     });
   });
 
-  describe('getOrdersCsvFile', () => {
+  describe('getDisputesOrdersCsvFile', () => {
     it('should call api.get and return corect data', async () => {
       const filters = {
         offset: 0,
@@ -103,7 +103,7 @@ describe('ordersRepository', () => {
       const data = { id: '777' };
       disputesApi.get = jest.fn(() => Promise.resolve({ data }));
 
-      const response = await getOrdersCsvFile(filters);
+      const response = await getDisputesOrdersCsvFile(filters);
 
       expect(response).toEqual(data);
       expect(disputesApi.get).toHaveBeenCalledWith(

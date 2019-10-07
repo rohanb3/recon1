@@ -61,6 +61,22 @@ describe('tableFilterAutocomplete mixin', () => {
 
         expect(expectedTableData).toEqual(tableData);
       });
+
+      it('should return empty object if not defined table', () => {
+        const tableName = 'tableName';
+        const mockedThis = {
+          tableName,
+          $store: {
+            state: {
+              tables: {},
+            },
+          },
+        };
+
+        const tableData = tableFilterAutocomplete.computed.tableData.call(mockedThis);
+
+        expect(tableData).toEqual({});
+      });
     });
 
     describe('filters', () => {
@@ -82,6 +98,16 @@ describe('tableFilterAutocomplete mixin', () => {
 
         expect(expectedFilters).toEqual(filters);
       });
+
+      it('should return empty object if not defined filters', () => {
+        const mockedThis = {
+          tableData: {},
+        };
+
+        const filters = tableFilterAutocomplete.computed.filters.call(mockedThis);
+
+        expect(filters).toEqual({});
+      });
     });
 
     describe('preselectedItems', () => {
@@ -99,6 +125,18 @@ describe('tableFilterAutocomplete mixin', () => {
         const expectedItems = ['createOn'];
 
         expect(expectedItems).toEqual(preselectedItems);
+      });
+
+      it('should return empty array if not defined filter', () => {
+        const filterName = 'filterName';
+        const mockedThis = {
+          filterName,
+          filters: {},
+        };
+
+        const preselectedItems = tableFilterAutocomplete.computed.preselectedItems.call(mockedThis);
+
+        expect(preselectedItems).toEqual([]);
       });
     });
   });
@@ -318,6 +356,43 @@ describe('tableFilterAutocomplete mixin', () => {
 
         expect(getItemById).not.toHaveBeenCalled();
         expect(mockedThis.toggleItem).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('watch', () => {
+    describe('preselectedItems', () => {
+      it('should set false for property selected in each filter if passed array empty ', () => {
+        const items = [];
+        const filterName = 'filter';
+        const mockedThis = {
+          filterName,
+          [filterName]: [
+            {
+              id: 1,
+            },
+            {
+              id: 3,
+            },
+          ],
+          $set: jest.fn(),
+        };
+
+        tableFilterAutocomplete.watch.preselectedItems.call(mockedThis, items);
+
+        expect(mockedThis[filterName][0].selected).toBeFalsy();
+        expect(mockedThis[filterName][1].selected).toBeFalsy();
+      });
+
+      it('should not call method $set if passed array not empty ', () => {
+        const items = [1, 2, 3];
+        const mockedThis = {
+          $set: jest.fn(),
+        };
+
+        tableFilterAutocomplete.watch.preselectedItems.call(mockedThis, items);
+
+        expect(mockedThis.$set).not.toHaveBeenCalled();
       });
     });
   });

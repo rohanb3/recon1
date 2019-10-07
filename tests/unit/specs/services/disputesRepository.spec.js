@@ -11,6 +11,9 @@ import {
   changeStatusDispute,
   getDisputesCsvFile,
   getDisputeHistory,
+  getDisputesStatisticsBySubmitters,
+  getDisputesStatistics,
+  getDisputesBySubmittersCsvFile,
 } from '@/services/disputesRepository';
 
 import { RESPONSE_STATUSES } from '@/constants';
@@ -149,7 +152,7 @@ describe('disputesRepository', () => {
 
   describe('changeStatusDispute', () => {
     it('should call api.patch and return corect data', async () => {
-      const disputeId = 7;
+      const id = 7;
       const status = '4f5yh3s257yh6';
       const userName = 'Dmitry';
       const comments = 'test1234';
@@ -164,9 +167,9 @@ describe('disputesRepository', () => {
 
       disputesApi.patch = jest.fn(() => Promise.resolve({ data }));
 
-      const response = await changeStatusDispute({ disputeId, ...params });
+      const response = await changeStatusDispute({ id, ...params });
       expect(response).toEqual(data);
-      expect(disputesApi.patch).toHaveBeenCalledWith(`/dispute/${disputeId}`, null, { params });
+      expect(disputesApi.patch).toHaveBeenCalledWith(`/dispute/${id}`, null, { params });
     });
   });
 
@@ -191,7 +194,7 @@ describe('disputesRepository', () => {
 
   describe('getDisputeHistory', () => {
     it('should call api.get and return corect data', async () => {
-      const disputeId = '4hfysb547fj347sh278rf';
+      const id = '4hfysb547fj347sh278rf';
 
       const params = {
         Skip: 0,
@@ -201,10 +204,99 @@ describe('disputesRepository', () => {
       const data = { id: '777' };
       disputesApi.get = jest.fn(() => Promise.resolve({ data }));
 
-      const response = await getDisputeHistory({ disputeId, ...params });
+      const response = await getDisputeHistory({ id, ...params });
 
       expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith(`/dispute/${disputeId}/history`, { params });
+      expect(disputesApi.get).toHaveBeenCalledWith(`/dispute/${id}/history`, { params });
+    });
+  });
+
+  describe('getDisputesStatisticsBySubmitters', () => {
+    it('should call api.get and return corect data', async () => {
+      const params = {
+        Skip: 0,
+        Take: 10,
+      };
+
+      const data = {
+        data: [
+          {
+            creator: {
+              ObjectId: 'b0579456-65ad-4099-91bd-3498208aa922',
+              displayName: 'santhi akella',
+              scopes: null,
+              role: 'SystemAdmin',
+            },
+            entered: 1,
+            lastDisputeCreatedDate: '2019-06-20T09:10:45.6464358',
+          },
+        ],
+        total: 1,
+      };
+
+      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
+
+      const response = await getDisputesStatisticsBySubmitters(params);
+
+      const expectedresult = {
+        data: [
+          {
+            creator: {
+              ObjectId: 'b0579456-65ad-4099-91bd-3498208aa922',
+              displayName: 'santhi akella',
+              role: 'SystemAdmin',
+              scopes: null,
+            },
+            entered: 1,
+            id: 'b0579456-65ad-4099-91bd-3498208aa922',
+            lastDisputeCreatedDate: '2019-06-20T09:10:45.6464358',
+          },
+        ],
+      };
+
+      expect(response).toEqual(expectedresult);
+      expect(disputesApi.get).toHaveBeenCalledWith(`/disputes/statistic/submitters`, { params });
+    });
+  });
+
+  describe('getDisputesStatistics', () => {
+    it('should call api.get and return corect data', async () => {
+      const filters = {
+        offset: 0,
+        limit: 10,
+        dateFrom: '2018-01-01T00:00:00Z',
+        dateTo: '2019-03-22T23:59:59Z',
+      };
+
+      const data = { id: '777' };
+      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
+
+      const response = await getDisputesStatistics(filters);
+
+      expect(response).toEqual(data);
+      expect(disputesApi.get).toHaveBeenCalledWith('/disputes/statistic/top', expect.any(Object));
+    });
+  });
+
+  describe('getDisputesBySubmittersCsvFile', () => {
+    it('should call api.get and return corect data', async () => {
+      const filters = {
+        offset: 0,
+        limit: 10,
+        dateFrom: '2018-01-01T00:00:00Z',
+        dateTo: '2019-03-22T23:59:59Z',
+      };
+
+      const data = { id: '777' };
+      disputesApi.get = jest.fn(() => Promise.resolve({ data }));
+
+      const response = await getDisputesBySubmittersCsvFile(filters);
+
+      expect(response).toEqual(data);
+      expect(disputesApi.get).toHaveBeenCalledWith(
+        '/disputes/statistic/submitters/csv',
+        expect.any(Object)
+      );
     });
   });
 });

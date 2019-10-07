@@ -1,6 +1,7 @@
 <template>
   <v-container fluid fill-height>
     <verification-code-form
+      :loading="loading"
       @sendVerificationCode="onSendVerificationCode"
       @resendCode="onResendCode"
     />
@@ -19,8 +20,14 @@ export default {
   components: {
     VerificationCodeForm,
   },
+  data() {
+    return {
+      loading: false,
+    };
+  },
   methods: {
     async onSendVerificationCode(code) {
+      this.loading = true;
       try {
         const userEmail = this.$store.state.loggedInUser.email;
         await this.$store.dispatch(GET_RESET_TOKEN, {
@@ -30,6 +37,8 @@ export default {
         this.$router.push({ name: ROUTE_NAMES.RESET_PASSWORD });
       } catch {
         errorMessage('invalid.code.entered');
+      } finally {
+        this.loading = false;
       }
     },
     async onResendCode() {

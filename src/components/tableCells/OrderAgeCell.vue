@@ -4,9 +4,10 @@
       <span
         class="status"
         :class="{
-          bad: isOverdueOrder,
-          average: isWaitingOrder,
-          good: isNewOrder,
+          black,
+          orange,
+          red,
+          green,
         }"
       ></span>
       <span class="conversion">{{ value }}</span>
@@ -20,21 +21,25 @@
 <script>
 import nestedFieldCell from '@/mixins/nestedFieldCell';
 
-const NEWLY_CREATED_ORDER = 10;
-const WAITING_ORDER = 34;
+const GREEN = 15;
+const ORANGE = 30;
+const RED = 45;
 
 export default {
   name: 'OrderAgeCell',
   mixins: [nestedFieldCell],
   computed: {
-    isNewOrder() {
-      return this.value <= NEWLY_CREATED_ORDER;
+    green() {
+      return this.value <= GREEN;
     },
-    isWaitingOrder() {
-      return this.value > NEWLY_CREATED_ORDER && this.value <= WAITING_ORDER;
+    orange() {
+      return this.value > GREEN && this.value <= ORANGE;
     },
-    isOverdueOrder() {
-      return this.value > WAITING_ORDER;
+    red() {
+      return this.value > ORANGE && this.value <= RED;
+    },
+    black() {
+      return this.value > RED;
     },
   },
 };
@@ -54,15 +59,19 @@ export default {
     border-radius: 3px;
   }
 
-  .bad {
+  .black {
+    background-color: #000000;
+  }
+
+  .red {
     background: $base-red;
   }
 
-  .average {
+  .orange {
     background: $base-orange;
   }
 
-  .good {
+  .green {
     background: $base-green;
   }
 }

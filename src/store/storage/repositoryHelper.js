@@ -1,30 +1,53 @@
-import { ENTITY_TYPES } from '@/constants';
-import { getOrders } from '@/services/ordersRepository';
-import { getDisputes as getDisputeStatistics } from '@/services/statisticsRepository';
+import { ENTITY_TYPES, TABLE_NAMES } from '@/constants';
+import { getOrders, getClaimsOrders } from '@/services/ordersRepository';
+import {
+  getDisputes as getDisputeStatistics,
+  getClaims as getClaimsStatistics,
+} from '@/services/statisticsRepository';
 import {
   getDisputes,
+  getClaims,
   getDisputeHistory,
   getDisputesStatisticsBySubmitters,
+  getClaimsStatisticsBySubmitters,
 } from '@/services/disputesRepository';
 
 const handlers = {
-  [ENTITY_TYPES.ORDERS]: {
+  [TABLE_NAMES.CLAIMS_ORDERS]: {
+    getAll: getClaimsOrders,
+  },
+  [TABLE_NAMES.DISPUTES_ORDERS]: {
     getAll: getOrders,
   },
   [ENTITY_TYPES.DISPUTES]: {
     getAll: getDisputes,
   },
-  [ENTITY_TYPES.RESUBMISSION]: {
+  [TABLE_NAMES.CLAIMS_RESUBMISSION]: {
+    getAll: getClaims,
+  },
+  [TABLE_NAMES.DISPUTES_RESUBMISSION]: {
     getAll: getDisputes,
   },
-  [ENTITY_TYPES.DISPUTES_BY_SUBMITTERS]: {
+  [TABLE_NAMES.CLAIMS_BY_SUBMITTERS]: {
+    getAll: getClaimsStatisticsBySubmitters,
+  },
+  [TABLE_NAMES.DISPUTES_BY_SUBMITTERS]: {
     getAll: getDisputesStatisticsBySubmitters,
   },
-  [ENTITY_TYPES.DISPUTES_DASHBOARD]: {
+  [TABLE_NAMES.CLAIMS_DASHBOARD]: {
+    getAll: getClaimsStatistics,
+  },
+  [TABLE_NAMES.DISPUTES_DASHBOARD]: {
     getAll: getDisputeStatistics,
   },
   [ENTITY_TYPES.DISPUTE_HISTORY]: {
     getAll: getDisputeHistory,
+  },
+  [TABLE_NAMES.CLAIMS_DISPUTES]: {
+    getAll: getClaims,
+  },
+  [TABLE_NAMES.DISPUTES_LIST]: {
+    getAll: getDisputes,
   },
 };
 

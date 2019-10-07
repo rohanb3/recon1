@@ -1,7 +1,7 @@
 <template>
-  <div class="resubmission-table" v-if="isShowResubmissionTable">
+  <div class="disputes_resubmission-table">
     <table-toolbar :title="$t('resubmission.table.title')" :table-name="tableName">
-      <resubmission-table-toolbar :tableName="tableName" slot="filters" />
+      <disputes-resubmission-table-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
     <lazy-load-table :tableName="tableName">
       <component
@@ -13,29 +13,29 @@
         :column="rowCell.column"
         :filter="rowCell.column.filter"
         :scopes="scopes"
-        :processing-dispute-ids="processingDisputeIds"
+        :processing-ids="processingIds"
         @changeDisputeStatus="changeDisputeStatus"
         @confirmApproveDisputeStatus="onConfirmApproveDisputeStatus"
         @confirmRejectDisputeStatus="onConfirmRejectDisputeStatus"
-        @selectId="onSelectIdDispute"
+        @selectId="onSelectId"
       />
     </lazy-load-table>
     <confirm-approve-dispute-popup
       :visible-popup="isShowApproveConfirmationPopup"
-      :dispute-info="selectedDispute"
+      :dispute-info="selected"
       @save="changeDisputeStatus"
       @close="isShowApproveConfirmationPopup = false"
     />
     <confirm-reject-dispute-popup
       :visible-popup="isShowRejectConfirmationPopup"
-      :dispute-info="selectedDispute"
+      :dispute-info="selected"
       @save="changeDisputeStatus"
       @close="isShowRejectConfirmationPopup = false"
     />
     <dispute-history
-      v-if="disputeHistoryShown"
+      v-if="historyShown"
       :parent-table-name="tableName"
-      @close="disputeHistoryShown = false"
+      @close="historyShown = false"
     />
   </div>
 </template>
@@ -43,14 +43,14 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import ResubmissionTableToolbar from '@/containers/ResubmissionTableToolbar';
+import DisputesResubmissionTableToolbar from '@/containers/DisputesResubmissionTableToolbar';
 
 import ConfirmApproveDisputePopup from '@/components/ConfirmDisputePopup/ConfirmApproveDisputePopup';
 import ConfirmRejectDisputePopup from '@/components/ConfirmDisputePopup/ConfirmRejectDisputePopup';
 
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 
-import { ENTITY_TYPES } from '@/constants';
+import { TABLE_NAMES } from '@/constants';
 import TableToolbar from '@/components/TableToolbar';
 
 export default {
@@ -59,45 +59,45 @@ export default {
     TableToolbar,
     ConfirmApproveDisputePopup,
     ConfirmRejectDisputePopup,
-    ResubmissionTableToolbar,
+    DisputesResubmissionTableToolbar,
   },
   mixins: [disputeCommonTable],
   data() {
     return {
-      tableName: ENTITY_TYPES.RESUBMISSION,
+      tableName: TABLE_NAMES.DISPUTES_RESUBMISSION,
       isShowApproveConfirmationPopup: false,
       isShowRejectConfirmationPopup: false,
       rowComponentsHash: {
-        resubmitClaim: 'ResubmitClaimCell',
+        resubmitDispute: 'ResubmitCell',
         rejectDisputeStatus: 'RejectDisputeStatusCell',
         approveDisputeStatus: 'ApproveDisputeStatusCell',
       },
     };
   },
   methods: {
-    async changeDisputeStatus({ disputeId, statusId, comments }) {
+    async changeDisputeStatus(data) {
       this.isShowApproveConfirmationPopup = false;
       this.isShowRejectConfirmationPopup = false;
-      await this.onChangeDisputeStatus({ disputeId, statusId, comments });
+      await this.onChangeStatus(data);
     },
-    onConfirmApproveDisputeStatus({ disputeId, statusId }) {
-      this.selectedDispute = { disputeId, statusId };
+    onConfirmApproveDisputeStatus(data) {
+      this.selected = data;
       this.isShowApproveConfirmationPopup = true;
     },
-    onConfirmRejectDisputeStatus({ disputeId, statusId }) {
-      this.selectedDispute = { disputeId, statusId };
+    onConfirmRejectDisputeStatus(data) {
+      this.selected = data;
       this.isShowRejectConfirmationPopup = true;
     },
   },
   computed: {
-    ...mapGetters(['isShowResubmissionTable', 'scopes']),
+    ...mapGetters(['scopes']),
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/styles/mixins.scss';
-.resubmission-table {
+.disputes_resubmission-table {
   @include table-base-container;
 }
 .table-toolbar {
@@ -107,17 +107,17 @@ export default {
   @include table-base-title;
 }
 
-.resubmission-table__header {
+.disputes_resubmission-table__header {
   @include table__header;
 }
 
-.resubmission-table /deep/ {
+.disputes_resubmission-table /deep/ {
   height: 100%;
   .virtual-list {
     height: 100vh;
     max-height: calc(
       100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
-        #{$table-header-height-offset}
+        #{$table-header-height-offset} - #{$switcher-height}
     );
   }
 }

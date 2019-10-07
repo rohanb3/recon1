@@ -30,7 +30,7 @@
 <script>
 import UserAvatar from '@/components/UserAvatar';
 import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
-import { GET_PROFILE_DATA, GET_PHOTO } from '@/store/loggedInUser/actionTypes';
+import { GET_PROFILE_DATA } from '@/store/loggedInUser/actionTypes';
 import getVesrion from '@/services/appVersion';
 import { ROUTE_NAMES } from '@/constants';
 
@@ -40,7 +40,6 @@ export default {
   mixins: [tableToolbarBalloon],
   mounted() {
     this.getProfileData();
-    this.getUserAvatar();
   },
   data() {
     return {
@@ -56,9 +55,6 @@ export default {
   methods: {
     getProfileData() {
       this.$store.dispatch(GET_PROFILE_DATA);
-    },
-    getUserAvatar() {
-      this.$store.dispatch(GET_PHOTO);
     },
     logout() {
       this.$router.replace({ name: ROUTE_NAMES.LOGOUT });
