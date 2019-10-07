@@ -7,7 +7,7 @@
       <total-disputes-statistic :statistics="tableRows" />
       <total-spectrum-dispute-statistic :statistics="tableRows" />
       <total-xyz-dispute-statistic :statistics="tableRows" />
-      <total-created-disputes-chart />
+      <total-created-claims-chart />
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@ import TotalDisputesStatistic from '@/components/DisputesDashboard/TotalDisputes
 import TotalSpectrumDisputeStatistic from '@/components/DisputesDashboard/TotalSpectrumDisputeStatistic';
 import TotalXyzDisputeStatistic from '@/components/DisputesDashboard/TotalXyzDisputeStatistic';
 import ClaimsDashboardToolbar from '@/containers/ClaimsDashboardToolbar';
-import TotalCreatedDisputesChart from '@/containers/TotalCreatedDisputesChart';
+import TotalCreatedClaimsChart from '@/containers/TotalCreatedClaimsChart';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 import { TABLE_NAMES } from '@/constants';
 import TableToolbar from '@/components/TableToolbar';
@@ -30,7 +30,7 @@ export default {
     TotalDisputesStatistic,
     TotalSpectrumDisputeStatistic,
     TotalXyzDisputeStatistic,
-    TotalCreatedDisputesChart,
+    TotalCreatedClaimsChart,
   },
   mixins: [lazyLoadTable],
   data() {

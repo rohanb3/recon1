@@ -1,5 +1,5 @@
 import disputesApi from '@/services/disputesApi';
-import { getDisputes, getDailyStatistics } from '@/services/statisticsRepository';
+import { getDisputes, getDisputesDailyStatistics } from '@/services/statisticsRepository';
 
 describe('statisticsRepository', () => {
   describe('getDisputes', () => {
@@ -20,7 +20,7 @@ describe('statisticsRepository', () => {
     });
   });
 
-  describe('getDailyStatistics', () => {
+  describe('getDisputesDailyStatistics', () => {
     it('should call api.get and return corect data', async () => {
       const params = {
         skip: 0,
@@ -31,7 +31,7 @@ describe('statisticsRepository', () => {
 
       disputesApi.get = jest.fn(() => Promise.resolve({ ...data }));
 
-      const response = await getDailyStatistics(params);
+      const response = await getDisputesDailyStatistics(params);
 
       expect(response).toEqual(data);
       expect(disputesApi.get).toHaveBeenCalledWith('/dispute/days/statistics', { params });
