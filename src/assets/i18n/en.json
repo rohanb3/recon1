@@ -35,7 +35,7 @@
   "dispute.affiliate.id": "Affiliate ID",
   "dispute.account.number": "Account Number",
   "dispute.order.confirmation": "Order Confirmation",
-  "dispute.wo.number": "WO Number",
+  "dispute.carrier.order.number": "Carrier Order Number",
   "dispute.fiscal.period": "Fiscal Period",
   "dispute.creation.date": "Creation Date",
   "dispute.installation.date": "Installation Date",
@@ -257,5 +257,9 @@
   "claim.title": "Claim List With Statuses",
   "disputes.status.not.canceled": "Order is not canceled",
   "disputes.status.missing.transaction": "Missing Transaction",
-  "total": "Total"
+  "total": "Total",
+  "orders.claimed": "Claimed",
+  "order": "Order",
+  "type": "Type",
+  "dispute.comment": "Dispute Comment"
 }

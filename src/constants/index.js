@@ -244,6 +244,8 @@ export const ROUTE_NAMES = {
   CLAIMS_ORDERS: 'claims-orders',
   DISPUTES_ORDERS: 'disputes-orders',
   CLAIMS_DISPUTES: 'claims-disputes',
+  EDIT_CLAIM: 'edit-claim',
+  CREATE_CLAIM: 'create-claim',
 };
 
 export const ROLE_TYPES = {

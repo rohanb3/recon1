@@ -33,6 +33,10 @@ export const createDispute = orderId => {
   return apiDisputes.post(`/dispute?orderId=${orderId}`).then(({ data }) => data);
 };
 
+export const createClaim = orderId => {
+  return apiDisputes.post(`/claim?orderId=${orderId}`).then(({ data }) => data);
+};
+
 export const updateDispute = (id, updates = {}) => {
   return apiDisputes.put(`/dispute/${id}`, updates).then(({ data, status }) => ({
     data,
@@ -105,4 +109,11 @@ export const getClaimTypes = () => {
 
 export const getDisputeTypes = () => {
   return apiDisputes.get('/dispute/type').then(({ data }) => data);
+};
+
+export const updateClaim = (id, updates = {}) => {
+  return apiDisputes.put(`/dispute/${id}`, updates).then(({ data, status }) => ({
+    data,
+    status,
+  }));
 };

@@ -6,9 +6,8 @@
       </div>
       <v-layout row wrap>
         <v-flex xs12 lg6 class="general-information-form">
-          <!--<general-information-form v-model="disputeInfo" ref="generalInfo" />-->
-          <general-information-form-dispute v-model="disputeInfo" ref="generalInfo" />
-          <additional-info-block-form-disputes
+          <general-information-form v-model="disputeInfo" ref="generalInfo" />
+          <additional-info-block-form
             v-model="disputeInfo"
             ref="additionalInfoBlock"
             :loadingFilesStatus="loadingFilesStatus"
@@ -60,7 +59,9 @@
 </template>
 
 <script>
+import AdditionalInfoBlockForm from '@/components/AdditionalInfoBlockForm';
 import CustomerInformationForm from '@/components/CustomerInformationForm';
+import GeneralInformationForm from '@/components/GeneralInformationForm';
 import TableButton from '@/components/TableButton';
 import { errorMessage } from '@/services/notifications';
 import { addBackgroundBlur, removeBackgroundBlur } from '@/services/background';
@@ -69,22 +70,20 @@ import { RESPONSE_STATUSES, DISPUTE_STATUSES_ID, ROUTE_NAMES } from '@/constants
 
 import {
   getDispute,
-  createDispute,
-  updateDispute,
   deleteDispute,
   uploadDisputeAttachment,
   removeDisputeAttachment,
+  createClaim,
+  updateClaim,
 } from '@/services/disputesRepository';
-import AdditionalInfoBlockFormDisputes from '../components/AdditionalInfoBlockFormDsiputes';
-import GeneralInformationFormDispute from '../components/GeneralInformationFormDispute';
 
 export default {
-  name: 'DisputePage',
+  name: 'ClaimPage',
   components: {
-    GeneralInformationFormDispute,
-    AdditionalInfoBlockFormDisputes,
     TableButton,
+    AdditionalInfoBlockForm,
     CustomerInformationForm,
+    GeneralInformationForm,
   },
   mounted() {
     this.loadDispute();
@@ -98,7 +97,7 @@ export default {
       sendingData: false,
       loadingFilesStatus: false,
       savedDispute: false,
-      routeNameForRedirect: ROUTE_NAMES.DISPUTES_ORDERS,
+      routeNameForRedirect: ROUTE_NAMES.CLAIMS_ORDERS,
     };
   },
   computed: {
@@ -107,14 +106,14 @@ export default {
     },
     disputeStatusId: {
       get() {
-        return (this.disputeInfo.disputeStatus || {}).id;
+        return (this.disputeInfo.claimStatus || {}).id;
       },
       set(statusId) {
         this.disputeInfo.disputeStatus.id = statusId;
       },
     },
     disputeTypeId() {
-      return (this.disputeInfo.disputeType || {}).id;
+      return (this.disputeInfo.claimType || {}).id;
     },
     isDisputeStatusSent() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.SENT;
@@ -128,7 +127,7 @@ export default {
 
       this.sendingData = true;
       try {
-        await updateDispute(this.disputeInfo.id, {
+        await updateClaim(this.disputeInfo.id, {
           ...this.disputeInfo,
           disputeId: this.disputeId,
           disputeStatusId: this.disputeStatusId,
@@ -173,7 +172,7 @@ export default {
         if (disputeId) {
           this.disputeInfo = await getDispute(disputeId);
         } else {
-          this.disputeInfo = await createDispute(orderId);
+          this.disputeInfo = await createClaim(orderId);
         }
       } catch (e) {
         if ((e.response || {}).status === RESPONSE_STATUSES.NOT_FOUND) {

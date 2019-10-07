@@ -6,6 +6,7 @@ import Base from '@/containers/Base';
 import AppContent from '@/containers/AppContent';
 import OrdersPage from '@/containers/OrdersPage';
 import DisputePage from '@/containers/DisputePage';
+import ClaimPage from '../containers/ClaimPage';
 import ClaimsResubmissionTable from '@/containers/ClaimsResubmissionTable';
 import DisputesResubmissionTable from '@/containers/DisputesResubmissionTable';
 import SyncNotifier from '@/containers/SyncNotifier';
@@ -172,15 +173,15 @@ const router = new Router({
                   beforeEnter: disputesGuard,
                 },
                 {
-                  path: 'edit/:disputeId',
-                  name: ROUTE_NAMES.EDIT_DISPUTE,
-                  components: { content: DisputePage },
+                  path: 'edit/:claimId',
+                  name: ROUTE_NAMES.EDIT_CLAIM,
+                  components: { content: ClaimPage },
                   beforeEnter: disputeGuard,
                 },
                 {
                   path: 'create/:orderId',
-                  name: ROUTE_NAMES.CREAT_DISPUTE,
-                  components: { content: DisputePage },
+                  name: ROUTE_NAMES.CREATE_CLAIM,
+                  components: { content: ClaimPage },
                   beforeEnter: disputeGuard,
                 },
                 {
@@ -237,6 +238,18 @@ const router = new Router({
                     content: DisputesResubmissionTable,
                   },
                   beforeEnter: resubmissionGuard,
+                },
+                {
+                  path: 'edit/:disputeId',
+                  name: ROUTE_NAMES.EDIT_DISPUTE,
+                  components: { content: DisputePage },
+                  beforeEnter: disputeGuard,
+                },
+                {
+                  path: 'create/:orderId',
+                  name: ROUTE_NAMES.CREAT_DISPUTE,
+                  components: { content: DisputePage },
+                  beforeEnter: disputeGuard,
                 },
               ],
             },
