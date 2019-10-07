@@ -111,7 +111,7 @@ export const SORTING_DIRECTION = {
 export const TABLE_ORDER_COLUMNS_SORTED = {
   NUMBER: 'ordernumber',
   ACCOUNT_NUMBER: 'accountnumber',
-  DISPUTE_STATUS: 'disputeStatusName',
+  DISPUTE_STATUS: 'status',
   UNITS: 'orderedUnits',
   STATUS: 'orderStatusName',
   AGE_AFTER: 'creationAge',
@@ -135,12 +135,12 @@ export const TABLE_DISPUTE_COLUMNS_SORTED = {
   CREATOR_NAME: 'creatorName',
   CREATION_DATE: 'disputecreationdate',
   SERVICE_NAME: 'serviceName',
-  TYPE: 'disputeType',
+  TYPE: 'type',
   AGE_AFTER_ORDER: 'ageAfterOrder',
   AGE_AFTER_INSTALLATION: 'ageAfterInstallation',
   AGE_AFTER_DISPUT: 'ageAfterDispute',
   XYZ_STATUS: 'xyzStatus',
-  STATUS: 'disputeStatus',
+  STATUS: 'status',
   STATUS_DESCRIPTION: 'disputeStatusDescription',
   ORDER_NUMBER: 'ordernumber',
   ORDER_CREATION_DATE: 'orderCreationDate',
@@ -189,8 +189,7 @@ export const DISPUTES_BY_SUBMITTERS_STATISTICS_TYPES = {
 };
 
 export const FILTER_NAMES = {
-  SEARCH_ORDERS: 'Search',
-  SEARCH_DISPUTES: 'SearchPhrase',
+  SEARCH: 'Search',
   SORT: 'SortBy',
   ORDER: 'SortOrder',
   ORDER_STATUS: 'OrderStatusIds',

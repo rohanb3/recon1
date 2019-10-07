@@ -81,17 +81,17 @@ describe('DisputeStatusCell: ', () => {
       });
 
       it('should return new status name if status sent', () => {
-        const disputeStatusName = 'qwerty';
+        const name = 'qwerty';
         const mockedThis = {
           disputeStatus: {
             id: 132,
-            disputeStatusName,
+            name,
           },
         };
 
         const result = DisputeStatusCell.computed.status.call(mockedThis);
 
-        expect(result).toEqual(disputeStatusName);
+        expect(result).toEqual(name);
       });
     });
   });

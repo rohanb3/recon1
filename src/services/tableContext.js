@@ -4,7 +4,7 @@ function getClaimsFilterNames() {
   return {
     from: FILTER_NAMES.CREATED_FROM,
     to: FILTER_NAMES.CREATED_TO,
-    search: FILTER_NAMES.SEARCH_ORDERS,
+    search: FILTER_NAMES.SEARCH,
   };
 }
 
@@ -12,7 +12,7 @@ function getDisputesFiltersNames() {
   return {
     from: FILTER_NAMES.INSTALLATION_DATE_FROM,
     to: FILTER_NAMES.INSTALLATION_DATE_TO,
-    search: FILTER_NAMES.SEARCH_ORDERS,
+    search: FILTER_NAMES.SEARCH,
   };
 }
 
