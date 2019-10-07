@@ -2,7 +2,7 @@
   <disput-statistic
     :title="$t('claims.dashboard.total.statistic')"
     :subTitle="$t('total.claims')"
-    :total-statistics="totalStatistics"
+    :total-statistics="claimTotalStatistic"
     :statistics="disputeStatistics"
   />
 </template>
@@ -26,6 +26,9 @@ export default {
   },
   mixins: [disputesDashboard],
   computed: {
+    claimTotalStatistic() {
+      return this.getSection('Total Claims');
+    },
     disputeStatistics() {
       return [
         {

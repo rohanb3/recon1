@@ -3,7 +3,6 @@
     <div class="table-filter-container">
       <order-age-filter :table-name="tableName" />
       <claims-age-filter :tableName="tableName" />
-      <!-- <disput-age-filter :table-name="tableName" /> -->
     </div>
     <v-spacer />
     <div class="table-filter-container">

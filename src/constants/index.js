@@ -36,6 +36,12 @@ export const DISPUTE_SECTION_NAME = {
   RE_SENT_DISPUTES: 'Re-sent disputes',
 };
 
+export const CLAIM_SECTION_NAME = {
+  CONFIRM_REJECTED: 'Confirm rejected claims',
+  CONFIRM_APPROVED: 'Confirm approved claims',
+  RE_SENT_CLAIMS: 'Re-sent claims',
+};
+
 export const DISPUTE_TYPES_ID = {
   ORDER_INSTALLED: '6630cffe-777b-4bca-90f3-50b4910ff3bb',
   EXPECTED_COMMISION: '79eb1607-2a85-42ed-a409-4f6c15b06fe3',

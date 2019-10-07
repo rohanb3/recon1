@@ -2,14 +2,14 @@
   <disput-statistic
     :title="$t('claims.dashboard.total.xyz.statistic')"
     :subTitle="$t('total.claims')"
-    :total-statistics="totalStatistics"
+    :total-statistics="claimTotalStatistic"
     :statistics="disputeStatistics"
   />
 </template>
 
 <script>
 import DisputStatistic from '../DisputesDashboard/DisputStatistic/DisputStatistic';
-import { DISPUTE_SECTION_NAME } from '@/constants';
+import { DISPUTE_SECTION_NAME, CLAIM_SECTION_NAME } from '@/constants';
 import disputesDashboard from '@/mixins/disputesDashboard';
 import { STATISTIC_COLOR_SCHEMA } from '@/services/statisticColorSchema';
 
@@ -26,6 +26,9 @@ export default {
   },
   mixins: [disputesDashboard],
   computed: {
+    claimTotalStatistic() {
+      return this.getSection('Total Claims');
+    },
     disputeStatistics() {
       return [
         {
@@ -34,12 +37,12 @@ export default {
           color: STATISTIC_COLOR_SCHEMA.GREEN,
         },
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.RE_SENT_DISPUTES),
+          ...this.getSection(CLAIM_SECTION_NAME.RE_SENT_CLAIMS),
           sectionName: this.$t('re.sent.claims'),
           color: STATISTIC_COLOR_SCHEMA.BLUE,
         },
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.CONFIRM_REJECTED),
+          ...this.getSection(CLAIM_SECTION_NAME.CONFIRM_REJECTED),
           sectionName: this.$t('confirm.rejected.claims'),
           color: STATISTIC_COLOR_SCHEMA.ORANGE,
         },
