@@ -28,8 +28,6 @@ export default {
           action: 'play_arrow',
           title: this.$t('orders'),
           routeName: ROUTE_NAMES.DISPUTES_ORDERS,
-          visible:
-            this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission,
         },
         {
           action: 'list_alt',

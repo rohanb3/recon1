@@ -2,13 +2,17 @@
   <table-toolbar :title="$t('claim.title')" :table-name="tableName">
     <selected-range-filter slot="toolbar-info" :tableName="tableName" />
     <div slot="filters" class="orders-table-toolbar">
-      <quick-search-filter :table-name="tableName" :filter-name="quickSearchFilterName" />
+      <quick-search-filter :table-name="tableName" />
       <div class="table-filter-container">
         <order-age-filter :table-name="tableName" />
         <claims-age-filter :table-name="tableName" />
         <claim-types-filter :table-name="tableName" />
         <claims-xyz-status-filter :table-name="tableName" />
-        <spectrum-dispute-status-filter :table-name="tableName" :filter-field="filterField" />
+        <spectrum-dispute-status-filter
+          :table-name="tableName"
+          :title="$t('disputes.claims.status')"
+          :filter-field="filterField"
+        />
       </div>
       <v-spacer></v-spacer>
       <div class="table-filter-container">
@@ -52,7 +56,7 @@ export default {
   },
   computed: {
     quickSearchFilterName() {
-      return FILTER_NAMES.SEARCH_DISPUTES;
+      return FILTER_NAMES.SEARCH;
     },
     filterField() {
       return FILTER_NAMES.CLAIMS_STATUS_IDS;

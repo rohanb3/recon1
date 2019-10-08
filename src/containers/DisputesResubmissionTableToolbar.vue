@@ -1,11 +1,16 @@
 <template>
   <div class="disputes-table-toolbar">
-    <quick-search-filter :table-name="tableName" :filter-name="quickSearchFilterName" />
+    <quick-search-filter :table-name="tableName" />
     <div class="table-filter-container">
       <installation-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
       <dispute-type-filter :tableName="tableName" />
-      <spectrum-dispute-status-filter :tableName="tableName" :filterField="filterField" />
+
+      <spectrum-dispute-status-filter
+        :tableName="tableName"
+        :filterField="filterField"
+        :title="$t('disputes.dispute.status')"
+      />
     </div>
     <v-spacer></v-spacer>
     <div class="table-filter-container">
@@ -53,7 +58,7 @@ export default {
   },
   data() {
     return {
-      quickSearchFilterName: FILTER_NAMES.SEARCH_DISPUTES,
+      quickSearchFilterName: FILTER_NAMES.SEARCH,
     };
   },
   computed: {

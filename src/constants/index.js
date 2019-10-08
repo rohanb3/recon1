@@ -36,6 +36,12 @@ export const DISPUTE_SECTION_NAME = {
   RE_SENT_DISPUTES: 'Re-sent disputes',
 };
 
+export const CLAIM_SECTION_NAME = {
+  CONFIRM_REJECTED: 'Confirm rejected claims',
+  CONFIRM_APPROVED: 'Confirm approved claims',
+  RE_SENT_CLAIMS: 'Re-sent claims',
+};
+
 export const DISPUTE_TYPES_ID = {
   ORDER_INSTALLED: '6630cffe-777b-4bca-90f3-50b4910ff3bb',
   EXPECTED_COMMISION: '79eb1607-2a85-42ed-a409-4f6c15b06fe3',
@@ -111,7 +117,7 @@ export const SORTING_DIRECTION = {
 export const TABLE_ORDER_COLUMNS_SORTED = {
   NUMBER: 'ordernumber',
   ACCOUNT_NUMBER: 'accountnumber',
-  DISPUTE_STATUS: 'disputeStatusName',
+  DISPUTE_STATUS: 'status',
   UNITS: 'orderedUnits',
   STATUS: 'orderStatusName',
   AGE_AFTER: 'creationAge',
@@ -135,12 +141,12 @@ export const TABLE_DISPUTE_COLUMNS_SORTED = {
   CREATOR_NAME: 'creatorName',
   CREATION_DATE: 'disputecreationdate',
   SERVICE_NAME: 'serviceName',
-  TYPE: 'disputeType',
+  TYPE: 'type',
   AGE_AFTER_ORDER: 'ageAfterOrder',
   AGE_AFTER_INSTALLATION: 'ageAfterInstallation',
   AGE_AFTER_DISPUT: 'ageAfterDispute',
   XYZ_STATUS: 'xyzStatus',
-  STATUS: 'disputeStatus',
+  STATUS: 'status',
   STATUS_DESCRIPTION: 'disputeStatusDescription',
   ORDER_NUMBER: 'ordernumber',
   ORDER_CREATION_DATE: 'orderCreationDate',
@@ -189,8 +195,7 @@ export const DISPUTES_BY_SUBMITTERS_STATISTICS_TYPES = {
 };
 
 export const FILTER_NAMES = {
-  SEARCH_ORDERS: 'Search',
-  SEARCH_DISPUTES: 'SearchPhrase',
+  SEARCH: 'Search',
   SORT: 'SortBy',
   ORDER: 'SortOrder',
   ORDER_STATUS: 'OrderStatusIds',
@@ -225,7 +230,6 @@ export const TABLE_COLUMN_ID_NAMES = {
 };
 
 export const ROUTE_NAMES = {
-  SELECT_ORDER: 'select-order',
   EDIT_DISPUTE: 'edit-dispute',
   CREAT_DISPUTE: 'creat-dispute',
   DISPUTE_LIST: 'dispute-list',
