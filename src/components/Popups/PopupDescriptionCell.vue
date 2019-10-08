@@ -21,13 +21,12 @@
 </template>
 
 <script>
-import { addPopupBackgroundShadow, removePopupBackgroundShadow } from '@/services/background';
+import { addCardBackground, removeCardBackground } from '@/services/background';
 
 export default {
   name: 'PopupDescriptionCell',
   props: {
     statusDescription: String,
-    shadowClassName: String,
   },
   data: () => ({
     value: false,
@@ -35,15 +34,15 @@ export default {
   watch: {
     value(value) {
       if (value) {
-        addPopupBackgroundShadow(this.shadowClassName);
+        addCardBackground();
       } else {
-        removePopupBackgroundShadow(this.shadowClassName);
+        removeCardBackground();
       }
     },
   },
   beforeDestroy() {
     if (this.value) {
-      removePopupBackgroundShadow(this.shadowClassName);
+      removeCardBackground();
       this.value = false;
     }
   },

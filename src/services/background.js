@@ -26,28 +26,20 @@ export function removeBackgroundShadow() {
   }
 }
 
-export function addPopupBackgroundShadow(shadowClassName) {
-  if (shadowClassName === 'application--wrap') {
+export function addCardBackground() {
+  const disputeHistory = document.querySelector('.table-full-height-balloon');
+  if (disputeHistory) {
+    disputeHistory.classList.add('shadow-overlay');
+  } else {
     addBackgroundShadow();
-    return;
-  }
-
-  const shadowClass = `.${shadowClassName}`;
-  const elementShadow = document.querySelector(shadowClass);
-  if (elementShadow) {
-    elementShadow.classList.add('shadow-overlay');
   }
 }
 
-export function removePopupBackgroundShadow(shadowClassName) {
-  if (shadowClassName === 'application--wrap') {
+export function removeCardBackground() {
+  const disputeHistory = document.querySelector('.table-full-height-balloon');
+  if (disputeHistory) {
+    disputeHistory.classList.remove('shadow-overlay');
+  } else {
     removeBackgroundShadow();
-    return;
-  }
-
-  const shadowClass = `.${shadowClassName}`;
-  const elementShadow = document.querySelector(shadowClass);
-  if (elementShadow) {
-    elementShadow.classList.remove('shadow-overlay');
   }
 }
