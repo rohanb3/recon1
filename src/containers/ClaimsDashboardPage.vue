@@ -4,18 +4,18 @@
       <claims-dashboard-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
     <div class="statistic-list">
-      <total-disputes-statistic :statistics="tableRows" />
-      <total-spectrum-dispute-statistic :statistics="tableRows" />
-      <total-xyz-dispute-statistic :statistics="tableRows" />
+      <total-claims-statistic :statistics="tableRows" />
+      <total-spectrum-claim-statistic :statistics="tableRows" />
+      <total-xyz-claim-statistic :statistics="tableRows" />
       <total-created-claims-chart />
     </div>
   </div>
 </template>
 
 <script>
-import TotalDisputesStatistic from '@/components/DisputesDashboard/TotalDisputesStatistic';
-import TotalSpectrumDisputeStatistic from '@/components/DisputesDashboard/TotalSpectrumDisputeStatistic';
-import TotalXyzDisputeStatistic from '@/components/DisputesDashboard/TotalXyzDisputeStatistic';
+import TotalClaimsStatistic from '@/components/ClaimsDashboard/TotalClaimsStatistic';
+import TotalSpectrumClaimStatistic from '@/components/ClaimsDashboard/TotalSpectrumClaimStatistic';
+import TotalXyzClaimStatistic from '@/components/ClaimsDashboard/TotalXyzClaimStatistic';
 import ClaimsDashboardToolbar from '@/containers/ClaimsDashboardToolbar';
 import TotalCreatedClaimsChart from '@/containers/TotalCreatedClaimsChart';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
@@ -27,9 +27,9 @@ export default {
   components: {
     TableToolbar,
     ClaimsDashboardToolbar,
-    TotalDisputesStatistic,
-    TotalSpectrumDisputeStatistic,
-    TotalXyzDisputeStatistic,
+    TotalClaimsStatistic,
+    TotalSpectrumClaimStatistic,
+    TotalXyzClaimStatistic,
     TotalCreatedClaimsChart,
   },
   mixins: [lazyLoadTable],

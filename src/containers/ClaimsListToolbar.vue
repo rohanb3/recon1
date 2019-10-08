@@ -8,7 +8,11 @@
         <claims-age-filter :table-name="tableName" />
         <claim-types-filter :table-name="tableName" />
         <claims-xyz-status-filter :table-name="tableName" />
-        <spectrum-dispute-status-filter :table-name="tableName" :filter-field="filterField" />
+        <spectrum-dispute-status-filter
+          :table-name="tableName"
+          :title="$t('disputes.claims.status')"
+          :filter-field="filterField"
+        />
       </div>
       <v-spacer></v-spacer>
       <div class="table-filter-container">

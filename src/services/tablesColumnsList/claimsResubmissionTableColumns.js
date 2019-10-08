@@ -115,7 +115,7 @@ export default () => [
     field: 'ageAfterDispute',
     fieldType: 'ageAfterDispute',
     class: 'text',
-    title: 'disputes.age.after.disput',
+    title: 'disputes.age.after.claim',
     width: '4',
     minWidth: '30px',
     sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.AGE_AFTER_DISPUT,
