@@ -70,7 +70,8 @@ export default {
         .utc()
         .format();
       this.filters.createdTo = moment()
-        .endOf('day')
+        .add(1, 'day')
+        .startOf('day')
         .utc()
         .format();
     },
