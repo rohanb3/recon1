@@ -6,12 +6,14 @@ describe('tables getters: ', () => {
       const tableName = 'company';
       const companyTable = {
         items: [{ id: 3, name: 'Apple' }, { id: 7, name: 'Intel' }, { id: 10, name: 'Samsung' }],
+        columns: [],
       };
 
       const fakeState = {
         [tableName]: companyTable,
         countries: {
           items: [{ id: 10, name: 'Ukraine' }, { id: 5, name: 'USA' }, { id: 5, name: 'Canada' }],
+          columns: [],
         },
       };
 
@@ -26,7 +28,7 @@ describe('tables getters: ', () => {
       const func = getters.tableData(fakeState);
       const result = func();
 
-      expect(result).toEqual({});
+      expect(result).toEqual({ columns: [] });
     });
   });
 });
