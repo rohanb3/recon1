@@ -175,6 +175,7 @@ const router = new Router({
                   path: 'submitters',
                   name: ROUTE_NAMES.CLAIMS_BY_SUBMITTERS,
                   components: { switcher: SubmittersSwitcher, content: ClaimsBySubmittersTable },
+                  beforeEnter: resubmissionGuard,
                 },
                 {
                   path: 'resubmission',
@@ -215,6 +216,7 @@ const router = new Router({
                   path: 'submitters',
                   name: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
                   components: { switcher: SubmittersSwitcher, content: DisputesBySubmittersTable },
+                  beforeEnter: resubmissionGuard,
                 },
                 {
                   path: 'resubmission',
