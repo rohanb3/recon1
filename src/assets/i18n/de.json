@@ -111,6 +111,8 @@
   "disputes.dashboard.total.spectrum.statistic": "TBD Total Spectrum Dispute Info",
   "disputes.dashboard.total.xyz.statistic": "TBD Total XYZ Disputes info",
   "disputes.dashboard.total.created.disputes": "TBD Total Created Disputes",
+  "disputes.dashboard.total.created.claims": "TBD Total Created Claims",
+  "disputes.dashboard.total.closed.claims": "TBD Total closed claims",
   "disputes.dashboard.total.closed.disputes": "TBD Total closed disputes",
   "total.comission.difference": "TBD Total commission difference",
   "comission.difference": "TBD Commission difference",
