@@ -2,8 +2,8 @@
   <v-form class="additional-info-block-form">
     <v-layout row mb-2>
       <v-flex md6>
-        <claim-types-select v-model="disputeInfo" />
-        <textarea-submitter-comment v-model="disputeInfo" ref="textareaSubmitterComment" />
+        <slot name="typeSelect"></slot>
+        <!--<claim-types-select v-model="disputeInfo" />-->
       </v-flex>
       <v-flex md6 ml-5>
         <browse-files
@@ -15,20 +15,18 @@
         />
       </v-flex>
     </v-layout>
+    <slot name="commentTable"></slot>
+    <textarea-submitter-comment v-model="disputeInfo" ref="textareaSubmitterComment" />
   </v-form>
 </template>
 
 <script>
 import BrowseFiles from '@/components/BrowseFiles/BrowseFiles';
 import TextareaSubmitterComment from '@/components/TextareaSubmitterComment';
-import ClaimTypesSelect from '../containers/ClaimTypesSelect';
-
-const PATH_TO_ATTACHMENT_FILES = '/api/disputs/attachment/claim/';
 
 export default {
   name: 'AdditionalInfoBlockForm',
   components: {
-    ClaimTypesSelect,
     BrowseFiles,
     TextareaSubmitterComment,
   },
@@ -40,6 +38,10 @@ export default {
     loadingFilesStatus: {
       type: Boolean,
       default: false,
+    },
+    pathToAttachmentFiles: {
+      type: String,
+      required: true,
     },
   },
   computed: {
@@ -55,7 +57,7 @@ export default {
       },
     },
     linkPreview() {
-      return `${PATH_TO_ATTACHMENT_FILES + this.value.id}?fileName=`;
+      return `${this.pathToAttachmentFiles + this.value.id}?fileName=`;
     },
   },
   methods: {

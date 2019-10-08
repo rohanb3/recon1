@@ -7,13 +7,23 @@
       <v-layout row wrap>
         <v-flex xs12 lg6 class="general-information-form">
           <general-information-form-dispute v-model="disputeInfo" ref="generalInfo" />
-          <additional-info-block-form-disputes
+          <additional-info-block-form
             v-model="disputeInfo"
             ref="additionalInfoBlock"
             :loadingFilesStatus="loadingFilesStatus"
+            :path-to-attachment-files="pathToAttachmentFiles"
             @selectedFiles="onUploadFiles"
             @removeFile="onRemoveFile"
-          />
+          >
+            <dispute-types-select slot="typeSelect" v-model="disputeInfo" />
+            <div slot="commentTable">
+              <v-layout row mb-2>
+                <v-flex>
+                  <dispute-comment-table v-model="disputeInfo" />
+                </v-flex>
+              </v-layout>
+            </div>
+          </additional-info-block-form>
         </v-flex>
         <v-flex xs12 lg6 class="customer-information-wrapper">
           <customer-information-form v-model="disputeInfo" ref="customerInfo" />
@@ -59,12 +69,10 @@
 </template>
 
 <script>
-import CustomerInformationForm from '@/components/CustomerInformationForm';
-import TableButton from '@/components/TableButton';
+import { RESPONSE_STATUSES, ROUTE_NAMES } from '@/constants';
 import { errorMessage } from '@/services/notifications';
-import { addBackgroundBlur, removeBackgroundBlur } from '@/services/background';
-
-import { RESPONSE_STATUSES, DISPUTE_STATUSES_ID, ROUTE_NAMES } from '@/constants';
+import { removeBackgroundBlur } from '@/services/background';
+import createEntity from '@/mixins/createEntity';
 
 import {
   getDispute,
@@ -74,49 +82,20 @@ import {
   uploadDisputeAttachment,
   removeDisputeAttachment,
 } from '@/services/disputesRepository';
-import AdditionalInfoBlockFormDisputes from '../components/AdditionalInfoBlockFormDsiputes';
-import GeneralInformationFormDispute from '../components/GeneralInformationFormDispute';
+
+const PATH_TO_ATTACHMENT_FILES = '/api/disputs/attachment/dispute/';
 
 export default {
   name: 'DisputePage',
-  components: {
-    GeneralInformationFormDispute,
-    AdditionalInfoBlockFormDisputes,
-    TableButton,
-    CustomerInformationForm,
-  },
-  mounted() {
-    this.loadDispute();
-  },
   data() {
     return {
-      disputeInfo: {},
-      disputeAttachmentList: [],
-      dialogDeleteDispute: false,
-      loading: true,
-      sendingData: false,
-      loadingFilesStatus: false,
-      savedDispute: false,
       routeNameForRedirect: ROUTE_NAMES.DISPUTES_ORDERS,
     };
   },
+  mixins: [createEntity],
   computed: {
-    disputeId() {
-      return this.disputeInfo.id;
-    },
-    disputeStatusId: {
-      get() {
-        return (this.disputeInfo.status || {}).id;
-      },
-      set(statusId) {
-        this.disputeInfo.status.id = statusId;
-      },
-    },
-    disputeTypeId() {
-      return (this.disputeInfo.type || {}).id;
-    },
-    isDisputeStatusSent() {
-      return this.disputeStatusId === DISPUTE_STATUSES_ID.SENT;
+    pathToAttachmentFiles() {
+      return PATH_TO_ATTACHMENT_FILES;
     },
   },
   methods: {
@@ -141,11 +120,6 @@ export default {
         this.sendingData = false;
       }
     },
-    onSaveDraft() {
-      this.disputeStatusId = DISPUTE_STATUSES_ID.DRAFT;
-      removeBackgroundBlur();
-      this.onSave();
-    },
     async onRemoveDraft() {
       try {
         await deleteDispute(this.disputeInfo.id);
@@ -156,14 +130,6 @@ export default {
       } finally {
         removeBackgroundBlur();
       }
-    },
-    onCancel() {
-      addBackgroundBlur();
-      this.dialogDeleteDispute = true;
-    },
-    onCloseDialog() {
-      removeBackgroundBlur();
-      this.dialogDeleteDispute = false;
     },
     async loadDispute() {
       this.loading = true;
@@ -183,10 +149,6 @@ export default {
       } finally {
         this.loading = false;
       }
-    },
-    async onCreateNewDispute() {
-      this.disputeStatusId = DISPUTE_STATUSES_ID.SENT;
-      this.onSave();
     },
     async onRemoveFile(filename) {
       try {
@@ -225,22 +187,6 @@ export default {
       const { attachments } = await getDispute(this.disputeInfo.id);
       this.disputeInfo.attachments = attachments;
     },
-    validate() {
-      return [
-        this.$refs.generalInfo.validate(),
-        this.$refs.additionalInfoBlock.validate(),
-        this.$refs.customerInfo.validate(),
-      ].every(isValidForm => isValidForm === true);
-    },
-  },
-  beforeRouteLeave(to, from, next) {
-    if (this.savedDispute) {
-      next();
-    } else {
-      this.routeNameForRedirect = to.name;
-      this.onCancel();
-      next(false);
-    }
   },
 };
 </script>

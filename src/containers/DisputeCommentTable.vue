@@ -1,7 +1,7 @@
 <template>
-  <div class="comment-table">
-    <p>{{ $t('dispute.comment') }}</p>
-    <table>
+  <div class="dispute-comment-table">
+    <h1 class="title">{{ $t('dispute.comment') }}</h1>
+    <table class="comment-table">
       <thead>
         <tr>
           <td v-for="(cell, index) in tableHeader" :key="index">{{ $t(cell) }}</td>
@@ -46,13 +46,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.comment-table {
-  p {
-    font-size: 20px;
+.dispute-comment-table {
+  .title {
     margin-bottom: 20px;
   }
 
-  table {
+  .comment-table {
     margin-bottom: 20px;
     width: 100%;
   }

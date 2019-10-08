@@ -5,7 +5,7 @@
     item-text="name"
     item-value="id"
     :items="typesList"
-    v-model="claimType"
+    v-model="type"
     required
     :rules="fieldCantBeEmptyRule"
     class="required"
@@ -15,54 +15,19 @@
 
 <script>
 import { getDisputeTypes } from '@/services/disputesRepository';
-import { validateFieldCantBeEmpty } from '@/services/validators';
 import { DISPUTES_STATUS_NAME_TRANSLATION_KEYS } from '@/constants';
+import typeSelect from '@/mixins/typeSelect';
 
 export default {
   name: 'DisputeTypesSelect',
-  props: {
-    value: {
-      type: Object,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      fieldCantBeEmptyRule: [validateFieldCantBeEmpty()],
-      types: [],
-    };
-  },
   computed: {
     translationKeys() {
       return DISPUTES_STATUS_NAME_TRANSLATION_KEYS;
     },
-    claimType: {
-      get() {
-        return (this.value.type || {}).id || null;
-      },
-      set(value) {
-        this.$emit('input', {
-          ...this.value,
-          type: this.typesList.find(dispute => dispute.id === value),
-        });
-      },
-    },
-    typesList() {
-      return this.types.map(({ id, name, selected }) => {
-        const translationKey = [this.translationKeys][name];
-        return {
-          id,
-          name: translationKey ? this.$t(translationKey) : name,
-          selected,
-        };
-      });
-    },
   },
-  mounted() {
-    this.getDisputeTypes();
-  },
+  mixins: [typeSelect],
   methods: {
-    getDisputeTypes() {
+    getData() {
       getDisputeTypes().then(data => {
         this.types = data;
       });
