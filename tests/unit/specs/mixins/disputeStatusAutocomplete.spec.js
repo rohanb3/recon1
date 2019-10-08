@@ -131,17 +131,17 @@ describe('disputeStatusAutocomplete', () => {
 
         const result = disputeStatusAutocomplete.computed.isStatusEditableBySAM.call(mockedThis);
 
-        expect(result).toBeTruthy();
+        expect(result).toBeFalsy();
       });
     });
 
-    describe('isStatusEditableOrStatusProcessing', () => {
+    describe('isStatusNotEditableOrStatusProcessing', () => {
       it('should return true if defined isStatusEditableBySAM as true', () => {
         const mockedThis = {
           isStatusEditableBySAM: true,
         };
 
-        const result = disputeStatusAutocomplete.computed.isStatusEditableOrStatusProcessing.call(
+        const result = disputeStatusAutocomplete.computed.isStatusNotEditableOrStatusProcessing.call(
           mockedThis
         );
 
@@ -153,7 +153,7 @@ describe('disputeStatusAutocomplete', () => {
           statusProcessing: true,
         };
 
-        const result = disputeStatusAutocomplete.computed.isStatusEditableOrStatusProcessing.call(
+        const result = disputeStatusAutocomplete.computed.isStatusNotEditableOrStatusProcessing.call(
           mockedThis
         );
 

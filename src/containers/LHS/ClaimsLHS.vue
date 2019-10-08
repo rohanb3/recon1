@@ -23,6 +23,7 @@ export default {
           action: 'dashboard',
           title: this.$t('claims.dashboard'),
           routeName: ROUTE_NAMES.CLAIMS_DASHBOARD,
+          visible: this.isShowDisputeDashboard,
         },
         {
           action: 'play_arrow',

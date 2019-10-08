@@ -59,6 +59,14 @@ function loginGuard(to, from, next) {
   }
 }
 
+function dashboardGuard(to, from, next) {
+  if (store.getters.isShowDisputeDashboard) {
+    next();
+  } else {
+    next({ name: ROUTE_NAMES.MAIN_PAGE });
+  }
+}
+
 function resubmissionGuard(to, from, next) {
   if (store.getters.isShowResubmissionTable) {
     next();
@@ -147,6 +155,7 @@ const router = new Router({
                   path: 'dashboard',
                   name: ROUTE_NAMES.CLAIMS_DASHBOARD,
                   components: { switcher: DashboardSwitcher, content: ClaimsDashboardPage },
+                  beforeEnter: dashboardGuard,
                 },
                 {
                   path: 'orders',
@@ -200,6 +209,7 @@ const router = new Router({
                   path: 'dashboard',
                   name: ROUTE_NAMES.DISPUTES_DASHBOARD,
                   components: { switcher: DashboardSwitcher, content: DisputesDashboardPage },
+                  beforeEnter: dashboardGuard,
                 },
                 {
                   path: 'orders',
