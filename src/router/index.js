@@ -67,7 +67,7 @@ function resubmissionGuard(to, from, next) {
   }
 }
 
-function disputesGuard(to, from, next) {
+function listGuard(to, from, next) {
   if (store.getters.isShowDispute) {
     next();
   } else {
@@ -154,10 +154,10 @@ const router = new Router({
                   components: { switcher: OrdersSwitcher, content: ClaimsOrders },
                 },
                 {
-                  path: 'disputes',
+                  path: 'list',
                   name: ROUTE_NAMES.CLAIMS_DISPUTES,
                   components: { switcher: DisputesSwitcher, content: ClaimsList },
-                  beforeEnter: disputesGuard,
+                  beforeEnter: listGuard,
                 },
                 {
                   path: 'edit/:disputeId',
@@ -209,6 +209,7 @@ const router = new Router({
                   path: 'list',
                   name: ROUTE_NAMES.DISPUTE_LIST,
                   components: { switcher: DisputesSwitcher, content: DisputeList },
+                  beforeEnter: listGuard,
                 },
                 {
                   path: 'submitters',
