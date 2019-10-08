@@ -1,9 +1,14 @@
 <template>
   <div class="dispute-status-description-cell" :title="disputeComment">
     <PopupDescriptionCell
-      :disputeComment="disputeComment | dashForEmptyValue"
-      :statusDescription="item.statusDescription"
-    />
+      :statusDescription="statusDescription"
+    >
+      <template v-slot:comment>
+        <a @click.prevent>
+          {{ disputeComment | dashForEmptyValue }}
+        </a>
+      </template>
+    </PopupDescriptionCell>
   </div>
 </template>
 
@@ -27,6 +32,9 @@ export default {
   computed: {
     disputeComment() {
       return this.item.submitterComment || this.item.statusDescription;
+    },
+    statusDescription() {
+      return this.item.statusDescription || this.item.submitterComment;
     },
   },
 };

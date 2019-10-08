@@ -25,3 +25,21 @@ export function removeBackgroundShadow() {
     applicationWrap.classList.remove('shadow-overlay');
   }
 }
+
+export function addPopupBackgroundShadow() {
+  const disputeHistory = document.querySelector('.dispute-history');
+  if (disputeHistory) {
+    disputeHistory.classList.add('shadow-overlay');
+  } else {
+    addBackgroundShadow();
+  }
+}
+
+export function removePopupBackgroundShadow() {
+  const disputeHistory = document.querySelector('.dispute-history');
+  if (disputeHistory) {
+    disputeHistory.classList.remove('shadow-overlay');
+  } else {
+    removeBackgroundShadow();
+  }
+}

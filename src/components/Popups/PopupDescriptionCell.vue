@@ -10,23 +10,25 @@
     transition="scale-transition"
   >
     <template v-slot:activator="{ on }">
-      <a @click.prevent v-on="on">{{ disputeComment }}</a>
+      <div v-on="on">
+        <slot name="comment"></slot>
+      </div>
     </template>
     <div @click.stop>
-      <v-list class="pa-3 word-wrap">
-        {{ statusDescription }}
-      </v-list>
+      <v-list class="pa-3 word-wrap">{{ statusDescription }}</v-list>
     </div>
   </v-menu>
 </template>
 
 <script>
-import { addBackgroundShadow, removeBackgroundShadow } from '@/services/background';
+import {
+  addPopupBackgroundShadow,
+  removePopupBackgroundShadow,
+} from '@/services/background';
 
 export default {
   name: 'PopupDescriptionCell',
   props: {
-    disputeComment: String,
     statusDescription: String,
   },
   data: () => ({
@@ -35,15 +37,15 @@ export default {
   watch: {
     value(value) {
       if (value) {
-        addBackgroundShadow();
+        addPopupBackgroundShadow();
       } else {
-        removeBackgroundShadow();
+        removePopupBackgroundShadow();
       }
     },
   },
   beforeDestroy() {
     if (this.value) {
-      removeBackgroundShadow();
+      removePopupBackgroundShadow();
       this.value = false;
     }
   },
