@@ -5,7 +5,10 @@
       <order-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
       <dispute-type-filter :tableName="tableName" />
-      <spectrum-dispute-status-filter :tableName="tableName" :title="$t('disputes.claims.status')" />
+      <spectrum-dispute-status-filter
+        :tableName="tableName"
+        :title="$t('disputes.claims.status')"
+      />
     </div>
     <v-spacer></v-spacer>
     <div class="table-filter-container">
