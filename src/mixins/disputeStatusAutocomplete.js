@@ -34,7 +34,7 @@ export default {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.IN_PROGRESS;
     },
     disputeStatusHistoryList() {
-      return this.item.disputeStatusHistory || [];
+      return this.item.statusHistory || [];
     },
     isConfirmApprovedStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.CONFIRM_APPROVED;

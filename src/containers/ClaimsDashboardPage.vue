@@ -7,7 +7,7 @@
       <total-claims-statistic :statistics="tableRows" />
       <total-spectrum-claim-statistic :statistics="tableRows" />
       <total-xyz-claim-statistic :statistics="tableRows" />
-      <total-created-disputes-chart />
+      <total-created-claims-chart />
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@ import TotalClaimsStatistic from '@/components/ClaimsDashboard/TotalClaimsStatis
 import TotalSpectrumClaimStatistic from '@/components/ClaimsDashboard/TotalSpectrumClaimStatistic';
 import TotalXyzClaimStatistic from '@/components/ClaimsDashboard/TotalXyzClaimStatistic';
 import ClaimsDashboardToolbar from '@/containers/ClaimsDashboardToolbar';
-import TotalCreatedDisputesChart from '@/containers/TotalCreatedDisputesChart';
+import TotalCreatedClaimsChart from '@/containers/TotalCreatedClaimsChart';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 import { TABLE_NAMES } from '@/constants';
 import TableToolbar from '@/components/TableToolbar';
@@ -30,7 +30,7 @@ export default {
     TotalClaimsStatistic,
     TotalSpectrumClaimStatistic,
     TotalXyzClaimStatistic,
-    TotalCreatedDisputesChart,
+    TotalCreatedClaimsChart,
   },
   mixins: [lazyLoadTable],
   data() {
@@ -54,7 +54,9 @@ export default {
   overflow-y: auto;
   margin-top: 30px;
   padding: 0 10px 0;
-  height: calc(100vh - #{$header-height} - #{$table-toolbar-height} - 60px - #{$switcher-height});
+  height: calc(
+    100vh - #{$header-height} - #{$table-toolbar-height} - 60px - #{$switcher-height}
+  );
 }
 
 .claims_dashboard-table {

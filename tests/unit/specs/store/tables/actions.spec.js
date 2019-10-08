@@ -7,7 +7,7 @@ import {
   APPLY_DISPUTE_STATUS_FILTER,
 } from '@/store/tables/actionTypes';
 import { LOAD_ITEMS } from '@/store/storage/actionTypes';
-import { ENTITY_TYPES, FILTER_NAMES } from '@/constants';
+import { TABLE_NAMES, FILTER_NAMES } from '@/constants';
 import { SET_FILTERS, APPLYING_FILTERS_DONE } from '@/store/tables/mutationTypes';
 import { RESET_ITEMS, SET_ALL_ITEMS_LOADED } from '@/store/storage/mutationTypes';
 
@@ -337,7 +337,7 @@ describe('tables actions', () => {
 
         actions[RESET_ALL_FILTERS](fakeStore);
 
-        Object.values(ENTITY_TYPES).forEach(entityName => {
+        Object.values(TABLE_NAMES).forEach(entityName => {
           expect(fakeStore.commit).toHaveBeenCalledWith(RESET_FILTERS, entityName);
         });
       });

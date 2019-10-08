@@ -230,7 +230,6 @@ export const TABLE_COLUMN_ID_NAMES = {
 };
 
 export const ROUTE_NAMES = {
-  SELECT_ORDER: 'select-order',
   EDIT_DISPUTE: 'edit-dispute',
   CREAT_DISPUTE: 'creat-dispute',
   DISPUTE_LIST: 'dispute-list',

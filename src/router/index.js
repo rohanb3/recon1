@@ -59,22 +59,11 @@ function loginGuard(to, from, next) {
   }
 }
 
-function ordersGuard(to, from, next) {
-  if (
-    store.getters.isShowOrderWithoutExpectedComission ||
-    store.getters.isShowOrderWithExpectedComission
-  ) {
-    next();
-  } else {
-    next({ name: ROUTE_NAMES.CLAIMS_DASHBOARD });
-  }
-}
-
 function resubmissionGuard(to, from, next) {
   if (store.getters.isShowResubmissionTable) {
     next();
   } else {
-    next({ name: ROUTE_NAMES.CLAIMS_DASHBOARD });
+    next({ name: ROUTE_NAMES.MAIN_PAGE });
   }
 }
 
@@ -82,7 +71,7 @@ function disputesGuard(to, from, next) {
   if (store.getters.isShowDispute) {
     next();
   } else {
-    next({ name: ROUTE_NAMES.CLAIMS_DASHBOARD });
+    next({ name: ROUTE_NAMES.MAIN_PAGE });
   }
 }
 
@@ -90,7 +79,7 @@ function disputeGuard(to, from, next) {
   if (store.getters.isUpdateDispute) {
     next();
   } else {
-    next({ name: ROUTE_NAMES.CLAIMS_DASHBOARD });
+    next({ name: ROUTE_NAMES.MAIN_PAGE });
   }
 }
 
@@ -163,7 +152,6 @@ const router = new Router({
                   path: 'orders',
                   name: ROUTE_NAMES.CLAIMS_ORDERS,
                   components: { switcher: OrdersSwitcher, content: ClaimsOrders },
-                  beforeEnter: ordersGuard,
                 },
                 {
                   path: 'disputes',
@@ -216,13 +204,11 @@ const router = new Router({
                   path: 'orders',
                   name: ROUTE_NAMES.DISPUTES_ORDERS,
                   components: { switcher: OrdersSwitcher, content: DisputesOrders },
-                  beforeEnter: ordersGuard,
                 },
                 {
                   path: 'list',
                   name: ROUTE_NAMES.DISPUTE_LIST,
                   components: { switcher: DisputesSwitcher, content: DisputeList },
-                  beforeEnter: ordersGuard,
                 },
                 {
                   path: 'submitters',

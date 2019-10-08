@@ -8,6 +8,10 @@ export const getClaims = params => {
   return apiDisputes.get('/dashboard/claims', { params }).then(data => data);
 };
 
-export const getDailyStatistics = params => {
+export const getDisputesDailyStatistics = params => {
   return apiDisputes.get('/dispute/days/statistics', { params }).then(data => data);
+};
+
+export const getClaimsDailyStatistics = params => {
+  return apiDisputes.get('/claim/days/statistics', { params }).then(data => data);
 };

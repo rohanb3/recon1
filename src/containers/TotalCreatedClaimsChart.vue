@@ -12,20 +12,20 @@
 </template>
 
 <script>
-import { getDisputesDailyStatistics } from '@/services/statisticsRepository';
+import { getClaimsDailyStatistics } from '@/services/statisticsRepository';
 
 import TotalCreatedChart from '@/containers/TotalCreatedChart';
 import TotalCreatedDisputesToolbar from '@/components/DisputesDashboard/TotalCreatedDisputes/TotalCreatedDisputesToolbar';
 
 export default {
-  name: 'TotalCreatedDisputesChart',
+  name: 'TotalCreatedClaimsChart',
   components: {
     TotalCreatedChart,
     TotalCreatedDisputesToolbar,
   },
   methods: {
     getDailyStatistics(data) {
-      return getDisputesDailyStatistics(data);
+      return getClaimsDailyStatistics(data);
     },
   },
 };
