@@ -7,7 +7,7 @@
       <claim-types-filter :tableName="tableName" />
       <spectrum-dispute-status-filter
         :table-name="tableName"
-        title="disputes.claims.status"
+        :title="$t('disputes.claims.status')"
         :filter-field="filterField"
       />
     </div>

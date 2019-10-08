@@ -5,7 +5,12 @@
       <installation-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
       <dispute-type-filter :tableName="tableName" />
-      <spectrum-dispute-status-filter :tableName="tableName" :filterField="filterField" />
+
+      <spectrum-dispute-status-filter
+        :tableName="tableName"
+        :filterField="filterField"
+        :title="$t('disputes.dispute.status')"
+      />
     </div>
     <v-spacer></v-spacer>
     <div class="table-filter-container">
