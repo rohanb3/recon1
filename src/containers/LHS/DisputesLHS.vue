@@ -46,6 +46,7 @@ export default {
           action: 'face',
           title: this.$t('disputes.by.submitters'),
           routeName: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
+          visible: this.isShowResubmissionTable,
         },
       ];
     },
