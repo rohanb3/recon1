@@ -122,6 +122,7 @@ const router = new Router({
     {
       path: '/',
       name: ROUTE_NAMES.MAIN_PAGE,
+      redirect: 'claims',
       component: Base,
       beforeEnter: authGuard,
       children: [
