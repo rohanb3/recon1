@@ -2,6 +2,7 @@
   <div class="dispute-status-description-cell" :title="disputeComment">
     <PopupDescriptionCell
       :statusDescription="statusDescription"
+      :shadowClassName="shadowClassName"
     >
       <template v-slot:comment>
         <a @click.prevent>
@@ -35,6 +36,11 @@ export default {
     },
     statusDescription() {
       return this.item.statusDescription || this.item.submitterComment;
+    },
+    shadowClassName() {
+      return this.item.statusDescription
+        ? 'application--wrap'
+        : 'dispute-history';
     },
   },
 };

@@ -26,20 +26,28 @@ export function removeBackgroundShadow() {
   }
 }
 
-export function addPopupBackgroundShadow() {
-  const disputeHistory = document.querySelector('.dispute-history');
-  if (disputeHistory) {
-    disputeHistory.classList.add('shadow-overlay');
-  } else {
+export function addPopupBackgroundShadow(shadowClassName) {
+  if (shadowClassName === 'application--wrap') {
     addBackgroundShadow();
+    return;
+  }
+
+  const shadowClass = `.${shadowClassName}`;
+  const elementShadow = document.querySelector(shadowClass);
+  if (elementShadow) {
+    elementShadow.classList.add('shadow-overlay');
   }
 }
 
-export function removePopupBackgroundShadow() {
-  const disputeHistory = document.querySelector('.dispute-history');
-  if (disputeHistory) {
-    disputeHistory.classList.remove('shadow-overlay');
-  } else {
+export function removePopupBackgroundShadow(shadowClassName) {
+  if (shadowClassName === 'application--wrap') {
     removeBackgroundShadow();
+    return;
+  }
+
+  const shadowClass = `.${shadowClassName}`;
+  const elementShadow = document.querySelector(shadowClass);
+  if (elementShadow) {
+    elementShadow.classList.remove('shadow-overlay');
   }
 }
