@@ -25,7 +25,7 @@ export default {
       this.loading = true;
       try {
         await this.$store.dispatch(LOGIN, { email, password });
-        this.$router.push({ name: ROUTE_NAMES.SELECT_ORDER });
+        this.$router.push({ name: ROUTE_NAMES.MAIN_PAGE });
       } catch (e) {
         const {
           response: {
