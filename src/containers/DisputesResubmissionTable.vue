@@ -8,6 +8,7 @@
         slot="row-cell"
         slot-scope="rowCell"
         class="row-cell"
+        v-model="orderIdCommission"
         :is="rowComponentsHash[rowCell.column.fieldType] || rowComponentsHash.default"
         :item="rowCell.item"
         :column="rowCell.column"
@@ -37,6 +38,7 @@
       :parent-table-name="tableName"
       @close="historyShown = false"
     />
+    <commission-popup v-model="orderIdCommission" v-if="orderIdCommission" />
   </div>
 </template>
 
@@ -53,13 +55,18 @@ import disputeCommonTable from '@/mixins/disputeCommonTable';
 import { TABLE_NAMES } from '@/constants';
 import TableToolbar from '@/components/TableToolbar';
 
+import CommissionCell from '@/components/tableCells/CommissionCell';
+import CommissionPopup from '../components/CommissionPopup';
+
 export default {
   name: 'ResubmissionTable',
   components: {
+    CommissionPopup,
     TableToolbar,
     ConfirmApproveDisputePopup,
     ConfirmRejectDisputePopup,
     DisputesResubmissionTableToolbar,
+    CommissionCell,
   },
   mixins: [disputeCommonTable],
   data() {
@@ -71,7 +78,9 @@ export default {
         resubmitDispute: 'ResubmitCell',
         rejectDisputeStatus: 'RejectDisputeStatusCell',
         approveDisputeStatus: 'ApproveDisputeStatusCell',
+        receivedCommissionCell: 'CommissionCell',
       },
+      orderIdCommission: null,
     };
   },
   methods: {

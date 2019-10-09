@@ -52,3 +52,7 @@ export const getClaimsOrders = filters => {
     .get('/order/orders/claiming', { params, paramsSerializer })
     .then(({ data }) => data);
 };
+
+export const getReceivedCommission = id => {
+  return apiDisputes.get(`/order/${id}/reseivedcommissions`).then(({ data }) => data);
+};

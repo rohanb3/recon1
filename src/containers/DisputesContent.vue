@@ -6,6 +6,7 @@
         slot="row-cell"
         slot-scope="rowCell"
         class="row-cell"
+        v-model="orderIdCommission"
         :is="rowComponentsHash[rowCell.column.fieldType] || rowComponentsHash.default"
         :item="rowCell.item"
         :column="rowCell.column"
@@ -34,6 +35,7 @@
       :parent-table-name="tableName"
       @close="historyShown = false"
     />
+    <commission-popup v-model="orderIdCommission" v-if="orderIdCommission" />
   </div>
 </template>
 
@@ -44,6 +46,8 @@ import XYZStatusCell from '@/components/tableCells/XYZStatusCell';
 import DisputeStatusDescriptionCell from '@/components/tableCells/DisputeStatusDescriptionCell';
 import ConfirmDisputePopup from '@/components/ConfirmDisputePopup/ConfirmDisputePopup';
 import disputeCommonTable from '@/mixins/disputeCommonTable';
+import CommissionPopup from '../components/CommissionPopup';
+import CommissionCell from '@/components/tableCells/CommissionCell';
 
 export default {
   name: 'DisputesContent',
@@ -54,6 +58,8 @@ export default {
     },
   },
   components: {
+    CommissionCell,
+    CommissionPopup,
     ConfirmResubmitDisputePopup,
     ConfirmDisputePopup,
     XYZStatusCell,
@@ -64,9 +70,11 @@ export default {
       rowComponentsHash: {
         xyzStatus: 'XYZStatusCell',
         disputeStatusDescription: 'DisputeStatusDescriptionCell',
+        receivedCommissionCell: 'CommissionCell',
       },
       isShowResubmitConfirmationPopup: false,
       isShowConfirmationPopup: false,
+      orderIdCommission: null,
     };
   },
   mixins: [disputeCommonTable],
