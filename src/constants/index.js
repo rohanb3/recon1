@@ -231,7 +231,7 @@ export const TABLE_COLUMN_ID_NAMES = {
 
 export const ROUTE_NAMES = {
   EDIT_DISPUTE: 'edit-dispute',
-  CREAT_DISPUTE: 'creat-dispute',
+  CREATE_DISPUTE: 'create-dispute',
   DISPUTE_LIST: 'dispute-list',
   CLAIMS_BY_SUBMITTERS: 'claims-by-submitters',
   DISPUTES_BY_SUBMITTERS: 'disputes-by-submitters',
@@ -248,6 +248,8 @@ export const ROUTE_NAMES = {
   CLAIMS_ORDERS: 'claims-orders',
   DISPUTES_ORDERS: 'disputes-orders',
   CLAIMS_DISPUTES: 'claims-disputes',
+  EDIT_CLAIM: 'edit-claim',
+  CREATE_CLAIM: 'create-claim',
 };
 
 export const ROLE_TYPES = {

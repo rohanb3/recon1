@@ -145,7 +145,7 @@ export default () => [
   {
     name: 'statusDescription',
     field: 'statusDescription',
-    fieldType: 'statusDescription',
+    fieldType: 'disputeStatusDescription',
     class: 'text',
     title: i18n.t('claim.status.description'),
     width: '4',

@@ -36,7 +36,7 @@ textarea {
   z-index: 100 !important;
 }
 
-.application--wrap.shadow-overlay::after {
+.shadow-overlay::after {
   content: ' ';
   position: absolute;
   top: 0;

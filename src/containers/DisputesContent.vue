@@ -85,6 +85,9 @@ export default {
       this.isShowConfirmationPopup = true;
     },
   },
+  mounted() {
+    console.log('test');
+  },
   computed: {
     ...mapGetters(['isShowDispute', 'isPatchDispute', 'scopes']),
     getTableName() {

@@ -23,6 +23,7 @@ export default {
           action: 'dashboard',
           title: this.$t('disputes.dashboard'),
           routeName: ROUTE_NAMES.DISPUTES_DASHBOARD,
+          visible: this.isShowDisputeDashboard,
         },
         {
           action: 'play_arrow',
@@ -45,6 +46,7 @@ export default {
           action: 'face',
           title: this.$t('disputes.by.submitters'),
           routeName: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
+          visible: this.isShowResubmissionTable,
         },
       ];
     },

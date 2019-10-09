@@ -4,7 +4,7 @@
       v-if="isInprogressStatus"
       class="disput-button"
       :title="$t('reject')"
-      :disabled="isStatusEditableOrStatusProcessing"
+      :disabled="isStatusNotEditableOrStatusProcessing"
       :preloader="statusProcessing"
       @click="onResubmit"
     />
