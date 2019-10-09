@@ -1,6 +1,10 @@
 <template>
   <v-form ref="form">
-    <v-text-field value v-model="woNumber" :label="$t('dispute.wo.number')"></v-text-field>
+    <v-text-field
+      value
+      v-model="woNumber"
+      :label="$t('dispute.carrier.order.number')"
+    ></v-text-field>
   </v-form>
 </template>
 

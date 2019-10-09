@@ -18,7 +18,7 @@
       />
     </div>
     <vue-perfect-scrollbar :settings="scrollSettings">
-      <div class="browse-files-content">
+      <div class="browse-files-content" v-if="attachments.length">
         <file-info
           v-for="attachment of attachments"
           :key="attachment"
@@ -106,7 +106,7 @@ export default {
 }
 
 .browse-files-content {
-  height: 160px;
+  max-height: 160px;
   padding-right: 21px;
 }
 

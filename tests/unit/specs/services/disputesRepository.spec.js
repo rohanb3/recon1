@@ -107,7 +107,7 @@ describe('disputesRepository', () => {
       const response = await getDisputeAttachment(disputerId);
 
       expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith(`/disputeattachment/${disputerId}`);
+      expect(disputesApi.get).toHaveBeenCalledWith(`/attachment/dispute/${disputerId}`);
     });
   });
 
@@ -126,7 +126,7 @@ describe('disputesRepository', () => {
       await uploadDisputeAttachment(disputerId, updateData);
 
       expect(disputesApi.post).toHaveBeenCalledWith(
-        `/disputeattachment/${disputerId}`,
+        `/attachment/dispute/${disputerId}`,
         updateData,
         { headers }
       );
@@ -145,7 +145,7 @@ describe('disputesRepository', () => {
 
       expect(response).toEqual(status);
       expect(disputesApi.delete).toHaveBeenCalledWith(
-        `/disputeattachment/${disputerId}?filename=${filename}`
+        `/attachment/dispute/${disputerId}?filename=${filename}`
       );
     });
   });

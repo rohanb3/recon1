@@ -35,7 +35,7 @@
   "dispute.affiliate.id": "TBD Affiliate ID",
   "dispute.account.number": "TBD Account Number",
   "dispute.order.confirmation": "TBD Order Confirmation",
-  "dispute.wo.number": "TBD WO Number",
+  "dispute.carrier.order.number": "TBD Carrier Order Number",
   "dispute.fiscal.period": "TBD Fiscal Period",
   "dispute.creation.date": "TBD Creation Date",
   "dispute.installation.date": "TBD Installation Date",
@@ -264,5 +264,10 @@
   "claim.title": "TBD Claim List With Statuses",
   "disputes.status.not.canceled": "TBD Order is not canceled",
   "disputes.status.missing.transaction": "TBD Missing Transaction",
-  "total": "TBD Total"
+  "total": "TBD Total",
+  "orders.claimed": "Claimed",
+  "order": "TBD Order",
+  "type": "TBD Type",
+  "dispute.comment": "TBD Dispute Comment",
+  "create.new.claim": "TBD Create new claim"
 }
