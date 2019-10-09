@@ -256,5 +256,8 @@
   "claim.title": "TBD Claim List With Statuses",
   "disputes.status.not.canceled": "TBD Order is not canceled",
   "disputes.status.missing.transaction": "TBD Missing Transaction",
-  "total": "TBD Total"
+  "total": "TBD Total",
+  "days": "TBD days",
+  "received.commission.details": "TBD Received commission details",
+  "carrier.order.number": "TBD Carrier order number"
 }

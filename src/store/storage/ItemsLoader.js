@@ -35,12 +35,18 @@ class ItemsLoader {
   }
 
   setItems(commit, itemType) {
-    commit(INSERT_ITEMS, { itemType, items: this.result.data });
+    const data = this.getDataFromResult();
+
+    commit(INSERT_ITEMS, { itemType, items: data });
 
     commit(SET_ITEMS_TOTAL, { itemType, total: this.result.total });
-    if (this.result.data.length < ITEMS_TO_LOAD) {
+    if (data.length < ITEMS_TO_LOAD) {
       commit(SET_ALL_ITEMS_LOADED, itemType);
     }
+  }
+
+  getDataFromResult() {
+    return this.result.data;
   }
 
   // eslint-disable-next-line
@@ -50,11 +56,6 @@ class ItemsLoader {
 }
 
 class ItemsLoaderWithCommission extends ItemsLoader {
-  // eslint-disable-next-line
-  constructor() {
-    super();
-  }
-
   async loadItems({ commit, state }, { itemType, filters = {} }, resetPrevious) {
     await super.loadItems({ commit, state }, { itemType, filters }, resetPrevious);
 

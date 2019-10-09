@@ -14,8 +14,10 @@
         :item="rowCell.item"
         :column="rowCell.column"
         :scopes="scopes"
+        @getReceivedCommission="getReceivedCommission"
       />
     </lazy-load-table>
+    <commission-popup v-model="showCommissionPopup" />
   </div>
 </template>
 
@@ -37,10 +39,14 @@ import SelectedRangeFilter from '../components/SelectedRangeFilter';
 import TableToolbar from '@/components/TableToolbar';
 import CustomRangeFilter from './CustomRangeFilter';
 import FiscalPeriodFilter from './FiscalPeriodFilter';
+import ReceivedCommissionCell from '@/components/tableCells/ReceivedCommissionCell';
+import CommissionPopup from '../components/CommissionPopup';
+import getReceivedCommission from '@/mixins/getReceivedCommission';
 
 export default {
   name: 'OrdersContent',
   components: {
+    CommissionPopup,
     FiscalPeriodFilter,
     CustomRangeFilter,
     TableToolbar,
@@ -53,6 +59,7 @@ export default {
     PriceCell,
     DisputeButtonCell,
     DateYearMonthDayCell,
+    ReceivedCommissionCell,
   },
   props: {
     tableName: {
@@ -60,6 +67,7 @@ export default {
       required: true,
     },
   },
+  mixins: [getReceivedCommission],
   data() {
     return {
       rowComponentsHash: {
@@ -71,7 +79,9 @@ export default {
         disputeButton: 'DisputeButtonCell',
         dateYearMonthDay: 'DateYearMonthDayCell',
         installationAge: 'OrderAgeCell',
+        receivedCommissionCell: 'ReceivedCommissionCell',
       },
+      showCommissionPopup: false,
     };
   },
   computed: {

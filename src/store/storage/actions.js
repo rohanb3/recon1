@@ -2,6 +2,7 @@ import moment from 'moment';
 import { getEntityActions } from './repositoryHelper';
 
 import { ItemsLoaderWithCommission } from './ItemsLoader';
+import CommissionLoader from './CommissionLoader';
 
 import {
   LOAD_ITEMS,
@@ -28,9 +29,17 @@ let syncOrdersIntervalId = null;
 
 export default {
   [LOAD_ITEMS](store, data) {
+    const { itemType } = data;
+    if (itemType === TABLE_NAMES.RECEIVED_COMMISSION) {
+      return new CommissionLoader().loadItems(store, data);
+    }
     return new ItemsLoaderWithCommission().loadItems(store, data, true);
   },
   [LOAD_MORE_ITEMS](store, data) {
+    const { itemType } = data;
+    if (itemType === TABLE_NAMES.RECEIVED_COMMISSION) {
+      return new CommissionLoader().loadItems(store, data);
+    }
     return new ItemsLoaderWithCommission().loadItems(store, data, false);
   },
   async [CREATE_ITEM]({ commit }, { itemType, ...data }) {

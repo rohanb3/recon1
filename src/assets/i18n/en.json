@@ -257,5 +257,8 @@
   "claim.title": "Claim List With Statuses",
   "disputes.status.not.canceled": "Order is not canceled",
   "disputes.status.missing.transaction": "Missing Transaction",
-  "total": "Total"
+  "total": "Total",
+  "days": "days",
+  "received.commission.details": "Received commission details",
+  "carrier.order.number": "Carrier order number"
 }

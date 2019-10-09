@@ -15,6 +15,7 @@
         @confirmDisputeStatus="onConfirmDisputeStatus"
         @confirmResubmitDisputeStatus="onConfirmResubmitDisputeStatus"
         @selectId="onSelectId"
+        @getReceivedCommission="getReceivedCommission"
       />
     </lazy-load-table>
     <confirm-resubmit-dispute-popup
@@ -34,6 +35,7 @@
       :parent-table-name="tableName"
       @close="historyShown = false"
     />
+    <commission-popup v-model="showCommissionPopup" />
   </div>
 </template>
 
@@ -44,6 +46,9 @@ import XYZStatusCell from '@/components/tableCells/XYZStatusCell';
 import DisputeStatusDescriptionCell from '@/components/tableCells/DisputeStatusDescriptionCell';
 import ConfirmDisputePopup from '@/components/ConfirmDisputePopup/ConfirmDisputePopup';
 import disputeCommonTable from '@/mixins/disputeCommonTable';
+import CommissionPopup from '../components/CommissionPopup';
+import ReceivedCommissionCell from '@/components/tableCells/ReceivedCommissionCell';
+import getReceivedCommission from '@/mixins/getReceivedCommission';
 
 export default {
   name: 'DisputesContent',
@@ -54,6 +59,8 @@ export default {
     },
   },
   components: {
+    ReceivedCommissionCell,
+    CommissionPopup,
     ConfirmResubmitDisputePopup,
     ConfirmDisputePopup,
     XYZStatusCell,
@@ -64,12 +71,14 @@ export default {
       rowComponentsHash: {
         xyzStatus: 'XYZStatusCell',
         disputeStatusDescription: 'DisputeStatusDescriptionCell',
+        receivedCommissionCell: 'ReceivedCommissionCell',
       },
       isShowResubmitConfirmationPopup: false,
       isShowConfirmationPopup: false,
+      showCommissionPopup: false,
     };
   },
-  mixins: [disputeCommonTable],
+  mixins: [disputeCommonTable, getReceivedCommission],
   methods: {
     async changeDisputeStatus(data) {
       this.isShowResubmitConfirmationPopup = false;
