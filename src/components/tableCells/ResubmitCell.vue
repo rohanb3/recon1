@@ -8,11 +8,9 @@
       :preloader="statusProcessing"
       @click="onResubmit"
     />
-    <span
-      v-if="!isSentOrResentStatus && isContainsInprogressStatus"
-      :title="resubmitDate | dateDefaultFormat"
-      >{{ resubmitDate | dateYearMonthDay }}</span
-    >
+    <span v-if="!isSentOrResentStatus && wasInProgress" :title="resubmitDate | dateDefaultFormat">{{
+      resubmitDate | dateYearMonthDay
+    }}</span>
   </div>
 </template>
 
@@ -42,10 +40,7 @@ export default {
       return this.isSentStatus || this.isResentStatus;
     },
     resubmitDate() {
-      return this.getLastDisputeStatus(DISPUTE_STATUSES_ID.IN_PROGRESS).timeStamp || '';
-    },
-    isContainsInprogressStatus() {
-      return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.IN_PROGRESS);
+      return this.item.lastInProgressTime || '';
     },
   },
   methods: {

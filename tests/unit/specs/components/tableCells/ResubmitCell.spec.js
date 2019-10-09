@@ -36,7 +36,9 @@ describe('ResubmitCell: ', () => {
         const timeStamp = '2019';
 
         const mockedThis = {
-          getLastDisputeStatus: jest.fn(() => ({ timeStamp })),
+          item: {
+            lastInProgressTime: timeStamp,
+          },
         };
 
         const result = ResubmitCell.computed.resubmitDate.call(mockedThis);
@@ -46,26 +48,14 @@ describe('ResubmitCell: ', () => {
 
       it('should return empty string if not defined timeStamp', () => {
         const mockedThis = {
-          getLastDisputeStatus: jest.fn(() => ({})),
+          item: {
+            lastInProgressTime: '',
+          },
         };
 
         const result = ResubmitCell.computed.resubmitDate.call(mockedThis);
 
         expect(result).toEqual('');
-      });
-    });
-
-    describe('isContainsInprogressStatus: ', () => {
-      it('should call isContainsStatusInHistory with parameter', () => {
-        const mockedThis = {
-          isContainsStatusInHistory: jest.fn(),
-        };
-
-        ResubmitCell.computed.isContainsInprogressStatus.call(mockedThis);
-
-        expect(mockedThis.isContainsStatusInHistory).toHaveBeenCalledWith(
-          DISPUTE_STATUSES_ID.IN_PROGRESS
-        );
       });
     });
   });
