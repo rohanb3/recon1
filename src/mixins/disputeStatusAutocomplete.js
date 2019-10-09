@@ -46,7 +46,7 @@ export default {
       return this.scopes.includes(SCOPES.DISPUTE_PATCH_SAM);
     },
     isStatusNotEditableOrStatusProcessing() {
-      return this.isStatusEditableBySAM || this.statusProcessing;
+      return !this.isStatusEditableBySAM || this.statusProcessing;
     },
     statusProcessing() {
       return this.processingIds.includes(this.disputeId);
