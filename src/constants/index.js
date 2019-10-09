@@ -174,6 +174,7 @@ export const ENTITY_TYPES = {
   DISPUTES: 'DISPUTES',
   DISPUTE_HISTORY: 'DISPUTE_HISTORY',
   CLAIMS: 'CLAIMS',
+  CLAIM_HISTORY: 'CLAIM_HISTORY',
 };
 
 export const TABLE_NAMES = {
@@ -215,7 +216,7 @@ export const FILTER_NAMES = {
   DISPUTE_STATUS_IDS: 'DisputeStatusIds',
   XYZ_STATUS_IDS: 'XYZStatusIds',
   SPECTRUM_STATUS_IDS: 'SpectrumStatusIds',
-  DISPUTE_ID: 'id',
+  ID: 'id',
   INSTALLATION_DATE_FROM: 'InstallationDateFrom',
   INSTALLATION_DATE_TO: 'InstallationDateTo',
   TYPE: 'Type',

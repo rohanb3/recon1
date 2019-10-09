@@ -154,3 +154,8 @@ export const removeClaimAttachment = (id, filename) => {
 export const deleteClaim = id => {
   return apiDisputes.delete(`/claim/${id}`).then(({ status }) => status);
 };
+
+export const getClaimHistory = filters => {
+  const { id, ...params } = filters;
+  return apiDisputes.get(`/claim/${id}/history`, { params }).then(({ data }) => data);
+};
