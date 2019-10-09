@@ -18,6 +18,7 @@
         @confirmApproveDisputeStatus="onConfirmApproveDisputeStatus"
         @confirmRejectDisputeStatus="onConfirmRejectDisputeStatus"
         @selectId="onSelectId"
+        @getReceivedCommission="getReceivedCommission"
       />
     </lazy-load-table>
     <confirm-approve-dispute-popup
@@ -37,6 +38,7 @@
       :parent-table-name="tableName"
       @close="historyShown = false"
     />
+    <commission-popup v-model="showCommissionPopup" />
   </div>
 </template>
 
@@ -53,15 +55,21 @@ import disputeCommonTable from '@/mixins/disputeCommonTable';
 import { TABLE_NAMES } from '@/constants';
 import TableToolbar from '@/components/TableToolbar';
 
+import ReceivedCommissionCell from '@/components/tableCells/ReceivedCommissionCell';
+import getReceivedCommission from '@/mixins/getReceivedCommission';
+import CommissionPopup from '../components/CommissionPopup';
+
 export default {
   name: 'ResubmissionTable',
   components: {
+    CommissionPopup,
     TableToolbar,
     ConfirmApproveDisputePopup,
     ConfirmRejectDisputePopup,
     DisputesResubmissionTableToolbar,
+    ReceivedCommissionCell,
   },
-  mixins: [disputeCommonTable],
+  mixins: [disputeCommonTable, getReceivedCommission],
   data() {
     return {
       tableName: TABLE_NAMES.DISPUTES_RESUBMISSION,
@@ -71,7 +79,9 @@ export default {
         resubmitDispute: 'ResubmitCell',
         rejectDisputeStatus: 'RejectDisputeStatusCell',
         approveDisputeStatus: 'ApproveDisputeStatusCell',
+        receivedCommissionCell: 'ReceivedCommissionCell',
       },
+      showCommissionPopup: false,
     };
   },
   methods: {
