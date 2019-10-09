@@ -145,7 +145,7 @@ export default {
         removeBackgroundBlur();
       }
     },
-    async loadDispute() {
+    async loadData() {
       this.loading = true;
       const { disputeId, orderId } = this.$route.params;
       try {

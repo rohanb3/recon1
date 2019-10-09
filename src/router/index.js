@@ -247,7 +247,7 @@ const router = new Router({
                 },
                 {
                   path: 'create/:orderId',
-                  name: ROUTE_NAMES.CREAT_DISPUTE,
+                  name: ROUTE_NAMES.CREATE_DISPUTE,
                   components: { content: DisputePage },
                   beforeEnter: disputeGuard,
                 },

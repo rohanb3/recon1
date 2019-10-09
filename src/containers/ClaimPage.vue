@@ -86,9 +86,6 @@ const PATH_TO_ATTACHMENT_FILES = '/api/disputs/attachment/claim/';
 
 export default {
   name: 'ClaimPage',
-  mounted() {
-    this.loadDispute();
-  },
   components: {
     GeneralInformationForm,
     AdditionalInfoBlockForm,
@@ -140,7 +137,7 @@ export default {
         removeBackgroundBlur();
       }
     },
-    async loadDispute() {
+    async loadData() {
       this.loading = true;
       const { disputeId, orderId } = this.$route.params;
       try {

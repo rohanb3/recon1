@@ -4,7 +4,7 @@ import { DISPUTE_STATUSES_ID } from '@/constants';
 
 export default {
   mounted() {
-    this.loadDispute();
+    this.loadData();
   },
   data() {
     return {
