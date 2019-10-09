@@ -16,6 +16,8 @@ export default {
       'isShowOrderWithExpectedComission',
       'isShowDispute',
       'isShowResubmissionTable',
+      'isShowDisputeDashboard',
+      'isShowSubmitters',
     ]),
     items() {
       return [
