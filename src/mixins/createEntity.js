@@ -1,25 +1,8 @@
-import CustomerInformationForm from '@/components/CustomerInformationForm';
-import TableButton from '@/components/TableButton';
 import { addBackgroundBlur, removeBackgroundBlur } from '@/services/background';
 
 import { DISPUTE_STATUSES_ID } from '@/constants';
 
-import GeneralInformationFormDispute from '@/components/GeneralInformationFormDispute';
-import DisputeTypesSelect from '@/containers/DisputeTypesSelect';
-import DisputeCommentTable from '@/containers/DisputeCommentTable';
-import AdditionalInfoBlockForm from '@/components/AdditionalInfoBlockForm';
-import ClaimTypesSelect from '@/containers/ClaimTypesSelect';
-
 export default {
-  components: {
-    AdditionalInfoBlockForm,
-    DisputeCommentTable,
-    DisputeTypesSelect,
-    GeneralInformationFormDispute,
-    TableButton,
-    CustomerInformationForm,
-    ClaimTypesSelect,
-  },
   mounted() {
     this.loadDispute();
   },

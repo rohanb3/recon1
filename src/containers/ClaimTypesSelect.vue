@@ -1,31 +1,39 @@
 <template>
-  <v-select
-    append-icon="expand_more"
-    :label="$t('claim.type')"
-    item-text="name"
-    item-value="id"
-    :items="typesList"
-    v-model="type"
-    required
-    :rules="fieldCantBeEmptyRule"
-    class="required"
-    :validate-on-blur="true"
-  ></v-select>
+  <type-select
+    v-model="value"
+    title="claim.type"
+    :translation-keys="translationKeys"
+    :types="types"
+  />
 </template>
 
 <script>
 import { getClaimTypes } from '@/services/disputesRepository';
 import { CLAIMS_STATUS_NAME_TRANSLATION_KEYS } from '@/constants';
-import typeSelect from '@/mixins/typeSelect';
+import TypeSelect from './TypeSelect';
 
 export default {
   name: 'ClaimTypesSelect',
+  components: { TypeSelect },
+  props: {
+    value: {
+      type: Object,
+      required: true,
+    },
+  },
   computed: {
     translationKeys() {
       return CLAIMS_STATUS_NAME_TRANSLATION_KEYS;
     },
   },
-  mixins: [typeSelect],
+  data() {
+    return {
+      types: [],
+    };
+  },
+  mounted() {
+    this.getData();
+  },
   methods: {
     getData() {
       getClaimTypes().then(data => {

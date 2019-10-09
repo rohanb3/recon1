@@ -3,7 +3,6 @@
     <v-layout row mb-2>
       <v-flex md6>
         <slot name="typeSelect"></slot>
-        <!--<claim-types-select v-model="disputeInfo" />-->
       </v-flex>
       <v-flex md6 ml-5>
         <browse-files
@@ -15,7 +14,7 @@
         />
       </v-flex>
     </v-layout>
-    <slot name="commentTable"></slot>
+    <slot name="comment"></slot>
     <textarea-submitter-comment v-model="disputeInfo" ref="textareaSubmitterComment" />
   </v-form>
 </template>

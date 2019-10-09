@@ -1,20 +1,45 @@
+<template>
+  <v-select
+    append-icon="expand_more"
+    :label="$t(title)"
+    item-text="name"
+    item-value="id"
+    :items="typesList"
+    v-model="type"
+    required
+    :rules="fieldCantBeEmptyRule"
+    class="required"
+    :validate-on-blur="true"
+  ></v-select>
+</template>
+
+<script>
 import { validateFieldCantBeEmpty } from '@/services/validators';
 
 export default {
+  name: 'TypeSelect',
   props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    translationKeys: {
+      type: Object,
+      required: true,
+    },
     value: {
       type: Object,
+      required: true,
+    },
+    types: {
+      type: Array,
       required: true,
     },
   },
   data() {
     return {
       fieldCantBeEmptyRule: [validateFieldCantBeEmpty()],
-      types: [],
     };
-  },
-  mounted() {
-    this.getData();
   },
   computed: {
     type: {
@@ -40,3 +65,4 @@ export default {
     },
   },
 };
+</script>

@@ -16,7 +16,7 @@
             @removeFile="onRemoveFile"
           >
             <dispute-types-select slot="typeSelect" v-model="disputeInfo" />
-            <div slot="commentTable">
+            <div slot="comment">
               <v-layout row mb-2>
                 <v-flex>
                   <dispute-comment-table v-model="disputeInfo" />
@@ -73,6 +73,12 @@ import { RESPONSE_STATUSES, ROUTE_NAMES } from '@/constants';
 import { errorMessage } from '@/services/notifications';
 import { removeBackgroundBlur } from '@/services/background';
 import createEntity from '@/mixins/createEntity';
+import CustomerInformationForm from '@/components/CustomerInformationForm';
+import TableButton from '@/components/TableButton';
+import GeneralInformationFormDispute from '@/components/GeneralInformationFormDispute';
+import DisputeTypesSelect from '@/containers/DisputeTypesSelect';
+import DisputeCommentTable from '@/containers/DisputeCommentTable';
+import AdditionalInfoBlockForm from '@/components/AdditionalInfoBlockForm';
 
 import {
   getDispute,
@@ -91,6 +97,14 @@ export default {
     return {
       routeNameForRedirect: ROUTE_NAMES.DISPUTES_ORDERS,
     };
+  },
+  components: {
+    AdditionalInfoBlockForm,
+    DisputeCommentTable,
+    DisputeTypesSelect,
+    GeneralInformationFormDispute,
+    TableButton,
+    CustomerInformationForm,
   },
   mixins: [createEntity],
   computed: {

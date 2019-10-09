@@ -67,6 +67,11 @@ import { errorMessage } from '@/services/notifications';
 import { removeBackgroundBlur } from '@/services/background';
 import createEntity from '@/mixins/createEntity';
 
+import CustomerInformationForm from '@/components/CustomerInformationForm';
+import TableButton from '@/components/TableButton';
+import AdditionalInfoBlockForm from '@/components/AdditionalInfoBlockForm';
+import ClaimTypesSelect from '@/containers/ClaimTypesSelect';
+
 import {
   getClaim,
   deleteClaim,
@@ -75,6 +80,7 @@ import {
   createClaim,
   updateClaim,
 } from '@/services/disputesRepository';
+import GeneralInformationForm from '../components/GeneralInformationForm';
 
 const PATH_TO_ATTACHMENT_FILES = '/api/disputs/attachment/claim/';
 
@@ -82,6 +88,13 @@ export default {
   name: 'ClaimPage',
   mounted() {
     this.loadDispute();
+  },
+  components: {
+    GeneralInformationForm,
+    AdditionalInfoBlockForm,
+    TableButton,
+    CustomerInformationForm,
+    ClaimTypesSelect,
   },
   data() {
     return {
