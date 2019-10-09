@@ -29,7 +29,7 @@
             }}</v-btn>
             <v-spacer></v-spacer>
             <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">{{
-              $t('create.new.dispute')
+              $t('create.new.claim')
             }}</v-btn>
           </div>
         </v-flex>

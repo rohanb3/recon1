@@ -265,5 +265,9 @@
   "disputes.status.not.canceled": "TBD Order is not canceled",
   "disputes.status.missing.transaction": "TBD Missing Transaction",
   "total": "TBD Total",
-  "orders.claimed": "Claimed"
+  "orders.claimed": "Claimed",
+  "order": "TBD Order",
+  "type": "TBD Type",
+  "dispute.comment": "TBD Dispute Comment",
+  "create.new.claim": "TBD Create new claim"
 }

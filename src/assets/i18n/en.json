@@ -269,5 +269,6 @@
   "orders.claimed": "Claimed",
   "order": "Order",
   "type": "Type",
-  "dispute.comment": "Dispute Comment"
+  "dispute.comment": "Dispute Comment",
+  "create.new.claim": "Create new claim"
 }
