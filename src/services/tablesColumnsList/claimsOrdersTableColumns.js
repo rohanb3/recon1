@@ -91,7 +91,7 @@ export default () => [
   },
   {
     name: 'newDisputeButton',
-    fieldType: 'disputeButton',
+    fieldType: 'claimButton',
     class: 'text',
     title: 'orders.new.claim',
     width: '5',

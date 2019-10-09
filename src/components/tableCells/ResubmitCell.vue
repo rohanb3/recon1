@@ -4,7 +4,7 @@
       v-if="isSentOrResentStatus"
       class="disput-button"
       :title="$t('resubmit')"
-      :disabled="isStatusEditableOrStatusProcessing"
+      :disabled="isStatusNotEditableOrStatusProcessing"
       :preloader="statusProcessing"
       @click="onResubmit"
     />

@@ -25,8 +25,11 @@ export default {
   isShowDisputeDashboard(state, getters) {
     return getters.scopes.includes(SCOPES.DISPUTE_DASHBOARD);
   },
+  isShowSubmitters(state, getters) {
+    return getters.scopes.includes(SCOPES.DISPUTE_DASHBOARD);
+  },
   isShowResubmissionTable(state, getters) {
-    return true || getters.scopes.includes(SCOPES.RESUBMISSION_TABLE_READ);
+    return getters.scopes.includes(SCOPES.RESUBMISSION_TABLE_READ);
   },
   isShowOrderWithoutExpectedComission(state, getters) {
     return getters.scopes.includes(SCOPES.ORDER_READ_WITHOUT_EXPECTED_COMISSION);

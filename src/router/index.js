@@ -6,6 +6,7 @@ import Base from '@/containers/Base';
 import AppContent from '@/containers/AppContent';
 import OrdersPage from '@/containers/OrdersPage';
 import DisputePage from '@/containers/DisputePage';
+import ClaimPage from '../containers/ClaimPage';
 import ClaimsResubmissionTable from '@/containers/ClaimsResubmissionTable';
 import DisputesResubmissionTable from '@/containers/DisputesResubmissionTable';
 import SyncNotifier from '@/containers/SyncNotifier';
@@ -59,6 +60,22 @@ function loginGuard(to, from, next) {
   }
 }
 
+function dashboardGuard(to, from, next) {
+  if (store.getters.isShowDisputeDashboard) {
+    next();
+  } else {
+    next({ name: ROUTE_NAMES.MAIN_PAGE });
+  }
+}
+
+function submittersGuard(to, from, next) {
+  if (store.getters.isShowSubmitters) {
+    next();
+  } else {
+    next({ name: ROUTE_NAMES.MAIN_PAGE });
+  }
+}
+
 function resubmissionGuard(to, from, next) {
   if (store.getters.isShowResubmissionTable) {
     next();
@@ -67,7 +84,7 @@ function resubmissionGuard(to, from, next) {
   }
 }
 
-function disputesGuard(to, from, next) {
+function listGuard(to, from, next) {
   if (store.getters.isShowDispute) {
     next();
   } else {
@@ -147,6 +164,7 @@ const router = new Router({
                   path: 'dashboard',
                   name: ROUTE_NAMES.CLAIMS_DASHBOARD,
                   components: { switcher: DashboardSwitcher, content: ClaimsDashboardPage },
+                  beforeEnter: dashboardGuard,
                 },
                 {
                   path: 'orders',
@@ -154,27 +172,28 @@ const router = new Router({
                   components: { switcher: OrdersSwitcher, content: ClaimsOrders },
                 },
                 {
-                  path: 'disputes',
+                  path: 'list',
                   name: ROUTE_NAMES.CLAIMS_DISPUTES,
                   components: { switcher: DisputesSwitcher, content: ClaimsList },
-                  beforeEnter: disputesGuard,
+                  beforeEnter: listGuard,
                 },
                 {
-                  path: 'edit/:disputeId',
-                  name: ROUTE_NAMES.EDIT_DISPUTE,
-                  components: { content: DisputePage },
+                  path: 'edit/:claimId',
+                  name: ROUTE_NAMES.EDIT_CLAIM,
+                  components: { content: ClaimPage },
                   beforeEnter: disputeGuard,
                 },
                 {
                   path: 'create/:orderId',
-                  name: ROUTE_NAMES.CREAT_DISPUTE,
-                  components: { content: DisputePage },
+                  name: ROUTE_NAMES.CREATE_CLAIM,
+                  components: { content: ClaimPage },
                   beforeEnter: disputeGuard,
                 },
                 {
                   path: 'submitters',
                   name: ROUTE_NAMES.CLAIMS_BY_SUBMITTERS,
                   components: { switcher: SubmittersSwitcher, content: ClaimsBySubmittersTable },
+                  beforeEnter: submittersGuard,
                 },
                 {
                   path: 'resubmission',
@@ -199,6 +218,7 @@ const router = new Router({
                   path: 'dashboard',
                   name: ROUTE_NAMES.DISPUTES_DASHBOARD,
                   components: { switcher: DashboardSwitcher, content: DisputesDashboardPage },
+                  beforeEnter: dashboardGuard,
                 },
                 {
                   path: 'orders',
@@ -209,11 +229,13 @@ const router = new Router({
                   path: 'list',
                   name: ROUTE_NAMES.DISPUTE_LIST,
                   components: { switcher: DisputesSwitcher, content: DisputeList },
+                  beforeEnter: listGuard,
                 },
                 {
                   path: 'submitters',
                   name: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
                   components: { switcher: SubmittersSwitcher, content: DisputesBySubmittersTable },
+                  beforeEnter: submittersGuard,
                 },
                 {
                   path: 'resubmission',
@@ -223,6 +245,18 @@ const router = new Router({
                     content: DisputesResubmissionTable,
                   },
                   beforeEnter: resubmissionGuard,
+                },
+                {
+                  path: 'edit/:disputeId',
+                  name: ROUTE_NAMES.EDIT_DISPUTE,
+                  components: { content: DisputePage },
+                  beforeEnter: disputeGuard,
+                },
+                {
+                  path: 'create/:orderId',
+                  name: ROUTE_NAMES.CREATE_DISPUTE,
+                  components: { content: DisputePage },
+                  beforeEnter: disputeGuard,
                 },
               ],
             },

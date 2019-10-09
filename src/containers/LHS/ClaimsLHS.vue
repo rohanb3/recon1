@@ -16,6 +16,8 @@ export default {
       'isShowOrderWithExpectedComission',
       'isShowDispute',
       'isShowResubmissionTable',
+      'isShowDisputeDashboard',
+      'isShowSubmitters',
     ]),
     items() {
       return [
@@ -23,13 +25,12 @@ export default {
           action: 'dashboard',
           title: this.$t('claims.dashboard'),
           routeName: ROUTE_NAMES.CLAIMS_DASHBOARD,
+          visible: this.isShowDisputeDashboard,
         },
         {
           action: 'play_arrow',
           title: this.$t('orders'),
           routeName: ROUTE_NAMES.CLAIMS_ORDERS,
-          visible:
-            this.isShowOrderWithoutExpectedComission || this.isShowOrderWithExpectedComission,
         },
         {
           action: 'list_alt',
@@ -47,6 +48,7 @@ export default {
           action: 'face',
           title: this.$t('claims.by.submitters'),
           routeName: ROUTE_NAMES.CLAIMS_BY_SUBMITTERS,
+          visible: this.isShowSubmitters,
         },
       ];
     },

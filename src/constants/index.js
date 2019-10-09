@@ -36,6 +36,12 @@ export const DISPUTE_SECTION_NAME = {
   RE_SENT_DISPUTES: 'Re-sent disputes',
 };
 
+export const CLAIM_SECTION_NAME = {
+  CONFIRM_REJECTED: 'Confirm rejected claims',
+  CONFIRM_APPROVED: 'Confirm approved claims',
+  RE_SENT_CLAIMS: 'Re-sent claims',
+};
+
 export const DISPUTE_TYPES_ID = {
   ORDER_INSTALLED: '6630cffe-777b-4bca-90f3-50b4910ff3bb',
   EXPECTED_COMMISION: '79eb1607-2a85-42ed-a409-4f6c15b06fe3',
@@ -226,7 +232,7 @@ export const TABLE_COLUMN_ID_NAMES = {
 
 export const ROUTE_NAMES = {
   EDIT_DISPUTE: 'edit-dispute',
-  CREAT_DISPUTE: 'creat-dispute',
+  CREATE_DISPUTE: 'create-dispute',
   DISPUTE_LIST: 'dispute-list',
   CLAIMS_BY_SUBMITTERS: 'claims-by-submitters',
   DISPUTES_BY_SUBMITTERS: 'disputes-by-submitters',
@@ -243,6 +249,8 @@ export const ROUTE_NAMES = {
   CLAIMS_ORDERS: 'claims-orders',
   DISPUTES_ORDERS: 'disputes-orders',
   CLAIMS_DISPUTES: 'claims-disputes',
+  EDIT_CLAIM: 'edit-claim',
+  CREATE_CLAIM: 'create-claim',
 };
 
 export const ROLE_TYPES = {

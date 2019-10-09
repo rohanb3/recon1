@@ -5,10 +5,6 @@ export const getDispute = id => {
   return apiDisputes.get(`/dispute/${id}`).then(({ data }) => data);
 };
 
-export const getClaim = id => {
-  return apiDisputes.get(`/claim/${id}`).then(({ data }) => data);
-};
-
 export const getDisputesStatisticsBySubmitters = filters => {
   const params = { ...filters };
 
@@ -37,6 +33,10 @@ export const createDispute = orderId => {
   return apiDisputes.post(`/dispute?orderId=${orderId}`).then(({ data }) => data);
 };
 
+export const createClaim = orderId => {
+  return apiDisputes.post(`/claim?orderId=${orderId}`).then(({ data }) => data);
+};
+
 export const updateDispute = (id, updates = {}) => {
   return apiDisputes.put(`/dispute/${id}`, updates).then(({ data, status }) => ({
     data,
@@ -49,11 +49,11 @@ export const deleteDispute = id => {
 };
 
 export const getDisputeAttachment = id => {
-  return apiDisputes.get(`/disputeattachment/${id}`).then(({ data }) => data);
+  return apiDisputes.get(`/attachment/dispute/${id}`).then(({ data }) => data);
 };
 
 export const uploadDisputeAttachment = (id, updates = {}) => {
-  return apiDisputes.post(`/disputeattachment/${id}`, updates, {
+  return apiDisputes.post(`/attachment/dispute/${id}`, updates, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -62,7 +62,7 @@ export const uploadDisputeAttachment = (id, updates = {}) => {
 
 export const removeDisputeAttachment = (id, filename) => {
   return apiDisputes
-    .delete(`/disputeattachment/${id}?filename=${filename}`)
+    .delete(`/attachment/dispute/${id}?filename=${filename}`)
     .then(({ status }) => status);
 };
 
@@ -120,4 +120,37 @@ export const getClaimTypes = () => {
 
 export const getDisputeTypes = () => {
   return apiDisputes.get('/dispute/type').then(({ data }) => data);
+};
+
+export const updateClaim = (id, updates = {}) => {
+  return apiDisputes.put(`/claim/${id}`, updates).then(({ data, status }) => ({
+    data,
+    status,
+  }));
+};
+
+export const getClaim = id => {
+  return apiDisputes.get(`/claim/${id}`).then(({ data }) => data);
+};
+
+export const getClaimAttachment = id => {
+  return apiDisputes.get(`/attachment/claim/${id}`).then(({ data }) => data);
+};
+
+export const uploadClaimAttachment = (id, updates = {}) => {
+  return apiDisputes.post(`/attachment/claim/${id}`, updates, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
+
+export const removeClaimAttachment = (id, filename) => {
+  return apiDisputes
+    .delete(`/attachment/claim/${id}?filename=${filename}`)
+    .then(({ status }) => status);
+};
+
+export const deleteClaim = id => {
+  return apiDisputes.delete(`/claim/${id}`).then(({ status }) => status);
 };

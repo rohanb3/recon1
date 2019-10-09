@@ -9,7 +9,7 @@
       <div class="table-wrapper">
         <div class="table-header">
           <v-layout row>
-            <v-flex>{{ $t('total.disputes') }}</v-flex>
+            <v-flex>{{ $t(subTitle) }}</v-flex>
             <v-flex>
               <div class="table-header-label">{{ $t('total.quantity') }}</div>
               <p>{{ totalStatistics.totalQuantity }}</p>
@@ -49,6 +49,10 @@ export default {
   },
   props: {
     title: {
+      type: String,
+      required: true,
+    },
+    subTitle: {
       type: String,
       required: true,
     },

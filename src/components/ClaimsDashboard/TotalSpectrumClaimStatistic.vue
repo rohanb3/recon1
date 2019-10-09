@@ -1,20 +1,20 @@
 <template>
   <disput-statistic
-    :title="$t('disputes.dashboard.total.xyz.statistic')"
-    :sub-title="$t('total.disputes')"
-    :total-statistics="totalStatistics"
+    :title="$t('claims.dashboard.total.spectrum.statistic')"
+    :sub-title="$t('total.claims')"
+    :total-statistics="claimTotalStatistic"
     :statistics="disputeStatistics"
   />
 </template>
 
 <script>
-import DisputStatistic from './DisputStatistic/DisputStatistic';
+import DisputStatistic from '../DisputesDashboard/DisputStatistic/DisputStatistic';
 import { DISPUTE_SECTION_NAME } from '@/constants';
 import disputesDashboard from '@/mixins/disputesDashboard';
 import { STATISTIC_COLOR_SCHEMA } from '@/services/statisticColorSchema';
 
 export default {
-  name: 'TotalXyzDisputeStatistic',
+  name: 'TotalSpectrumClaimStatistic',
   components: {
     DisputStatistic,
   },
@@ -26,21 +26,24 @@ export default {
   },
   mixins: [disputesDashboard],
   computed: {
+    claimTotalStatistic() {
+      return this.getSection('Total Claims');
+    },
     disputeStatistics() {
       return [
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.WAITING_FOR_ANSWER),
-          sectionName: this.$t('waiting.for.answer'),
+          ...this.getSection(DISPUTE_SECTION_NAME.ANSWERED),
+          sectionName: this.$t('in.progress'),
           color: STATISTIC_COLOR_SCHEMA.GREEN,
         },
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.RE_SENT_DISPUTES),
-          sectionName: this.$t('re.sent.disputes'),
+          ...this.getSection(DISPUTE_SECTION_NAME.REJECTED),
+          sectionName: this.$t('rejected'),
           color: STATISTIC_COLOR_SCHEMA.BLUE,
         },
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.CONFIRM_REJECTED),
-          sectionName: this.$t('confirm.rejected.disputes'),
+          ...this.getSection(DISPUTE_SECTION_NAME.APPROVED),
+          sectionName: this.$t('approved'),
           color: STATISTIC_COLOR_SCHEMA.ORANGE,
         },
       ];

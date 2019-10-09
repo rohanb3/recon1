@@ -2,42 +2,35 @@
   <v-container fluid grid-list-md class="dispute-page">
     <div class="dispute-page-wrapper" :class="{ blurred: loading }">
       <div class="dispute-toolbar">
-        <div class="dispute-title">{{ $t('dispute.page.title') }}</div>
+        <div class="dispute-title">{{ $t('orders.new.claim') }}</div>
       </div>
       <v-layout row wrap>
         <v-flex xs12 lg6 class="general-information-form">
-          <general-information-form-dispute v-model="disputeInfo" ref="generalInfo" />
+          <general-information-form v-model="disputeInfo" ref="generalInfo" />
           <additional-info-block-form
             v-model="disputeInfo"
             ref="additionalInfoBlock"
             :loadingFilesStatus="loadingFilesStatus"
-            :path-to-attachment-files="pathToAttachmentFiles"
+            :pathToAttachmentFiles="pathToAttachmentFiles"
             @selectedFiles="onUploadFiles"
             @removeFile="onRemoveFile"
           >
-            <dispute-types-select slot="typeSelect" v-model="disputeInfo" />
-            <div slot="comment">
-              <v-layout row mb-2>
-                <v-flex>
-                  <dispute-comment-table v-model="disputeInfo" />
-                </v-flex>
-              </v-layout>
-            </div>
+            <claim-types-select slot="typeSelect" v-model="disputeInfo" />
           </additional-info-block-form>
         </v-flex>
         <v-flex xs12 lg6 class="customer-information-wrapper">
           <customer-information-form v-model="disputeInfo" ref="customerInfo" />
           <div class="save-button-wrapper">
-            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">{{
-              $t('cancel')
+            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">
+              {{ $t('cancel') }}
+            </v-btn>
+            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">{{
+              $t('save.as.draft')
             }}</v-btn>
-            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">
-              {{ $t('save.as.draft') }}
-            </v-btn>
             <v-spacer></v-spacer>
-            <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">
-              {{ $t('create.new.dispute') }}
-            </v-btn>
+            <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">{{
+              $t('create.new.claim')
+            }}</v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -73,38 +66,37 @@ import { RESPONSE_STATUSES, ROUTE_NAMES } from '@/constants';
 import { errorMessage } from '@/services/notifications';
 import { removeBackgroundBlur } from '@/services/background';
 import createEntity from '@/mixins/createEntity';
+
 import CustomerInformationForm from '@/components/CustomerInformationForm';
 import TableButton from '@/components/TableButton';
-import GeneralInformationFormDispute from '@/components/GeneralInformationFormDispute';
-import DisputeTypesSelect from '@/containers/DisputeTypesSelect';
-import DisputeCommentTable from '@/containers/DisputeCommentTable';
 import AdditionalInfoBlockForm from '@/components/AdditionalInfoBlockForm';
+import ClaimTypesSelect from '@/containers/ClaimTypesSelect';
 
 import {
-  getDispute,
-  createDispute,
-  updateDispute,
-  deleteDispute,
-  uploadDisputeAttachment,
-  removeDisputeAttachment,
+  getClaim,
+  deleteClaim,
+  uploadClaimAttachment,
+  removeClaimAttachment,
+  createClaim,
+  updateClaim,
 } from '@/services/disputesRepository';
+import GeneralInformationForm from '../components/GeneralInformationForm';
 
-const PATH_TO_ATTACHMENT_FILES = '/api/disputs/attachment/dispute/';
+const PATH_TO_ATTACHMENT_FILES = '/api/disputs/attachment/claim/';
 
 export default {
-  name: 'DisputePage',
-  data() {
-    return {
-      routeNameForRedirect: ROUTE_NAMES.DISPUTES_ORDERS,
-    };
-  },
+  name: 'ClaimPage',
   components: {
+    GeneralInformationForm,
     AdditionalInfoBlockForm,
-    DisputeCommentTable,
-    DisputeTypesSelect,
-    GeneralInformationFormDispute,
     TableButton,
     CustomerInformationForm,
+    ClaimTypesSelect,
+  },
+  data() {
+    return {
+      routeNameForRedirect: ROUTE_NAMES.CLAIMS_ORDERS,
+    };
   },
   mixins: [createEntity],
   computed: {
@@ -120,7 +112,7 @@ export default {
 
       this.sendingData = true;
       try {
-        await updateDispute(this.disputeInfo.id, {
+        await updateClaim(this.disputeInfo.id, {
           ...this.disputeInfo,
           disputeId: this.disputeId,
           disputeStatusId: this.disputeStatusId,
@@ -136,7 +128,7 @@ export default {
     },
     async onRemoveDraft() {
       try {
-        await deleteDispute(this.disputeInfo.id);
+        await deleteClaim(this.disputeInfo.id);
         this.savedDispute = true;
         this.$router.push({ name: this.routeNameForRedirect });
       } catch {
@@ -150,9 +142,9 @@ export default {
       const { disputeId, orderId } = this.$route.params;
       try {
         if (disputeId) {
-          this.disputeInfo = await getDispute(disputeId);
+          this.disputeInfo = await getClaim(disputeId);
         } else {
-          this.disputeInfo = await createDispute(orderId);
+          this.disputeInfo = await createClaim(orderId);
         }
       } catch (e) {
         if ((e.response || {}).status === RESPONSE_STATUSES.NOT_FOUND) {
@@ -166,7 +158,7 @@ export default {
     },
     async onRemoveFile(filename) {
       try {
-        await removeDisputeAttachment(this.disputeInfo.id, filename);
+        await removeClaimAttachment(this.disputeInfo.id, filename);
         await this.loadSttachments();
       } catch {
         errorMessage();
@@ -178,7 +170,7 @@ export default {
         const uploadFileList = [].map.call(files, file => {
           const formData = new FormData();
           formData.append('attachments', file, file.name);
-          return uploadDisputeAttachment(this.disputeInfo.id, formData);
+          return uploadClaimAttachment(this.disputeInfo.id, formData);
         });
 
         await Promise.all(uploadFileList);
@@ -198,7 +190,7 @@ export default {
       }
     },
     async loadSttachments() {
-      const { attachments } = await getDispute(this.disputeInfo.id);
+      const { attachments } = await getClaim(this.disputeInfo.id);
       this.disputeInfo.attachments = attachments;
     },
   },

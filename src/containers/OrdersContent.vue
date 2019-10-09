@@ -32,6 +32,7 @@ import OrderNumberCell from '@/components/tableCells/OrderNumberCell';
 import PriceCell from '@/components/tableCells/PriceCell';
 import DisputeButtonCell from '@/components/tableCells/DisputeButtonCell';
 import DateYearMonthDayCell from '@/components/tableCells/DateYearMonthDayCell';
+import ClaimButtonCell from '@/components/tableCells/ClaimButtonCell';
 
 import { TABLE_COLUMN_ID_NAMES } from '@/constants';
 
@@ -59,6 +60,7 @@ export default {
     DisputeButtonCell,
     DateYearMonthDayCell,
     CommissionCell,
+    ClaimButtonCell,
   },
   props: {
     tableName: {
@@ -78,6 +80,7 @@ export default {
         dateYearMonthDay: 'DateYearMonthDayCell',
         installationAge: 'OrderAgeCell',
         receivedCommissionCell: 'CommissionCell',
+        claimButton: 'ClaimButtonCell',
       },
       orderIdCommission: null,
     };

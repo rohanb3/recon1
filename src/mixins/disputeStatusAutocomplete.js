@@ -43,10 +43,10 @@ export default {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.CONFIRM_REJECTED;
     },
     isStatusEditableBySAM() {
-      return !this.scopes.includes(SCOPES.DISPUTE_PATCH_SAM);
+      return this.scopes.includes(SCOPES.DISPUTE_PATCH_SAM);
     },
-    isStatusEditableOrStatusProcessing() {
-      return this.isStatusEditableBySAM || this.statusProcessing;
+    isStatusNotEditableOrStatusProcessing() {
+      return !this.isStatusEditableBySAM || this.statusProcessing;
     },
     statusProcessing() {
       return this.processingIds.includes(this.disputeId);

@@ -120,6 +120,7 @@ export default () => [
     minWidth: '85px',
     sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.RECIEVED_COMISSON,
     fieldHeaderType: 'commissionCell',
+    visible: (store, getters) => getters.isShowOrderWithExpectedComission,
   },
   {
     name: 'difference',
