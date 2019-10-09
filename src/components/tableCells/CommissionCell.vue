@@ -1,6 +1,6 @@
 <template>
-  <div class="price-cell">
-    <a @click.prevent="$emit('getReceivedCommission', item.orderId)">{{ value | currency }}</a>
+  <div class="commission-cell">
+    <a @click.prevent="$emit('input', item.orderId)">{{ value | currency }}</a>
   </div>
 </template>
 
@@ -9,13 +9,8 @@ import nestedFieldCell from '@/mixins/nestedFieldCell';
 import currency from '@/filters/currency';
 
 export default {
-  name: 'ReceivedCommissionCell',
+  name: 'CommissionCell',
   mixins: [nestedFieldCell],
-  data() {
-    return {
-      show: false,
-    };
-  },
   filters: {
     currency,
   },

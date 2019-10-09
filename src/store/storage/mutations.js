@@ -50,7 +50,7 @@ export default {
   [SET_RECEIVED_COMMISSION_DATA](state, { itemType, data }) {
     const { commissionDetails, ...rest } = data;
 
-    state[itemType] = { ...rest };
+    state[itemType] = rest;
     state[itemType].items = commissionDetails;
   },
   /* eslint-enable no-param-reassign */

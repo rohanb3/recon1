@@ -14,10 +14,10 @@
         :item="rowCell.item"
         :column="rowCell.column"
         :scopes="scopes"
-        @getReceivedCommission="getReceivedCommission"
+        v-model="orderIdCommission"
       />
     </lazy-load-table>
-    <commission-popup v-model="showCommissionPopup" />
+    <commission-popup v-model="orderIdCommission" v-if="orderIdCommission" />
   </div>
 </template>
 
@@ -39,9 +39,8 @@ import SelectedRangeFilter from '../components/SelectedRangeFilter';
 import TableToolbar from '@/components/TableToolbar';
 import CustomRangeFilter from './CustomRangeFilter';
 import FiscalPeriodFilter from './FiscalPeriodFilter';
-import ReceivedCommissionCell from '@/components/tableCells/ReceivedCommissionCell';
+import CommissionCell from '@/components/tableCells/CommissionCell';
 import CommissionPopup from '../components/CommissionPopup';
-import getReceivedCommission from '@/mixins/getReceivedCommission';
 
 export default {
   name: 'OrdersContent',
@@ -59,7 +58,7 @@ export default {
     PriceCell,
     DisputeButtonCell,
     DateYearMonthDayCell,
-    ReceivedCommissionCell,
+    CommissionCell,
   },
   props: {
     tableName: {
@@ -67,7 +66,6 @@ export default {
       required: true,
     },
   },
-  mixins: [getReceivedCommission],
   data() {
     return {
       rowComponentsHash: {
@@ -79,9 +77,9 @@ export default {
         disputeButton: 'DisputeButtonCell',
         dateYearMonthDay: 'DateYearMonthDayCell',
         installationAge: 'OrderAgeCell',
-        receivedCommissionCell: 'ReceivedCommissionCell',
+        receivedCommissionCell: 'CommissionCell',
       },
-      showCommissionPopup: false,
+      orderIdCommission: null,
     };
   },
   computed: {

@@ -7,7 +7,7 @@ import disputeHistoryTableColumns from './disputeHistoryTableColumns';
 import disputesOrdersTableColumns from './disputesOrdersTableColumns';
 import claimsDisputesTableColumns from './claimsDisputesTableColumns';
 import claimsBySubmittersColumns from './claimsBySubmittersColumns';
-import receivedCommissionTableColumn from './receivedCommissionTableColumn';
+import receivedCommissionTableColumns from './receivedCommissionTableColumns';
 
 export const getDisputesTableColumns = disputesTableColumns;
 export const getClaimsOrdersTableColumns = claimsOrdersTableColumns;
@@ -18,4 +18,4 @@ export const getClaimsResubmissionTableColumns = claimsResubmissionTableColumns;
 export const getDisputesResubmissionTableColumns = disputesResubmissionTableColumns;
 export const getClaimsDisputesTableColumns = claimsDisputesTableColumns;
 export const getClaimsBySubmittersColumns = claimsBySubmittersColumns;
-export const getReceivedCommissionTableColumn = receivedCommissionTableColumn;
+export const getReceivedCommissionTableColumns = receivedCommissionTableColumns;

@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="value" persistent max-width="700">
+  <v-dialog v-model="showPopup" persistent max-width="700">
     <v-card class="commission-popup">
       <div class="popup-header">
         <div class="information">
@@ -9,7 +9,7 @@
             <p>{{ $t('dispute.customer.name') }}: {{ data.customerName }}</p>
           </div>
         </div>
-        <v-btn :icon="true" @click="$emit('input', false)">
+        <v-btn :icon="true" @click="$emit('input', null)">
           <v-icon>close</v-icon>
         </v-btn>
       </div>
@@ -34,6 +34,7 @@
 import { mapGetters } from 'vuex';
 import LazyLoadTable from '../containers/LazyLoadTable';
 import { TABLE_NAMES } from '@/constants';
+import { LOAD_ITEMS } from '@/store/storage/actionTypes';
 
 import DefaultCell from '@/components/tableCells/DefaultCell';
 import OrderAgeCell from '@/components/tableCells/OrderAgeCell';
@@ -55,7 +56,7 @@ export default {
   },
   props: {
     value: {
-      type: Boolean,
+      type: String,
       required: true,
     },
   },
@@ -78,6 +79,18 @@ export default {
     },
     data() {
       return this.storageData(this.tableName);
+    },
+    showPopup() {
+      return true;
+    },
+  },
+  mounted() {
+    this.getReceivedCommission(this.value);
+  },
+  methods: {
+    getReceivedCommission(id) {
+      const data = { itemType: TABLE_NAMES.RECEIVED_COMMISSION, id };
+      return this.$store.dispatch(LOAD_ITEMS, data);
     },
   },
 };

@@ -6,6 +6,7 @@
         slot="row-cell"
         slot-scope="rowCell"
         class="row-cell"
+        v-model="orderIdCommission"
         :is="rowComponentsHash[rowCell.column.fieldType] || rowComponentsHash.default"
         :item="rowCell.item"
         :column="rowCell.column"
@@ -15,7 +16,6 @@
         @confirmDisputeStatus="onConfirmDisputeStatus"
         @confirmResubmitDisputeStatus="onConfirmResubmitDisputeStatus"
         @selectId="onSelectId"
-        @getReceivedCommission="getReceivedCommission"
       />
     </lazy-load-table>
     <confirm-resubmit-dispute-popup
@@ -35,7 +35,7 @@
       :parent-table-name="tableName"
       @close="historyShown = false"
     />
-    <commission-popup v-model="showCommissionPopup" />
+    <commission-popup v-model="orderIdCommission" v-if="orderIdCommission" />
   </div>
 </template>
 
@@ -47,8 +47,7 @@ import DisputeStatusDescriptionCell from '@/components/tableCells/DisputeStatusD
 import ConfirmDisputePopup from '@/components/ConfirmDisputePopup/ConfirmDisputePopup';
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 import CommissionPopup from '../components/CommissionPopup';
-import ReceivedCommissionCell from '@/components/tableCells/ReceivedCommissionCell';
-import getReceivedCommission from '@/mixins/getReceivedCommission';
+import CommissionCell from '@/components/tableCells/CommissionCell';
 
 export default {
   name: 'DisputesContent',
@@ -59,7 +58,7 @@ export default {
     },
   },
   components: {
-    ReceivedCommissionCell,
+    CommissionCell,
     CommissionPopup,
     ConfirmResubmitDisputePopup,
     ConfirmDisputePopup,
@@ -71,14 +70,14 @@ export default {
       rowComponentsHash: {
         xyzStatus: 'XYZStatusCell',
         disputeStatusDescription: 'DisputeStatusDescriptionCell',
-        receivedCommissionCell: 'ReceivedCommissionCell',
+        receivedCommissionCell: 'CommissionCell',
       },
       isShowResubmitConfirmationPopup: false,
       isShowConfirmationPopup: false,
-      showCommissionPopup: false,
+      orderIdCommission: null,
     };
   },
-  mixins: [disputeCommonTable, getReceivedCommission],
+  mixins: [disputeCommonTable],
   methods: {
     async changeDisputeStatus(data) {
       this.isShowResubmitConfirmationPopup = false;

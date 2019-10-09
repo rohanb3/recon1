@@ -8,6 +8,7 @@
         slot="row-cell"
         slot-scope="rowCell"
         class="row-cell"
+        v-model="orderIdCommission"
         :is="rowComponentsHash[rowCell.column.fieldType] || rowComponentsHash.default"
         :item="rowCell.item"
         :column="rowCell.column"
@@ -18,7 +19,6 @@
         @confirmApproveDisputeStatus="onConfirmApproveDisputeStatus"
         @confirmRejectDisputeStatus="onConfirmRejectDisputeStatus"
         @selectId="onSelectId"
-        @getReceivedCommission="getReceivedCommission"
       />
     </lazy-load-table>
     <confirm-approve-dispute-popup
@@ -38,7 +38,7 @@
       :parent-table-name="tableName"
       @close="historyShown = false"
     />
-    <commission-popup v-model="showCommissionPopup" />
+    <commission-popup v-model="orderIdCommission" v-if="orderIdCommission" />
   </div>
 </template>
 
@@ -55,8 +55,7 @@ import disputeCommonTable from '@/mixins/disputeCommonTable';
 import { TABLE_NAMES } from '@/constants';
 import TableToolbar from '@/components/TableToolbar';
 
-import ReceivedCommissionCell from '@/components/tableCells/ReceivedCommissionCell';
-import getReceivedCommission from '@/mixins/getReceivedCommission';
+import CommissionCell from '@/components/tableCells/CommissionCell';
 import CommissionPopup from '../components/CommissionPopup';
 
 export default {
@@ -67,9 +66,9 @@ export default {
     ConfirmApproveDisputePopup,
     ConfirmRejectDisputePopup,
     DisputesResubmissionTableToolbar,
-    ReceivedCommissionCell,
+    CommissionCell,
   },
-  mixins: [disputeCommonTable, getReceivedCommission],
+  mixins: [disputeCommonTable],
   data() {
     return {
       tableName: TABLE_NAMES.DISPUTES_RESUBMISSION,
@@ -79,9 +78,9 @@ export default {
         resubmitDispute: 'ResubmitCell',
         rejectDisputeStatus: 'RejectDisputeStatusCell',
         approveDisputeStatus: 'ApproveDisputeStatusCell',
-        receivedCommissionCell: 'ReceivedCommissionCell',
+        receivedCommissionCell: 'CommissionCell',
       },
-      showCommissionPopup: false,
+      orderIdCommission: null,
     };
   },
   methods: {

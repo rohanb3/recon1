@@ -8,7 +8,7 @@ import {
   getDisputesResubmissionTableColumns,
   getClaimsDisputesTableColumns,
   getClaimsBySubmittersColumns,
-  getReceivedCommissionTableColumn,
+  getReceivedCommissionTableColumns,
 } from '@/services/tablesColumnsList';
 import { ENTITY_TYPES, TABLE_NAMES } from '@/constants';
 
@@ -77,8 +77,7 @@ const state = {
     applyingFilters: false,
   },
   [TABLE_NAMES.RECEIVED_COMMISSION]: {
-    columns: getReceivedCommissionTableColumn(),
-    filters: { id: null },
+    columns: getReceivedCommissionTableColumns(),
   },
 };
 

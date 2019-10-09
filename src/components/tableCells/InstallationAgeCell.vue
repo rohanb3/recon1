@@ -1,15 +1,16 @@
 <template>
-  <div v-if="value">
-    {{ `${this.value} ${this.$t('days')}` }}
+  <div>
+    {{ `${this.value} ${this.$t('days')}` | dashForEmptyValue }}
   </div>
-  <div v-else>-</div>
 </template>
 
 <script>
 import nestedFieldCell from '@/mixins/nestedFieldCell';
+import dashForEmptyValue from '../../filters/dashForEmptyValue';
 
 export default {
   name: 'InstallationAgeCell',
   mixins: [nestedFieldCell],
+  filters: { dashForEmptyValue },
 };
 </script>
