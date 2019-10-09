@@ -145,7 +145,7 @@ describe('disputeStatusAutocomplete', () => {
           mockedThis
         );
 
-        expect(result).toBeTruthy();
+        expect(result).toBeFalsy();
       });
 
       it('should return true if defined statusProcessing as true', () => {

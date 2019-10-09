@@ -40,7 +40,7 @@ export default {
           action: 'view_list',
           title: this.$t('resubmission.table.title'),
           routeName: ROUTE_NAMES.CLAIMS_RESUBMISSION,
-          visible: this.isShowResubmissionTable,
+          visible: this.isShowSubmitters,
         },
         {
           action: 'face',
