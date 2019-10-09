@@ -131,17 +131,17 @@ describe('disputeStatusAutocomplete', () => {
 
         const result = disputeStatusAutocomplete.computed.isStatusEditableBySAM.call(mockedThis);
 
-        expect(result).toBeTruthy();
+        expect(result).toBeFalsy();
       });
     });
 
-    describe('isStatusEditableOrStatusProcessing', () => {
+    describe('isStatusNotEditableOrStatusProcessing', () => {
       it('should return true if defined isStatusEditableBySAM as true', () => {
         const mockedThis = {
           isStatusEditableBySAM: true,
         };
 
-        const result = disputeStatusAutocomplete.computed.isStatusEditableOrStatusProcessing.call(
+        const result = disputeStatusAutocomplete.computed.isStatusNotEditableOrStatusProcessing.call(
           mockedThis
         );
 
@@ -153,7 +153,7 @@ describe('disputeStatusAutocomplete', () => {
           statusProcessing: true,
         };
 
-        const result = disputeStatusAutocomplete.computed.isStatusEditableOrStatusProcessing.call(
+        const result = disputeStatusAutocomplete.computed.isStatusNotEditableOrStatusProcessing.call(
           mockedThis
         );
 
@@ -162,10 +162,10 @@ describe('disputeStatusAutocomplete', () => {
     });
 
     describe('statusProcessing', () => {
-      it('should return true if disputeId is contained in the array processingDisputeIds', () => {
+      it('should return true if disputeId is contained in the array processingIds', () => {
         const mockedThis = {
           disputeId: 123,
-          processingDisputeIds: [123, 312],
+          processingIds: [123, 312],
         };
 
         const result = disputeStatusAutocomplete.computed.statusProcessing.call(mockedThis);
@@ -173,10 +173,10 @@ describe('disputeStatusAutocomplete', () => {
         expect(result).toBeTruthy();
       });
 
-      it('should return false if disputeId is not contained in the array processingDisputeIds', () => {
+      it('should return false if disputeId is not contained in the array processingIds', () => {
         const mockedThis = {
           disputeId: 7,
-          processingDisputeIds: [123, 312],
+          processingIds: [123, 312],
         };
 
         const result = disputeStatusAutocomplete.computed.statusProcessing.call(mockedThis);

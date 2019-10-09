@@ -1,6 +1,7 @@
 <template>
   <disput-statistic
     :title="$t('disputes.dashboard.total.spectrum.statistic')"
+    :sub-title="$t('total.disputes')"
     :total-statistics="totalStatistics"
     :statistics="disputeStatistics"
   />

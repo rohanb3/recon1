@@ -24,7 +24,7 @@ export default {
       return this.item.status || {};
     },
     status() {
-      return statusesMap[this.disputeStatus.id] || this.disputeStatus.disputeStatusName;
+      return statusesMap[this.disputeStatus.id] || this.disputeStatus.name;
     },
   },
 };

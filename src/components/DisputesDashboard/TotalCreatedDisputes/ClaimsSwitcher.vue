@@ -2,12 +2,12 @@
   <div class="disputes-switcher">
     <table-button
       :class="{ active: countCreated }"
-      :title="$t('disputes.dashboard.total.created.disputes')"
+      :title="$t('disputes.dashboard.total.created.claims')"
       @click="toggleDisputeStatistic(true)"
     />
     <table-button
       :class="{ active: !countCreated }"
-      :title="$t('disputes.dashboard.total.closed.disputes')"
+      :title="$t('disputes.dashboard.total.closed.claims')"
       @click="toggleDisputeStatistic(false)"
     />
   </div>

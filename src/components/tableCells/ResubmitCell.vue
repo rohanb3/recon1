@@ -4,7 +4,7 @@
       v-if="isSentOrResentStatus"
       class="disput-button"
       :title="$t('resubmit')"
-      :disabled="isStatusEditableOrStatusProcessing"
+      :disabled="isStatusNotEditableOrStatusProcessing"
       :preloader="statusProcessing"
       @click="onResubmit"
     />
@@ -51,7 +51,7 @@ export default {
   methods: {
     onResubmit() {
       this.$emit('changeDisputeStatus', {
-        disputeId: this.item.id,
+        id: this.item.id,
         statusId: DISPUTE_STATUSES_ID.IN_PROGRESS,
       });
     },

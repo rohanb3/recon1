@@ -1,11 +1,15 @@
 <template>
   <div class="disputes-table-toolbar">
-    <quick-search-filter :table-name="tableName" :filter-name="quickSearchFilterName" />
+    <quick-search-filter :table-name="tableName" />
     <div class="table-filter-container">
       <order-age-filter :table-name="tableName" />
-      <disput-age-filter :table-name="tableName" />
-      <dispute-type-filter :tableName="tableName" />
-      <spectrum-dispute-status-filter :tableName="tableName" />
+      <claims-age-filter :table-name="tableName" />
+      <claim-types-filter :tableName="tableName" />
+      <spectrum-dispute-status-filter
+        :table-name="tableName"
+        :title="$t('disputes.claims.status')"
+        :filter-field="filterField"
+      />
     </div>
     <v-spacer></v-spacer>
     <div class="table-filter-container">
@@ -24,24 +28,24 @@
 import { mapGetters } from 'vuex';
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
-import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
+import ClaimTypesFilter from '@/containers/ClaimTypesFilter';
 import OrderAgeFilter from '@/containers/OrderAgeFilter';
-import DisputAgeFilter from '@/containers/DisputAgeFilter';
+import ClaimsAgeFilter from '@/containers/ClaimsAgeFilter';
 import SpectrumDisputeStatusFilter from '@/containers/SpectrumDisputeStatusFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
-import { getDisputesCsvFile } from '@/services/disputesRepository';
+import { getClaimsCsvFile } from '@/services/disputesRepository';
 import { FILTER_NAMES } from '@/constants';
 
 export default {
   name: 'ClaimsResubmissionTableToolbar',
   components: {
     QuickSearchFilter,
-    DisputeTypeFilter,
+    ClaimTypesFilter,
     FiscalPeriodFilter,
     CustomRangeFilter,
     OrderAgeFilter,
-    DisputAgeFilter,
+    ClaimsAgeFilter,
     SpectrumDisputeStatusFilter,
     ExportToCsvFileButton,
   },
@@ -53,7 +57,7 @@ export default {
   },
   data() {
     return {
-      quickSearchFilterName: FILTER_NAMES.SEARCH_DISPUTES,
+      quickSearchFilterName: FILTER_NAMES.SEARCH,
     };
   },
   computed: {
@@ -61,10 +65,13 @@ export default {
     filters() {
       return this.tableData(this.tableName).filters;
     },
+    filterField() {
+      return FILTER_NAMES.CLAIMS_STATUS_IDS;
+    },
   },
   methods: {
     handlerCsvFile() {
-      return getDisputesCsvFile;
+      return getClaimsCsvFile;
     },
   },
 };

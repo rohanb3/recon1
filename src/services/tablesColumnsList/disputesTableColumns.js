@@ -181,7 +181,7 @@ export default () => [
   {
     name: 'statusDescription',
     field: 'statusDescription',
-    fieldType: 'statusDescription',
+    fieldType: 'disputeStatusDescription',
     class: 'text',
     title: 'disputes.dispute.status.description',
     width: '4',

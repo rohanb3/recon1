@@ -1,7 +1,7 @@
 <template>
   <div class="claims-table claims_by_submitters-table">
     <table-toolbar :table-name="tableName" :title="$t('claims.statistics.by.submitters')">
-      <disputes-by-submitters-table-toolbar :tableName="tableName" slot="filters" />
+      <claims-by-submitters-table-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
     <disputes-by-submitters-badges />
     <lazy-load-table :tableName="tableName">
@@ -27,7 +27,7 @@ import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
 import DefaultCell from '@/components/tableCells/DefaultCell';
 import PercentCell from '@/components/tableCells/PercentCell';
 
-import DisputesBySubmittersTableToolbar from '@/containers/DisputesBySubmittersTableToolbar';
+import ClaimsBySubmittersTableToolbar from '@/containers/ClaimsBySubmittersTableToolbar';
 import DisputesBySubmittersBadges from '@/containers/DisputesBySubmittersBadges';
 
 import disputeCommonTable from '@/mixins/disputeCommonTable';
@@ -38,10 +38,10 @@ import dateRange from '@/filters/boundaries';
 import TableToolbar from '../components/TableToolbar';
 
 export default {
-  name: 'DisputesBySubmittersTable',
+  name: 'ClaimsBySubmittersTable',
   components: {
     TableToolbar,
-    DisputesBySubmittersTableToolbar,
+    ClaimsBySubmittersTableToolbar,
     DisputesBySubmittersBadges,
     WombatTable,
     WombatRow,

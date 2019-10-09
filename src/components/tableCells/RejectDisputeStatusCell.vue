@@ -4,7 +4,7 @@
       v-if="isInprogressStatus"
       class="disput-button"
       :title="$t('reject')"
-      :disabled="isStatusEditableOrStatusProcessing"
+      :disabled="isStatusNotEditableOrStatusProcessing"
       :preloader="statusProcessing"
       @click="onResubmit"
     />
@@ -48,7 +48,7 @@ export default {
   methods: {
     onResubmit() {
       this.$emit('confirmRejectDisputeStatus', {
-        disputeId: this.item.id,
+        id: this.item.id,
         statusId: DISPUTE_STATUSES_ID.REJECTED,
       });
     },

@@ -87,6 +87,7 @@ export default () => [
     minWidth: '85px',
     sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.EXPECTED_COMISSION,
     fieldHeaderType: 'commissionCell',
+    visible: (store, getters) => getters.isShowOrderWithExpectedComission,
   },
   {
     name: 'newDisputeButton',

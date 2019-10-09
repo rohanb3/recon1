@@ -1,7 +1,7 @@
 <template>
   <div class="filter-wrapper">
     <dispute-status-filter
-      :title="$t('disputes.dispute.status')"
+      :title="title"
       :tableName="tableName"
       :filterName="filterName"
       :dependentFilterName="dependentFilterName"
@@ -27,6 +27,10 @@ export default {
       required: true,
     },
     filterField: {
+      type: String,
+      required: true,
+    },
+    title: {
       type: String,
       required: true,
     },

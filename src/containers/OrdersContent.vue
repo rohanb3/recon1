@@ -4,7 +4,6 @@
     <lazy-load-table
       :tableName="tableName"
       :item-key-name="columnIdName"
-      :columns="columns"
       :resetDataBeforeLeave="false"
     >
       <component
@@ -82,9 +81,6 @@ export default {
     ...mapGetters(['tableData', 'scopes']),
     columnIdName() {
       return TABLE_COLUMN_ID_NAMES[this.tableName];
-    },
-    columns() {
-      return this.tableData(this.tableName).columns;
     },
     getTableName() {
       return this.tableName.toLowerCase();

@@ -11,28 +11,28 @@
         :column="rowCell.column"
         :filter="rowCell.column.filter"
         :scopes="scopes"
-        :processing-dispute-ids="processingDisputeIds"
+        :processing-ids="processingIds"
         @confirmDisputeStatus="onConfirmDisputeStatus"
         @confirmResubmitDisputeStatus="onConfirmResubmitDisputeStatus"
-        @selectId="onSelectIdDispute"
+        @selectId="onSelectId"
       />
     </lazy-load-table>
     <confirm-resubmit-dispute-popup
       :visible-popup="isShowResubmitConfirmationPopup"
-      :dispute-info="selectedDispute"
+      :dispute-info="selected"
       @save="changeDisputeStatus"
       @close="isShowResubmitConfirmationPopup = false"
     />
     <confirm-dispute-popup
       :visible-popup="isShowConfirmationPopup"
-      :dispute-info="selectedDispute"
+      :dispute-info="selected"
       @save="changeDisputeStatus"
       @close="isShowConfirmationPopup = false"
     />
     <dispute-history
-      v-if="disputeHistoryShown"
+      v-if="historyShown"
       :parent-table-name="tableName"
-      @close="disputeHistoryShown = false"
+      @close="historyShown = false"
     />
   </div>
 </template>
@@ -71,19 +71,22 @@ export default {
   },
   mixins: [disputeCommonTable],
   methods: {
-    async changeDisputeStatus({ disputeId, statusId, comments }) {
+    async changeDisputeStatus(data) {
       this.isShowResubmitConfirmationPopup = false;
       this.isShowConfirmationPopup = false;
-      await this.onChangeDisputeStatus({ disputeId, statusId, comments });
+      await this.onChangeStatus(data);
     },
-    onConfirmResubmitDisputeStatus({ disputeId, statusId }) {
-      this.selectedDispute = { disputeId, statusId };
+    onConfirmResubmitDisputeStatus(data) {
+      this.selected = data;
       this.isShowResubmitConfirmationPopup = true;
     },
-    onConfirmDisputeStatus({ disputeId, statusId }) {
-      this.selectedDispute = { disputeId, statusId };
+    onConfirmDisputeStatus(data) {
+      this.selected = data;
       this.isShowConfirmationPopup = true;
     },
+  },
+  mounted() {
+    console.log('test');
   },
   computed: {
     ...mapGetters(['isShowDispute', 'isPatchDispute', 'scopes']),

@@ -8,7 +8,7 @@ export default {
       type: Array,
       required: true,
     },
-    processingDisputeIds: {
+    processingIds: {
       type: Array,
       required: true,
     },
@@ -34,7 +34,7 @@ export default {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.IN_PROGRESS;
     },
     disputeStatusHistoryList() {
-      return this.item.disputeStatusHistory || [];
+      return this.item.statusHistory || [];
     },
     isConfirmApprovedStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.CONFIRM_APPROVED;
@@ -43,13 +43,13 @@ export default {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.CONFIRM_REJECTED;
     },
     isStatusEditableBySAM() {
-      return !this.scopes.includes(SCOPES.DISPUTE_PATCH_SAM);
+      return this.scopes.includes(SCOPES.DISPUTE_PATCH_SAM);
     },
-    isStatusEditableOrStatusProcessing() {
+    isStatusNotEditableOrStatusProcessing() {
       return this.isStatusEditableBySAM || this.statusProcessing;
     },
     statusProcessing() {
-      return this.processingDisputeIds.includes(this.disputeId);
+      return this.processingIds.includes(this.disputeId);
     },
   },
   methods: {

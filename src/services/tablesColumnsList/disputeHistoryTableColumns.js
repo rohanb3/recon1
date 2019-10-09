@@ -21,7 +21,7 @@ export default () => [
   },
   {
     name: 'setStatus',
-    field: 'status.disputeStatusName',
+    field: 'status.name',
     class: 'text',
     title: 'dispute.history.status',
     width: '3',
