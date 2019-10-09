@@ -10,7 +10,7 @@
     transition="scale-transition"
   >
     <template v-slot:activator="{ on }">
-      <div v-on="on">
+      <div v-on="on" class="cell">
         <slot name="comment"></slot>
       </div>
     </template>
@@ -52,5 +52,11 @@ export default {
 <style scoped>
 .word-wrap {
   word-wrap: break-word;
+}
+
+.cell {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 </style>
