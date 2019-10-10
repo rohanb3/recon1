@@ -59,6 +59,7 @@ import TableToolbar from '@/components/TableToolbar';
 
 import CommissionCell from '@/components/tableCells/CommissionCell';
 import CommissionPopup from '../components/CommissionPopup';
+import DifferenceCell from '../components/tableCells/DifferenceCell';
 
 export default {
   name: 'ResubmissionTable',
@@ -69,6 +70,7 @@ export default {
     ConfirmRejectDisputePopup,
     DisputesResubmissionTableToolbar,
     CommissionCell,
+    DifferenceCell,
   },
   mixins: [disputeCommonTable],
   data() {
@@ -81,6 +83,7 @@ export default {
         rejectDisputeStatus: 'RejectDisputeStatusCell',
         approveDisputeStatus: 'ApproveDisputeStatusCell',
         receivedCommissionCell: 'CommissionCell',
+        differenceCell: 'DifferenceCell',
       },
       orderIdCommission: null,
     };

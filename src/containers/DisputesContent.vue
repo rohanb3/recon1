@@ -50,6 +50,7 @@ import ConfirmDisputePopup from '@/components/ConfirmDisputePopup/ConfirmDispute
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 import CommissionPopup from '../components/CommissionPopup';
 import CommissionCell from '@/components/tableCells/CommissionCell';
+import DifferenceCell from '../components/tableCells/DifferenceCell';
 
 export default {
   name: 'DisputesContent',
@@ -66,6 +67,7 @@ export default {
     ConfirmDisputePopup,
     XYZStatusCell,
     DisputeStatusDescriptionCell,
+    DifferenceCell,
   },
   data() {
     return {
@@ -73,6 +75,7 @@ export default {
         xyzStatus: 'XYZStatusCell',
         disputeStatusDescription: 'DisputeStatusDescriptionCell',
         receivedCommissionCell: 'CommissionCell',
+        differenceCell: 'DifferenceCell',
       },
       isShowResubmitConfirmationPopup: false,
       isShowConfirmationPopup: false,
