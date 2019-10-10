@@ -272,14 +272,14 @@ describe('tableFilterAutocomplete mixin', () => {
               id: 1,
             },
           ],
-          toggleItem: jest.fn(),
+          setItem: jest.fn(),
         };
 
         tableFilterAutocomplete.methods.displayPreselectItems.call(mockedThis, {
           itemKeyName: 'id',
         });
 
-        expect(mockedThis.toggleItem).toHaveBeenCalled();
+        expect(mockedThis.setItem).toHaveBeenCalled();
       });
     });
     describe('onNotFoundItem', () => {

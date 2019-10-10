@@ -9,26 +9,18 @@ const tableName = 'test';
 
 describe('lazyLoadTable mixin: ', () => {
   describe('mounted', () => {
-    it('should call loadItems if defined initialLoad as true', () => {
+    it('should call applyFilters if defined initialLoad as true', () => {
       const mockedThis = {
-        loadItems: jest.fn(),
+        applyFilters: jest.fn(),
         initialLoad: true,
+        $route: {
+          params: {},
+        },
       };
 
       lazyLoadTable.mounted.call(mockedThis);
 
-      expect(mockedThis.loadItems).toHaveBeenCalled();
-    });
-
-    it('should not call loadItems if defined initialLoad as false', () => {
-      const mockedThis = {
-        loadItems: jest.fn(),
-        initialLoad: false,
-      };
-
-      lazyLoadTable.mounted.call(mockedThis);
-
-      expect(mockedThis.loadItems).not.toHaveBeenCalled();
+      expect(mockedThis.applyFilters).toHaveBeenCalled();
     });
   });
 

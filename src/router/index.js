@@ -170,6 +170,7 @@ const router = new Router({
                   path: 'orders',
                   name: ROUTE_NAMES.CLAIMS_ORDERS,
                   components: { switcher: OrdersSwitcher, content: ClaimsOrders },
+                  props: true,
                 },
                 {
                   path: 'list',

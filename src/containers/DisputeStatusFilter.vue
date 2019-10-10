@@ -58,6 +58,9 @@ export default {
       [this.filterName]: this.displayedOptions,
     };
   },
+  mounted() {
+    this.$nextTick().then(this.displayPreselectItems);
+  },
   computed: {
     disputeStatusList() {
       return this[this.filterName];
