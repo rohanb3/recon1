@@ -10,7 +10,6 @@
 <script>
 import { mapGetters } from 'vuex';
 import TableButton from '../components/TableButton';
-import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
 
 import { successMessage } from '@/services/notifications';
 import { ORDER_SYNC_STATUS } from '@/constants';
@@ -23,6 +22,10 @@ export default {
       type: String,
       required: true,
     },
+    orderType: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     ...mapGetters(['tableData', 'storageData']),
@@ -32,7 +35,7 @@ export default {
   },
   methods: {
     onSyncOrders() {
-      this.$store.dispatch(START_SYNC_ORDERS);
+      this.$store.dispatch(this.orderType);
       successMessage('sync.started', 'sync.info');
     },
   },

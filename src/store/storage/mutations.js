@@ -9,6 +9,7 @@ import {
   SET_SYNC_ORDERS_STATUS,
   SET_COMMISSIONS,
   SET_RECEIVED_COMMISSION_DATA,
+  SET_SYNC_ORDERS_STATUS_DISPUTES,
 } from './mutationTypes';
 
 import { TABLE_NAMES } from '@/constants';
@@ -43,6 +44,9 @@ export default {
   },
   [SET_SYNC_ORDERS_STATUS](state, status) {
     state[TABLE_NAMES.CLAIMS_ORDERS].syncOrdersStatus = status;
+  },
+  [SET_SYNC_ORDERS_STATUS_DISPUTES](state, status) {
+    state[TABLE_NAMES.DISPUTES_ORDERS].syncOrdersStatus = status;
   },
   [SET_COMMISSIONS](state, { itemType, totalCommissions }) {
     state[itemType].totalCommissions = { ...totalCommissions };

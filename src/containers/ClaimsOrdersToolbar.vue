@@ -9,7 +9,7 @@
       </div>
       <v-spacer></v-spacer>
       <div class="table-filter-container">
-        <sync-orders :table-name="tableName" />
+        <sync-orders :order-type="orderType" :table-name="tableName" />
         <export-to-cvs-claims :tableName="tableName" />
         <fiscal-period-filter :table-name="tableName" />
         <custom-range-filter :table-name="tableName" />
@@ -28,6 +28,7 @@ import CustomRangeFilter from './CustomRangeFilter';
 import ExportToCvsClaims from './ExportToCvsClaims';
 import ClaimsOrderStatusFilter from './ClaimsOrderStatusFilter';
 import SelectedRangeFilter from '@/components/SelectedRangeFilter';
+import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
 
 export default {
   name: 'ClaimsOrdersToolbar',
@@ -42,6 +43,11 @@ export default {
     OrderAgeFilter,
     TableToolbar,
     SelectedRangeFilter,
+  },
+  computed: {
+    orderType() {
+      return START_SYNC_ORDERS;
+    },
   },
 };
 </script>

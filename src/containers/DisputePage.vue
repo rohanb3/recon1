@@ -50,6 +50,8 @@
         <v-card-actions class="card-buttons">
           <table-button
             class="button-save-draft"
+            :preloader="loading"
+            :disabled="loading"
             :title="$t('save.as.draft')"
             @click="onSaveDraft"
           />
@@ -118,7 +120,7 @@ export default {
         return;
       }
 
-      this.sendingData = true;
+      this.loading = true;
       try {
         await updateDispute(this.disputeInfo.id, {
           ...this.disputeInfo,
@@ -131,7 +133,7 @@ export default {
       } catch {
         errorMessage();
       } finally {
-        this.sendingData = false;
+        this.loading = false;
       }
     },
     async onRemoveDraft() {
