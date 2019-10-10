@@ -273,6 +273,6 @@
   "days": "TBD days",
   "received.commission.details": "TBD Received commission details",
   "carrier.order.number": "TBD Carrier order number",
-  "undefined.order.status": "Undefined OrderStatus",
-  "chargeback": "Chargeback"
+  "undefined.order.status": "TBD Undefined OrderStatus",
+  "chargeback": "TBD Chargeback"
 }
