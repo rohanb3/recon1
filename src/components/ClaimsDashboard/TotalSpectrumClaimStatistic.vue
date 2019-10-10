@@ -44,6 +44,7 @@ export default {
             name: ROUTE_NAMES.CLAIMS_DISPUTES,
             params: {
               [FILTER_NAMES.SPECTRUM_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.SPECTRUM_IN_PROGRESS,
+              [FILTER_NAMES.CLAIMS_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.SPECTRUM_IN_PROGRESS,
             },
           },
         },
@@ -55,6 +56,7 @@ export default {
             name: ROUTE_NAMES.CLAIMS_DISPUTES,
             params: {
               [FILTER_NAMES.SPECTRUM_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.SPECTRUM_REJECTED,
+              [FILTER_NAMES.CLAIMS_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.SPECTRUM_REJECTED,
             },
           },
         },
@@ -66,6 +68,7 @@ export default {
             name: ROUTE_NAMES.CLAIMS_DISPUTES,
             params: {
               [FILTER_NAMES.SPECTRUM_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.SPECTRUM_APPROVED,
+              [FILTER_NAMES.CLAIMS_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.SPECTRUM_APPROVED,
             },
           },
         },

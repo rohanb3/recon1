@@ -45,6 +45,7 @@ export default {
             name: ROUTE_NAMES.CLAIMS_DISPUTES,
             params: {
               [FILTER_NAMES.XYZ_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.XYZ_WAITING_FOR_ANSWER,
+              [FILTER_NAMES.CLAIMS_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.XYZ_WAITING_FOR_ANSWER,
             },
           },
         },
@@ -56,6 +57,7 @@ export default {
             name: ROUTE_NAMES.CLAIMS_DISPUTES,
             params: {
               [FILTER_NAMES.XYZ_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.XYZ_RESENT,
+              [FILTER_NAMES.CLAIMS_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.XYZ_RESENT,
             },
           },
         },
@@ -67,6 +69,7 @@ export default {
             name: ROUTE_NAMES.CLAIMS_DISPUTES,
             params: {
               [FILTER_NAMES.XYZ_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.XYZ_REJECTED,
+              [FILTER_NAMES.CLAIMS_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.XYZ_REJECTED,
             },
           },
         },
