@@ -1,12 +1,15 @@
 <template>
   <div class="dispute-status-description-cell" :title="disputeComment">
-    <PopupDescriptionCell :statusDescription="statusDescription">
+    <PopupDescriptionCell v-if="disputeComment" :statusDescription="statusDescription">
       <template v-slot:comment>
         <a @click.prevent>
-          {{ disputeComment | dashForEmptyValue }}
+          {{ disputeComment }}
         </a>
       </template>
     </PopupDescriptionCell>
+    <div class="empty-comment" v-else>
+      {{ disputeComment | dashForEmptyValue }}
+    </div>
   </div>
 </template>
 
@@ -41,5 +44,10 @@ export default {
 <style lang="scss" scoped>
 .dispute-status-description-cell {
   font-style: italic;
+}
+
+.empty-comment {
+  text-align: center;
+  cursor: default;
 }
 </style>
