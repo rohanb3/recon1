@@ -14,7 +14,7 @@
 
 <script>
 import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
-import { FILTER_NAMES, DISPUTE_STATUSES_ID } from '@/constants';
+import { FILTER_NAMES, DISPUTE_STATUSES_ID, DISPUTE_COMPUTED_STATUSES } from '@/constants';
 
 export default {
   name: 'SpectrumDisputeStatusFilter',
@@ -47,30 +47,23 @@ export default {
       return [
         {
           id: DISPUTE_STATUSES_ID.APPROVED,
-          [this.sendFieldName]: [
-            DISPUTE_STATUSES_ID.APPROVED,
-            DISPUTE_STATUSES_ID.CONFIRM_APPROVED,
-          ],
+          [this.sendFieldName]: DISPUTE_COMPUTED_STATUSES.SPECTRUM_APPROVED,
           name: this.$t('approved'),
         },
         {
           id: DISPUTE_STATUSES_ID.SENT,
           name: this.$t('new'),
-          [this.sendFieldName]: [DISPUTE_STATUSES_ID.SENT],
+          [this.sendFieldName]: DISPUTE_COMPUTED_STATUSES.SPECTRUM_NEW,
         },
         {
           id: DISPUTE_STATUSES_ID.IN_PROGRESS,
           name: this.$t('in.progress'),
-          [this.sendFieldName]: [DISPUTE_STATUSES_ID.IN_PROGRESS],
+          [this.sendFieldName]: DISPUTE_COMPUTED_STATUSES.SPECTRUM_IN_PROGRESS,
         },
         {
           id: DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
           name: this.$t('rejected'),
-          [this.sendFieldName]: [
-            DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
-            DISPUTE_STATUSES_ID.RE_SENT,
-            DISPUTE_STATUSES_ID.REJECTED,
-          ],
+          [this.sendFieldName]: DISPUTE_COMPUTED_STATUSES.SPECTRUM_REJECTED,
         },
       ];
     },
