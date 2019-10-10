@@ -125,7 +125,7 @@ export default () => [
   {
     name: 'difference',
     field: 'difference',
-    fieldType: 'price',
+    fieldType: 'differenceCell',
     class: 'text',
     title: 'orders.difference',
     width: '5',
