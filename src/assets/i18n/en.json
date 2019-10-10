@@ -273,5 +273,7 @@
   "create.new.claim": "Create new claim",
   "days": "days",
   "received.commission.details": "Received commission details",
-  "carrier.order.number": "Carrier order number"
+  "carrier.order.number": "Carrier order number",
+  "undefined.order.status": "Undefined OrderStatus",
+  "chargeback": "Chargeback"
 }

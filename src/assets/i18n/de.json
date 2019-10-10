@@ -272,5 +272,7 @@
   "create.new.claim": "TBD Create new claim",
   "days": "TBD days",
   "received.commission.details": "TBD Received commission details",
-  "carrier.order.number": "TBD Carrier order number"
+  "carrier.order.number": "TBD Carrier order number",
+  "undefined.order.status": "TBD Undefined OrderStatus",
+  "chargeback": "TBD Chargeback"
 }
