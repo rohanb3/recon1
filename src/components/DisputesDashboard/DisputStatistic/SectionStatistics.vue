@@ -5,9 +5,18 @@
         <span class="mark-status" :style="{ background: statistic.color }"></span>
         {{ statistic.sectionName }}
       </v-flex>
-      <v-flex>{{ statistic.totalQuantity }}</v-flex>
-      <v-flex>{{ statistic.percent | percents }}</v-flex>
-      <v-flex>{{ statistic.commission | currency }}</v-flex>
+      <v-flex>
+        <section-value :link="statistic.link" :value="statistic.totalQuantity"></section-value>
+      </v-flex>
+      <v-flex>
+        <section-value :link="statistic.link" :value="statistic.percent | percents"></section-value>
+      </v-flex>
+      <v-flex>
+        <section-value
+          :link="statistic.link"
+          :value="statistic.commission | currency"
+        ></section-value>
+      </v-flex>
     </v-layout>
   </div>
 </template>
@@ -15,9 +24,13 @@
 <script>
 import { percents } from '@/filters/numberFormat';
 import currency from '@/filters/currency';
+import SectionValue from './SectionValue';
 
 export default {
   name: 'SectionStatistics',
+  components: {
+    SectionValue,
+  },
   props: {
     statistics: {
       type: Array,

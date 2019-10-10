@@ -14,7 +14,7 @@
 
 <script>
 import DisputeStatusFilter from '@/containers/DisputeStatusFilter';
-import { FILTER_NAMES, DISPUTE_STATUSES_ID } from '@/constants';
+import { FILTER_NAMES, DISPUTE_STATUSES_ID, DISPUTE_COMPUTED_STATUSES } from '@/constants';
 
 export default {
   name: 'XyzStatusFilter',
@@ -43,30 +43,27 @@ export default {
       return [
         {
           id: DISPUTE_STATUSES_ID.SENT,
-          [this.sendFieldName]: [DISPUTE_STATUSES_ID.SENT, DISPUTE_STATUSES_ID.IN_PROGRESS],
+          [this.sendFieldName]: DISPUTE_COMPUTED_STATUSES.XYZ_PENDING,
           name: this.$t('pending'),
         },
         {
           id: DISPUTE_STATUSES_ID.CONFIRM_APPROVED,
-          [this.sendFieldName]: [
-            DISPUTE_STATUSES_ID.CONFIRM_APPROVED,
-            DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
-          ],
+          [this.sendFieldName]: DISPUTE_COMPUTED_STATUSES.XYZ_CONFIRMED,
           name: this.$t('confirmed'),
         },
         {
           id: DISPUTE_STATUSES_ID.RE_SENT,
-          [this.sendFieldName]: [DISPUTE_STATUSES_ID.RE_SENT],
+          [this.sendFieldName]: DISPUTE_COMPUTED_STATUSES.XYZ_RESENT,
           name: this.$t('resubmited'),
         },
         {
           id: DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
-          [this.sendFieldName]: [DISPUTE_STATUSES_ID.CONFIRM_REJECTED],
+          [this.sendFieldName]: DISPUTE_COMPUTED_STATUSES.XYZ_REJECTED,
           name: this.$t('rejected'),
         },
         {
           id: DISPUTE_STATUSES_ID.APPROVED,
-          [this.sendFieldName]: [DISPUTE_STATUSES_ID.APPROVED, DISPUTE_STATUSES_ID.REJECTED],
+          [this.sendFieldName]: DISPUTE_COMPUTED_STATUSES.XYZ_WAITING_FOR_ANSWER,
           name: this.$t('waiting.for.answer'),
         },
       ];

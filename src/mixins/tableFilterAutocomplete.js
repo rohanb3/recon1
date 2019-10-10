@@ -42,6 +42,13 @@ export default {
         if (isApplyFilter) this.applyFilter(this.selectedItems);
       }
     },
+    setItem({ itemKeyName, itemKeyVal, isApplyFilter = true }) {
+      const itemIndex = this[this.filterName].findIndex(item => item[itemKeyName] === itemKeyVal);
+      if (itemIndex >= 0) {
+        this.selectOneItem(itemIndex, true);
+        if (isApplyFilter) this.applyFilter(this.selectedItems);
+      }
+    },
     selectOneItem(itemIndex, status) {
       this.$set(this[this.filterName][itemIndex], 'selected', status);
     },
@@ -82,7 +89,7 @@ export default {
     },
     displayPreselectItems({ itemKeyName = 'id' } = {}) {
       this.preselectedItems.forEach(item => {
-        this.toggleItem({ itemKeyName, itemKeyVal: item, isApplyFilter: false });
+        this.setItem({ itemKeyName, itemKeyVal: item, isApplyFilter: false });
       });
     },
     async loadingPreselectedItems({ itemKeyName = 'id', displayedFieldName, getItemById }) {
