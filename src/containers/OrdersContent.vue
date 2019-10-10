@@ -42,6 +42,7 @@ import CustomRangeFilter from './CustomRangeFilter';
 import FiscalPeriodFilter from './FiscalPeriodFilter';
 import CommissionCell from '@/components/tableCells/CommissionCell';
 import CommissionPopup from '../components/CommissionPopup';
+import DifferenceCell from '../components/tableCells/DifferenceCell';
 
 export default {
   name: 'OrdersContent',
@@ -61,6 +62,7 @@ export default {
     DateYearMonthDayCell,
     CommissionCell,
     ClaimButtonCell,
+    DifferenceCell,
   },
   props: {
     tableName: {
@@ -81,6 +83,7 @@ export default {
         installationAge: 'OrderAgeCell',
         receivedCommissionCell: 'CommissionCell',
         claimButton: 'ClaimButtonCell',
+        differenceCell: 'DifferenceCell',
       },
       orderIdCommission: null,
     };
