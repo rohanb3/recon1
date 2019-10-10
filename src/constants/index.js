@@ -63,6 +63,8 @@ export const ORDER_STATUSES_NAME = {
   PENDING: 'Pending',
   CALL_IN_ORDER: 'CallInOrder',
   PAID: 'Paid',
+  UNDEFINED_ORDER_STATUS: 'Undefined OrderStatus',
+  CHARGEBACK: 'Chargeback',
 };
 
 export const ORDER_STATUS_NAME_TRANSLATION_KEYS = {
@@ -74,6 +76,8 @@ export const ORDER_STATUS_NAME_TRANSLATION_KEYS = {
   [ORDER_STATUSES_NAME.PENDING]: 'orders.order.status.pending',
   [ORDER_STATUSES_NAME.CALL_IN_ORDER]: 'orders.order.status.call.in.order',
   [ORDER_STATUSES_NAME.PAID]: 'orders.order.status.paid',
+  [ORDER_STATUSES_NAME.UNDEFINED_ORDER_STATUS]: 'undefined.order.status',
+  [ORDER_STATUSES_NAME.CHARGEBACK]: 'chargeback',
 };
 
 export const CLAIMS_STATUSES_NAME = {
