@@ -9,9 +9,9 @@
       @click="onResubmit"
     />
     <span
-      v-if="!isInprogressStatus && isContainsApprovedStatus"
-      :title="approveDate | dateDefaultFormat"
-      >{{ approveDate | dateYearMonthDay }}</span
+      v-if="isApprovedStatus || isConfirmApprovedStatus"
+      :title="statusChangedOn | dateDefaultFormat"
+      >{{ statusChangedOn | dateYearMonthDay }}</span
     >
   </div>
 </template>
@@ -32,14 +32,6 @@ export default {
   },
   components: {
     TableButton,
-  },
-  computed: {
-    approveDate() {
-      return this.getLastDisputeStatus(DISPUTE_STATUSES_ID.CONFIRM_APPROVED).timeStamp || '';
-    },
-    isContainsApprovedStatus() {
-      return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.CONFIRM_APPROVED);
-    },
   },
   methods: {
     onResubmit() {

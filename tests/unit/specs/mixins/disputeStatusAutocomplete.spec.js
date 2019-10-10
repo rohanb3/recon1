@@ -1,5 +1,4 @@
 import disputeStatusAutocomplete from '@/mixins/disputeStatusAutocomplete';
-import * as utils from '@/services/utils';
 
 describe('disputeStatusAutocomplete', () => {
   describe('disputeStatusAutocomplete: computed', () => {
@@ -55,45 +54,6 @@ describe('disputeStatusAutocomplete', () => {
         const isReSent = disputeStatusAutocomplete.computed.isResentStatus.call(mockedThis);
 
         expect(isReSent).toEqual(true);
-      });
-    });
-    describe('isInprogressStatus', () => {
-      it('should check in progress status', () => {
-        const mockedThis = {
-          disputeStatusId: '82404a5d-966c-4ca9-b714-a039a8176b07',
-        };
-
-        const isInProgress = disputeStatusAutocomplete.computed.isInprogressStatus.call(mockedThis);
-
-        expect(isInProgress).toEqual(true);
-      });
-    });
-    describe('disputeStatusHistoryList', () => {
-      it('should return disputeStatusHistoryList', () => {
-        const mockedThis = {
-          item: {
-            disputeStatusHistory: [],
-          },
-        };
-
-        const history = disputeStatusAutocomplete.computed.disputeStatusHistoryList.call(
-          mockedThis
-        );
-        const expectedResult = [];
-
-        expect(history).toEqual(expectedResult);
-      });
-
-      it('should return empty array if not defined disputeStatusHistory', () => {
-        const mockedThis = {
-          item: {},
-        };
-
-        const history = disputeStatusAutocomplete.computed.disputeStatusHistoryList.call(
-          mockedThis
-        );
-
-        expect(history).toEqual([]);
       });
     });
     describe('isConfirmApprovedStatus', () => {
@@ -180,96 +140,6 @@ describe('disputeStatusAutocomplete', () => {
         };
 
         const result = disputeStatusAutocomplete.computed.statusProcessing.call(mockedThis);
-
-        expect(result).toBeFalsy();
-      });
-    });
-  });
-
-  describe('methods', () => {
-    describe('getLastDisputeStatus', () => {
-      it('should return last dispute status if such status is in the array', () => {
-        const statusId = 7;
-        const mockedThis = {
-          disputeStatusHistoryList: [
-            {
-              status: {
-                id: 7,
-                day: 1,
-              },
-            },
-            {
-              status: {
-                id: 3,
-                day: 2,
-              },
-            },
-            {
-              status: {
-                id: 7,
-                day: 3,
-              },
-            },
-          ],
-        };
-
-        utils.sortingRuleForObject = jest.fn();
-
-        const result = disputeStatusAutocomplete.methods.getLastDisputeStatus.call(
-          mockedThis,
-          statusId
-        );
-
-        const expectedResult = { status: { day: 3, id: 7 } };
-        expect(result).toEqual(expectedResult);
-      });
-
-      it('should call function sortingRuleForObject with parameter', () => {
-        const statusId = 7;
-        const mockedThis = {
-          disputeStatusHistoryList: [
-            {
-              status: {
-                id: 7,
-                day: 1,
-              },
-            },
-          ],
-        };
-
-        utils.sortingRuleForObject = jest.fn();
-
-        disputeStatusAutocomplete.methods.getLastDisputeStatus.call(mockedThis, statusId);
-
-        expect(utils.sortingRuleForObject).toHaveBeenCalledWith('timeStamp');
-      });
-    });
-
-    describe('isContainsStatusInHistory', () => {
-      it('should return true if such status is in the array', () => {
-        const statusId = 7;
-        const mockedThis = {
-          disputeStatusHistoryList: [{ status: { id: 7 } }],
-        };
-
-        const result = disputeStatusAutocomplete.methods.isContainsStatusInHistory.call(
-          mockedThis,
-          statusId
-        );
-
-        expect(result).toBeTruthy();
-      });
-
-      it('should return false if status is not contained in the array', () => {
-        const statusId = 7;
-        const mockedThis = {
-          disputeStatusHistoryList: [{ status: { id: 5 } }],
-        };
-
-        const result = disputeStatusAutocomplete.methods.isContainsStatusInHistory.call(
-          mockedThis,
-          statusId
-        );
 
         expect(result).toBeFalsy();
       });
