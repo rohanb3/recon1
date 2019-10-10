@@ -4,6 +4,7 @@
     :sorting-field="sortingField"
     :sort-direction="sortDirection"
     :translation-values="commission"
+    @sortDirectionChanged="onClickSortingHeaderCell"
   />
 </template>
 
@@ -46,6 +47,11 @@ export default {
       return this.total[this.column.name]
         ? { total: `/ ${this.$t('total')}: $  ${this.total[this.column.name]}` }
         : { total: '' };
+    },
+  },
+  methods: {
+    onClickSortingHeaderCell(value) {
+      this.$emit('sortDirectionChanged', value);
     },
   },
 };
