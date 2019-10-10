@@ -1,13 +1,13 @@
-import DisputeHistory from '@/containers/DisputeHistory';
+import History from '@/containers/History';
 import * as background from '@/services/background';
 import { FILTER_NAMES } from '@/constants';
 
-describe('DisputeHistory', () => {
+describe('History', () => {
   describe('mounted', () => {
     it('should call addBackgroundShadow', () => {
       background.addBackgroundShadow = jest.fn();
 
-      DisputeHistory.mounted();
+      History.mounted();
 
       expect(background.addBackgroundShadow).toHaveBeenCalled();
     });
@@ -17,7 +17,7 @@ describe('DisputeHistory', () => {
     it('should call removeBackgroundShadow', () => {
       background.removeBackgroundShadow = jest.fn();
 
-      DisputeHistory.destroyed();
+      History.destroyed();
 
       expect(background.removeBackgroundShadow).toHaveBeenCalled();
     });
@@ -38,7 +38,7 @@ describe('DisputeHistory', () => {
           tableName: 'company',
         };
 
-        const result = DisputeHistory.computed.tableData.call(mockedThis);
+        const result = History.computed.tableData.call(mockedThis);
 
         expect(result).toEqual(company);
       });
@@ -53,7 +53,7 @@ describe('DisputeHistory', () => {
           tableName: 'company',
         };
 
-        const result = DisputeHistory.computed.tableData.call(mockedThis);
+        const result = History.computed.tableData.call(mockedThis);
 
         expect(result).toEqual({});
       });
@@ -70,7 +70,7 @@ describe('DisputeHistory', () => {
           },
         };
 
-        const result = DisputeHistory.computed.filters.call(mockedThis);
+        const result = History.computed.filters.call(mockedThis);
 
         expect(result).toEqual({ company });
       });
@@ -80,7 +80,7 @@ describe('DisputeHistory', () => {
           tableData: {},
         };
 
-        const result = DisputeHistory.computed.filters.call(mockedThis);
+        const result = History.computed.filters.call(mockedThis);
 
         expect(result).toEqual({});
       });
@@ -90,11 +90,11 @@ describe('DisputeHistory', () => {
       it('should return value of filter by dispute id if defined filters', () => {
         const mockedThis = {
           filters: {
-            [FILTER_NAMES.DISPUTE_ID]: 'qwerty',
+            [FILTER_NAMES.ID]: 'qwerty',
           },
         };
 
-        const result = DisputeHistory.computed.disputeId.call(mockedThis);
+        const result = History.computed.disputeId.call(mockedThis);
 
         expect(result).toEqual('qwerty');
       });
@@ -112,7 +112,7 @@ describe('DisputeHistory', () => {
           parentTableName: 'company',
         };
 
-        DisputeHistory.computed.selected.call(mockedThis);
+        History.computed.selected.call(mockedThis);
 
         expect(mockedThis.$store.getters.getItemById).toHaveBeenCalledWith(
           mockedThis.disputeId,
@@ -134,7 +134,7 @@ describe('DisputeHistory', () => {
           parentTableName: 'company',
         };
 
-        const result = DisputeHistory.computed.selected.call(mockedThis);
+        const result = History.computed.selected.call(mockedThis);
 
         expect(result).toEqual({
           id: 123,
@@ -152,7 +152,7 @@ describe('DisputeHistory', () => {
           parentTableName: 'company',
         };
 
-        const result = DisputeHistory.computed.selected.call(mockedThis);
+        const result = History.computed.selected.call(mockedThis);
 
         expect(result).toEqual({});
       });
@@ -167,7 +167,7 @@ describe('DisputeHistory', () => {
           },
         };
 
-        const result = DisputeHistory.computed.orderId.call(mockedThis);
+        const result = History.computed.orderId.call(mockedThis);
 
         expect(result).toEqual(orderNumber);
       });
@@ -181,7 +181,7 @@ describe('DisputeHistory', () => {
           $emit: jest.fn(),
         };
 
-        DisputeHistory.methods.close.call(mockedThis);
+        History.methods.close.call(mockedThis);
 
         expect(mockedThis.$emit).toHaveBeenCalledWith('close');
       });

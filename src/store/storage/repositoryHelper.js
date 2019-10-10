@@ -10,6 +10,7 @@ import {
   getDisputeHistory,
   getDisputesStatisticsBySubmitters,
   getClaimsStatisticsBySubmitters,
+  getClaimHistory,
 } from '@/services/disputesRepository';
 
 const handlers = {
@@ -51,6 +52,9 @@ const handlers = {
   },
   [TABLE_NAMES.RECEIVED_COMMISSION]: {
     getAll: getReceivedCommission,
+  },
+  [ENTITY_TYPES.CLAIM_HISTORY]: {
+    getAll: getClaimHistory,
   },
 };
 

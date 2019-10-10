@@ -2,7 +2,7 @@ import {
   getClaimsOrdersTableColumns,
   getDisputesTableColumns,
   getDisputesBySubmittersColumns,
-  getDisputeHistoryTableColumns,
+  getHistoryTableColumns,
   getDisputesOrdersTableColumns,
   getClaimsResubmissionTableColumns,
   getDisputesResubmissionTableColumns,
@@ -62,8 +62,13 @@ const state = {
     applyingFilters: false,
   },
   [ENTITY_TYPES.DISPUTE_HISTORY]: {
-    columns: getDisputeHistoryTableColumns(),
+    columns: getHistoryTableColumns(),
     filters: getDefaultFilters(ENTITY_TYPES.DISPUTE_HISTORY),
+    applyingFilters: true,
+  },
+  [ENTITY_TYPES.CLAIM_HISTORY]: {
+    columns: getHistoryTableColumns(),
+    filters: getDefaultFilters(ENTITY_TYPES.CLAIM_HISTORY),
     applyingFilters: true,
   },
   [TABLE_NAMES.CLAIMS_DISPUTES]: {
