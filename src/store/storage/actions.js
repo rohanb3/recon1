@@ -137,8 +137,8 @@ export default {
         clearInterval(syncOrdersIntervalId);
         syncOrdersIntervalId = null;
         await dispatch(LOAD_ITEMS, {
-          itemType: TABLE_NAMES.CLAIMS_ORDERS,
-          filters: rootState.tables[TABLE_NAMES.CLAIMS_ORDERS].filters,
+          itemType: TABLE_NAMES.DISPUTES_ORDERS,
+          filters: rootState.tables[TABLE_NAMES.DISPUTES_ORDERS].filters,
         });
         commit(SET_SYNC_ORDERS_STATUS_DISPUTES, ORDER_SYNC_STATUS.FINISHED);
       }
