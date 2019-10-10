@@ -1,7 +1,7 @@
 <template>
   <table-full-height-balloon class="dispute-history" @close="close">
     <div class="additional-info">
-      <span class="dispute-id">{{ $t('dispute.id') }}: {{ disputeId }}</span>
+      <span class="dispute-id">{{ $t(title) }}: {{ disputeId }}</span>
       <span class="order-number">{{ $t('orders.number') }}: {{ orderId }}</span>
     </div>
     <div class="inputs-wrapper">
@@ -25,11 +25,11 @@ import LazyLoadTable from '@/containers/LazyLoadTable';
 import TableFullHeightBalloon from '@/components/TableFullHeightBalloon';
 import DefaultCell from '@/components/tableCells/DefaultCell';
 import DisputeStatusDescriptionCell from '@/components/tableCells/DisputeStatusDescriptionCell';
-import { ENTITY_TYPES, FILTER_NAMES } from '@/constants';
+import { FILTER_NAMES } from '@/constants';
 import { addBackgroundShadow, removeBackgroundShadow } from '@/services/background';
 
 export default {
-  name: 'DisputeHistory',
+  name: 'History',
   components: {
     LazyLoadTable,
     DefaultCell,
@@ -38,6 +38,14 @@ export default {
   },
   props: {
     parentTableName: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    tableName: {
       type: String,
       required: true,
     },
@@ -50,7 +58,6 @@ export default {
   },
   data() {
     return {
-      tableName: ENTITY_TYPES.DISPUTE_HISTORY,
       rowComponentsHash: {
         default: 'DefaultCell',
         disputeStatusDescription: 'DisputeStatusDescriptionCell',
@@ -65,7 +72,7 @@ export default {
       return this.tableData.filters || {};
     },
     disputeId() {
-      return this.filters[FILTER_NAMES.DISPUTE_ID];
+      return this.filters[FILTER_NAMES.ID];
     },
     selected() {
       return (

@@ -102,7 +102,7 @@ export default () => [
   {
     name: 'receivedCommission',
     field: 'receivedCommission',
-    fieldType: 'price',
+    fieldType: 'receivedCommissionCell',
     class: 'text',
     title: 'orders.recieved.comisson',
     width: '5',

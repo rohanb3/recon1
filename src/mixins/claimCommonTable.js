@@ -12,7 +12,7 @@ import ApproveDisputeStatusCell from '@/components/tableCells/ApproveDisputeStat
 import DisputeStatusCell from '@/components/tableCells/DisputeStatusCell';
 import IdCell from '@/components/tableCells/IdCell';
 import DisputeStatusDescriptionCell from '@/components/tableCells/DisputeStatusDescriptionCell';
-import DisputeHistory from '@/containers/DisputeHistory';
+import History from '@/containers/History';
 import commonTable from '@/mixins/commonTable';
 
 export default {
@@ -28,7 +28,7 @@ export default {
     ApproveDisputeStatusCell,
     DisputeStatusCell,
     IdCell,
-    DisputeHistory,
+    History,
     DisputeStatusDescriptionCell,
   },
   mixins: [commonTable],
@@ -58,14 +58,19 @@ export default {
     },
     getSelectionFilters(id) {
       return {
-        tableName: ENTITY_TYPES.DISPUTE_HISTORY,
+        tableName: ENTITY_TYPES.CLAIM_HISTORY,
         filters: [
           {
-            name: FILTER_NAMES.DISPUTE_ID,
+            name: FILTER_NAMES.ID,
             value: id,
           },
         ],
       };
+    },
+  },
+  computed: {
+    historyTableName() {
+      return ENTITY_TYPES.CLAIM_HISTORY;
     },
   },
 };

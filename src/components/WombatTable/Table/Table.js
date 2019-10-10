@@ -67,6 +67,7 @@ export default {
       rowWidth: '100%',
       lastScrollTop: 0,
       lastScrollHeight: 0,
+      isBottomReached: true,
     };
   },
   computed: {
@@ -95,9 +96,13 @@ export default {
           const el = document.querySelector(`.virtual-list.table-${this.name}`);
           this.scrollbar = new PerfectScrollbar(el);
           el.addEventListener('ps-y-reach-end', () => {
-            if (!this.loadingItems) {
+            if (!this.loadingItems && !this.isBottomReached) {
+              this.isBottomReached = true;
               this.$emit('bottomReached');
             }
+          });
+          el.addEventListener('ps-scroll-down', () => {
+            this.isBottomReached = false;
           });
         }
       });

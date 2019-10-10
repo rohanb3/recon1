@@ -1,5 +1,5 @@
 import { ENTITY_TYPES, TABLE_NAMES } from '@/constants';
-import { getOrders, getClaimsOrders } from '@/services/ordersRepository';
+import { getOrders, getClaimsOrders, getReceivedCommission } from '@/services/ordersRepository';
 import {
   getDisputes as getDisputeStatistics,
   getClaims as getClaimsStatistics,
@@ -10,6 +10,7 @@ import {
   getDisputeHistory,
   getDisputesStatisticsBySubmitters,
   getClaimsStatisticsBySubmitters,
+  getClaimHistory,
 } from '@/services/disputesRepository';
 
 const handlers = {
@@ -48,6 +49,12 @@ const handlers = {
   },
   [TABLE_NAMES.DISPUTES_LIST]: {
     getAll: getDisputes,
+  },
+  [TABLE_NAMES.RECEIVED_COMMISSION]: {
+    getAll: getReceivedCommission,
+  },
+  [ENTITY_TYPES.CLAIM_HISTORY]: {
+    getAll: getClaimHistory,
   },
 };
 

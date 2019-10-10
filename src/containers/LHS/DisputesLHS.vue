@@ -16,6 +16,8 @@ export default {
       'isShowOrderWithExpectedComission',
       'isShowDispute',
       'isShowResubmissionTable',
+      'isShowDisputeDashboard',
+      'isShowSubmitters',
     ]),
     items() {
       return [
@@ -46,7 +48,7 @@ export default {
           action: 'face',
           title: this.$t('disputes.by.submitters'),
           routeName: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
-          visible: this.isShowResubmissionTable,
+          visible: this.isShowSubmitters,
         },
       ];
     },

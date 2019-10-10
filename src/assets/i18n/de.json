@@ -269,5 +269,8 @@
   "order": "TBD Order",
   "type": "TBD Type",
   "dispute.comment": "TBD Dispute Comment",
-  "create.new.claim": "TBD Create new claim"
+  "create.new.claim": "TBD Create new claim",
+  "days": "TBD days",
+  "received.commission.details": "TBD Received commission details",
+  "carrier.order.number": "TBD Carrier order number"
 }

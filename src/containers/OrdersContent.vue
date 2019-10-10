@@ -14,8 +14,10 @@
         :item="rowCell.item"
         :column="rowCell.column"
         :scopes="scopes"
+        v-model="orderIdCommission"
       />
     </lazy-load-table>
+    <commission-popup v-model="orderIdCommission" v-if="orderIdCommission" />
   </div>
 </template>
 
@@ -38,10 +40,13 @@ import SelectedRangeFilter from '../components/SelectedRangeFilter';
 import TableToolbar from '@/components/TableToolbar';
 import CustomRangeFilter from './CustomRangeFilter';
 import FiscalPeriodFilter from './FiscalPeriodFilter';
+import CommissionCell from '@/components/tableCells/CommissionCell';
+import CommissionPopup from '../components/CommissionPopup';
 
 export default {
   name: 'OrdersContent',
   components: {
+    CommissionPopup,
     FiscalPeriodFilter,
     CustomRangeFilter,
     TableToolbar,
@@ -54,6 +59,7 @@ export default {
     PriceCell,
     DisputeButtonCell,
     DateYearMonthDayCell,
+    CommissionCell,
     ClaimButtonCell,
   },
   props: {
@@ -73,8 +79,10 @@ export default {
         disputeButton: 'DisputeButtonCell',
         dateYearMonthDay: 'DateYearMonthDayCell',
         installationAge: 'OrderAgeCell',
+        receivedCommissionCell: 'CommissionCell',
         claimButton: 'ClaimButtonCell',
       },
+      orderIdCommission: null,
     };
   },
   computed: {

@@ -2,12 +2,13 @@ import {
   getClaimsOrdersTableColumns,
   getDisputesTableColumns,
   getDisputesBySubmittersColumns,
-  getDisputeHistoryTableColumns,
+  getHistoryTableColumns,
   getDisputesOrdersTableColumns,
   getClaimsResubmissionTableColumns,
   getDisputesResubmissionTableColumns,
   getClaimsDisputesTableColumns,
   getClaimsBySubmittersColumns,
+  getReceivedCommissionTableColumns,
 } from '@/services/tablesColumnsList';
 import { ENTITY_TYPES, TABLE_NAMES } from '@/constants';
 
@@ -61,8 +62,13 @@ const state = {
     applyingFilters: false,
   },
   [ENTITY_TYPES.DISPUTE_HISTORY]: {
-    columns: getDisputeHistoryTableColumns(),
+    columns: getHistoryTableColumns(),
     filters: getDefaultFilters(ENTITY_TYPES.DISPUTE_HISTORY),
+    applyingFilters: true,
+  },
+  [ENTITY_TYPES.CLAIM_HISTORY]: {
+    columns: getHistoryTableColumns(),
+    filters: getDefaultFilters(ENTITY_TYPES.CLAIM_HISTORY),
     applyingFilters: true,
   },
   [TABLE_NAMES.CLAIMS_DISPUTES]: {
@@ -74,6 +80,9 @@ const state = {
     columns: getDisputesTableColumns(),
     filters: getDefaultFilters(TABLE_NAMES.DISPUTES_LIST),
     applyingFilters: false,
+  },
+  [TABLE_NAMES.RECEIVED_COMMISSION]: {
+    columns: getReceivedCommissionTableColumns(),
   },
 };
 

@@ -31,7 +31,7 @@
       @close="isShowConfirmationPopup = false"
     />
     <history
-      title="dispute.id"
+      title="claim.id"
       :table-name="historyTableName"
       v-if="historyShown"
       :parent-table-name="tableName"
@@ -47,12 +47,12 @@ import ConfirmResubmitDisputePopup from '@/components/ConfirmDisputePopup/Confir
 import XYZStatusCell from '@/components/tableCells/XYZStatusCell';
 import DisputeStatusDescriptionCell from '@/components/tableCells/DisputeStatusDescriptionCell';
 import ConfirmDisputePopup from '@/components/ConfirmDisputePopup/ConfirmDisputePopup';
-import disputeCommonTable from '@/mixins/disputeCommonTable';
+import claimCommonTable from '@/mixins/claimCommonTable';
 import CommissionPopup from '../components/CommissionPopup';
 import CommissionCell from '@/components/tableCells/CommissionCell';
 
 export default {
-  name: 'DisputesContent',
+  name: 'ClaimsContent',
   props: {
     tableName: {
       type: String,
@@ -79,7 +79,7 @@ export default {
       orderIdCommission: null,
     };
   },
-  mixins: [disputeCommonTable],
+  mixins: [claimCommonTable],
   methods: {
     async changeDisputeStatus(data) {
       this.isShowResubmitConfirmationPopup = false;

@@ -43,6 +43,8 @@ export default {
     [ENTITY_TYPES.DISPUTE_HISTORY]: new TableData(),
     [TABLE_NAMES.CLAIMS_DISPUTES]: new TableDataWithCommission(),
     [TABLE_NAMES.DISPUTES_LIST]: new TableDataWithCommission(),
+    [TABLE_NAMES.RECEIVED_COMMISSION]: new TableData(),
+    [ENTITY_TYPES.CLAIM_HISTORY]: new TableData(),
   },
   getters,
   actions,

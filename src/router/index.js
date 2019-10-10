@@ -68,6 +68,14 @@ function dashboardGuard(to, from, next) {
   }
 }
 
+function submittersGuard(to, from, next) {
+  if (store.getters.isShowSubmitters) {
+    next();
+  } else {
+    next({ name: ROUTE_NAMES.MAIN_PAGE });
+  }
+}
+
 function resubmissionGuard(to, from, next) {
   if (store.getters.isShowResubmissionTable) {
     next();
@@ -185,7 +193,7 @@ const router = new Router({
                   path: 'submitters',
                   name: ROUTE_NAMES.CLAIMS_BY_SUBMITTERS,
                   components: { switcher: SubmittersSwitcher, content: ClaimsBySubmittersTable },
-                  beforeEnter: resubmissionGuard,
+                  beforeEnter: submittersGuard,
                 },
                 {
                   path: 'resubmission',
@@ -227,7 +235,7 @@ const router = new Router({
                   path: 'submitters',
                   name: ROUTE_NAMES.DISPUTES_BY_SUBMITTERS,
                   components: { switcher: SubmittersSwitcher, content: DisputesBySubmittersTable },
-                  beforeEnter: resubmissionGuard,
+                  beforeEnter: submittersGuard,
                 },
                 {
                   path: 'resubmission',

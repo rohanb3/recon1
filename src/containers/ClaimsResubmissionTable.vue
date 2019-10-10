@@ -32,7 +32,9 @@
       @save="changeDisputeStatus"
       @close="isShowRejectConfirmationPopup = false"
     />
-    <dispute-history
+    <history
+      title="claim.id"
+      :table-name="historyTableName"
       v-if="historyShown"
       :parent-table-name="tableName"
       @close="historyShown = false"

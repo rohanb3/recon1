@@ -14,7 +14,7 @@ import { SORTING_DIRECTION } from '@/constants';
 
 // TODO: Refactor
 export default {
-  name: 'CommissionCell',
+  name: 'CommissionHeaderCell',
   components: { SortingHeaderCell },
   props: {
     column: {

@@ -270,5 +270,8 @@
   "order": "Order",
   "type": "Type",
   "dispute.comment": "Dispute Comment",
-  "create.new.claim": "Create new claim"
+  "create.new.claim": "Create new claim",
+  "days": "days",
+  "received.commission.details": "Received commission details",
+  "carrier.order.number": "Carrier order number"
 }

@@ -8,6 +8,7 @@ import {
   SET_ITEMS_TOTAL,
   SET_SYNC_ORDERS_STATUS,
   SET_COMMISSIONS,
+  SET_RECEIVED_COMMISSION_DATA,
 } from './mutationTypes';
 
 import { TABLE_NAMES } from '@/constants';
@@ -45,6 +46,12 @@ export default {
   },
   [SET_COMMISSIONS](state, { itemType, totalCommissions }) {
     state[itemType].totalCommissions = { ...totalCommissions };
+  },
+  [SET_RECEIVED_COMMISSION_DATA](state, { itemType, data }) {
+    const { commissionDetails, ...rest } = data;
+
+    state[itemType] = rest;
+    state[itemType].items = commissionDetails;
   },
   /* eslint-enable no-param-reassign */
 };
