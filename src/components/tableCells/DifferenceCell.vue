@@ -1,5 +1,5 @@
 <template>
-  <div class="difference-cell" :class="{ redColor: isNegative }">{{ getValue | currency }}</div>
+  <div class="difference-cell" :class="{ 'red-color': isNegative }">{{ getValue | currency }}</div>
 </template>
 
 <script>
@@ -17,7 +17,7 @@ export default {
       return this.value < 0;
     },
     getValue() {
-      return this.isNegative ? this.value * -1 : this.value;
+      return Math.abs(this.value);
     },
   },
 };
@@ -26,7 +26,7 @@ export default {
 <style scoped lang="scss">
 @import '@/assets/styles/variables.scss';
 
-.redColor {
+.red-color {
   color: $base-red;
 }
 </style>
