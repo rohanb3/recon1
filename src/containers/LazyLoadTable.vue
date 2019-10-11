@@ -103,7 +103,7 @@ export default {
       headerComponentsHash: {
         default: 'DefaultHeaderCell',
         sortingHeader: 'SortingHeaderCell',
-        commissionCell: 'CommissionHeaderCell',
+        commissionHeader: 'CommissionHeaderCell',
       },
     };
   },
