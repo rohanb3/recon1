@@ -199,13 +199,15 @@ describe('storage mutations: ', () => {
 
   describe('SET_SYNC_ORDERS_STATUS: ', () => {
     it('should set sync review status', () => {
+      const tableName = 'tableName';
+
       const state = {
-        [TABLE_NAMES.CLAIMS_ORDERS]: {
+        [tableName]: {
           syncOrdersStatus: null,
         },
       };
-      mutations[SET_SYNC_ORDERS_STATUS](state, true);
-      expect(state[TABLE_NAMES.CLAIMS_ORDERS].syncOrdersStatus).toBeTruthy();
+      mutations[SET_SYNC_ORDERS_STATUS](state, { status: true, tableName });
+      expect(state[tableName].syncOrdersStatus).toBeTruthy();
     });
   });
 });
