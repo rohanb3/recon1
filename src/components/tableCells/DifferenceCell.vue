@@ -17,7 +17,7 @@ export default {
       return this.value < 0;
     },
     getValue() {
-      return Math.abs(+this.value);
+      return Math.abs(this.value);
     },
   },
 };
