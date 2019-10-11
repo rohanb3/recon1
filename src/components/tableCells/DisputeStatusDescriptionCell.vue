@@ -1,15 +1,17 @@
 <template>
   <div class="dispute-status-description-cell" :title="disputeComment">
-    <PopupDescriptionCell v-if="disputeComment" :statusDescription="statusDescription">
+    <PopupDescriptionCell :showPopup="disputeComment" :statusDescription="statusDescription">
       <template v-slot:comment>
         <a @click.prevent>
           {{ disputeComment }}
         </a>
       </template>
+      <template v-slot:emptyComment>
+        <div class="empty-comment">
+          {{ disputeComment | dashForEmptyValue }}
+        </div>
+      </template>
     </PopupDescriptionCell>
-    <div class="empty-comment" v-else>
-      {{ disputeComment | dashForEmptyValue }}
-    </div>
   </div>
 </template>
 

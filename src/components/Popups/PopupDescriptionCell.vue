@@ -1,23 +1,27 @@
 <template>
-  <v-menu
-    v-model="value"
-    offset-x
-    left
-    close-on-click
-    nudge-left="10"
-    max-width="200"
-    min-width="200"
-    transition="scale-transition"
-  >
-    <template v-slot:activator="{ on }">
-      <div v-on="on" class="cell">
-        <slot name="comment"></slot>
+  <div>
+    <v-menu
+      v-if="showPopup"
+      v-model="value"
+      offset-x
+      left
+      close-on-click
+      nudge-left="10"
+      max-width="200"
+      min-width="200"
+      transition="scale-transition"
+    >
+      <template v-slot:activator="{ on }">
+        <div v-on="on" class="cell">
+          <slot name="comment"></slot>
+        </div>
+      </template>
+      <div @click.stop>
+        <v-list class="pa-3 word-wrap">{{ statusDescription }}</v-list>
       </div>
-    </template>
-    <div @click.stop>
-      <v-list class="pa-3 word-wrap">{{ statusDescription }}</v-list>
-    </div>
-  </v-menu>
+    </v-menu>
+    <slot v-else name="emptyComment" />
+  </div>
 </template>
 
 <script>
@@ -27,6 +31,7 @@ export default {
   name: 'PopupDescriptionCell',
   props: {
     statusDescription: String,
+    showPopup: Boolean,
   },
   data: () => ({
     value: false,
