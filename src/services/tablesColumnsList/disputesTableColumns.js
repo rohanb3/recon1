@@ -96,7 +96,7 @@ export default () => [
     title: 'orders.expected.comission',
     width: '5',
     minWidth: '85px',
-    fieldHeaderType: 'commissionCell',
+    fieldHeaderType: 'commissionHeader',
     sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.EXPECTED_COMISSION,
   },
   {
@@ -107,7 +107,7 @@ export default () => [
     title: 'orders.recieved.comisson',
     width: '5',
     minWidth: '85px',
-    fieldHeaderType: 'commissionCell',
+    fieldHeaderType: 'commissionHeader',
     sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.RECEIVED_COMISSION,
   },
   {

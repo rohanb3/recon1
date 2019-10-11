@@ -107,7 +107,7 @@ export default () => [
     width: '6',
     minWidth: '85px',
     sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.EXPECTED_COMISSION,
-    fieldHeaderType: 'commissionCell',
+    fieldHeaderType: 'commissionHeader',
     visible: (store, getters) => getters.isShowOrderWithExpectedComission,
   },
   {
@@ -119,7 +119,7 @@ export default () => [
     width: '6',
     minWidth: '85px',
     sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.RECIEVED_COMISSON,
-    fieldHeaderType: 'commissionCell',
+    fieldHeaderType: 'commissionHeader',
     visible: (store, getters) => getters.isShowOrderWithExpectedComission,
   },
   {
