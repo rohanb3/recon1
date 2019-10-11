@@ -13,16 +13,13 @@ import TableButton from '../components/TableButton';
 
 import { successMessage } from '@/services/notifications';
 import { ORDER_SYNC_STATUS } from '@/constants';
+import { START_SYNC_ORDERS } from '@/store/storage/actionTypes';
 
 export default {
   name: 'SyncOrders',
   components: { TableButton },
   props: {
     tableName: {
-      type: String,
-      required: true,
-    },
-    orderType: {
       type: String,
       required: true,
     },
@@ -35,7 +32,7 @@ export default {
   },
   methods: {
     onSyncOrders() {
-      this.$store.dispatch(this.orderType);
+      this.$store.dispatch(START_SYNC_ORDERS, { tableName: this.tableName });
       successMessage('sync.started', 'sync.info');
     },
   },
