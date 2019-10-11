@@ -30,7 +30,6 @@
 <script>
 import UserAvatar from '@/components/UserAvatar';
 import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
-import { GET_PROFILE_DATA } from '@/store/loggedInUser/actionTypes';
 import getVesrion from '@/services/appVersion';
 import { ROUTE_NAMES } from '@/constants';
 
@@ -38,9 +37,6 @@ export default {
   name: 'HeaderUserMenu',
   components: { UserAvatar },
   mixins: [tableToolbarBalloon],
-  mounted() {
-    this.getProfileData();
-  },
   data() {
     return {
       menu: false,
@@ -53,9 +49,6 @@ export default {
     },
   },
   methods: {
-    getProfileData() {
-      this.$store.dispatch(GET_PROFILE_DATA);
-    },
     logout() {
       this.$router.replace({ name: ROUTE_NAMES.LOGOUT });
     },
