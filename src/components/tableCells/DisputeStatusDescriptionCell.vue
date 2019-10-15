@@ -1,15 +1,10 @@
 <template>
   <div class="dispute-status-description-cell" :title="disputeComment">
-    <PopupDescriptionCell :showPopup="disputeComment" :statusDescription="statusDescription">
+    <PopupDescriptionCell :disputeComment="disputeComment" :statusDescription="statusDescription">
       <template v-slot:comment>
         <a @click.prevent>
           {{ disputeComment }}
         </a>
-      </template>
-      <template v-slot:emptyComment>
-        <div class="empty-comment">
-          {{ disputeComment | dashForEmptyValue }}
-        </div>
       </template>
     </PopupDescriptionCell>
   </div>
@@ -17,7 +12,6 @@
 
 <script>
 import PopupDescriptionCell from '@/components/Popups/PopupDescriptionCell';
-import dashForEmptyValue from '@/filters/dashForEmptyValue';
 
 export default {
   name: 'DisputeStatusDescriptionCell',
@@ -28,9 +22,6 @@ export default {
     item: {
       type: Object,
     },
-  },
-  filters: {
-    dashForEmptyValue,
   },
   computed: {
     disputeComment() {
@@ -46,10 +37,5 @@ export default {
 <style lang="scss" scoped>
 .dispute-status-description-cell {
   font-style: italic;
-}
-
-.empty-comment {
-  text-align: center;
-  cursor: default;
 }
 </style>

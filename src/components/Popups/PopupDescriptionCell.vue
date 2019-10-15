@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-menu
-      v-if="showPopup"
+      v-if="disputeComment"
       v-model="value"
       offset-x
       left
@@ -20,18 +20,21 @@
         <v-list class="pa-3 word-wrap">{{ statusDescription }}</v-list>
       </div>
     </v-menu>
-    <slot v-else name="emptyComment" />
+    <div v-else class="empty-comment">
+      {{ disputeComment | dashForEmptyValue }}
+    </div>
   </div>
 </template>
 
 <script>
 import { addCardBackground, removeCardBackground } from '@/services/background';
+import dashForEmptyValue from '@/filters/dashForEmptyValue';
 
 export default {
   name: 'PopupDescriptionCell',
   props: {
     statusDescription: String,
-    showPopup: Boolean,
+    disputeComment: String,
   },
   data: () => ({
     value: false,
@@ -51,6 +54,9 @@ export default {
       this.value = false;
     }
   },
+  filters: {
+    dashForEmptyValue,
+  },
 };
 </script>
 
@@ -63,5 +69,10 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.empty-comment {
+  text-align: center;
+  cursor: default;
 }
 </style>
