@@ -21,7 +21,7 @@ import DisputesDashboardPage from '@/containers/DisputesDashboardPage';
 import ClaimsDashboardPage from '@/containers/ClaimsDashboardPage';
 
 import { ROUTE_NAMES } from '@/constants';
-import { USER_LOGOUT } from '@/store/loggedInUser/actionTypes';
+import { USER_LOGOUT, GET_PROFILE_DATA } from '@/store/loggedInUser/actionTypes';
 
 import AppHeader from '@/containers/AppHeader';
 import DashboardSwitcher from '@/containers/typesSwitcher/DashboardSwitcher';
@@ -44,8 +44,9 @@ import DisputeList from '../containers/DisputeList';
 
 Vue.use(Router);
 
-function authGuard(to, from, next) {
+async function authGuard(to, from, next) {
   if (store.state.loggedInUser.token) {
+    await store.dispatch(GET_PROFILE_DATA);
     next();
   } else {
     next({ name: ROUTE_NAMES.LOGIN });
@@ -64,7 +65,7 @@ function dashboardGuard(to, from, next) {
   if (store.getters.isShowDisputeDashboard) {
     next();
   } else {
-    next({ name: ROUTE_NAMES.MAIN_PAGE });
+    next({ name: ROUTE_NAMES.CLAIMS_ORDERS });
   }
 }
 
@@ -154,7 +155,7 @@ const router = new Router({
           children: [
             {
               path: 'claims',
-              redirect: { name: ROUTE_NAMES.CLAIMS_ORDERS },
+              redirect: { name: ROUTE_NAMES.CLAIMS_DASHBOARD },
               components: {
                 lhs: LhsClaims,
                 default: OrdersPage,
