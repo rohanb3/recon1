@@ -98,6 +98,7 @@ export default () => [
     minWidth: '85px',
     sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.EXPECTED_COMISSION,
     fieldHeaderType: 'commissionHeader',
+    visible: (store, getters) => getters.isShowOrderWithExpectedComission,
   },
   {
     name: 'receivedCommission',
@@ -109,6 +110,7 @@ export default () => [
     minWidth: '85px',
     sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.RECEIVED_COMISSION,
     fieldHeaderType: 'commissionHeader',
+    visible: (store, getters) => getters.isShowOrderWithExpectedComission,
   },
   {
     name: 'difference',
@@ -120,6 +122,7 @@ export default () => [
     minWidth: '85px',
     sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.DIFFERENCE,
     fieldHeaderType: 'sortingHeader',
+    visible: (store, getters) => getters.isShowOrderWithExpectedComission,
   },
   {
     name: 'type',

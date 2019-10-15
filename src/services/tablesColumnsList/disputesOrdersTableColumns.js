@@ -132,6 +132,7 @@ export default () => [
     minWidth: '85px',
     sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.DIFFERENCE,
     fieldHeaderType: 'sortingHeader',
+    visible: (store, getters) => getters.isShowOrderWithExpectedComission,
   },
   {
     name: 'newDisputeButton',
