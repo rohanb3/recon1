@@ -5,7 +5,7 @@
       <quick-search-filter :table-name="tableName" />
       <div class="table-filter-container">
         <order-age-filter :table-name="tableName" />
-        <claims-age-filter :table-name="tableName" />
+        <disput-age-filter :table-name="tableName" />
         <dispute-types-filter :table-name="tableName" />
         <disputes-xyz-status-filter :table-name="tableName" />
         <spectrum-dispute-status-filter
@@ -32,7 +32,7 @@ import FiscalPeriodFilter from './FiscalPeriodFilter';
 import CustomRangeFilter from './CustomRangeFilter';
 import SelectedRangeFilter from '@/components/SelectedRangeFilter';
 import { FILTER_NAMES } from '@/constants';
-import ClaimsAgeFilter from './ClaimsAgeFilter';
+import DisputAgeFilter from './DisputAgeFilter';
 import DisputesXyzStatusFilter from './DisputesXyzStatusFilter';
 import DisputeTypesFilter from './DisputeTypesFilter';
 import SpectrumDisputeStatusFilter from './SpectrumDisputeStatusFilter';
@@ -46,7 +46,7 @@ export default {
     SpectrumDisputeStatusFilter,
     DisputeTypesFilter,
     DisputesXyzStatusFilter,
-    ClaimsAgeFilter,
+    DisputAgeFilter,
     CustomRangeFilter,
     FiscalPeriodFilter,
     QuickSearchFilter,
