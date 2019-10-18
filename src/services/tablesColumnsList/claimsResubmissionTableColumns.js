@@ -112,7 +112,7 @@ export default () => [
   },
   {
     name: 'ageAfterDispute',
-    field: 'ageAfterDispute',
+    field: 'ageAfterClaim',
     fieldType: 'ageAfterDispute',
     class: 'text',
     title: 'disputes.age.after.claim',
