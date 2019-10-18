@@ -24,8 +24,8 @@ export default {
   data() {
     return {
       filterNames: {
-        from: FILTER_NAMES.DISPUTE_AGE_FROM,
-        to: FILTER_NAMES.DISPUTE_AGE_TO,
+        from: FILTER_NAMES.CREATION_AGE_FROM,
+        to: FILTER_NAMES.CREATION_AGE_TO,
       },
     };
   },
