@@ -3,6 +3,7 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css';
 import InfiniteLoading from 'vue-infinite-loading';
 import { RecycleScroller } from 'vue-virtual-scroller';
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
+import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 
 import WombatHeader from '../Header';
 import WombatRow from '../Row';
@@ -17,6 +18,7 @@ export default {
     InfiniteLoading,
     PerfectScrollbar,
     RecycleScroller,
+    VuePerfectScrollbar,
   },
   props: {
     columns: {
@@ -61,6 +63,10 @@ export default {
       type: Boolean,
       required: true,
     },
+    horisontalScroll: {
+      type: Boolean,
+      required: false,
+    },
   },
   data() {
     return {
@@ -68,6 +74,7 @@ export default {
       lastScrollTop: 0,
       lastScrollHeight: 0,
       isBottomReached: true,
+      verticalScroll: null,
     };
   },
   computed: {
@@ -85,6 +92,16 @@ export default {
     },
     scrollbarShown() {
       return this.items.length || this.infiniteLoading;
+    },
+    classHorisontalScroll() {
+      return {
+        'horisontal-scroll': this.horisontalScroll,
+      };
+    },
+    classWombatTable() {
+      return {
+        'horisontal-scroll-width': this.horisontalScroll,
+      };
     },
   },
   methods: {
@@ -122,6 +139,13 @@ export default {
     scrollToPosition(position) {
       this.$refs.scroller.$el.scrollTop = position;
     },
+    setVerticalScrollPosition() {
+      const { offsetWidth: tableVisibleWidth, scrollLeft } = this.$refs.horisontalScroll.$el;
+
+      const verticalScrollPosition = tableVisibleWidth + scrollLeft - 15;
+
+      this.verticalScroll.style.left = `${verticalScrollPosition}px`;
+    },
   },
   watch: {
     items(next, old) {
@@ -143,5 +167,14 @@ export default {
   },
   mounted() {
     this.updateScrollBar();
+  },
+  updated() {
+    if (!this.horisontalScroll) return;
+
+    this.verticalScroll = this.$el.querySelector('.ps__rail-y');
+
+    if (this.verticalScroll) {
+      this.setVerticalScrollPosition();
+    }
   },
 };
