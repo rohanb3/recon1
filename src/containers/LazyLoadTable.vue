@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <VuePerfectScrollbar
+    ref="horisontalScroll"
+    @scroll.native="setVerticalScrollPosition"
+    class="horisontal-scroll"
+  >
     <wombat-table
       :items="tableRows"
       :columns="tableColumns"
@@ -10,6 +14,7 @@
       @bottomReached="checkAndLoadItems"
       @columnsResized="onColumnsResized"
       @columnsReordered="onColumnsReordered"
+      class="wombat-table-width"
     >
       <component
         slot="header-cell"
@@ -45,7 +50,7 @@
       color="blue"
       indeterminate
     ></v-progress-circular>
-  </div>
+  </VuePerfectScrollbar>
 </template>
 
 <script>
@@ -61,6 +66,8 @@ import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
 
 import CommissionHeaderCell from '@/containers/CommissionHeaderCell';
 
+import VuePerfectScrollbar from 'vue-perfect-scrollbar';
+
 export default {
   name: 'LazyLoadTable',
   components: {
@@ -70,6 +77,7 @@ export default {
     DefaultHeaderCell,
     SortingHeaderCell,
     CommissionHeaderCell,
+    VuePerfectScrollbar,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   props: {
@@ -104,8 +112,35 @@ export default {
         default: 'DefaultHeaderCell',
         sortingHeader: 'SortingHeaderCell',
         commissionHeader: 'CommissionHeaderCell',
+        verticalScroll: null,
       },
     };
   },
+  methods: {
+    setVerticalScrollPosition() {
+      const { offsetWidth: tableVisibleWidth, scrollLeft } = this.$refs.horisontalScroll.$el;
+
+      const verticalScrollPosition = tableVisibleWidth + scrollLeft - 15;
+
+      this.verticalScroll.style.left = `${verticalScrollPosition}px`;
+    },
+  },
+  updated() {
+    this.verticalScroll = this.$el.querySelector('.ps__rail-y');
+    if (this.verticalScroll) {
+      this.setVerticalScrollPosition();
+    }
+  },
 };
 </script>
+
+<style lang="scss" scoped>
+.horisontal-scroll {
+  overflow-x: scroll;
+
+  .wombat-table-width {
+    min-width: 100%;
+    width: max-content;
+  }
+}
+</style>
