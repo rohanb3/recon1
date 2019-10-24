@@ -12,6 +12,8 @@ export default {
       disputeAttachmentList: [],
       dialogDeleteDispute: false,
       loading: true,
+      loadingSaveAsDraft: false,
+      loadingRemoveDraft: false,
       sendingData: false,
       loadingFilesStatus: false,
       savedDispute: false,
