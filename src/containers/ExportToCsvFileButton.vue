@@ -43,7 +43,7 @@ export default {
       return !this.storageData(this.tableName).items.length;
     },
     disabled() {
-      return this.isEmptyTable || this.loading;
+      return this.loading || this.isEmptyTable;
     }
   },
   methods: {

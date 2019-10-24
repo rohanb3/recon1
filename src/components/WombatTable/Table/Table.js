@@ -146,6 +146,15 @@ export default {
 
       this.verticalScroll.style.left = `${verticalScrollPosition}px`;
     },
+    setVerticalScrollPositionOnUpdated() {
+      if (!this.horisontalScroll) return;
+
+      this.verticalScroll = this.$el.querySelector('.ps__rail-y');
+
+      if (this.verticalScroll) {
+        this.setVerticalScrollPosition();
+      }
+    },
   },
   watch: {
     items(next, old) {
@@ -169,12 +178,6 @@ export default {
     this.updateScrollBar();
   },
   updated() {
-    if (!this.horisontalScroll) return;
-
-    this.verticalScroll = this.$el.querySelector('.ps__rail-y');
-
-    if (this.verticalScroll) {
-      this.setVerticalScrollPosition();
-    }
+    this.setVerticalScrollPositionOnUpdated();
   },
 };
