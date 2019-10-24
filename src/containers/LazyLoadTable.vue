@@ -10,6 +10,7 @@
       @bottomReached="checkAndLoadItems"
       @columnsResized="onColumnsResized"
       @columnsReordered="onColumnsReordered"
+      horisontalScroll
     >
       <component
         slot="header-cell"

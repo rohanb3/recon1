@@ -1,32 +1,40 @@
 <template>
-  <v-menu
-    v-model="value"
-    offset-x
-    left
-    close-on-click
-    nudge-left="10"
-    max-width="200"
-    min-width="200"
-    transition="scale-transition"
-  >
-    <template v-slot:activator="{ on }">
-      <div v-on="on" class="cell">
-        <slot name="comment"></slot>
+  <div>
+    <v-menu
+      v-if="disputeComment"
+      v-model="value"
+      offset-x
+      left
+      close-on-click
+      nudge-left="10"
+      max-width="200"
+      min-width="200"
+      transition="scale-transition"
+    >
+      <template v-slot:activator="{ on }">
+        <div v-on="on" class="cell">
+          <slot name="comment"></slot>
+        </div>
+      </template>
+      <div @click.stop>
+        <v-list class="pa-3 word-wrap">{{ statusDescription }}</v-list>
       </div>
-    </template>
-    <div @click.stop>
-      <v-list class="pa-3 word-wrap">{{ statusDescription }}</v-list>
+    </v-menu>
+    <div v-else class="empty-comment">
+      {{ disputeComment | dashForEmptyValue }}
     </div>
-  </v-menu>
+  </div>
 </template>
 
 <script>
 import { addCardBackground, removeCardBackground } from '@/services/background';
+import dashForEmptyValue from '@/filters/dashForEmptyValue';
 
 export default {
   name: 'PopupDescriptionCell',
   props: {
     statusDescription: String,
+    disputeComment: String,
   },
   data: () => ({
     value: false,
@@ -46,6 +54,9 @@ export default {
       this.value = false;
     }
   },
+  filters: {
+    dashForEmptyValue,
+  },
 };
 </script>
 
@@ -58,5 +69,10 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.empty-comment {
+  text-align: center;
+  cursor: default;
 }
 </style>
