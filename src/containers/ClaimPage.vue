@@ -21,16 +21,34 @@
         <v-flex xs12 lg6 class="customer-information-wrapper">
           <customer-information-form v-model="disputeInfo" ref="customerInfo" />
           <div class="save-button-wrapper">
-            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">
+            <v-btn
+              small
+              depressed
+              :disabled="loading"
+              class="button-cancel-dispute"
+              @click="onCancel"
+            >
               {{ $t('cancel') }}
             </v-btn>
-            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">{{
-              $t('save.as.draft')
-            }}</v-btn>
+            <v-btn
+              small
+              depressed
+              :disabled="loading"
+              class="button-save-dispute"
+              @click="onSaveDraft"
+            >
+              {{ $t('save.as.draft') }}
+            </v-btn>
             <v-spacer></v-spacer>
-            <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">{{
-              $t('create.new.claim')
-            }}</v-btn>
+            <v-btn
+              small
+              depressed
+              :disabled="loading"
+              class="button-create-dispute"
+              @click="onCreateNewDispute"
+            >
+              {{ $t('create.new.claim') }}
+            </v-btn>
           </div>
         </v-flex>
       </v-layout>
@@ -43,12 +61,18 @@
         <v-card-actions class="card-buttons">
           <table-button
             class="button-save-draft"
-            :preloader="loading"
+            :preloader="loadingSaveAsDraft"
             :disabled="loading"
             :title="$t('save.as.draft')"
             @click="onSaveDraft"
           />
-          <span class="remove-draft" @click="onRemoveDraft">{{ $t('remove.draft') }}</span>
+          <table-button
+            class="remove-draft"
+            :preloader="loadingRemoveDraft"
+            :disabled="loading"
+            :title="$t('remove.draft')"
+            @click="onRemoveDraft"
+          />
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -113,6 +137,7 @@ export default {
       }
 
       this.loading = true;
+      this.loadingSaveAsDraft = true;
       try {
         await updateClaim(this.disputeInfo.id, {
           ...this.disputeInfo,
@@ -126,9 +151,12 @@ export default {
         errorMessage();
       } finally {
         this.loading = false;
+        this.loadingSaveAsDraft = false;
       }
     },
     async onRemoveDraft() {
+      this.loading = true;
+      this.loadingRemoveDraft = true;
       try {
         await deleteClaim(this.disputeInfo.id);
         this.savedDispute = true;
@@ -137,6 +165,8 @@ export default {
         errorMessage();
       } finally {
         removeBackgroundBlur();
+        this.loading = false;
+        this.loadingRemoveDraft = true;
       }
     },
     async loadData() {
@@ -258,12 +288,6 @@ export default {
     padding: 0 12px;
     margin-right: 24px;
   }
-
-  .remove-draft {
-    font-size: 14px;
-    cursor: pointer;
-    color: $base-red;
-  }
 }
 
 .dispute-page /deep/ {
@@ -344,5 +368,11 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.remove-draft {
+  font-size: 14px;
+  cursor: pointer;
+  color: $base-red;
 }
 </style>
