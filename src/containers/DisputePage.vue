@@ -68,12 +68,18 @@
         <v-card-actions class="card-buttons">
           <table-button
             class="button-save-draft"
-            :preloader="loading"
+            :preloader="loadingSaveAsDraft"
             :disabled="loading"
             :title="$t('save.as.draft')"
             @click="onSaveDraft"
           />
-          <span class="remove-draft" @click="onRemoveDraft">{{ $t('remove.draft') }}</span>
+          <table-button
+            class="remove-draft"
+            :preloader="loadingRemoveDraft"
+            :disabled="loading"
+            :title="$t('remove.draft')"
+            @click="onRemoveDraft"
+          />
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -139,6 +145,7 @@ export default {
       }
 
       this.loading = true;
+      this.loadingSaveAsDraft = true;
       try {
         await updateDispute(this.disputeInfo.id, {
           ...this.disputeInfo,
@@ -152,9 +159,12 @@ export default {
         errorMessage();
       } finally {
         this.loading = false;
+        this.loadingSaveAsDraft = false;
       }
     },
     async onRemoveDraft() {
+      this.loading = true;
+      this.loadingRemoveDraft = true;
       try {
         await deleteDispute(this.disputeInfo.id);
         this.savedDispute = true;
@@ -163,6 +173,8 @@ export default {
         errorMessage();
       } finally {
         removeBackgroundBlur();
+        this.loading = false;
+        this.loadingRemoveDraft = true;
       }
     },
     async loadData() {
@@ -284,12 +296,6 @@ export default {
     padding: 0 12px;
     margin-right: 24px;
   }
-
-  .remove-draft {
-    font-size: 14px;
-    cursor: pointer;
-    color: $base-red;
-  }
 }
 
 .dispute-page /deep/ {
@@ -370,5 +376,11 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.remove-draft {
+  font-size: 14px;
+  cursor: pointer;
+  color: $base-red;
 }
 </style>
