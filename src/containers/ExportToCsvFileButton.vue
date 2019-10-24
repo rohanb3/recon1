@@ -44,7 +44,7 @@ export default {
     },
     disabled() {
       return this.loading || this.isEmptyTable;
-    }
+    },
   },
   methods: {
     async onExportToCsvFile() {
