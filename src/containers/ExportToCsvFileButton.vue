@@ -8,10 +8,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import TableButton from '@/components/TableButton';
 import { errorMessage } from '@/services/notifications';
 import { generateCSVFile } from '@/services/utils';
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'ExportToCsvFileButton',
