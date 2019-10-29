@@ -382,5 +382,6 @@ export default {
   font-size: 14px;
   cursor: pointer;
   color: $base-red;
+  border: none;
 }
 </style>
