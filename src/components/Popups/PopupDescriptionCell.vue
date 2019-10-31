@@ -17,7 +17,7 @@
         </div>
       </template>
       <div @click.stop>
-        <v-list class="pa-3 word-wrap">{{ statusDescription }}</v-list>
+        <v-list class="pa-3 word-wrap">{{ disputeComment }}</v-list>
       </div>
     </v-menu>
     <div v-else class="empty-comment">
@@ -33,7 +33,6 @@ import dashForEmptyValue from '@/filters/dashForEmptyValue';
 export default {
   name: 'PopupDescriptionCell',
   props: {
-    statusDescription: String,
     disputeComment: String,
   },
   data: () => ({
