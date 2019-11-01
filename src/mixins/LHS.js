@@ -23,5 +23,8 @@ export default {
     groupOfItems() {
       return this.items.filter(item => item.items && item.items.length);
     },
+    routeName() {
+      return this.$route.name;
+    },
   },
 };
