@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import isEqual from 'lodash.isequal';
 import Tabs from '@/components/Tabs';
 
 export default {
@@ -20,8 +21,10 @@ export default {
       return this.options.find(option => option.name === this.$router.currentRoute.name);
     },
     changeTab(tab) {
-      this.activeTab = tab;
-      this.$router.push({ name: tab.name });
+      if (!isEqual(tab, this.activeTab)) {
+        this.activeTab = tab;
+        this.$router.push({ name: tab.name });
+      }
     },
   },
 };

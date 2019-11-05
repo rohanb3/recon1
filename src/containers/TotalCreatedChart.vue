@@ -114,11 +114,14 @@ export default {
         this.filters.createdTo,
         DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY
       ).map(date => {
-        const statistic = dailyStatistics.find(day => moment.utc(day.xValue).diff(date) === 0);
+        const statistic = dailyStatistics.find(
+          day =>
+            moment(day.xValue)
+              .startOf('day')
+              .diff(date) === 0
+        );
 
-        const xValue = moment(date)
-          .subtract(1, 'days')
-          .format(DATE_FORMATS.DAY_SHORT_MONTH);
+        const xValue = moment(date).format(DATE_FORMATS.DAY_SHORT_MONTH);
 
         if (statistic) {
           return { ...statistic, xValue };
