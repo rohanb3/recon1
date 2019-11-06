@@ -65,6 +65,7 @@ export const ORDER_STATUSES_NAME = {
   PAID: 'Paid',
   UNDEFINED_ORDER_STATUS: 'Undefined OrderStatus',
   CHARGEBACK: 'Chargeback',
+  SPECTRUM_PENDING: 'SpectrumPending',
 };
 
 export const ORDER_STATUS_NAME_TRANSLATION_KEYS = {
@@ -78,6 +79,7 @@ export const ORDER_STATUS_NAME_TRANSLATION_KEYS = {
   [ORDER_STATUSES_NAME.PAID]: 'orders.order.status.paid',
   [ORDER_STATUSES_NAME.UNDEFINED_ORDER_STATUS]: 'undefined.order.status',
   [ORDER_STATUSES_NAME.CHARGEBACK]: 'chargeback',
+  [ORDER_STATUSES_NAME.SPECTRUM_PENDING]: 'spectrum.pending',
 };
 
 export const CLAIMS_STATUSES_NAME = {

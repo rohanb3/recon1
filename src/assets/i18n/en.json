@@ -275,5 +275,6 @@
   "received.commission.details": "Received commission details",
   "carrier.order.number": "Carrier order number",
   "undefined.order.status": "Undefined OrderStatus",
-  "chargeback": "Chargeback"
+  "chargeback": "Chargeback",
+  "spectrum.pending": "Spectrum Pending"
 }

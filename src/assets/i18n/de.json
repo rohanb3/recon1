@@ -274,5 +274,6 @@
   "received.commission.details": "TBD Received commission details",
   "carrier.order.number": "TBD Carrier order number",
   "undefined.order.status": "TBD Undefined OrderStatus",
-  "chargeback": "TBD Chargeback"
+  "chargeback": "TBD Chargeback",
+  "spectrum.pending": "Spectrum Pending"
 }
