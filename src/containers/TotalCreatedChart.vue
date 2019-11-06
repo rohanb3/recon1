@@ -67,13 +67,11 @@ export default {
       this.filters.createdFrom = moment()
         .startOf('day')
         .subtract(1, 'month')
-        .utc()
-        .format();
+        .format(DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY);
       this.filters.createdTo = moment()
         .add(1, 'day')
         .startOf('day')
-        .utc()
-        .format();
+        .format(DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY);
     },
     labelTooltip({ additionalYValue, nameOfAdditionalValue }) {
       if (!nameOfAdditionalValue) return null;
@@ -114,12 +112,7 @@ export default {
         this.filters.createdTo,
         DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY
       ).map(date => {
-        const statistic = dailyStatistics.find(
-          day =>
-            moment(day.xValue)
-              .startOf('day')
-              .diff(date) === 0
-        );
+        const statistic = dailyStatistics.find(day => moment(day.xValue).diff(date) === 0);
 
         const xValue = moment(date).format(DATE_FORMATS.DAY_SHORT_MONTH);
 
