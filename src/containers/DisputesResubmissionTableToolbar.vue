@@ -4,8 +4,7 @@
     <div class="table-filter-container">
       <installation-age-filter :table-name="tableName" />
       <disput-age-filter :table-name="tableName" />
-      <dispute-type-filter :tableName="tableName" />
-
+      <dispute-types-filter :table-name="tableName" />
       <spectrum-dispute-status-filter
         :tableName="tableName"
         :filterField="filterField"
@@ -29,7 +28,6 @@
 import { mapGetters } from 'vuex';
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
 import CustomRangeFilter from '@/containers/CustomRangeFilter';
-import DisputeTypeFilter from '@/containers/DisputeTypeFilter';
 import InstallationAgeFilter from '@/containers/InstallationAgeFilter';
 import DisputAgeFilter from '@/containers/DisputAgeFilter';
 import SpectrumDisputeStatusFilter from '@/containers/SpectrumDisputeStatusFilter';
@@ -37,12 +35,13 @@ import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
 import { getDisputesCsvFile } from '@/services/disputesRepository';
 import { FILTER_NAMES } from '@/constants';
+import DisputeTypesFilter from './DisputeTypesFilter';
 
 export default {
   name: 'DisputesResubmissionTableToolbar',
   components: {
+    DisputeTypesFilter,
     QuickSearchFilter,
-    DisputeTypeFilter,
     FiscalPeriodFilter,
     CustomRangeFilter,
     InstallationAgeFilter,

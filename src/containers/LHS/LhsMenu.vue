@@ -12,7 +12,11 @@
           :key="item.title"
           :to="{ name: item.routeName }"
         >
-          <lhs-item class="navigation-link" :item="item"></lhs-item>
+          <lhs-item
+            class="navigation-link"
+            :class="{ active: item.routeName === routeName }"
+            :item="item"
+          ></lhs-item>
         </router-link>
       </template>
 

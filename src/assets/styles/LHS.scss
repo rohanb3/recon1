@@ -107,6 +107,10 @@ $lhs-active-group-background-color: rgba(0, 0, 0, 0.15);
     &:hover {
       background: rgba(0, 0, 0, 0.04);
     }
+
+    &.active {
+      background: rgba(0, 0, 0, 0.1);
+    }
   }
 }
 
