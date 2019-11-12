@@ -78,18 +78,6 @@ export default () => [
     fieldHeaderType: 'sortingHeader',
   },
   {
-    name: 'expectedCommission',
-    field: 'expectedCommission',
-    fieldType: 'price',
-    class: 'text',
-    title: 'orders.expected.comission',
-    width: '5',
-    minWidth: '85px',
-    sortingFieldName: TABLE_ORDER_COLUMNS_SORTED.EXPECTED_COMISSION,
-    fieldHeaderType: 'commissionHeader',
-    visible: (store, getters) => getters.isShowOrderWithExpectedComission,
-  },
-  {
     name: 'newDisputeButton',
     fieldType: 'claimButton',
     class: 'text',
