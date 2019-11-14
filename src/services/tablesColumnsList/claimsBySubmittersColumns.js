@@ -101,16 +101,6 @@ export default () => [
     fieldHeaderType: 'sortingHeader',
   },
   {
-    name: 'approvedComission',
-    field: 'approvedComission',
-    class: 'text',
-    title: i18n.t('approved.commission'),
-    width: '4',
-    minWidth: '16px',
-    sortingFieldName: TABLE_DISPUTES_BY_SUBMITTERS_COLUMNS_SORTED.APPROVED_COMMISSION,
-    fieldHeaderType: 'sortingHeader',
-  },
-  {
     name: 'resubmited',
     field: 'resubmited',
     class: 'text',
