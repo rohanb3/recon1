@@ -91,6 +91,13 @@ export const getDisputesStatistics = filters => {
     .then(({ data }) => data);
 };
 
+export const getClaimsStatistics = filters => {
+  const params = { ...filters };
+  return apiDisputes
+    .get('/claims/statistic/top', { params, paramsSerializer })
+    .then(({ data }) => data);
+};
+
 export const getDisputesBySubmittersCsvFile = filters => {
   const params = { ...filters };
   return apiDisputes
