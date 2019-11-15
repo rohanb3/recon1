@@ -3,7 +3,7 @@
     <table-toolbar :table-name="tableName" :title="$t('claims.statistics.by.submitters')">
       <claims-by-submitters-table-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
-    <disputes-by-submitters-badges />
+    <claims-by-submitters-badges />
     <lazy-load-table :tableName="tableName">
       <component
         slot="row-cell"
@@ -28,7 +28,7 @@ import DefaultCell from '@/components/tableCells/DefaultCell';
 import PercentCell from '@/components/tableCells/PercentCell';
 
 import ClaimsBySubmittersTableToolbar from '@/containers/ClaimsBySubmittersTableToolbar';
-import DisputesBySubmittersBadges from '@/containers/DisputesBySubmittersBadges';
+import ClaimsBySubmittersBadges from '@/containers/ClaimsBySubmittersBadges';
 
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 
@@ -42,7 +42,7 @@ export default {
   components: {
     TableToolbar,
     ClaimsBySubmittersTableToolbar,
-    DisputesBySubmittersBadges,
+    ClaimsBySubmittersBadges,
     WombatTable,
     WombatRow,
     TableLoader,
@@ -81,8 +81,8 @@ export default {
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
-        80px - #{$switcher-height}
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} -
+        #{$table-header-height} - 80px - #{$switcher-height}
     );
   }
 
