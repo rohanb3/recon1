@@ -37,6 +37,7 @@
           :from="fromValueEntered"
           :to="toValueEntered"
           :error="error"
+          :selected="selected"
           @applyRange="onApplyRange"
           @clearRange="onClearRange"
         />
