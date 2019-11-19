@@ -156,6 +156,7 @@ export const TABLE_DISPUTE_COLUMNS_SORTED = {
   STATUS_DESCRIPTION: 'disputeStatusDescription',
   ORDER_NUMBER: 'ordernumber',
   ORDER_CREATION_DATE: 'orderCreationDate',
+  INSTALLATION_DATE: 'installationDate',
 };
 
 export const TABLE_DISPUTES_BY_SUBMITTERS_COLUMNS_SORTED = {
