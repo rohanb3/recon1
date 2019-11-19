@@ -1,6 +1,7 @@
 <template>
   <div class="claims_dashboard-table">
     <table-toolbar :title="$t('claims.dashboard')" :table-name="tableName">
+      <selected-range-filter slot="toolbar-info" :tableName="tableName" />
       <claims-dashboard-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
     <div class="statistic-list">
@@ -21,10 +22,12 @@ import TotalCreatedClaimsChart from '@/containers/TotalCreatedClaimsChart';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 import { TABLE_NAMES } from '@/constants';
 import TableToolbar from '@/components/TableToolbar';
+import SelectedRangeFilter from '../components/SelectedRangeFilter';
 
 export default {
   name: 'ClaimsDashboardPage',
   components: {
+    SelectedRangeFilter,
     TableToolbar,
     ClaimsDashboardToolbar,
     TotalClaimsStatistic,

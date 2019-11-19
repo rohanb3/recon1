@@ -1,6 +1,7 @@
 <template>
   <div class="disputes_dashboard-table">
     <table-toolbar :title="$t('disputes.dashboard')" :table-name="tableName">
+      <selected-range-filter slot="toolbar-info" :tableName="tableName" />
       <Disputes-Dashboard-Toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
     <div class="statistic-list">
@@ -21,10 +22,12 @@ import TotalCreatedDisputesChart from '@/containers/TotalCreatedDisputesChart';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
 import { TABLE_NAMES } from '@/constants';
 import TableToolbar from '@/components/TableToolbar';
+import SelectedRangeFilter from '../components/SelectedRangeFilter';
 
 export default {
   name: 'DisputesDashboardPage',
   components: {
+    SelectedRangeFilter,
     TableToolbar,
     DisputesDashboardToolbar,
     TotalDisputesStatistic,
