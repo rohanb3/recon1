@@ -140,6 +140,8 @@ export default () => [
     title: 'dispute.installation.date',
     width: '5',
     minWidth: '30px',
+    sortingFieldName: TABLE_DISPUTE_COLUMNS_SORTED.INSTALLATION_DATE,
+    fieldHeaderType: 'sortingHeader',
   },
   {
     name: 'ageAfterOrder',
