@@ -1,6 +1,6 @@
 <template>
   <type-select
-    v-model="value"
+    v-model="disputeInfo"
     title="claim.type"
     :translation-keys="translationKeys"
     :types="types"
@@ -24,6 +24,14 @@ export default {
   computed: {
     translationKeys() {
       return CLAIMS_STATUS_NAME_TRANSLATION_KEYS;
+    },
+    disputeInfo: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        this.$emit('input', value);
+      },
     },
   },
   data() {
