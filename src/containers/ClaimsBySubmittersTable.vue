@@ -1,6 +1,7 @@
 <template>
   <div class="claims-table claims_by_submitters-table">
     <table-toolbar :table-name="tableName" :title="$t('claims.statistics.by.submitters')">
+      <selected-range-filter slot="toolbar-info" :tableName="tableName" />
       <claims-by-submitters-table-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
     <claims-by-submitters-badges />
@@ -36,10 +37,12 @@ import { TABLE_NAMES } from '@/constants';
 
 import dateRange from '@/filters/boundaries';
 import TableToolbar from '../components/TableToolbar';
+import SelectedRangeFilter from '../components/SelectedRangeFilter';
 
 export default {
   name: 'ClaimsBySubmittersTable',
   components: {
+    SelectedRangeFilter,
     TableToolbar,
     ClaimsBySubmittersTableToolbar,
     ClaimsBySubmittersBadges,
@@ -81,8 +84,8 @@ export default {
   .virtual-list {
     height: 100vh;
     max-height: calc(
-      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} -
-        #{$table-header-height} - 80px - #{$switcher-height}
+      100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
+        80px - #{$switcher-height}
     );
   }
 
