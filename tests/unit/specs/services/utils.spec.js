@@ -3,6 +3,7 @@ import {
   getStringFromValuesByKey,
   notEmpty,
   sortingRuleForObject,
+  getAbsSumMinAndMaxFromList,
 } from '@/services/utils';
 
 describe('utils', () => {
@@ -172,6 +173,124 @@ describe('utils', () => {
       ];
 
       expect(result).toEqual(expectedResult);
+    });
+  });
+  describe('getAbsSumMinAndMaxFromList', () => {
+    it('should return 0 if list is empty (with func param)', () => {
+      const list = [];
+      const result = getAbsSumMinAndMaxFromList(list, el => el.val);
+      expect(result).toEqual(0);
+    });
+
+    it('should return 0 if list is empty (without func param)', () => {
+      const list = [];
+      const result = getAbsSumMinAndMaxFromList(list);
+      expect(result).toEqual(0);
+    });
+
+    it('should return (max + min) if list contains objects and min value and max values are different and both are positive (with func param)', () => {
+      const obj1 = {
+        val: 1,
+      };
+      const obj2 = {
+        val: 2,
+      };
+      const obj3 = {
+        val: 3,
+      };
+      const list = [obj1, obj2, obj3];
+      const result = getAbsSumMinAndMaxFromList(list, el => el.val);
+      expect(result).toEqual(4);
+    });
+
+    it('should return (max + min) if list contains objects and min value and max values are different and both are negative (with func param)', () => {
+      const obj1 = {
+        val: -1,
+      };
+      const obj2 = {
+        val: -2,
+      };
+      const obj3 = {
+        val: -3,
+      };
+      const list = [obj1, obj2, obj3];
+      const result = getAbsSumMinAndMaxFromList(list, el => el.val);
+      expect(result).toEqual(4);
+    });
+
+    it('should return (max + min) if list contains objects and min value and max values are different and max positive and min negative (with func param)', () => {
+      const obj1 = {
+        val: -1,
+      };
+      const obj2 = {
+        val: -2,
+      };
+      const obj3 = {
+        val: 4,
+      };
+      const list = [obj1, obj2, obj3];
+      const result = getAbsSumMinAndMaxFromList(list, el => el.val);
+      expect(result).toEqual(6);
+    });
+
+    it("should return (max + min) if list doesn't contains objects and min value and max values are different and both are positive (without func param)", () => {
+      const list = [1, 2, 3];
+      const result = getAbsSumMinAndMaxFromList(list);
+      expect(result).toEqual(4);
+    });
+
+    it("should return (max + min) if list doesn't contains objects and min value and max values are different and both are negative (without func param)", () => {
+      const list = [-1, -2, -3];
+      const result = getAbsSumMinAndMaxFromList(list);
+      expect(result).toEqual(4);
+    });
+
+    it("should return (max + min) if list doesn't contains objects and min value and max values are different and max positive and min negative (without func param)", () => {
+      const list = [-1, -2, 4];
+      const result = getAbsSumMinAndMaxFromList(list);
+      expect(result).toEqual(6);
+    });
+
+    it('should return 0 if list contains objects (without func param)', () => {
+      const obj1 = {
+        val: 1,
+      };
+      const obj2 = {
+        val: 2,
+      };
+      const obj3 = {
+        val: 3,
+      };
+      const list = [obj1, obj2, obj3];
+      const result = getAbsSumMinAndMaxFromList(list);
+      expect(result).toEqual(0);
+    });
+
+    it("should return max + min if list doesn't contains objects (without func param)", () => {
+      const list = [1, 2, 3];
+      const result = getAbsSumMinAndMaxFromList(list);
+      expect(result).toEqual(4);
+    });
+
+    it('should return max only if list contains objects and max and min are equal (with func param)', () => {
+      const obj1 = {
+        val: 2,
+      };
+      const obj2 = {
+        val: 2,
+      };
+      const obj3 = {
+        val: 2,
+      };
+      const list = [obj1, obj2, obj3];
+      const result = getAbsSumMinAndMaxFromList(list, el => el.val);
+      expect(result).toEqual(2);
+    });
+
+    it("should return max only if list doesn't contains objects and max and min are equal (without func param)", () => {
+      const list = [2, 2, 2];
+      const result = getAbsSumMinAndMaxFromList(list);
+      expect(result).toEqual(2);
     });
   });
 });

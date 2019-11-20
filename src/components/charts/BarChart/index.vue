@@ -5,6 +5,7 @@
 <script>
 import Chart from './Chart';
 import { STATISTIC_COLOR_SCHEMA } from '@/services/statisticColorSchema';
+import { getAbsSumMinAndMaxFromList } from '../../../services/utils';
 
 export default {
   name: 'BarChart',
@@ -51,7 +52,7 @@ export default {
   },
   computed: {
     yAxisStep() {
-      return Math.ceil(this.getYRangeData(this.datasets) / 10) || 1;
+      return Math.ceil(getAbsSumMinAndMaxFromList(this.datasets, el => el.yValue) / 10) || 1;
     },
     options() {
       return {
@@ -146,21 +147,6 @@ export default {
     labelTooltipList() {
       if (!this.labelTooltip) return null;
       return this.datasets.map(this.labelTooltip);
-    },
-  },
-  methods: {
-    getYRangeData(data) {
-      let maxResult = 0;
-      let minResult = 0;
-      data.forEach(record => {
-        if (record.yValue > maxResult) {
-          maxResult = record.yValue;
-        }
-        if (record.yValue < minResult) {
-          minResult = record.yValue;
-        }
-      });
-      return Math.abs(maxResult) + Math.abs(minResult);
     },
   },
 };
