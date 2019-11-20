@@ -50,6 +50,9 @@ export default {
     },
   },
   computed: {
+    yAxisStep() {
+      return Math.ceil(this.getYRangeData(this.datasets) / 10) || 1;
+    },
     options() {
       return {
         animation: {
@@ -80,8 +83,11 @@ export default {
           ],
           yAxes: [
             {
+              ticks: {
+                stepSize: this.yAxisStep,
+              },
               gridLines: {
-                display: false,
+                display: true,
               },
               scaleLabel: {
                 display: true,
@@ -140,6 +146,21 @@ export default {
     labelTooltipList() {
       if (!this.labelTooltip) return null;
       return this.datasets.map(this.labelTooltip);
+    },
+  },
+  methods: {
+    getYRangeData(data) {
+      let maxResult = 0;
+      let minResult = 0;
+      data.forEach(record => {
+        if (record.yValue > maxResult) {
+          maxResult = record.yValue;
+        }
+        if (record.yValue < minResult) {
+          minResult = record.yValue;
+        }
+      });
+      return Math.abs(maxResult) + Math.abs(minResult);
     },
   },
 };
