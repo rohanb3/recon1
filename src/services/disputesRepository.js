@@ -79,9 +79,23 @@ export const getDisputesCsvFile = filters => {
   return apiDisputes.get('/dispute/csv', { params, paramsSerializer }).then(({ data }) => data);
 };
 
+export const getDisputesResubmittionCsvFile = filters => {
+  const params = { ...filters };
+  return apiDisputes
+    .get('/dispute/resubmittion/csv', { params, paramsSerializer })
+    .then(({ data }) => data);
+};
+
 export const getClaimsCsvFile = filters => {
   const params = { ...filters };
   return apiDisputes.get('/claim/csv', { params, paramsSerializer }).then(({ data }) => data);
+};
+
+export const getClaimsResubmittionCsvFile = filters => {
+  const params = { ...filters };
+  return apiDisputes
+    .get('/claim/resubmittion/csv', { params, paramsSerializer })
+    .then(({ data }) => data);
 };
 
 export const getDisputesStatistics = filters => {
