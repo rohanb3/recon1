@@ -5,8 +5,8 @@
       class="indicator"
       :class="{
         bad,
-        good,
         average,
+        good,
       }"
     />
     <span>{{ value | percents }}</span>
