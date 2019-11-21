@@ -4,7 +4,7 @@
     <div slot="filters" class="orders-table-toolbar">
       <quick-search-filter :table-name="tableName" />
       <div class="table-filter-container">
-        <order-age-filter :table-name="tableName" />
+        <installation-age-filter :table-name="tableName" />
         <disput-age-filter :table-name="tableName" />
         <dispute-types-filter :table-name="tableName" />
         <disputes-xyz-status-filter :table-name="tableName" />
@@ -27,7 +27,6 @@
 <script>
 import TableToolbar from '@/components/TableToolbar';
 import QuickSearchFilter from '@/containers/QuickSearchFilter';
-import OrderAgeFilter from '@/containers/OrderAgeFilter';
 import FiscalPeriodFilter from './FiscalPeriodFilter';
 import CustomRangeFilter from './CustomRangeFilter';
 import SelectedRangeFilter from '@/components/SelectedRangeFilter';
@@ -37,11 +36,13 @@ import DisputesXyzStatusFilter from './DisputesXyzStatusFilter';
 import DisputeTypesFilter from './DisputeTypesFilter';
 import SpectrumDisputeStatusFilter from './SpectrumDisputeStatusFilter';
 import ExportToCvsDisputesList from './ExportToCvsDisputesList';
+import InstallationAgeFilter from './InstallationAgeFilter';
 
 export default {
   name: 'DisputesListToolbar',
   props: ['tableName'],
   components: {
+    InstallationAgeFilter,
     ExportToCvsDisputesList,
     SpectrumDisputeStatusFilter,
     DisputeTypesFilter,
@@ -50,7 +51,6 @@ export default {
     CustomRangeFilter,
     FiscalPeriodFilter,
     QuickSearchFilter,
-    OrderAgeFilter,
     TableToolbar,
     SelectedRangeFilter,
   },
