@@ -5,7 +5,7 @@
 <script>
 import Chart from './Chart';
 import { STATISTIC_COLOR_SCHEMA } from '@/services/statisticColorSchema';
-import { getAbsSumMinAndMaxFromList } from '../../../services/utils';
+import { getMinAndMaxFromList } from '../../../services/utils';
 
 export default {
   name: 'BarChart',
@@ -52,7 +52,8 @@ export default {
   },
   computed: {
     yAxisStep() {
-      return Math.ceil(getAbsSumMinAndMaxFromList(this.datasets, el => el.yValue) / 10) || 1;
+      const minMax = getMinAndMaxFromList(this.datasets, el => el.yValue);
+      return Math.ceil((minMax.min === minMax.max ? minMax.min : Math.abs(minMax.max) + Math.abs(minMax.min)) / 10) || 1;
     },
     options() {
       return {

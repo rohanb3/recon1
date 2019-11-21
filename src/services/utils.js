@@ -60,7 +60,7 @@ export function generateCSVFile(CSVFile, fileName = 'report') {
   document.body.removeChild(link);
 }
 
-export function getAbsSumMinAndMaxFromList(list, func) {
+export function getMinAndMaxFromList(list, func) {
   const init = list[0] && func ? func(list[0]) : list[0];
   let maxResult = init && !Number.isNaN(Number(init)) ? init : 0;
   let minResult = init && !Number.isNaN(Number(init)) ? init : 0;
@@ -76,5 +76,8 @@ export function getAbsSumMinAndMaxFromList(list, func) {
       minResult = value;
     }
   });
-  return maxResult === minResult ? maxResult : Math.abs(maxResult) + Math.abs(minResult);
+  return {
+    min: minResult,
+    max: maxResult,
+  };
 }
