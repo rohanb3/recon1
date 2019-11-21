@@ -3,7 +3,7 @@ import {
   getStringFromValuesByKey,
   notEmpty,
   sortingRuleForObject,
-  getMinAndMaxFromList,
+  getMinAndMax,
 } from '@/services/utils';
 
 describe('utils', () => {
@@ -175,18 +175,18 @@ describe('utils', () => {
       expect(result).toEqual(expectedResult);
     });
   });
-  describe('getMinAndMaxFromList', () => {
-    it('should return max and min equal 0 if list is empty (with func param)', () => {
+  describe('getMinAndMax', () => {
+    it('should return max and min equal undefined if list is empty (with func param)', () => {
       const list = [];
-      const actual = getMinAndMaxFromList(list, el => el.val);
-      const expected = { min: 0, max: 0 };
+      const actual = getMinAndMax(list, el => el.val);
+      const expected = { min: undefined, max: undefined };
       expect(actual).toEqual(expected);
     });
 
-    it('should return max and min equal 0 if list is empty (without func param)', () => {
+    it('should return max and min equal undefined if list is empty (without func param)', () => {
       const list = [];
-      const actual = getMinAndMaxFromList(list);
-      const expected = { min: 0, max: 0 };
+      const actual = getMinAndMax(list);
+      const expected = { min: undefined, max: undefined };
       expect(actual).toEqual(expected);
     });
 
@@ -201,7 +201,7 @@ describe('utils', () => {
         val: 3,
       };
       const list = [obj1, obj2, obj3];
-      const actual = getMinAndMaxFromList(list, el => el.val);
+      const actual = getMinAndMax(list, el => el.val);
       const expected = { min: 1, max: 3 };
       expect(actual).toEqual(expected);
     });
@@ -217,7 +217,7 @@ describe('utils', () => {
         val: -3,
       };
       const list = [obj1, obj2, obj3];
-      const actual = getMinAndMaxFromList(list, el => el.val);
+      const actual = getMinAndMax(list, el => el.val);
       const expected = { min: -3, max: -1 };
       expect(actual).toEqual(expected);
     });
@@ -233,33 +233,33 @@ describe('utils', () => {
         val: 4,
       };
       const list = [obj1, obj2, obj3];
-      const actual = getMinAndMaxFromList(list, el => el.val);
+      const actual = getMinAndMax(list, el => el.val);
       const expected = { min: -2, max: 4 };
       expect(actual).toEqual(expected);
     });
 
     it("should return (max and min) if list doesn't contains objects and min value and max values are different and both are positive (without func param)", () => {
       const list = [1, 2, 3];
-      const actual = getMinAndMaxFromList(list);
+      const actual = getMinAndMax(list);
       const expected = { min: 1, max: 3 };
       expect(actual).toEqual(expected);
     });
 
     it("should return (max and min) if list doesn't contains objects and min value and max values are different and both are negative (without func param)", () => {
       const list = [-1, -2, -3];
-      const actual = getMinAndMaxFromList(list);
+      const actual = getMinAndMax(list);
       const expected = { min: -3, max: -1 };
       expect(actual).toEqual(expected);
     });
 
     it("should return (max and min) if list doesn't contains objects and min value and max values are different and max positive and min negative (without func param)", () => {
       const list = [-1, -2, 4];
-      const actual = getMinAndMaxFromList(list);
+      const actual = getMinAndMax(list);
       const expected = { min: -2, max: 4 };
       expect(actual).toEqual(expected);
     });
 
-    it('should return min and max equal 0 if list contains objects (without func param)', () => {
+    it('should return min and max equal undefined if list contains objects (without func param)', () => {
       const obj1 = {
         val: 1,
       };
@@ -270,14 +270,14 @@ describe('utils', () => {
         val: 3,
       };
       const list = [obj1, obj2, obj3];
-      const actual = getMinAndMaxFromList(list);
-      const expected = { min: 0, max: 0 };
+      const actual = getMinAndMax(list);
+      const expected = { min: undefined, max: undefined };
       expect(actual).toEqual(expected);
     });
 
     it("should return max and min if list doesn't contains objects (without func param)", () => {
       const list = [1, 2, 3];
-      const actual = getMinAndMaxFromList(list);
+      const actual = getMinAndMax(list);
       const expected = { min: 1, max: 3 };
       expect(actual).toEqual(expected);
     });
@@ -293,14 +293,14 @@ describe('utils', () => {
         val: 2,
       };
       const list = [obj1, obj2, obj3];
-      const actual = getMinAndMaxFromList(list, el => el.val);
+      const actual = getMinAndMax(list, el => el.val);
       const expected = { min: 2, max: 2 };
       expect(actual).toEqual(expected);
     });
 
     it("should return max and min with same values if list doesn't contains objects and max and min are equal (without func param)", () => {
       const list = [2, 2, 2];
-      const actual = getMinAndMaxFromList(list);
+      const actual = getMinAndMax(list);
       const expected = { min: 2, max: 2 };
       expect(actual).toEqual(expected);
     });
