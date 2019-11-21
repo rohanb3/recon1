@@ -24,6 +24,8 @@
   "orders.age.after.installation": "Age (after Installation)",
   "orders.expected.comission": "Expected Commission %{total}",
   "orders.recieved.comisson": "Received Commission %{total}",
+  "orders.expected.commission": "Expected Commission",
+  "orders.received.commission": "Received Commission",
   "orders.difference": "Difference",
   "orders.new.dispute": "New Dispute",
   "orders.restore.draft": "Restore Draft",
