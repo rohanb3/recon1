@@ -5,8 +5,8 @@
       class="indicator"
       :class="{
         bad,
-        average,
         good,
+        average,
       }"
     />
     <span>{{ value | percents }}</span>
@@ -46,10 +46,10 @@ export default {
     average() {
       const upperBound = this.column.options ? this.column.options.average : 50;
 
-      return this.value > this.bad && this.value <= upperBound;
+      return this.value > (this.column.options.bad || 0) && this.value <= upperBound;
     },
     good() {
-      return this.value > this.average;
+      return this.value > (this.column.options.average || 50);
     },
   },
 };
