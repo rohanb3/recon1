@@ -123,7 +123,7 @@ export const SORTING_DIRECTION = {
 export const TABLE_ORDER_COLUMNS_SORTED = {
   NUMBER: 'ordernumber',
   ACCOUNT_NUMBER: 'accountnumber',
-  DISPUTE_STATUS: 'status',
+  DISPUTE_STATUS: 'disputestatusname',
   UNITS: 'orderedUnits',
   STATUS: 'orderStatusName',
   AGE_AFTER: 'creationAge',
@@ -156,6 +156,7 @@ export const TABLE_DISPUTE_COLUMNS_SORTED = {
   STATUS_DESCRIPTION: 'disputeStatusDescription',
   ORDER_NUMBER: 'ordernumber',
   ORDER_CREATION_DATE: 'orderCreationDate',
+  INSTALLATION_DATE: 'installationDate',
 };
 
 export const TABLE_DISPUTES_BY_SUBMITTERS_COLUMNS_SORTED = {

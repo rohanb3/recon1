@@ -1,6 +1,7 @@
 <template>
   <div class="disputes-table disputes_by_submitters-table">
     <table-toolbar :table-name="tableName" :title="$t('disputes.statistics.by.submitters')">
+      <selected-range-filter slot="toolbar-info" :tableName="tableName" />
       <disputes-by-submitters-table-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
     <disputes-by-submitters-badges />
@@ -36,10 +37,12 @@ import { TABLE_NAMES } from '@/constants';
 
 import dateRange from '@/filters/boundaries';
 import TableToolbar from '../components/TableToolbar';
+import SelectedRangeFilter from '../components/SelectedRangeFilter';
 
 export default {
   name: 'DisputesBySubmittersTable',
   components: {
+    SelectedRangeFilter,
     TableToolbar,
     DisputesBySubmittersTableToolbar,
     DisputesBySubmittersBadges,

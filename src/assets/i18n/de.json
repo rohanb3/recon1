@@ -24,6 +24,8 @@
   "orders.age.after.installation": "TBD Age (after Installation)",
   "orders.expected.comission": "TBD Expected Commission %{total}",
   "orders.recieved.comisson": "TBD Received Commission %{total}",
+  "orders.expected.commission": "Expected Commission",
+  "orders.received.commission": "Received Commission",
   "orders.difference": "TBD Difference",
   "orders.new.dispute": "TBD New Dispute",
   "orders.restore.draft": "TBD Restore Draft",

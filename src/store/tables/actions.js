@@ -51,7 +51,9 @@ export default {
   },
   [actionTypes.RESET_FILTERS]({ commit, dispatch }, tableName) {
     commit(mutationTypes.RESET_FILTERS, tableName);
-    return dispatch(LOAD_ITEMS, { itemType: tableName });
+    return dispatch(LOAD_ITEMS, { itemType: tableName }).finally(() => {
+      commit(mutationTypes.APPLYING_FILTERS_DONE, tableName);
+    });
   },
   [actionTypes.RESET_ALL_FILTERS]({ commit }) {
     Object.values(TABLE_NAMES).forEach(entityName => {

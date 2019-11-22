@@ -59,3 +59,25 @@ export function generateCSVFile(CSVFile, fileName = 'report') {
   URL.revokeObjectURL(link.href);
   document.body.removeChild(link);
 }
+
+export function getMinAndMax(list, func = item => item) {
+  const init = list[0] && func ? func(list[0]) : list[0];
+  let maxResult = !Number.isNaN(Number(init)) ? init : 0;
+  let minResult = !Number.isNaN(Number(init)) ? init : 0;
+  list.forEach(record => {
+    const value = func(record);
+    if (Number.isNaN(Number(value))) {
+      return;
+    }
+    if (value > maxResult) {
+      maxResult = value;
+    }
+    if (value < minResult) {
+      minResult = value;
+    }
+  });
+  return {
+    min: minResult,
+    max: maxResult,
+  };
+}

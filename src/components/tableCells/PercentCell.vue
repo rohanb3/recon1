@@ -45,11 +45,14 @@ export default {
     },
     average() {
       const upperBound = this.column.options ? this.column.options.average : 50;
+      const bad = this.column.options.bad || 0;
 
-      return this.value > this.bad && this.value <= upperBound;
+      return this.value > bad && this.value <= upperBound;
     },
     good() {
-      return this.value > this.average;
+      const average = this.column.options.average || 50;
+
+      return this.value > average;
     },
   },
 };

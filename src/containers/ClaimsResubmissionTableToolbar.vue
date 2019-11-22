@@ -34,7 +34,7 @@ import ClaimsAgeFilter from '@/containers/ClaimsAgeFilter';
 import SpectrumDisputeStatusFilter from '@/containers/SpectrumDisputeStatusFilter';
 import FiscalPeriodFilter from '@/containers/FiscalPeriodFilter';
 import ExportToCsvFileButton from '@/containers/ExportToCsvFileButton';
-import { getClaimsCsvFile } from '@/services/disputesRepository';
+import { getClaimsResubmittionCsvFile } from '@/services/disputesRepository';
 import { FILTER_NAMES } from '@/constants';
 
 export default {
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     handlerCsvFile() {
-      return getClaimsCsvFile;
+      return getClaimsResubmittionCsvFile;
     },
   },
 };
