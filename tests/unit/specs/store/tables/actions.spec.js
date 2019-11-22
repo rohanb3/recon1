@@ -319,7 +319,7 @@ describe('tables actions', () => {
     it('should reset filters', () => {
       const fakeStore = {
         commit: jest.fn(),
-        dispatch: jest.fn(),
+        dispatch: jest.fn(() => Promise.resolve()),
       };
 
       actions[RESET_FILTERS](fakeStore, itemType);
