@@ -112,7 +112,9 @@ export default {
         this.filters.createdTo,
         DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY
       ).map(date => {
-        const statistic = dailyStatistics.find(day => moment(day.xValue).diff(date) === 0);
+        const statistic = dailyStatistics.find(day => {
+          return moment(date).isSame(day.xValue, 'day');
+        });
 
         const xValue = moment(date).format(DATE_FORMATS.DAY_SHORT_MONTH);
 
