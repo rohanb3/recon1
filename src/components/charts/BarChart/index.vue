@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     yAxisStep() {
-      const {min, max} = getMinAndMax(this.datasets, el => el.yValue);
+      const { min, max } = getMinAndMax(this.datasets, el => el.yValue);
       const range = min === max ? min : Math.abs(max) + Math.abs(min);
       return Math.ceil(range / 10) || 1;
     },
