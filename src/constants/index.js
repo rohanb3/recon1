@@ -123,7 +123,7 @@ export const SORTING_DIRECTION = {
 export const TABLE_ORDER_COLUMNS_SORTED = {
   NUMBER: 'ordernumber',
   ACCOUNT_NUMBER: 'accountnumber',
-  DISPUTE_STATUS: 'status',
+  DISPUTE_STATUS: 'disputestatusname',
   UNITS: 'orderedUnits',
   STATUS: 'orderStatusName',
   AGE_AFTER: 'creationAge',
