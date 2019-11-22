@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      tableName: TABLE_NAMES.DISPUTES_BY_SUBMITTERS,
+      tableName: TABLE_NAMES.CLAIMS_BY_SUBMITTERS,
       statistics: {},
     };
   },
