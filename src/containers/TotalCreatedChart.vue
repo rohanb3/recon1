@@ -112,11 +112,8 @@ export default {
         this.filters.createdTo,
         DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY
       ).map(date => {
-
         const statistic = dailyStatistics.find(day => {
-          const formattedDate1 = moment(date).format(DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY);
-          const formattedDate2 = moment(day.xValue).format(DATE_FORMATS.FULL_YEAR_SHORT_MONTH_SHORT_DAY);
-          return formattedDate1 === formattedDate2;
+          return moment(date).isSame(day.xValue, 'day');
         });
 
         const xValue = moment(date).format(DATE_FORMATS.DAY_SHORT_MONTH);
