@@ -5,6 +5,7 @@
 <script>
 import Chart from './Chart';
 import { STATISTIC_COLOR_SCHEMA } from '@/services/statisticColorSchema';
+import { getMinAndMax } from '../../../services/utils';
 
 export default {
   name: 'BarChart',
@@ -50,6 +51,11 @@ export default {
     },
   },
   computed: {
+    yAxisStep() {
+      const { min, max } = getMinAndMax(this.datasets, el => el.yValue);
+      const range = min === max ? min : Math.abs(max) + Math.abs(min);
+      return Math.ceil(range / 10) || 1;
+    },
     options() {
       return {
         animation: {
@@ -80,8 +86,11 @@ export default {
           ],
           yAxes: [
             {
+              ticks: {
+                stepSize: this.yAxisStep,
+              },
               gridLines: {
-                display: false,
+                display: true,
               },
               scaleLabel: {
                 display: true,
