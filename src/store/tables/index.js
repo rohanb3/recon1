@@ -83,6 +83,7 @@ const state = {
   },
   [TABLE_NAMES.RECEIVED_COMMISSION]: {
     columns: getReceivedCommissionTableColumns(),
+    applyingFilters: false,
   },
 };
 
