@@ -9,7 +9,7 @@ class CommissionLoader {
   async loadItems({ commit }, { itemType, id }) {
     const { getAll } = getEntityActions(itemType);
 
-    this.result = await getAll(id);
+    this.result = id ? await getAll(id) : [];
 
     commit(SET_RECEIVED_COMMISSION_DATA, { itemType, data: this.result, allItemsLoaded: true });
   }
