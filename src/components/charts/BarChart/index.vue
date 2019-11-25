@@ -7,6 +7,8 @@ import Chart from './Chart';
 import { STATISTIC_COLOR_SCHEMA } from '@/services/statisticColorSchema';
 import { getMinAndMax } from '../../../services/utils';
 
+const NEW_LINE = '↵';
+
 export default {
   name: 'BarChart',
   components: {
@@ -110,18 +112,20 @@ export default {
           bodyFontColor: STATISTIC_COLOR_SCHEMA.BROWN,
           callbacks: {
             title: (() => {
-              const self = this;
-              return function customTitleTooltip([tooltipItem], secondParameter) {
+              function processTooltip(tooltipItem, dataSets) {
                 let tooltip =
-                  secondParameter &&
-                  secondParameter.datasets &&
-                  secondParameter.datasets[0] &&
-                  secondParameter.datasets[0].customTooltips &&
-                  secondParameter.datasets[0].customTooltips[tooltipItem.index];
+                  dataSets &&
+                  dataSets[0] &&
+                  dataSets[0].customTooltips &&
+                  dataSets[0].customTooltips[tooltipItem.index];
                 tooltip = tooltip ? tooltip.replace(/↵/g, '\n') : '';
+                return tooltip;
+              }
+              const self = this;
+              return function customTitleTooltip([tooltipItem], { datasets }) {
                 const tooltipCustom = {
                   ...tooltipItem,
-                  label: `${tooltipItem.label}\n${tooltip}`,
+                  label: `${tooltipItem.label}\n${processTooltip(tooltipItem, datasets)}`,
                 };
                 return self.titleTooltip(tooltipCustom);
               };
@@ -164,21 +168,15 @@ export default {
     },
     customTooltipList() {
       function processCustomLabelData(curr) {
-        if (!curr) return null;
         const approved =
-          curr.nameOfConfirmApprovedDisputes &&
-          `${curr.nameOfConfirmApprovedDisputes}: ${curr.totalConfirmApprovedDisputes}`;
+          (curr.nameOfConfirmApprovedDisputes &&
+            `${curr.nameOfConfirmApprovedDisputes}: ${curr.totalConfirmApprovedDisputes}${NEW_LINE}`) ||
+          '';
         const rejected =
-          curr.nameOfConfirmRejectedDisputes &&
-          `${curr.nameOfConfirmRejectedDisputes}: ${curr.totalConfirmRejectedDisputes}`;
-        let res = '';
-        if (approved) {
-          res += `${approved}↵`;
-        }
-        if (rejected) {
-          res += `${rejected}↵`;
-        }
-        return res;
+          (curr.nameOfConfirmRejectedDisputes &&
+            `${curr.nameOfConfirmRejectedDisputes}: ${curr.totalConfirmRejectedDisputes}${NEW_LINE}`) ||
+          '';
+        return approved + rejected;
       }
       return this.datasets.map(processCustomLabelData);
     },

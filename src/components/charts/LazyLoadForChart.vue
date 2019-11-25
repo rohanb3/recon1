@@ -39,7 +39,17 @@ export default {
   },
   computed: {
     pieceOfData() {
-      return slidingWindow(this.dataSets, this.offset, this.numberDisplayedItems);
+      function processDataSet(data) {
+        let newData = data;
+        if (Number.isNaN(Number(data.yValue))) {
+          newData = Object.assign({}, data, { yValue: 0 });
+        }
+        return newData;
+      }
+      const processedDataSet = this.dataSets
+        .map(data => (data === null || data === undefined ? {} : data))
+        .map(processDataSet);
+      return slidingWindow(processedDataSet, this.offset, this.numberDisplayedItems);
     },
     maxWindowOffset() {
       return this.dataSets.length - this.numberDisplayedItems;
