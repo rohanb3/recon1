@@ -53,7 +53,7 @@ export default {
   computed: {
     yAxisStep() {
       const { min, max } = getMinAndMax(
-        this.datasets.map(dat => (dat.yValue ? dat : Object.assign({}, dat, { yValue: 0 }))),
+        this.datasets.filter(data => !Number.isNaN(Number(data.yValue))),
         el => el.yValue
       );
       const range = min === max ? min : Math.abs(max) + Math.abs(min);
