@@ -111,8 +111,19 @@ export default {
           callbacks: {
             title: (() => {
               const self = this;
-              return function customTitleTooltip([tooltipItem]) {
-                return self.titleTooltip(tooltipItem);
+              return function customTitleTooltip([tooltipItem], secondParameter) {
+                let tooltip =
+                  secondParameter &&
+                  secondParameter.datasets &&
+                  secondParameter.datasets[0] &&
+                  secondParameter.datasets[0].customTooltips &&
+                  secondParameter.datasets[0].customTooltips[tooltipItem.index];
+                tooltip = tooltip ? tooltip.replace(/↵/g, '\n') : '';
+                const tooltipCustom = {
+                  ...tooltipItem,
+                  label: `${tooltipItem.label}\n${tooltip}`,
+                };
+                return self.titleTooltip(tooltipCustom);
               };
             })(),
             label(tooltipItem, data) {
@@ -136,6 +147,7 @@ export default {
             hoverBackgroundColor: STATISTIC_COLOR_SCHEMA.BLUE,
             data: this.yValues,
             labelTooltips: this.labelTooltipList,
+            customTooltips: this.customTooltipList,
           },
         ],
       };
@@ -149,6 +161,26 @@ export default {
     labelTooltipList() {
       if (!this.labelTooltip) return null;
       return this.datasets.map(this.labelTooltip);
+    },
+    customTooltipList() {
+      function processCustomLabelData(curr) {
+        if (!curr) return null;
+        const approved =
+          curr.nameOfConfirmApprovedDisputes &&
+          `${curr.nameOfConfirmApprovedDisputes}: ${curr.totalConfirmApprovedDisputes}`;
+        const rejected =
+          curr.nameOfConfirmRejectedDisputes &&
+          `${curr.nameOfConfirmRejectedDisputes}: ${curr.totalConfirmRejectedDisputes}`;
+        let res = '';
+        if (approved) {
+          res += `${approved}↵`;
+        }
+        if (rejected) {
+          res += `${rejected}↵`;
+        }
+        return res;
+      }
+      return this.datasets.map(processCustomLabelData);
     },
   },
 };
