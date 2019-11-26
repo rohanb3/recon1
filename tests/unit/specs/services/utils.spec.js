@@ -4,6 +4,7 @@ import {
   notEmpty,
   sortingRuleForObject,
   getMinAndMax,
+  removeLastNewLineSymbol,
 } from '@/services/utils';
 
 describe('utils', () => {
@@ -302,6 +303,28 @@ describe('utils', () => {
       const list = [2, 2, 2];
       const actual = getMinAndMax(list);
       const expected = { min: 2, max: 2 };
+      expect(actual).toEqual(expected);
+    });
+  });
+  describe('removeLastNewLineSymbol', () => {
+    it('should remove last new line symbol', () => {
+      const str = 'Sword in stone\n';
+      const actual = removeLastNewLineSymbol(str);
+      const expected = 'Sword in stone';
+      expect(actual).toEqual(expected);
+    });
+
+    it('should not remove last symbol if it is not new line', () => {
+      const str = 'Bow in hands';
+      const actual = removeLastNewLineSymbol(str);
+      const expected = 'Bow in hands';
+      expect(actual).toEqual(expected);
+    });
+
+    it('should not remove new line symbols in the middle of string', () => {
+      const str = 'Sun\nMoon\nStars\nBars\n';
+      const actual = removeLastNewLineSymbol(str);
+      const expected = 'Sun\nMoon\nStars\nBars';
       expect(actual).toEqual(expected);
     });
   });

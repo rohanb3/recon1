@@ -81,3 +81,10 @@ export function getMinAndMax(list, func = item => item) {
     max: maxResult,
   };
 }
+
+export function removeLastNewLineSymbol(str) {
+  if (str && str.lastIndexOf('\n') === str.length - 1) {
+    return str.substring(0, str.length - 1);
+  }
+  return str;
+}

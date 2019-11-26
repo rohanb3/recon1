@@ -5,9 +5,9 @@
 <script>
 import Chart from './Chart';
 import { STATISTIC_COLOR_SCHEMA } from '@/services/statisticColorSchema';
-import { getMinAndMax } from '../../../services/utils';
+import { getMinAndMax, removeLastNewLineSymbol } from '../../../services/utils';
 
-const NEW_LINE = '↵';
+const NEW_LINE_SYMBOL = '↵';
 
 export default {
   name: 'BarChart',
@@ -118,8 +118,9 @@ export default {
                   dataSets[0] &&
                   dataSets[0].customTooltips &&
                   dataSets[0].customTooltips[tooltipItem.index];
-                tooltip = tooltip ? tooltip.replace(/↵/g, '\n') : '';
-                return tooltip;
+                const newLineRegExp = new RegExp(NEW_LINE_SYMBOL, 'g');
+                tooltip = tooltip ? tooltip.replace(newLineRegExp, '\n') : '';
+                return removeLastNewLineSymbol(tooltip);
               }
               const self = this;
               return function customTitleTooltip([tooltipItem], { datasets }) {
@@ -127,7 +128,7 @@ export default {
                   ...tooltipItem,
                   label: `${tooltipItem.label}\n${processTooltip(tooltipItem, datasets)}`,
                 };
-                return self.titleTooltip(tooltipCustom);
+                return removeLastNewLineSymbol(self.titleTooltip(tooltipCustom));
               };
             })(),
             label(tooltipItem, data) {
@@ -170,11 +171,11 @@ export default {
       function processCustomLabelData(curr) {
         const approved =
           (curr.nameOfConfirmApprovedDisputes &&
-            `${curr.nameOfConfirmApprovedDisputes}: ${curr.totalConfirmApprovedDisputes}${NEW_LINE}`) ||
+            `${curr.nameOfConfirmApprovedDisputes}: ${curr.totalConfirmApprovedDisputes}${NEW_LINE_SYMBOL}`) ||
           '';
         const rejected =
           (curr.nameOfConfirmRejectedDisputes &&
-            `${curr.nameOfConfirmRejectedDisputes}: ${curr.totalConfirmRejectedDisputes}${NEW_LINE}`) ||
+            `${curr.nameOfConfirmRejectedDisputes}: ${curr.totalConfirmRejectedDisputes}${NEW_LINE_SYMBOL}`) ||
           '';
         return approved + rejected;
       }

@@ -41,14 +41,12 @@ export default {
     pieceOfData() {
       function processDataSet(data) {
         let newData = data;
-        if (Number.isNaN(Number(data.yValue))) {
+        if (!data.yValue) {
           newData = Object.assign({}, data, { yValue: 0 });
         }
         return newData;
       }
-      const processedDataSet = this.dataSets
-        .map(data => (data === null || data === undefined ? {} : data))
-        .map(processDataSet);
+      const processedDataSet = this.dataSets.map(processDataSet);
       return slidingWindow(processedDataSet, this.offset, this.numberDisplayedItems);
     },
     maxWindowOffset() {
