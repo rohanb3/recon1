@@ -39,7 +39,15 @@ export default {
   },
   computed: {
     pieceOfData() {
-      return slidingWindow(this.dataSets, this.offset, this.numberDisplayedItems);
+      function processDataSet(data) {
+        let newData = data;
+        if (!data.yValue) {
+          newData = Object.assign({}, data, { yValue: 0 });
+        }
+        return newData;
+      }
+      const processedDataSet = this.dataSets.map(processDataSet);
+      return slidingWindow(processedDataSet, this.offset, this.numberDisplayedItems);
     },
     maxWindowOffset() {
       return this.dataSets.length - this.numberDisplayedItems;

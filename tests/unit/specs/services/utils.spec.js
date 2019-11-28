@@ -4,6 +4,7 @@ import {
   notEmpty,
   sortingRuleForObject,
   getMinAndMax,
+  removeLastNewLineSymbol,
 } from '@/services/utils';
 
 describe('utils', () => {
@@ -176,17 +177,17 @@ describe('utils', () => {
     });
   });
   describe('getMinAndMax', () => {
-    it('should return max and min equal 0 if list is empty (with func param)', () => {
+    it('should return max and min equal undefined if list is empty (with func param)', () => {
       const list = [];
       const actual = getMinAndMax(list, el => el.val);
-      const expected = { min: 0, max: 0 };
+      const expected = { min: undefined, max: undefined };
       expect(actual).toEqual(expected);
     });
 
-    it('should return max and min equal 0 if list is empty (without func param)', () => {
+    it('should return max and min equal undefined if list is empty (without func param)', () => {
       const list = [];
       const actual = getMinAndMax(list);
-      const expected = { min: 0, max: 0 };
+      const expected = { min: undefined, max: undefined };
       expect(actual).toEqual(expected);
     });
 
@@ -259,7 +260,7 @@ describe('utils', () => {
       expect(actual).toEqual(expected);
     });
 
-    it('should return min and max equal 0 if list contains objects (without func param)', () => {
+    it('should return min and max equal undefined if list contains objects (without func param)', () => {
       const obj1 = {
         val: 1,
       };
@@ -271,7 +272,7 @@ describe('utils', () => {
       };
       const list = [obj1, obj2, obj3];
       const actual = getMinAndMax(list);
-      const expected = { min: 0, max: 0 };
+      const expected = { min: undefined, max: undefined };
       expect(actual).toEqual(expected);
     });
 
@@ -302,6 +303,28 @@ describe('utils', () => {
       const list = [2, 2, 2];
       const actual = getMinAndMax(list);
       const expected = { min: 2, max: 2 };
+      expect(actual).toEqual(expected);
+    });
+  });
+  describe('removeLastNewLineSymbol', () => {
+    it('should remove last new line symbol', () => {
+      const str = 'Sword in stone\n';
+      const actual = removeLastNewLineSymbol(str);
+      const expected = 'Sword in stone';
+      expect(actual).toEqual(expected);
+    });
+
+    it('should not remove last symbol if it is not new line', () => {
+      const str = 'Bow in hands';
+      const actual = removeLastNewLineSymbol(str);
+      const expected = 'Bow in hands';
+      expect(actual).toEqual(expected);
+    });
+
+    it('should not remove new line symbols in the middle of string', () => {
+      const str = 'Sun\nMoon\nStars\nBars\n';
+      const actual = removeLastNewLineSymbol(str);
+      const expected = 'Sun\nMoon\nStars\nBars';
       expect(actual).toEqual(expected);
     });
   });

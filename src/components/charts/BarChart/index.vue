@@ -5,7 +5,9 @@
 <script>
 import Chart from './Chart';
 import { STATISTIC_COLOR_SCHEMA } from '@/services/statisticColorSchema';
-import { getMinAndMax } from '../../../services/utils';
+import { getMinAndMax, removeLastNewLineSymbol } from '../../../services/utils';
+
+const NEW_LINE_SYMBOL = '↵';
 
 export default {
   name: 'BarChart',
@@ -110,9 +112,23 @@ export default {
           bodyFontColor: STATISTIC_COLOR_SCHEMA.BROWN,
           callbacks: {
             title: (() => {
+              function processTooltip(tooltipItem, dataSets) {
+                let tooltip =
+                  dataSets &&
+                  dataSets[0] &&
+                  dataSets[0].customTooltips &&
+                  dataSets[0].customTooltips[tooltipItem.index];
+                const newLineRegExp = new RegExp(NEW_LINE_SYMBOL, 'g');
+                tooltip = tooltip ? tooltip.replace(newLineRegExp, '\n') : '';
+                return removeLastNewLineSymbol(tooltip);
+              }
               const self = this;
-              return function customTitleTooltip([tooltipItem]) {
-                return self.titleTooltip(tooltipItem);
+              return function customTitleTooltip([tooltipItem], { datasets }) {
+                const tooltipCustom = {
+                  ...tooltipItem,
+                  label: `${tooltipItem.label}\n${processTooltip(tooltipItem, datasets)}`,
+                };
+                return removeLastNewLineSymbol(self.titleTooltip(tooltipCustom));
               };
             })(),
             label(tooltipItem, data) {
@@ -136,6 +152,7 @@ export default {
             hoverBackgroundColor: STATISTIC_COLOR_SCHEMA.BLUE,
             data: this.yValues,
             labelTooltips: this.labelTooltipList,
+            customTooltips: this.customTooltipList,
           },
         ],
       };
@@ -149,6 +166,20 @@ export default {
     labelTooltipList() {
       if (!this.labelTooltip) return null;
       return this.datasets.map(this.labelTooltip);
+    },
+    customTooltipList() {
+      function processCustomLabelData(curr) {
+        const approved =
+          (curr.nameOfConfirmApprovedDisputes &&
+            `${curr.nameOfConfirmApprovedDisputes}: ${curr.totalConfirmApprovedDisputes}${NEW_LINE_SYMBOL}`) ||
+          '';
+        const rejected =
+          (curr.nameOfConfirmRejectedDisputes &&
+            `${curr.nameOfConfirmRejectedDisputes}: ${curr.totalConfirmRejectedDisputes}${NEW_LINE_SYMBOL}`) ||
+          '';
+        return approved + rejected;
+      }
+      return this.datasets.map(processCustomLabelData);
     },
   },
 };
