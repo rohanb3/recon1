@@ -12,8 +12,10 @@ export default {
     };
   },
   mounted() {
-    const filters = Object.entries(this.$route.params).map(([name, value]) => ({ name, value }));
-    this.applyFilters(...filters);
+    if (this.initialLoad) {
+      const filters = Object.entries(this.$route.params).map(([name, value]) => ({ name, value }));
+      this.applyFilters(...filters);
+    }
   },
   beforeDestroy() {
     if (this.resetDataBeforeLeave) {
