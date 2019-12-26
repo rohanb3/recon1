@@ -10,6 +10,7 @@
       @bottomReached="checkAndLoadItems"
       @columnsResized="onColumnsResized"
       @columnsReordered="onColumnsReordered"
+      horisontalScroll
     >
       <component
         slot="header-cell"
@@ -21,6 +22,7 @@
         :column="headerCell.column"
         :sortingField="sortingField"
         :sortDirection="sortDirection"
+        :table-name="tableName"
         @sortDirectionChanged="onSortDirectionChanged"
       />
       <div slot="row" slot-scope="row" :class="{ blurred: applyingFilters }">
@@ -58,6 +60,8 @@ import lazyLoadTable from '@/mixins/lazyLoadTable';
 import DefaultHeaderCell from '@/components/tableHeaderCells/DefaultHeaderCell';
 import SortingHeaderCell from '@/components/tableHeaderCells/SortingHeaderCell';
 
+import CommissionHeaderCell from '@/containers/CommissionHeaderCell';
+
 export default {
   name: 'LazyLoadTable',
   components: {
@@ -66,6 +70,7 @@ export default {
     TableLoader,
     DefaultHeaderCell,
     SortingHeaderCell,
+    CommissionHeaderCell,
   },
   mixins: [configurableColumnsTable, lazyLoadTable],
   props: {
@@ -99,6 +104,7 @@ export default {
       headerComponentsHash: {
         default: 'DefaultHeaderCell',
         sortingHeader: 'SortingHeaderCell',
+        commissionHeader: 'CommissionHeaderCell',
       },
     };
   },

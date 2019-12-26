@@ -36,10 +36,22 @@ export const DISPUTE_SECTION_NAME = {
   RE_SENT_DISPUTES: 'Re-sent disputes',
 };
 
+export const CLAIM_SECTION_NAME = {
+  CONFIRM_REJECTED: 'Confirm rejected claims',
+  CONFIRM_APPROVED: 'Confirm approved claims',
+  RE_SENT_CLAIMS: 'Re-sent claims',
+};
+
 export const DISPUTE_TYPES_ID = {
   ORDER_INSTALLED: '6630cffe-777b-4bca-90f3-50b4910ff3bb',
   EXPECTED_COMMISION: '79eb1607-2a85-42ed-a409-4f6c15b06fe3',
   MISSING_TRANSACTION: 'e0e82612-96d7-4602-bc24-56436a25240c',
+};
+
+export const ORDERS_DISPUTE_TYPES = {
+  ORDER_INSTALLED_WITHOUT_COMMISSION_RECEIVED: 'OrderInstalledWithoutCommissionReceived',
+  COMMISSION_RECEIVED_LESS_EXPECTED: 'CommissionReceivedLessExpected',
+  COMMISSION_RECEIVED_MORE_EXPECTED: 'CommissionReceivedMoreExpected',
 };
 
 export const ORDER_STATUSES_NAME = {
@@ -50,6 +62,10 @@ export const ORDER_STATUSES_NAME = {
   ONLINE_ORDER: 'OnlineOrder',
   PENDING: 'Pending',
   CALL_IN_ORDER: 'CallInOrder',
+  PAID: 'Paid',
+  UNDEFINED_ORDER_STATUS: 'Undefined OrderStatus',
+  CHARGEBACK: 'Chargeback',
+  SPECTRUM_PENDING: 'SpectrumPending',
 };
 
 export const ORDER_STATUS_NAME_TRANSLATION_KEYS = {
@@ -60,6 +76,32 @@ export const ORDER_STATUS_NAME_TRANSLATION_KEYS = {
   [ORDER_STATUSES_NAME.ONLINE_ORDER]: 'orders.order.status.online.order',
   [ORDER_STATUSES_NAME.PENDING]: 'orders.order.status.pending',
   [ORDER_STATUSES_NAME.CALL_IN_ORDER]: 'orders.order.status.call.in.order',
+  [ORDER_STATUSES_NAME.PAID]: 'orders.order.status.paid',
+  [ORDER_STATUSES_NAME.UNDEFINED_ORDER_STATUS]: 'undefined.order.status',
+  [ORDER_STATUSES_NAME.CHARGEBACK]: 'chargeback',
+  [ORDER_STATUSES_NAME.SPECTRUM_PENDING]: 'spectrum.pending',
+};
+
+export const CLAIMS_STATUSES_NAME = {
+  NOT_CANCELED: 'Order is not canceled',
+  MISSING_TRANSACTION: 'Missing Transaction',
+};
+
+export const CLAIMS_STATUS_NAME_TRANSLATION_KEYS = {
+  [CLAIMS_STATUSES_NAME.NOT_CANCELED]: 'disputes.status.not.canceled',
+  [CLAIMS_STATUSES_NAME.MISSING_TRANSACTION]: 'disputes.status.missing.transaction',
+};
+
+export const DISPUTES_STATUSES_NAME = {
+  MORE_EXPECTED: 'Commission received is more than expected',
+  LESS_EXPECTED: 'Commission received is less than expected',
+  COMMISSION_NOT_RECEIVED: 'Order was installed but commission is not received',
+};
+
+export const DISPUTES_STATUS_NAME_TRANSLATION_KEYS = {
+  [DISPUTES_STATUSES_NAME.MORE_EXPECTED]: 'commission.received.more.expected',
+  [DISPUTES_STATUSES_NAME.LESS_EXPECTED]: 'commission.received.less.expected',
+  [DISPUTES_STATUSES_NAME.COMMISSION_NOT_RECEIVED]: 'order.installed.without.commission.received',
 };
 
 export const RESPONSE_STATUSES = {
@@ -81,7 +123,7 @@ export const SORTING_DIRECTION = {
 export const TABLE_ORDER_COLUMNS_SORTED = {
   NUMBER: 'ordernumber',
   ACCOUNT_NUMBER: 'accountnumber',
-  DISPUTE_STATUS: 'disputeStatusName',
+  DISPUTE_STATUS: 'disputestatusname',
   UNITS: 'orderedUnits',
   STATUS: 'orderStatusName',
   AGE_AFTER: 'creationAge',
@@ -92,6 +134,7 @@ export const TABLE_ORDER_COLUMNS_SORTED = {
   BUNDLE_NAME: 'bundleName',
   INSTALLED_UNITS: 'installedUnits',
   CREATED_ON: 'createdOn',
+  INSTALLATION_DATE: 'installationDate',
 };
 
 export const TABLE_DISPUTE_COLUMNS_SORTED = {
@@ -104,15 +147,16 @@ export const TABLE_DISPUTE_COLUMNS_SORTED = {
   CREATOR_NAME: 'creatorName',
   CREATION_DATE: 'disputecreationdate',
   SERVICE_NAME: 'serviceName',
-  TYPE: 'disputeType',
+  TYPE: 'type',
   AGE_AFTER_ORDER: 'ageAfterOrder',
   AGE_AFTER_INSTALLATION: 'ageAfterInstallation',
   AGE_AFTER_DISPUT: 'ageAfterDispute',
   XYZ_STATUS: 'xyzStatus',
-  STATUS: 'disputeStatus',
+  STATUS: 'status',
   STATUS_DESCRIPTION: 'disputeStatusDescription',
   ORDER_NUMBER: 'ordernumber',
   ORDER_CREATION_DATE: 'orderCreationDate',
+  INSTALLATION_DATE: 'installationDate',
 };
 
 export const TABLE_DISPUTES_BY_SUBMITTERS_COLUMNS_SORTED = {
@@ -135,10 +179,23 @@ export const TABLE_DISPUTES_BY_SUBMITTERS_COLUMNS_SORTED = {
 export const ENTITY_TYPES = {
   ORDERS: 'ORDERS',
   DISPUTES: 'DISPUTES',
-  RESUBMISSION: 'RESUBMISSION',
-  DISPUTES_BY_SUBMITTERS: 'DISPUTES_BY_SUBMITTERS',
-  DISPUTES_DASHBOARD: 'DISPUTES_DASHBOARD',
   DISPUTE_HISTORY: 'DISPUTE_HISTORY',
+  CLAIMS: 'CLAIMS',
+  CLAIM_HISTORY: 'CLAIM_HISTORY',
+};
+
+export const TABLE_NAMES = {
+  CLAIMS_ORDERS: 'CLAIMS_ORDERS',
+  CLAIMS_DASHBOARD: 'CLAIMS_DASHBOARD',
+  CLAIMS_BY_SUBMITTERS: 'CLAIMS_BY_SUBMITTERS',
+  CLAIMS_RESUBMISSION: 'CLAIMS_RESUBMISSION',
+  DISPUTES_ORDERS: 'DISPUTES_ORDERS',
+  DISPUTES_DASHBOARD: 'DISPUTES_DASHBOARD',
+  CLAIMS_DISPUTES: 'CLAIMS_DISPUTES',
+  DISPUTES_LIST: 'DISPUTES_LIST',
+  DISPUTES_BY_SUBMITTERS: 'DISPUTES_BY_SUBMITTERS',
+  DISPUTES_RESUBMISSION: 'DISPUTES_RESUBMISSION',
+  RECEIVED_COMMISSION: 'RECEIVED_COMMISSION',
 };
 
 export const DISPUTES_BY_SUBMITTERS_STATISTICS_TYPES = {
@@ -147,8 +204,7 @@ export const DISPUTES_BY_SUBMITTERS_STATISTICS_TYPES = {
 };
 
 export const FILTER_NAMES = {
-  SEARCH_ORDERS: 'Search',
-  SEARCH_DISPUTES: 'SearchPhrase',
+  SEARCH: 'Search',
   SORT: 'SortBy',
   ORDER: 'SortOrder',
   ORDER_STATUS: 'OrderStatusIds',
@@ -162,25 +218,32 @@ export const FILTER_NAMES = {
   FISCAL_PERIOD_ID: 'FiscalPeriodId',
   FISCAL_PERIOD_TO: 'FiscalPeriodTo',
   FISCAL_PERIOD: 'FiscalPeriod',
-  DISPUTE_AGE_FROM: 'DisputeAgeFrom',
-  DISPUTE_AGE_TO: 'DisputeAgeTo',
+  CREATION_AGE_FROM: 'CreationAgeFrom',
+  CREATION_AGE_TO: 'CreationAgeTo',
   DISPUTE_STATUS_IDS: 'DisputeStatusIds',
   XYZ_STATUS_IDS: 'XYZStatusIds',
   SPECTRUM_STATUS_IDS: 'SpectrumStatusIds',
-  DISPUTE_ID: 'disputeId',
+  ID: 'id',
+  INSTALLATION_DATE_FROM: 'InstallationDateFrom',
+  INSTALLATION_DATE_TO: 'InstallationDateTo',
+  TYPE: 'Type',
+  CLAIMS_TYPE_IDS: 'ClaimTypeIds',
+  CLAIMS_STATUS_IDS: 'ClaimStatusIds',
 };
 
 export const TABLE_COLUMN_ID_NAMES = {
-  [ENTITY_TYPES.ORDERS]: 'orderId',
+  [TABLE_NAMES.CLAIMS_ORDERS]: 'orderId',
+  [TABLE_NAMES.DISPUTES_ORDERS]: 'orderId',
 };
 
 export const ROUTE_NAMES = {
-  SELECT_ORDER: 'select-order',
   EDIT_DISPUTE: 'edit-dispute',
-  CREAT_DISPUTE: 'creat-dispute',
+  CREATE_DISPUTE: 'create-dispute',
   DISPUTE_LIST: 'dispute-list',
+  CLAIMS_BY_SUBMITTERS: 'claims-by-submitters',
   DISPUTES_BY_SUBMITTERS: 'disputes-by-submitters',
-  RESUBMISSION_TABLE: 'resubmission-table',
+  CLAIMS_RESUBMISSION: 'claims-resubmission',
+  DISPUTES_RESUBMISSION: 'disputes-resubmission',
   LOGIN: 'login',
   LOGOUT: 'logout',
   PASSWORD_RECOVERY: 'password-recovery',
@@ -188,6 +251,12 @@ export const ROUTE_NAMES = {
   RESET_PASSWORD: 'reset-password',
   MAIN_PAGE: 'main-page',
   DISPUTES_DASHBOARD: 'disputes-dashboard',
+  CLAIMS_DASHBOARD: 'claims-dashboard',
+  CLAIMS_ORDERS: 'claims-orders',
+  DISPUTES_ORDERS: 'disputes-orders',
+  CLAIMS_DISPUTES: 'claims-list',
+  EDIT_CLAIM: 'edit-claim',
+  CREATE_CLAIM: 'create-claim',
 };
 
 export const ROLE_TYPES = {
@@ -220,4 +289,23 @@ export const SCOPES = {
   AUTHORIZATION: 'xyzies.authorization.reconciliation.web',
   TEAM_STATISTIC: 'xyzies.reconciliation.web.teamstatistic',
   ORDER_READ_WITH_EXPECTED_COMISSION: 'xyzies.reconciliation.web.order.read.systemadmin',
+};
+
+export const DISPUTE_COMPUTED_STATUSES = {
+  XYZ_WAITING_FOR_ANSWER: [DISPUTE_STATUSES_ID.APPROVED, DISPUTE_STATUSES_ID.REJECTED],
+  XYZ_RESENT: [DISPUTE_STATUSES_ID.RE_SENT],
+  XYZ_REJECTED: [DISPUTE_STATUSES_ID.CONFIRM_REJECTED],
+  REJECTED: [DISPUTE_STATUSES_ID.REJECTED],
+  XYZ_CONFIRMED: [DISPUTE_STATUSES_ID.CONFIRM_APPROVED, DISPUTE_STATUSES_ID.CONFIRM_REJECTED],
+  XYZ_APPROVED: [DISPUTE_STATUSES_ID.CONFIRM_APPROVED],
+  XYZ_PENDING: [DISPUTE_STATUSES_ID.SENT, DISPUTE_STATUSES_ID.IN_PROGRESS],
+  SPECTRUM_REJECTED: [
+    DISPUTE_STATUSES_ID.CONFIRM_REJECTED,
+    DISPUTE_STATUSES_ID.RE_SENT,
+    DISPUTE_STATUSES_ID.REJECTED,
+  ],
+  SPECTRUM_APPROVED: [DISPUTE_STATUSES_ID.APPROVED, DISPUTE_STATUSES_ID.CONFIRM_APPROVED],
+  SPECTRUM_IN_PROGRESS: [DISPUTE_STATUSES_ID.IN_PROGRESS],
+  SPECTRUM_NEW: [DISPUTE_STATUSES_ID.SENT],
+  SPECTRUM_RESENT: [DISPUTE_STATUSES_ID.RE_SENT],
 };

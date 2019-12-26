@@ -13,6 +13,7 @@ import debounce from 'lodash.debounce';
 import { mapGetters } from 'vuex';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 import QuickSearch from '@/components/QuickSearch';
+import contextRageFilterData from '@/mixins/contextRageFilterData';
 
 const SEARCH_TIMEOUT = 500;
 
@@ -23,11 +24,8 @@ export default {
       type: String,
       required: true,
     },
-    filterName: {
-      type: String,
-      required: true,
-    },
   },
+  mixins: [contextRageFilterData],
   components: {
     QuickSearch,
   },
@@ -37,7 +35,7 @@ export default {
       return this.tableData(this.tableName).filters;
     },
     selectedPhrase() {
-      return this.filters[this.filterName] || '';
+      return this.filters[this.searchFilterName] || '';
     },
   },
   methods: {
@@ -46,7 +44,7 @@ export default {
         tableName: this.tableName,
         filters: [
           {
-            name: this.filterName,
+            name: this.searchFilterName,
             value: searchPhrase,
           },
         ],

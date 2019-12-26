@@ -14,9 +14,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import HeaderUserMenu from '@/containers/HeaderUserMenu';
 import { SET_TINY_SIDEBAR_STATUS } from '@/store/ui-state/mutationTypes';
-import { mapState } from 'vuex';
 
 export default {
   name: 'AppHeader',

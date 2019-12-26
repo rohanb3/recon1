@@ -13,6 +13,7 @@
 import TableDatesEditor from '@/components/TableDatesEditor';
 import { FILTER_NAMES } from '@/constants';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
+import contextRageFilterData from '@/mixins/contextRageFilterData';
 
 export default {
   name: 'CustomRangeFilter',
@@ -25,6 +26,7 @@ export default {
       required: true,
     },
   },
+  mixins: [contextRageFilterData],
   computed: {
     filters() {
       return this.tableData.filters || {};
@@ -33,10 +35,10 @@ export default {
       return this.$store.state.tables[this.tableName] || {};
     },
     startDate() {
-      return this.filters[FILTER_NAMES.CREATED_FROM];
+      return this.filters[this.fromFilterName];
     },
     endDate() {
-      return this.filters[FILTER_NAMES.CREATED_TO];
+      return this.filters[this.toFilterName];
     },
     getTableName() {
       return this.tableName.toLowerCase();
@@ -48,11 +50,11 @@ export default {
         tableName: this.tableName,
         filters: [
           {
-            name: FILTER_NAMES.CREATED_FROM,
+            name: this.fromFilterName,
             value: value.startDate,
           },
           {
-            name: FILTER_NAMES.CREATED_TO,
+            name: this.toFilterName,
             value: value.endDate,
           },
           {
@@ -72,11 +74,11 @@ export default {
         tableName: this.tableName,
         filters: [
           {
-            name: FILTER_NAMES.CREATED_FROM,
+            name: this.fromFilterName,
             value: '',
           },
           {
-            name: FILTER_NAMES.CREATED_TO,
+            name: this.toFilterName,
             value: '',
           },
         ],

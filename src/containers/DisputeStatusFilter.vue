@@ -45,6 +45,10 @@ export default {
       type: Array,
       required: true,
     },
+    filterField: {
+      type: String,
+      required: true,
+    },
   },
   components: {
     TableFilter,
@@ -53,6 +57,9 @@ export default {
     return {
       [this.filterName]: this.displayedOptions,
     };
+  },
+  mounted() {
+    this.$nextTick().then(this.displayPreselectItems);
   },
   computed: {
     disputeStatusList() {
@@ -73,6 +80,7 @@ export default {
           name: this.filterName,
           value: this.selectedStatusIds(selectedItems),
         },
+        filterField: this.filterField,
       };
       this.$store.dispatch(APPLY_DISPUTE_STATUS_FILTER, data);
     },

@@ -2,11 +2,26 @@ import disputeStatusAutocomplete from '@/mixins/disputeStatusAutocomplete';
 
 describe('disputeStatusAutocomplete', () => {
   describe('disputeStatusAutocomplete: computed', () => {
+    describe('disputeId', () => {
+      it('should return id', () => {
+        const mockedThis = {
+          item: {
+            id: 7,
+          },
+        };
+
+        const id = disputeStatusAutocomplete.computed.disputeId.call(mockedThis);
+
+        const expectedId = 7;
+
+        expect(id).toEqual(expectedId);
+      });
+    });
     describe('disputeStatusId', () => {
       it('should return id', () => {
         const mockedThis = {
           item: {
-            disputeStatus: {
+            status: {
               id: 1,
             },
           },
@@ -41,33 +56,6 @@ describe('disputeStatusAutocomplete', () => {
         expect(isReSent).toEqual(true);
       });
     });
-    describe('isInprogressStatus', () => {
-      it('should check in progress status', () => {
-        const mockedThis = {
-          disputeStatusId: '82404a5d-966c-4ca9-b714-a039a8176b07',
-        };
-
-        const isInProgress = disputeStatusAutocomplete.computed.isInprogressStatus.call(mockedThis);
-
-        expect(isInProgress).toEqual(true);
-      });
-    });
-    describe('disputeStatusHistoryList', () => {
-      it('should return disputeStatusHistoryList', () => {
-        const mockedThis = {
-          item: {
-            disputeStatusHistory: [],
-          },
-        };
-
-        const history = disputeStatusAutocomplete.computed.disputeStatusHistoryList.call(
-          mockedThis
-        );
-        const expectedResult = [];
-
-        expect(history).toEqual(expectedResult);
-      });
-    });
     describe('isConfirmApprovedStatus', () => {
       it('should check confirm approved status', () => {
         const mockedThis = {
@@ -92,6 +80,68 @@ describe('disputeStatusAutocomplete', () => {
         );
 
         expect(isConfirmRejected).toEqual(true);
+      });
+    });
+
+    describe('isStatusEditableBySAM', () => {
+      it('should return true if status editable by sam', () => {
+        const mockedThis = {
+          scopes: ['scope1', 'scope2'],
+        };
+
+        const result = disputeStatusAutocomplete.computed.isStatusEditableBySAM.call(mockedThis);
+
+        expect(result).toBeFalsy();
+      });
+    });
+
+    describe('isStatusNotEditableOrStatusProcessing', () => {
+      it('should return true if defined isStatusEditableBySAM as true', () => {
+        const mockedThis = {
+          isStatusEditableBySAM: true,
+        };
+
+        const result = disputeStatusAutocomplete.computed.isStatusNotEditableOrStatusProcessing.call(
+          mockedThis
+        );
+
+        expect(result).toBeFalsy();
+      });
+
+      it('should return true if defined statusProcessing as true', () => {
+        const mockedThis = {
+          statusProcessing: true,
+        };
+
+        const result = disputeStatusAutocomplete.computed.isStatusNotEditableOrStatusProcessing.call(
+          mockedThis
+        );
+
+        expect(result).toBeTruthy();
+      });
+    });
+
+    describe('statusProcessing', () => {
+      it('should return true if disputeId is contained in the array processingIds', () => {
+        const mockedThis = {
+          disputeId: 123,
+          processingIds: [123, 312],
+        };
+
+        const result = disputeStatusAutocomplete.computed.statusProcessing.call(mockedThis);
+
+        expect(result).toBeTruthy();
+      });
+
+      it('should return false if disputeId is not contained in the array processingIds', () => {
+        const mockedThis = {
+          disputeId: 7,
+          processingIds: [123, 312],
+        };
+
+        const result = disputeStatusAutocomplete.computed.statusProcessing.call(mockedThis);
+
+        expect(result).toBeFalsy();
       });
     });
   });

@@ -1,6 +1,7 @@
 <template>
-  <div class="disputes_dashboard-table" v-if="false">
+  <div class="disputes_dashboard-table">
     <table-toolbar :title="$t('disputes.dashboard')" :table-name="tableName">
+      <selected-range-filter slot="toolbar-info" :tableName="tableName" />
       <Disputes-Dashboard-Toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
     <div class="statistic-list">
@@ -19,12 +20,14 @@ import TotalXyzDisputeStatistic from '@/components/DisputesDashboard/TotalXyzDis
 import DisputesDashboardToolbar from '@/containers/DisputesDashboardToolbar';
 import TotalCreatedDisputesChart from '@/containers/TotalCreatedDisputesChart';
 import lazyLoadTable from '@/mixins/lazyLoadTable';
-import { ENTITY_TYPES } from '@/constants';
+import { TABLE_NAMES } from '@/constants';
 import TableToolbar from '@/components/TableToolbar';
+import SelectedRangeFilter from '../components/SelectedRangeFilter';
 
 export default {
   name: 'DisputesDashboardPage',
   components: {
+    SelectedRangeFilter,
     TableToolbar,
     DisputesDashboardToolbar,
     TotalDisputesStatistic,
@@ -35,7 +38,7 @@ export default {
   mixins: [lazyLoadTable],
   data() {
     return {
-      tableName: ENTITY_TYPES.DISPUTES_DASHBOARD,
+      tableName: TABLE_NAMES.DISPUTES_DASHBOARD,
       initialLoad: true,
       resetDataBeforeLeave: true,
     };
@@ -54,7 +57,7 @@ export default {
   overflow-y: auto;
   margin-top: 30px;
   padding: 0 10px 0;
-  height: calc(100vh - #{$header-height} - #{$table-toolbar-height} - 60px);
+  height: calc(100vh - #{$header-height} - #{$table-toolbar-height} - 60px - #{$switcher-height});
 }
 
 .disputes_dashboard-table {

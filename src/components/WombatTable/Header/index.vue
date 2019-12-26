@@ -11,7 +11,7 @@
         v-for="column in preparedColumns"
         :key="column.name"
         :ref="column._machineName"
-        :title="column.title"
+        :title="$t(column.tooltipTitle || column.title)"
         :class="[
           column.class,
           column._className,

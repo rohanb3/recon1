@@ -1,31 +1,59 @@
 <template>
-  <v-container fluid grid-list-md class="dispute-page" v-if="isUpdateDispute">
+  <v-container fluid grid-list-md class="dispute-page">
     <div class="dispute-page-wrapper" :class="{ blurred: loading }">
       <div class="dispute-toolbar">
         <div class="dispute-title">{{ $t('dispute.page.title') }}</div>
       </div>
       <v-layout row wrap>
         <v-flex xs12 lg6 class="general-information-form">
-          <general-information-form v-model="disputeInfo" ref="generalInfo" />
+          <general-information-form-dispute v-model="disputeInfo" ref="generalInfo" />
           <additional-info-block-form
             v-model="disputeInfo"
             ref="additionalInfoBlock"
             :loadingFilesStatus="loadingFilesStatus"
+            :path-to-attachment-files="pathToAttachmentFiles"
             @selectedFiles="onUploadFiles"
             @removeFile="onRemoveFile"
-          />
+          >
+            <dispute-types-select slot="typeSelect" v-model="disputeInfo" />
+            <div slot="comment">
+              <v-layout row mb-2>
+                <v-flex>
+                  <dispute-comment-table v-model="disputeInfo" />
+                </v-flex>
+              </v-layout>
+            </div>
+          </additional-info-block-form>
         </v-flex>
         <v-flex xs12 lg6 class="customer-information-wrapper">
           <customer-information-form v-model="disputeInfo" ref="customerInfo" />
           <div class="save-button-wrapper">
-            <v-btn small depressed class="button-cancel-dispute" @click="onCancel">{{
-              $t('cancel')
-            }}</v-btn>
-            <v-btn small depressed class="button-save-dispute" @click="onSaveDraft">
+            <v-btn
+              small
+              depressed
+              :disabled="loading"
+              class="button-cancel-dispute"
+              @click="onCancel"
+            >
+              {{ $t('cancel') }}
+            </v-btn>
+            <v-btn
+              small
+              depressed
+              :disabled="loading"
+              class="button-save-dispute"
+              @click="onSaveDraft"
+            >
               {{ $t('save.as.draft') }}
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn small depressed class="button-create-dispute" @click="onCreateNewDispute">
+            <v-btn
+              small
+              depressed
+              :disabled="loading"
+              class="button-create-dispute"
+              @click="onCreateNewDispute"
+            >
               {{ $t('create.new.dispute') }}
             </v-btn>
           </div>
@@ -40,10 +68,18 @@
         <v-card-actions class="card-buttons">
           <table-button
             class="button-save-draft"
+            :preloader="loadingSaveAsDraft"
+            :disabled="loading"
             :title="$t('save.as.draft')"
             @click="onSaveDraft"
           />
-          <span class="remove-draft" @click="onRemoveDraft">{{ $t('remove.draft') }}</span>
+          <table-button
+            class="remove-draft"
+            :preloader="loadingRemoveDraft"
+            :disabled="loading"
+            :title="$t('remove.draft')"
+            @click="onRemoveDraft"
+          />
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -59,16 +95,16 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
-import AdditionalInfoBlockForm from '@/components/AdditionalInfoBlockForm';
-import CustomerInformationForm from '@/components/CustomerInformationForm';
-import GeneralInformationForm from '@/components/GeneralInformationForm';
-import TableButton from '@/components/TableButton';
+import { RESPONSE_STATUSES, ROUTE_NAMES } from '@/constants';
 import { errorMessage } from '@/services/notifications';
-import { addBackgroundBlur, removeBackgroundBlur } from '@/services/background';
-
-import { RESPONSE_STATUSES, DISPUTE_STATUSES_ID, ROUTE_NAMES } from '@/constants';
+import { removeBackgroundBlur } from '@/services/background';
+import createEntity from '@/mixins/createEntity';
+import CustomerInformationForm from '@/components/CustomerInformationForm';
+import TableButton from '@/components/TableButton';
+import GeneralInformationFormDispute from '@/components/GeneralInformationFormDispute';
+import DisputeTypesSelect from '@/containers/DisputeTypesSelect';
+import DisputeCommentTable from '@/containers/DisputeCommentTable';
+import AdditionalInfoBlockForm from '@/components/AdditionalInfoBlockForm';
 
 import {
   getDispute,
@@ -79,47 +115,27 @@ import {
   removeDisputeAttachment,
 } from '@/services/disputesRepository';
 
+const PATH_TO_ATTACHMENT_FILES = '/api/disputs/attachment/dispute/';
+
 export default {
   name: 'DisputePage',
-  components: {
-    TableButton,
-    AdditionalInfoBlockForm,
-    CustomerInformationForm,
-    GeneralInformationForm,
-  },
-  mounted() {
-    this.loadDispute();
-  },
   data() {
     return {
-      disputeInfo: {},
-      disputeAttachmentList: [],
-      dialogDeleteDispute: false,
-      loading: true,
-      sendingData: false,
-      loadingFilesStatus: false,
-      savedDispute: false,
-      routeNameForRedirect: ROUTE_NAMES.SELECT_ORDER,
+      routeNameForRedirect: ROUTE_NAMES.DISPUTES_ORDERS,
     };
   },
+  components: {
+    AdditionalInfoBlockForm,
+    DisputeCommentTable,
+    DisputeTypesSelect,
+    GeneralInformationFormDispute,
+    TableButton,
+    CustomerInformationForm,
+  },
+  mixins: [createEntity],
   computed: {
-    ...mapGetters(['isUpdateDispute']),
-    disputeId() {
-      return this.disputeInfo.id;
-    },
-    disputeStatusId: {
-      get() {
-        return (this.disputeInfo.disputeStatus || {}).id;
-      },
-      set(statusId) {
-        this.disputeInfo.disputeStatus.id = statusId;
-      },
-    },
-    disputeTypeId() {
-      return (this.disputeInfo.disputeType || {}).id;
-    },
-    isDisputeStatusSent() {
-      return this.disputeStatusId === DISPUTE_STATUSES_ID.SENT;
+    pathToAttachmentFiles() {
+      return PATH_TO_ATTACHMENT_FILES;
     },
   },
   methods: {
@@ -128,7 +144,8 @@ export default {
         return;
       }
 
-      this.sendingData = true;
+      this.loading = true;
+      this.loadingSaveAsDraft = true;
       try {
         await updateDispute(this.disputeInfo.id, {
           ...this.disputeInfo,
@@ -141,15 +158,13 @@ export default {
       } catch {
         errorMessage();
       } finally {
-        this.sendingData = false;
+        this.loading = false;
+        this.loadingSaveAsDraft = false;
       }
     },
-    onSaveDraft() {
-      this.disputeStatusId = DISPUTE_STATUSES_ID.DRAFT;
-      removeBackgroundBlur();
-      this.onSave();
-    },
     async onRemoveDraft() {
+      this.loading = true;
+      this.loadingRemoveDraft = true;
       try {
         await deleteDispute(this.disputeInfo.id);
         this.savedDispute = true;
@@ -158,17 +173,11 @@ export default {
         errorMessage();
       } finally {
         removeBackgroundBlur();
+        this.loading = false;
+        this.loadingRemoveDraft = true;
       }
     },
-    onCancel() {
-      addBackgroundBlur();
-      this.dialogDeleteDispute = true;
-    },
-    onCloseDialog() {
-      removeBackgroundBlur();
-      this.dialogDeleteDispute = false;
-    },
-    async loadDispute() {
+    async loadData() {
       this.loading = true;
       const { disputeId, orderId } = this.$route.params;
       try {
@@ -186,10 +195,6 @@ export default {
       } finally {
         this.loading = false;
       }
-    },
-    async onCreateNewDispute() {
-      this.disputeStatusId = DISPUTE_STATUSES_ID.SENT;
-      this.onSave();
     },
     async onRemoveFile(filename) {
       try {
@@ -228,22 +233,6 @@ export default {
       const { attachments } = await getDispute(this.disputeInfo.id);
       this.disputeInfo.attachments = attachments;
     },
-    validate() {
-      return [
-        this.$refs.generalInfo.validate(),
-        this.$refs.additionalInfoBlock.validate(),
-        this.$refs.customerInfo.validate(),
-      ].every(isValidForm => isValidForm === true);
-    },
-  },
-  beforeRouteLeave(to, from, next) {
-    if (this.savedDispute) {
-      next();
-    } else {
-      this.routeNameForRedirect = to.name;
-      this.onCancel();
-      next(false);
-    }
   },
 };
 </script>
@@ -256,6 +245,11 @@ export default {
   @include table-base-container;
   height: 100%;
   @extend %blurred-this;
+
+  .dispute-page-wrapper {
+    height: 100vh;
+    max-height: calc(100vh - 150px);
+  }
 
   .big-spinner {
     position: absolute;
@@ -301,12 +295,6 @@ export default {
     font-weight: normal;
     padding: 0 12px;
     margin-right: 24px;
-  }
-
-  .remove-draft {
-    font-size: 14px;
-    cursor: pointer;
-    color: $base-red;
   }
 }
 
@@ -388,5 +376,12 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.remove-draft {
+  font-size: 14px;
+  cursor: pointer;
+  color: $base-red;
+  border: none;
 }
 </style>

@@ -3,7 +3,7 @@ import { LOAD_ITEMS } from '@/store/storage/actionTypes';
 import * as actionTypes from './actionTypes';
 import * as mutationTypes from './mutationTypes';
 import { RESET_ITEMS, SET_ALL_ITEMS_LOADED } from '@/store/storage/mutationTypes';
-import { ENTITY_TYPES, FILTER_NAMES } from '@/constants';
+import { TABLE_NAMES } from '@/constants';
 
 export default {
   [actionTypes.APPLY_FILTERS]({ state, commit, dispatch }, { tableName, filters = [] }) {
@@ -15,7 +15,7 @@ export default {
   },
   [actionTypes.APPLY_DISPUTE_STATUS_FILTER](
     { state, commit, dispatch },
-    { tableName, dependentFilterName, selectedFilter }
+    { tableName, dependentFilterName, selectedFilter, filterField }
   ) {
     let dataLoading = true;
     let disputeStatusIds = [];
@@ -31,7 +31,7 @@ export default {
 
     const disputeStatusFilters = [
       {
-        name: FILTER_NAMES.DISPUTE_STATUS_IDS,
+        name: filterField,
         value: disputeStatusIds,
       },
     ].concat(selectedFilter);
@@ -51,10 +51,12 @@ export default {
   },
   [actionTypes.RESET_FILTERS]({ commit, dispatch }, tableName) {
     commit(mutationTypes.RESET_FILTERS, tableName);
-    return dispatch(LOAD_ITEMS, { itemType: tableName });
+    return dispatch(LOAD_ITEMS, { itemType: tableName }).finally(() => {
+      commit(mutationTypes.APPLYING_FILTERS_DONE, tableName);
+    });
   },
   [actionTypes.RESET_ALL_FILTERS]({ commit }) {
-    Object.values(ENTITY_TYPES).forEach(entityName => {
+    Object.values(TABLE_NAMES).forEach(entityName => {
       commit(mutationTypes.RESET_FILTERS, entityName);
     });
   },

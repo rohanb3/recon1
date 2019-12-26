@@ -21,7 +21,7 @@
 <script>
 import TableButton from '@/components/TableButton';
 
-import { DISPUTE_STATUSES_ID, SCOPES } from '@/constants';
+import { DISPUTE_STATUSES_ID, SCOPES, ROUTE_NAMES } from '@/constants';
 
 export default {
   name: 'DisputeButtonCell',
@@ -58,13 +58,13 @@ export default {
   methods: {
     onRestoreDraft() {
       this.$router.push({
-        name: 'edit-dispute',
+        name: ROUTE_NAMES.EDIT_DISPUTE,
         params: { disputeId: this.item.disputeId },
       });
     },
     onNewDispute() {
       this.$router.push({
-        name: 'creat-dispute',
+        name: ROUTE_NAMES.CREATE_DISPUTE,
         params: { orderId: this.item.orderId },
       });
     },

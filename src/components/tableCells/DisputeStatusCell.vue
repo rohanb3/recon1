@@ -1,9 +1,16 @@
 <template>
-  <div class="dispute-status-cell">{{ status }}</div>
+  <div class="dispute-status-cell">{{ $t(status) }}</div>
 </template>
 
 <script>
 import { DISPUTE_STATUSES_ID } from '@/constants';
+
+const statusesMap = {
+  [DISPUTE_STATUSES_ID.CONFIRM_APPROVED]: 'approved',
+  [DISPUTE_STATUSES_ID.RE_SENT]: 'rejected',
+  [DISPUTE_STATUSES_ID.CONFIRM_REJECTED]: 'rejected',
+  [DISPUTE_STATUSES_ID.SENT]: 'new',
+};
 
 export default {
   name: 'DisputeStatusCell',
@@ -14,30 +21,10 @@ export default {
   },
   computed: {
     disputeStatus() {
-      return this.item.disputeStatus || {};
-    },
-    disputeStatusId() {
-      return this.disputeStatus.id;
-    },
-    disputeStatusName() {
-      return this.disputeStatus.disputeStatusName;
+      return this.item.status || {};
     },
     status() {
-      if (this.disputeStatusId === DISPUTE_STATUSES_ID.CONFIRM_APPROVED) {
-        return this.$t('approved');
-      }
-      if (this.isDisputeStatusResentOrConfirmRejected) {
-        return this.$t('rejected');
-      }
-      if (this.disputeStatusId === DISPUTE_STATUSES_ID.SENT) {
-        return this.$t('new');
-      }
-      return this.disputeStatusName;
-    },
-    isDisputeStatusResentOrConfirmRejected() {
-      return [DISPUTE_STATUSES_ID.RE_SENT, DISPUTE_STATUSES_ID.CONFIRM_REJECTED].includes(
-        this.disputeStatusId
-      );
+      return statusesMap[this.disputeStatus.id] || this.disputeStatus.name;
     },
   },
 };

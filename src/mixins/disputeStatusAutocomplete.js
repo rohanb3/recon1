@@ -1,6 +1,5 @@
 import { dateYearMonthDay, dateDefaultFormat } from '@/filters/dateFormat';
 import { DISPUTE_STATUSES_ID, SCOPES } from '@/constants';
-import { sortingRuleForObject } from '@/services/utils';
 
 export default {
   props: {
@@ -8,7 +7,7 @@ export default {
       type: Array,
       required: true,
     },
-    processingDisputeIds: {
+    processingIds: {
       type: Array,
       required: true,
     },
@@ -22,7 +21,7 @@ export default {
       return this.item.id;
     },
     disputeStatusId() {
-      return (this.item.disputeStatus || {}).id;
+      return (this.item.status || {}).id;
     },
     isSentStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.SENT;
@@ -33,8 +32,14 @@ export default {
     isInprogressStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.IN_PROGRESS;
     },
-    disputeStatusHistoryList() {
-      return this.item.disputeStatusHistory || [];
+    isRejectedStatus() {
+      return this.disputeStatusId === DISPUTE_STATUSES_ID.REJECTED;
+    },
+    statusChangedOn() {
+      return this.item.statusChangedOn || '';
+    },
+    isApprovedStatus() {
+      return this.disputeStatusId === DISPUTE_STATUSES_ID.APPROVED;
     },
     isConfirmApprovedStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.CONFIRM_APPROVED;
@@ -42,29 +47,17 @@ export default {
     isConfirmRejectedStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.CONFIRM_REJECTED;
     },
-    isStatusEditableBySAM() {
-      return !this.scopes.includes(SCOPES.DISPUTE_PATCH_SAM);
+    wasInProgress() {
+      return this.item.lastInProgressTime !== '';
     },
-    isStatusEditableOrStatusProcessing() {
-      return this.isStatusEditableBySAM || this.statusProcessing;
+    isStatusEditableBySAM() {
+      return this.scopes.includes(SCOPES.DISPUTE_PATCH_SAM);
+    },
+    isStatusNotEditableOrStatusProcessing() {
+      return !this.isStatusEditableBySAM || this.statusProcessing;
     },
     statusProcessing() {
-      return this.processingDisputeIds.includes(this.disputeId);
-    },
-  },
-  methods: {
-    getLastDisputeStatus(statusId) {
-      return this.disputeStatusHistoryList
-        .filter(disputeStatus => {
-          return ((disputeStatus || {}).status || {}).id === statusId;
-        })
-        .sort(sortingRuleForObject('timeStamp'))
-        .pop();
-    },
-    isContainsStatusInHistory(statusId) {
-      return this.disputeStatusHistoryList.some(
-        disputeStatus => ((disputeStatus || {}).status || {}).id === statusId
-      );
+      return this.processingIds.includes(this.disputeId);
     },
   },
 };

@@ -18,7 +18,6 @@
 import TableFilter from '@/components/TableFilter';
 import { FILTER_NAMES, ORDER_STATUS_NAME_TRANSLATION_KEYS } from '@/constants';
 import tableFilterAutocomplete from '@/mixins/tableFilterAutocomplete';
-import { getOrderStatusList } from '@/services/ordersRepository';
 
 export default {
   name: 'OrderStatusFilter',
@@ -26,6 +25,10 @@ export default {
   props: {
     tableName: {
       type: String,
+      required: true,
+    },
+    loadData: {
+      type: Function,
       required: true,
     },
   },
@@ -56,7 +59,7 @@ export default {
   methods: {
     loadStatusesList() {
       this.loading = true;
-      getOrderStatusList()
+      this.loadData()
         .then(data => {
           this[this.filterName] = data;
           this.displayPreselectItems();

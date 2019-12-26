@@ -35,10 +35,17 @@ export default {
       type: String,
       required: true,
     },
+    selected: {
+      type: Object,
+      required: true,
+    },
   },
   computed: {
     isClearButtonDisabled() {
-      return !(notEmpty(this.from) || notEmpty(this.to));
+      return (
+        !(notEmpty(this.from) || notEmpty(this.to)) &&
+        !(notEmpty(this.selected.from) || notEmpty(this.selected.to))
+      );
     },
     isSelectedRangeDisabled() {
       return !!this.error || (!notEmpty(this.from) && !notEmpty(this.to));

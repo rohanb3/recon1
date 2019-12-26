@@ -1,5 +1,5 @@
 <template>
-  <div class="disputes-table" v-if="isShowDispute">
+  <div class="disputes-table">
     <table-toolbar :title="$t('disputes.title')" :table-name="tableName">
       <disputes-table-toolbar :tableName="tableName" slot="filters" />
     </table-toolbar>
@@ -13,28 +13,28 @@
         :column="rowCell.column"
         :filter="rowCell.column.filter"
         :scopes="scopes"
-        :processing-dispute-ids="processingDisputeIds"
+        :processing-ids="processingIds"
         @confirmDisputeStatus="onConfirmDisputeStatus"
         @confirmResubmitDisputeStatus="onConfirmResubmitDisputeStatus"
-        @selectId="onSelectIdDispute"
+        @selectId="onSelectId"
       />
     </lazy-load-table>
     <confirm-resubmit-dispute-popup
       :visible-popup="isShowResubmitConfirmationPopup"
-      :dispute-info="selectedDispute"
+      :dispute-info="selected"
       @save="changeDisputeStatus"
       @close="isShowResubmitConfirmationPopup = false"
     />
     <confirm-dispute-popup
       :visible-popup="isShowConfirmationPopup"
-      :dispute-info="selectedDispute"
+      :dispute-info="selected"
       @save="changeDisputeStatus"
       @close="isShowConfirmationPopup = false"
     />
     <dispute-history
-      v-if="disputeHistoryShown"
+      v-if="historyShown"
       :parent-table-name="tableName"
-      @close="disputeHistoryShown = false"
+      @close="historyShown = false"
     />
   </div>
 </template>
@@ -75,22 +75,22 @@ export default {
     };
   },
   methods: {
-    async changeDisputeStatus({ disputeId, statusId, comments }) {
+    async changeDisputeStatus(data) {
       this.isShowResubmitConfirmationPopup = false;
       this.isShowConfirmationPopup = false;
-      await this.onChangeDisputeStatus({ disputeId, statusId, comments });
+      await this.onChangeStatus(data);
     },
-    onConfirmResubmitDisputeStatus({ disputeId, statusId }) {
-      this.selectedDispute = { disputeId, statusId };
+    onConfirmResubmitDisputeStatus(data) {
+      this.selected = data;
       this.isShowResubmitConfirmationPopup = true;
     },
-    onConfirmDisputeStatus({ disputeId, statusId }) {
-      this.selectedDispute = { disputeId, statusId };
+    onConfirmDisputeStatus(data) {
+      this.selected = data;
       this.isShowConfirmationPopup = true;
     },
   },
   computed: {
-    ...mapGetters(['isShowDispute', 'isPatchDispute', 'scopes']),
+    ...mapGetters(['isPatchDispute', 'scopes']),
   },
 };
 </script>
@@ -106,7 +106,7 @@ export default {
     height: 100vh;
     max-height: calc(
       100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
-        #{$table-header-height-offset}
+        #{$table-header-height-offset} - #{$switcher-height}
     );
   }
 }

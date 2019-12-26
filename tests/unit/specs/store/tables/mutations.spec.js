@@ -8,6 +8,7 @@ jest.mock('@/services/tablesColumnsList', () => ({
 
 import mutations from '@/store/tables/mutations';
 import * as types from '@/store/tables/mutationTypes';
+import * as filtersHelper from '@/store/tables/filtersHelper';
 import { ENTITY_TYPES } from '@/constants';
 
 describe('tables mutations', () => {
@@ -100,6 +101,73 @@ describe('tables mutations', () => {
 
       expect(state[ENTITY_TYPES.ORDERS].filters.search).toBe('aaaa');
       expect(state[ENTITY_TYPES.ORDERS].applyingFilters).toBeTruthy();
+    });
+  });
+
+  describe('SET_FILTERS', () => {
+    it('should set filters if property filters is exists', () => {
+      const state = {
+        [ENTITY_TYPES.ORDERS]: {
+          filters: {
+            search: '',
+          },
+          applyingFilters: false,
+        },
+      };
+
+      mutations[types.SET_FILTERS](state, {
+        tableName: ENTITY_TYPES.ORDERS,
+        filters: [
+          {
+            name: 'search',
+            value: 'aaaa',
+          },
+          {
+            name: 'age',
+            value: 20,
+          },
+        ],
+      });
+
+      const expectedResult = { age: 20, search: 'aaaa' };
+
+      expect(state[ENTITY_TYPES.ORDERS].filters).toEqual(expectedResult);
+      expect(state[ENTITY_TYPES.ORDERS].applyingFilters).toBeTruthy();
+    });
+  });
+
+  describe('RESET_FILTERS', () => {
+    it('should set the default filters', () => {
+      const state = {
+        [ENTITY_TYPES.ORDERS]: {
+          filters: {
+            search: '456',
+          },
+        },
+      };
+
+      filtersHelper.default = jest.fn(() => ({
+        search: 123,
+      }));
+
+      mutations[types.RESET_FILTERS](state, ENTITY_TYPES.ORDERS);
+
+      const expectedResult = { search: 123 };
+      expect(state[ENTITY_TYPES.ORDERS].filters).toEqual(expectedResult);
+    });
+  });
+
+  describe('APPLYING_FILTERS_DONE', () => {
+    it('should set applyingFilters as false', () => {
+      const state = {
+        [ENTITY_TYPES.ORDERS]: {
+          applyingFilters: true,
+        },
+      };
+
+      mutations[types.APPLYING_FILTERS_DONE](state, ENTITY_TYPES.ORDERS);
+
+      expect(state[ENTITY_TYPES.ORDERS].applyingFilters).toBeFalsy();
     });
   });
 });

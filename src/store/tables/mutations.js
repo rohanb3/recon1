@@ -30,6 +30,7 @@ export default {
     });
   },
   [types.RESET_FILTERS](state, tableName) {
+    state[tableName].applyingFilters = true;
     Vue.set(state[tableName], 'filters', getDefaultFilters(tableName));
   },
   [types.APPLYING_FILTERS_DONE](state, tableName) {

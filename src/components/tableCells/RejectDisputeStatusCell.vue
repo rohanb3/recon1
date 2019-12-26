@@ -4,14 +4,14 @@
       v-if="isInprogressStatus"
       class="disput-button"
       :title="$t('reject')"
-      :disabled="isStatusEditableOrStatusProcessing"
+      :disabled="isStatusNotEditableOrStatusProcessing"
       :preloader="statusProcessing"
       @click="onResubmit"
     />
     <span
-      v-if="!isInprogressStatus && isContainsRejectedStatus"
-      :title="rejectDate | dateDefaultFormat"
-      >{{ rejectDate | dateYearMonthDay }}</span
+      v-if="isRejectedStatus || isConfirmRejectedStatus"
+      :title="statusChangedOn | dateDefaultFormat"
+      >{{ statusChangedOn | dateYearMonthDay }}</span
     >
   </div>
 </template>
@@ -37,18 +37,10 @@ export default {
   components: {
     TableButton,
   },
-  computed: {
-    rejectDate() {
-      return this.getLastDisputeStatus(DISPUTE_STATUSES_ID.REJECTED).timeStamp || '';
-    },
-    isContainsRejectedStatus() {
-      return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.REJECTED);
-    },
-  },
   methods: {
     onResubmit() {
       this.$emit('confirmRejectDisputeStatus', {
-        disputeId: this.item.id,
+        id: this.item.id,
         statusId: DISPUTE_STATUSES_ID.REJECTED,
       });
     },

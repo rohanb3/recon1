@@ -7,7 +7,7 @@ import {
   APPLY_DISPUTE_STATUS_FILTER,
 } from '@/store/tables/actionTypes';
 import { LOAD_ITEMS } from '@/store/storage/actionTypes';
-import { ENTITY_TYPES, FILTER_NAMES } from '@/constants';
+import { TABLE_NAMES, FILTER_NAMES } from '@/constants';
 import { SET_FILTERS, APPLYING_FILTERS_DONE } from '@/store/tables/mutationTypes';
 import { RESET_ITEMS, SET_ALL_ITEMS_LOADED } from '@/store/storage/mutationTypes';
 
@@ -45,6 +45,8 @@ describe('tables actions', () => {
     it('should apply only selected filter if dependent filter is not applied', () => {
       const dependentFilterName = FILTER_NAMES.SPECTRUM_STATUS_IDS;
 
+      const filterField = FILTER_NAMES.DISPUTE_STATUS_IDS;
+
       const selectedFilter = {
         name: FILTER_NAMES.XYZ_STATUS_IDS,
         value: [1, 2, 34],
@@ -64,6 +66,7 @@ describe('tables actions', () => {
         tableName: itemType,
         dependentFilterName,
         selectedFilter,
+        filterField,
       });
 
       const expectedDisputeStatusFilters = {
@@ -79,6 +82,7 @@ describe('tables actions', () => {
     it('should apply only dependent filter if selected filter is not applied', () => {
       const dependentFilterName = FILTER_NAMES.SPECTRUM_STATUS_IDS;
       const dependentFilterValues = [4, 8, 9, 2];
+      const filterField = FILTER_NAMES.DISPUTE_STATUS_IDS;
 
       const selectedFilter = {
         name: FILTER_NAMES.XYZ_STATUS_IDS,
@@ -101,6 +105,7 @@ describe('tables actions', () => {
         tableName: itemType,
         dependentFilterName,
         selectedFilter,
+        filterField,
       });
 
       const expectedDisputeStatusFilters = {
@@ -115,6 +120,7 @@ describe('tables actions', () => {
 
     it('should apply two filters as intersection if selected filter and dependent filter is applied', () => {
       const dependentFilterName = FILTER_NAMES.SPECTRUM_STATUS_IDS;
+      const filterField = FILTER_NAMES.DISPUTE_STATUS_IDS;
 
       const selectedFilter = {
         name: FILTER_NAMES.XYZ_STATUS_IDS,
@@ -137,6 +143,7 @@ describe('tables actions', () => {
         tableName: itemType,
         dependentFilterName,
         selectedFilter,
+        filterField,
       });
 
       const expectedDisputeStatusFilters = {
@@ -149,6 +156,7 @@ describe('tables actions', () => {
 
     it('filter should not be applied if identifiers do not match', () => {
       const dependentFilterName = FILTER_NAMES.SPECTRUM_STATUS_IDS;
+      const filterField = FILTER_NAMES.DISPUTE_STATUS_IDS;
 
       const selectedFilter = {
         name: FILTER_NAMES.XYZ_STATUS_IDS,
@@ -171,6 +179,7 @@ describe('tables actions', () => {
         tableName: itemType,
         dependentFilterName,
         selectedFilter,
+        filterField,
       });
 
       const expectedDisputeStatusFilters = {
@@ -310,7 +319,7 @@ describe('tables actions', () => {
     it('should reset filters', () => {
       const fakeStore = {
         commit: jest.fn(),
-        dispatch: jest.fn(),
+        dispatch: jest.fn().mockResolvedValue(),
       };
 
       actions[RESET_FILTERS](fakeStore, itemType);
@@ -328,7 +337,7 @@ describe('tables actions', () => {
 
         actions[RESET_ALL_FILTERS](fakeStore);
 
-        Object.values(ENTITY_TYPES).forEach(entityName => {
+        Object.values(TABLE_NAMES).forEach(entityName => {
           expect(fakeStore.commit).toHaveBeenCalledWith(RESET_FILTERS, entityName);
         });
       });

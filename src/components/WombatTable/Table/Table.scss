@@ -25,7 +25,17 @@
   margin-top: 7%;
   height: 100vh;
   max-height: calc(
-    100vh - #{$header-height} - #{$table-toolbar-height} - #{$table-header-height} - #{$no-result-found-height}
+    100vh - #{$header-height} - #{$table-toolbar-height} - #{$table-header-height} -
+      #{$no-result-found-height} - #{$switcher-height}
   );
   overflow: hidden;
+}
+
+.horisontal-scroll {
+  overflow-x: scroll;
+}
+
+.horisontal-scroll-width {
+  min-width: 100%;
+  width: max-content;
 }

@@ -28,6 +28,7 @@ describe('loggedInUser actions: ', () => {
     it('should load profile', async () => {
       const fakeStore = {
         commit: jest.fn(),
+        dispatch: jest.fn(),
         state: {},
       };
 
@@ -45,6 +46,20 @@ describe('loggedInUser actions: ', () => {
 
       expect(fakeStore.commit).toHaveBeenCalledWith(SET_PROFILE_DATA, result);
       expect(identityRepository.getProfileData).toHaveBeenCalled();
+    });
+
+    it('should call action GET_PHOTO', async () => {
+      const fakeStore = {
+        commit: jest.fn(),
+        dispatch: jest.fn(),
+        state: {},
+      };
+
+      identityRepository.getProfileData = jest.fn(() => Promise.resolve());
+
+      await actions[GET_PROFILE_DATA](fakeStore);
+
+      expect(fakeStore.dispatch).toHaveBeenCalledWith(GET_PHOTO);
     });
   });
   describe('LOGIN: ', () => {
