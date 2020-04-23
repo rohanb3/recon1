@@ -1,7 +1,7 @@
 <template>
   <v-form ref="form">
     <v-textarea
-      :label="$t('type')"
+      :label="$t('dispute.submitter.comment')"
       v-model="submitterComment"
       :rules="submitterCommentRules"
       :validate-on-blur="true"

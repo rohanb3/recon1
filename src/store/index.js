@@ -7,8 +7,6 @@ import tables from './tables';
 import uiState from './ui-state';
 import loggedInUser from './loggedInUser';
 
-import switcher from './switcher';
-
 Vue.use(Vuex);
 
 const persistedStatePlugin = createPersistedState({
@@ -24,7 +22,6 @@ export default new Vuex.Store({
     tables,
     uiState,
     loggedInUser,
-    switcher,
   },
   plugins: [persistedStatePlugin],
 });

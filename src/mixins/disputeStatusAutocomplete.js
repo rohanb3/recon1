@@ -1,27 +1,15 @@
 import { dateYearMonthDay, dateDefaultFormat } from '@/filters/dateFormat';
-import { DISPUTE_STATUSES_ID, SCOPES } from '@/constants';
+import { DISPUTE_STATUSES_ID } from '@/constants';
+import { sortingRuleForObject } from '@/services/utils';
 
 export default {
-  props: {
-    scopes: {
-      type: Array,
-      required: true,
-    },
-    processingIds: {
-      type: Array,
-      required: true,
-    },
-  },
   filters: {
     dateYearMonthDay,
     dateDefaultFormat,
   },
   computed: {
-    disputeId() {
-      return this.item.id;
-    },
     disputeStatusId() {
-      return (this.item.status || {}).id;
+      return (this.item.disputeStatus || {}).id;
     },
     isSentStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.SENT;
@@ -32,14 +20,8 @@ export default {
     isInprogressStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.IN_PROGRESS;
     },
-    isRejectedStatus() {
-      return this.disputeStatusId === DISPUTE_STATUSES_ID.REJECTED;
-    },
-    statusChangedOn() {
-      return this.item.statusChangedOn || '';
-    },
-    isApprovedStatus() {
-      return this.disputeStatusId === DISPUTE_STATUSES_ID.APPROVED;
+    disputeStatusHistoryList() {
+      return this.item.disputeStatusHistory || [];
     },
     isConfirmApprovedStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.CONFIRM_APPROVED;
@@ -47,17 +29,20 @@ export default {
     isConfirmRejectedStatus() {
       return this.disputeStatusId === DISPUTE_STATUSES_ID.CONFIRM_REJECTED;
     },
-    wasInProgress() {
-      return this.item.lastInProgressTime !== '';
+  },
+  methods: {
+    getLastDisputeStatus(statusId) {
+      return this.disputeStatusHistoryList
+        .filter(disputeStatus => {
+          return ((disputeStatus || {}).status || {}).id === statusId;
+        })
+        .sort(sortingRuleForObject('timeStamp'))
+        .pop();
     },
-    isStatusEditableBySAM() {
-      return this.scopes.includes(SCOPES.DISPUTE_PATCH_SAM);
-    },
-    isStatusNotEditableOrStatusProcessing() {
-      return !this.isStatusEditableBySAM || this.statusProcessing;
-    },
-    statusProcessing() {
-      return this.processingIds.includes(this.disputeId);
+    isContainsStatusInHistory(statusId) {
+      return this.disputeStatusHistoryList.some(
+        disputeStatus => ((disputeStatus || {}).status || {}).id === statusId
+      );
     },
   },
 };

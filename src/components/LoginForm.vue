@@ -14,12 +14,9 @@
             }}</router-link>
           </div>
           <checkbox-login-agreement v-model="agreement" ref="agreementInput" />
-          <custom-button
-            :title="$t('login')"
-            :loading="loading"
-            :disabled="!isValidForm"
-            @click="onSubmit"
-          />
+          <v-btn @click="onSubmit" class="button" :disabled="!isValidForm">
+            {{ $t('login') }}
+          </v-btn>
         </v-form>
       </div>
     </v-flex>
@@ -30,7 +27,6 @@
 import FieldEmail from '@/components/FieldEmail';
 import FieldPassword from '@/components/FieldPassword';
 import CheckboxLoginAgreement from '@/components/CheckboxLoginAgreement';
-import CustomButton from '@/components/CustomButton';
 
 export default {
   name: 'LoginForm',
@@ -38,13 +34,6 @@ export default {
     FieldEmail,
     FieldPassword,
     CheckboxLoginAgreement,
-    CustomButton,
-  },
-  props: {
-    loading: {
-      type: Boolean,
-      default: false,
-    },
   },
   data() {
     return {

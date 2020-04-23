@@ -24,7 +24,7 @@ export default {
   props: {
     countCreated: {
       type: Boolean,
-      default: false,
+      required: true,
     },
   },
   methods: {

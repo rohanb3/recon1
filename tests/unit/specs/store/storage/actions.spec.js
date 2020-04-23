@@ -26,7 +26,7 @@ import {
 import * as repositoryHelper from '@/store/storage/repositoryHelper';
 import * as ordersRepository from '@/services/ordersRepository';
 
-import { ORDER_SYNC_STATUS } from '@/constants';
+import { ORDER_SYNC_STATUS, ENTITY_TYPES } from '@/constants';
 
 const itemType = 'SOME_TYPE';
 
@@ -197,8 +197,6 @@ describe('storage actions: ', () => {
   });
 
   describe('SYNC_ORDERS: ', () => {
-    const tableName = 'tableName';
-
     it('should sync start', async () => {
       const fakeStore = {
         commit: jest.fn(),
@@ -209,78 +207,25 @@ describe('storage actions: ', () => {
         syncOrderToDate: '2019-05-20T23:59:59Z',
       };
 
-      window.setInterval = jest.fn(() => null);
-
       const taskId = '28fec555-817d-4ded-a3cf-1f74c01dcb30';
 
       ordersRepository.orderSync = jest.fn(() => Promise.resolve({ data: taskId }));
 
-      await actions[SYNC_ORDERS](fakeStore, { tableName, ...dateRange });
+      await actions[SYNC_ORDERS](fakeStore, dateRange);
 
       expect(ordersRepository.orderSync).toHaveBeenCalledWith(dateRange);
-      expect(fakeStore.commit).toHaveBeenCalledWith(SET_SYNC_ORDERS_STATUS, {
-        status: ORDER_SYNC_STATUS.WORKING,
-        tableName,
-      });
-      expect(fakeStore.commit).not.toHaveBeenCalledWith(SET_SYNC_ORDERS_STATUS, {
-        status: ORDER_SYNC_STATUS.ERROR,
-        tableName,
-      });
-    });
-
-    it('should call mutation SET_SYNC_ORDERS_STATUS with parameter if something went wrong', async () => {
-      const fakeStore = {
-        commit: jest.fn(),
-      };
-
-      ordersRepository.orderSync = jest.fn(() => Promise.reject());
-
-      await actions[SYNC_ORDERS](fakeStore, { tableName });
-
-      expect(fakeStore.commit).toHaveBeenCalledWith(SET_SYNC_ORDERS_STATUS, {
-        status: ORDER_SYNC_STATUS.ERROR,
-        tableName,
-      });
-    });
-
-    it('should call action POLLING_ORDER_SYNC with parameter', async () => {
-      const fakeStore = {
-        commit: jest.fn(),
-        dispatch: jest.fn(),
-      };
-      const taskId = '28fec555-817d-4ded-a3cf-1f74c01dcb30';
-
-      window.setInterval = jest.fn(func => {
-        func();
-        return true;
-      });
-
-      ordersRepository.orderSync = jest.fn(() => Promise.resolve(taskId));
-
-      await actions[SYNC_ORDERS](fakeStore, { tableName });
-
-      expect(fakeStore.dispatch).toHaveBeenCalledWith(POLLING_ORDER_SYNC, {
-        taskId,
-        tableName,
-      });
-    });
-
-    it('should not call orderSync if syncOrdersIntervalId not empty', async () => {
-      const fakeStore = {
-        commit: jest.fn(),
-      };
-
-      ordersRepository.orderSync = jest.fn(() => Promise.reject());
-
-      await actions[SYNC_ORDERS](fakeStore, { tableName });
-
-      expect(ordersRepository.orderSync).not.toHaveBeenCalled();
+      expect(fakeStore.commit).toHaveBeenCalledWith(
+        SET_SYNC_ORDERS_STATUS,
+        ORDER_SYNC_STATUS.WORKING
+      );
+      expect(fakeStore.commit).not.toHaveBeenCalledWith(
+        SET_SYNC_ORDERS_STATUS,
+        ORDER_SYNC_STATUS.ERROR
+      );
     });
   });
 
   describe('POLLING_ORDER_SYNC: ', () => {
-    const tableName = 'tableName';
-
     it('should start polling and check status order sync', async () => {
       const taskId = '28fec555-817d-4ded-a3cf-1f74c01dcb30';
       const fakeStore = {
@@ -288,7 +233,7 @@ describe('storage actions: ', () => {
         dispatch: jest.fn(),
         rootState: {
           tables: {
-            [tableName]: {
+            [ENTITY_TYPES.ORDERS]: {
               filters: {},
             },
           },
@@ -299,60 +244,28 @@ describe('storage actions: ', () => {
 
       const clearIntervalSpy = jest.spyOn(window, 'clearInterval');
 
-      await actions[POLLING_ORDER_SYNC](fakeStore, { taskId, tableName });
+      await actions[POLLING_ORDER_SYNC](fakeStore, taskId);
 
       expect(fakeStore.dispatch).toHaveBeenCalledWith(LOAD_ITEMS, {
-        itemType: tableName,
-        filters: fakeStore.rootState.tables[tableName].filters,
+        itemType: ENTITY_TYPES.ORDERS,
+        filters: fakeStore.rootState.tables[ENTITY_TYPES.ORDERS].filters,
       });
       expect(ordersRepository.checkOrderSync).toHaveBeenCalledWith(taskId);
-      expect(fakeStore.commit).toHaveBeenCalledWith(SET_SYNC_ORDERS_STATUS, {
-        status: ORDER_SYNC_STATUS.FINISHED,
-        tableName,
-      });
+      expect(fakeStore.commit).toHaveBeenCalledWith(
+        SET_SYNC_ORDERS_STATUS,
+        ORDER_SYNC_STATUS.FINISHED
+      );
       expect(clearIntervalSpy).toHaveBeenCalled();
-    });
-
-    it('should call clearInterval if something went wrong', async () => {
-      const taskId = '28fec555-817d-4ded-a3cf-1f74c01dcb30';
-      const fakeStore = {
-        commit: jest.fn(),
-      };
-
-      ordersRepository.checkOrderSync = jest.fn(() => Promise.resolve(ORDER_SYNC_STATUS.ERROR));
-
-      const clearIntervalSpy = jest.spyOn(window, 'clearInterval');
-
-      await actions[POLLING_ORDER_SYNC](fakeStore, { taskId, tableName });
-
-      expect(clearIntervalSpy).toHaveBeenCalled();
-    });
-
-    it('should call mutation SET_SYNC_ORDERS_STATUS if something went wrong', async () => {
-      const taskId = '28fec555-817d-4ded-a3cf-1f74c01dcb30';
-      const fakeStore = {
-        commit: jest.fn(),
-      };
-
-      ordersRepository.checkOrderSync = jest.fn(() => Promise.resolve(ORDER_SYNC_STATUS.ERROR));
-
-      await actions[POLLING_ORDER_SYNC](fakeStore, { taskId, tableName });
-
-      expect(fakeStore.commit).toHaveBeenCalledWith(SET_SYNC_ORDERS_STATUS, {
-        status: ORDER_SYNC_STATUS.ERROR,
-        tableName,
-      });
     });
   });
 
   describe('START_SYNC_ORDERS', () => {
-    const tableName = 'tableName';
     it('should start status sync orders', async () => {
       const fakeStore = {
         dispatch: jest.fn(),
       };
 
-      await actions[START_SYNC_ORDERS](fakeStore, { tableName });
+      await actions[START_SYNC_ORDERS](fakeStore);
 
       expect(fakeStore.dispatch).toHaveBeenCalledWith(SYNC_ORDERS, expect.any(Object));
     });

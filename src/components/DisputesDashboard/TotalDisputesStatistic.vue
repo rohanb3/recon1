@@ -1,22 +1,14 @@
 <template>
   <disput-statistic
     :title="$t('disputes.dashboard.total.statistic')"
-    :sub-title="$t('total.disputes')"
-    :total-statistics="totalStatistics"
     :statistics="disputeStatistics"
   />
 </template>
 
 <script>
-import DisputStatistic from './DisputStatistic/DisputStatistic';
-import {
-  DISPUTE_SECTION_NAME,
-  ROUTE_NAMES,
-  FILTER_NAMES,
-  DISPUTE_COMPUTED_STATUSES,
-} from '@/constants';
+import DisputStatistic from './DisputStatistic';
+import { DISPUTE_STATUSES_NAME } from '@/constants';
 import disputesDashboard from '@/mixins/disputesDashboard';
-import { STATISTIC_COLOR_SCHEMA } from '@/services/statisticColorSchema';
 
 export default {
   name: 'TotalDisputesStatistic',
@@ -34,64 +26,63 @@ export default {
     disputeStatistics() {
       return [
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.WAITED_SPECTRUM_ANSWER),
           sectionName: this.$t('disputes.statistic.spectrum.answer'),
-          color: STATISTIC_COLOR_SCHEMA.GREEN,
-          link: {
-            name: ROUTE_NAMES.DISPUTE_LIST,
-            params: {
-              [FILTER_NAMES.SPECTRUM_STATUS_IDS]: [
-                ...DISPUTE_COMPUTED_STATUSES.SPECTRUM_NEW,
-                ...DISPUTE_COMPUTED_STATUSES.SPECTRUM_IN_PROGRESS,
-                ...DISPUTE_COMPUTED_STATUSES.SPECTRUM_RESENT,
-              ],
-              [FILTER_NAMES.DISPUTE_STATUS_IDS]: [
-                ...DISPUTE_COMPUTED_STATUSES.SPECTRUM_NEW,
-                ...DISPUTE_COMPUTED_STATUSES.SPECTRUM_IN_PROGRESS,
-                ...DISPUTE_COMPUTED_STATUSES.SPECTRUM_RESENT,
-              ],
-            },
-          },
+          totalQuantity:
+            this.sentDisputeStatistics.totalQuantity +
+            this.resentDisputeStatistics.totalQuantity +
+            this.inProgressDisputeStatistics.totalQuantity,
+          percent:
+            this.sentDisputeStatistics.Percent +
+            this.resentDisputeStatistics.Percent +
+            this.inProgressDisputeStatistics.Percent,
+          commissionDifference:
+            this.sentDisputeStatistics.Commission +
+            this.resentDisputeStatistics.Commission +
+            this.inProgressDisputeStatistics.Commission,
         },
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.WAITED_XYZ_ANSWER),
           sectionName: this.$t('disputes.statistic.xyz.answer'),
-          color: STATISTIC_COLOR_SCHEMA.BLUE,
-          link: {
-            name: ROUTE_NAMES.DISPUTE_LIST,
-            params: {
-              [FILTER_NAMES.XYZ_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.XYZ_WAITING_FOR_ANSWER,
-              [FILTER_NAMES.DISPUTE_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.XYZ_WAITING_FOR_ANSWER,
-            },
-          },
+          totalQuantity:
+            this.approvedDisputeStatistics.totalQuantity +
+            this.rejectedDisputeStatistics.totalQuantity,
+          percent: this.approvedDisputeStatistics.Percent + this.rejectedDisputeStatistics.Percent,
+          commissionDifference:
+            this.approvedDisputeStatistics.Commission + this.rejectedDisputeStatistics.Commission,
         },
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.APPROVED_FOR_PAY),
           sectionName: this.$t('disputes.statistic.approved.for.pay'),
-          color: STATISTIC_COLOR_SCHEMA.ORANGE,
-          link: {
-            name: ROUTE_NAMES.DISPUTE_LIST,
-            params: {
-              [FILTER_NAMES.SPECTRUM_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.SPECTRUM_APPROVED,
-              [FILTER_NAMES.DISPUTE_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.SPECTRUM_APPROVED,
-              [FILTER_NAMES.XYZ_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.XYZ_APPROVED,
-              [FILTER_NAMES.DISPUTE_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.XYZ_APPROVED,
-            },
-          },
+          totalQuantity: this.confirmApprovedDisputeStatistics.totalQuantity,
+          percent: this.confirmApprovedDisputeStatistics.Percent,
+          commissionDifference: this.confirmApprovedDisputeStatistics.Commission,
         },
         {
-          ...this.getSection(DISPUTE_SECTION_NAME.DENIED_FOR_PAY),
           sectionName: this.$t('disputes.statistic.deny.for.pay'),
-          color: STATISTIC_COLOR_SCHEMA.GREY,
-          link: {
-            name: ROUTE_NAMES.DISPUTE_LIST,
-            params: {
-              [FILTER_NAMES.XYZ_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.XYZ_REJECTED,
-              [FILTER_NAMES.DISPUTE_STATUS_IDS]: DISPUTE_COMPUTED_STATUSES.XYZ_REJECTED,
-            },
-          },
+          totalQuantity: this.confirmRejectedDisputeStatistics.totalQuantity,
+          percent: this.confirmRejectedDisputeStatistics.Percent,
+          commissionDifference: this.confirmRejectedDisputeStatistics.Commission,
         },
       ];
+    },
+    sentDisputeStatistics() {
+      return this.getSection(DISPUTE_STATUSES_NAME.SENT);
+    },
+    resentDisputeStatistics() {
+      return this.getSection(DISPUTE_STATUSES_NAME.RE_SENT);
+    },
+    inProgressDisputeStatistics() {
+      return this.getSection(DISPUTE_STATUSES_NAME.IN_PROGRESS);
+    },
+    approvedDisputeStatistics() {
+      return this.getSection(DISPUTE_STATUSES_NAME.APPROVED);
+    },
+    rejectedDisputeStatistics() {
+      return this.getSection(DISPUTE_STATUSES_NAME.REJECTED);
+    },
+    confirmApprovedDisputeStatistics() {
+      return this.getSection(DISPUTE_STATUSES_NAME.CONFIRM_APPROVED);
+    },
+    confirmRejectedDisputeStatistics() {
+      return this.getSection(DISPUTE_STATUSES_NAME.CONFIRM_REJECTED);
     },
   },
 };

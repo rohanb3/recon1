@@ -1,6 +1,6 @@
 <template>
   <v-container fluid fill-height>
-    <password-recovery-form :loading="loading" @verificationCode="sendVerificationCode" />
+    <password-recovery-form @verificationCode="sendVerificationCode" />
   </v-container>
 </template>
 
@@ -16,14 +16,8 @@ export default {
   components: {
     PasswordRecoveryForm,
   },
-  data() {
-    return {
-      loading: false,
-    };
-  },
   methods: {
     async sendVerificationCode(email) {
-      this.loading = true;
       try {
         const emailLowerCase = email.toLowerCase();
         await requestVerificationCode(emailLowerCase);
@@ -39,8 +33,6 @@ export default {
         if (message.Email) {
           errorMessage('email.is.not.registered');
         }
-      } finally {
-        this.loading = false;
       }
     },
   },

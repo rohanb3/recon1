@@ -1,31 +1,25 @@
 <template>
   <div class="dispute-status-description-cell" :title="disputeComment">
-    <PopupDescriptionCell :disputeComment="disputeComment">
-      <template v-slot:comment>
-        <a @click.prevent>
-          {{ disputeComment }}
-        </a>
-      </template>
-    </PopupDescriptionCell>
+    {{ disputeComment | dashForEmptyValue }}
   </div>
 </template>
 
 <script>
-import PopupDescriptionCell from '@/components/Popups/PopupDescriptionCell';
+import dashForEmptyValue from '@/filters/dashForEmptyValue';
 
 export default {
   name: 'DisputeStatusDescriptionCell',
-  components: {
-    PopupDescriptionCell,
-  },
   props: {
     item: {
       type: Object,
     },
   },
+  filters: {
+    dashForEmptyValue,
+  },
   computed: {
     disputeComment() {
-      return this.item.submitterComment || this.item.statusDescription;
+      return this.item.submitterComment || this.item.disputeStatusDescription;
     },
   },
 };

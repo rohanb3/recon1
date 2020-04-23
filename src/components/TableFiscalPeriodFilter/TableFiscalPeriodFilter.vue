@@ -18,18 +18,6 @@
       <div class="popper">
         <div class="month-wrapper" :class="{ blurred: loadingStatus }">
           <month-list v-model="selectedMonth" :active-year="selectedYear" />
-        </div>
-        <div class="vertical-hr"></div>
-        <div class="year-list-wrapper">
-          <year-list :list-of-years="listOfYears" v-model="selectedYear" />
-          <v-btn
-            small
-            depressed
-            :disabled="isNotSelectedMonthOrYear"
-            class="button button-clear"
-            @click.stop="onClear"
-            >{{ $t('clear.selected') }}</v-btn
-          >
           <v-btn
             small
             depressed
@@ -38,6 +26,10 @@
             @click.stop="onApply"
             >{{ $t('apply') }}</v-btn
           >
+        </div>
+        <div class="vertical-hr"></div>
+        <div class="year-list-wrapper">
+          <year-list :list-of-years="listOfYears" v-model="selectedYear" />
         </div>
         <v-progress-circular
           v-if="loadingStatus"
@@ -115,7 +107,7 @@ export default {
       ).filter(year => FOUR_DIGITS_REGEX.test(year));
     },
     isNotSelectedMonthOrYear() {
-      return !this.selectedYear || this.selectedMonth === '';
+      return !!this.selectedYear && this.selectedMonth === '';
     },
     selectedFiscalPeriodForTitle() {
       return !this.preselectedMonth ? '' : `: ${this.preselectedMonth} ${this.preselectedYear}`;
@@ -138,11 +130,6 @@ export default {
         warnMessage('fiscal.period.not.found');
       }
     },
-    onClear() {
-      this.selectedYear = 0;
-      this.selectedMonth = '';
-      this.$emit('clearFiscalPeriod');
-    },
   },
   watch: {
     selectedYear() {
@@ -159,7 +146,6 @@ export default {
 <style scoped lang="scss">
 @import '~@/assets/styles/variables.scss';
 @import '~@/assets/styles/popper.scss';
-@import '@/assets/styles/mixins.scss';
 
 .fiscal-period-filter {
   height: 20px;
@@ -206,6 +192,13 @@ export default {
 
 .month-wrapper {
   text-align: left;
+  .button-apply {
+    margin: 0 0 38px 59px;
+    background: $base-green !important;
+    color: $base-white;
+    text-transform: capitalize;
+    font-size: 14px;
+  }
 }
 
 .big-spinner {
@@ -217,14 +210,9 @@ export default {
   color: $base-blue;
 }
 
-.year-list-wrapper /deep/ {
+.year-list-wrapper {
   margin-top: 10px;
   width: 350px;
-  margin: 10px 30px 0 20px;
-  text-align: right;
-
-  .button {
-    @include button;
-  }
+  margin: 10px 20px 0 20px;
 }
 </style>

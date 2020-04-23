@@ -1,6 +1,6 @@
 <template>
   <v-container fluid fill-height>
-    <reset-password-form :loading="loading" @resetPassword="onResetPassword" />
+    <reset-password-form @resetPassword="onResetPassword" />
   </v-container>
 </template>
 
@@ -15,22 +15,14 @@ export default {
   components: {
     ResetPasswordForm,
   },
-  data() {
-    return {
-      loading: false,
-    };
-  },
   methods: {
     async onResetPassword(password) {
-      this.loading = true;
       try {
         const token = this.$store.state.loggedInUser.resetToken;
         await resetPassword(token, password);
         this.$router.push({ name: ROUTE_NAMES.LOGIN });
       } catch {
         errorMessage();
-      } finally {
-        this.loading = false;
       }
     },
   },

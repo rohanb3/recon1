@@ -33,11 +33,10 @@ $table-list-padding: 10px;
 $table-datepicker-divider-color: rgba(151, 151, 151, 0.3);
 $table-datepicker-color: #4a4a4a;
 $table-datepicker-hover-color: rgba(151, 151, 151, 0.1);
-$table-toolbar-height: 86px;
+$table-toolbar-height: 84px;
 $table-disabled-row-color: #d8d8d8;
 $table-dashboard-badge-color: #1657a8;
 $table-dashboard-badge-background-color: rgba(22, 87, 168, 0.1);
-$table-header-height-offset: 30px;
 
 $popper-shadow-color: rgba(0, 0, 0, 0.13);
 $popper-background-color: #fff;
@@ -140,15 +139,6 @@ $table-statistic-subtitle-color: #8e8e8e;
 $table-statistic-header-color: #484848;
 $table-statistic-body-color: #575757;
 
-$tooltip-pie-chart-text-color: #5f5f5f;
+$circle-chart-data-title-color: red;
 
-$bar-chart-item-title-color: red;
-$bar-chart-item-progress-bar-background-color: blue;
-$bar-chart-item-value-color: orange;
-
-$enabled-button-border-color: rgba(208, 2, 27, 0.2);
-$disabled-button-border-color: rgba(152, 152, 152, 0.2);
-$disabled-button-background: #989898;
-$disabled-button-color: #989898;
-
-$switcher-height: 40px;
+$circle-chart-data-value-color: purple;

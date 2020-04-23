@@ -35,7 +35,7 @@ export default {
       return Math.abs(this.differenceComission);
     },
     differenceComission() {
-      return this.item.difference ? parseFloat(this.item.difference) : 0;
+      return this.expectedCommission - this.receivedCommission;
     },
     isPositiveDifference() {
       return this.differenceComission > 0;

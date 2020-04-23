@@ -5,7 +5,6 @@ import {
   SET_TOKEN,
   REMOVE_TOKEN,
   SET_RESET_TOKEN,
-  SET_PROMISE_REFRESH_TOKEN,
   SET_EMAIL,
 } from '@/store/loggedInUser/mutationTypes';
 
@@ -96,19 +95,6 @@ describe('loggedInUser mutations: ', () => {
 
       mutations[SET_EMAIL](state, 'example@example.com');
       expect(state.email).toEqual(expectedEmail);
-    });
-  });
-
-  describe('SET_PROMISE_REFRESH_TOKEN: ', () => {
-    it('should set promise refresh token', () => {
-      const state = {
-        refreshTokenPromise: null,
-      };
-
-      const token = 'regfwewrgerwgq3423';
-
-      mutations[SET_PROMISE_REFRESH_TOKEN](state, token);
-      expect(state.refreshTokenPromise).toEqual(token);
     });
   });
 });

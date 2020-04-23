@@ -1,6 +1,6 @@
-import debounce from 'lodash.debounce';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 import { extractPropertiesFromArrObj } from '@/services/utils';
+import debounce from 'lodash.debounce';
 
 const TIMEOUT_APPLY_FILTER = 1000;
 
@@ -35,18 +35,11 @@ export default {
     },
   },
   methods: {
-    toggleItem({ itemKeyName, itemKeyVal, isApplyFilter = true }) {
+    toggleItem({ itemKeyName, itemKeyVal }) {
       const itemIndex = this[this.filterName].findIndex(item => item[itemKeyName] === itemKeyVal);
       if (itemIndex >= 0) {
         this.selectOneItem(itemIndex, !this[this.filterName][itemIndex].selected);
-        if (isApplyFilter) this.applyFilter(this.selectedItems);
-      }
-    },
-    setItem({ itemKeyName, itemKeyVal, isApplyFilter = true }) {
-      const itemIndex = this[this.filterName].findIndex(item => item[itemKeyName] === itemKeyVal);
-      if (itemIndex >= 0) {
-        this.selectOneItem(itemIndex, true);
-        if (isApplyFilter) this.applyFilter(this.selectedItems);
+        this.applyFilter(this.selectedItems);
       }
     },
     selectOneItem(itemIndex, status) {
@@ -70,7 +63,16 @@ export default {
       this.selectAllItem(itemKeyName, items, false);
     }, // eslint-disable-next-line func-names
     applyFilter: debounce(function(selectedItems) {
-      this.apply(selectedItems);
+      const data = {
+        tableName: this.tableName,
+        filters: [
+          {
+            name: this.filterName,
+            value: extractPropertiesFromArrObj(selectedItems, this.sendFieldName),
+          },
+        ],
+      };
+      this.$store.dispatch(APPLY_FILTERS, data);
     }, TIMEOUT_APPLY_FILTER),
     onNotFoundItem({ itemKey, searchField, getItemList }) {
       this.loading = true;
@@ -89,7 +91,7 @@ export default {
     },
     displayPreselectItems({ itemKeyName = 'id' } = {}) {
       this.preselectedItems.forEach(item => {
-        this.setItem({ itemKeyName, itemKeyVal: item, isApplyFilter: false });
+        this.toggleItem({ itemKeyName, itemKeyVal: item });
       });
     },
     async loadingPreselectedItems({ itemKeyName = 'id', displayedFieldName, getItemById }) {
@@ -104,29 +106,8 @@ export default {
             selected: true,
           });
         } else {
-          this.toggleItem({ itemKeyName, itemKeyVal: itemId, isApplyFilter: false });
+          this.toggleItem({ itemKeyName, itemKeyVal: itemId });
         }
-      }
-    },
-    apply(selectedItems) {
-      const data = {
-        tableName: this.tableName,
-        filters: [
-          {
-            name: this.filterName,
-            value: extractPropertiesFromArrObj(selectedItems, this.sendFieldName),
-          },
-        ],
-      };
-      this.$store.dispatch(APPLY_FILTERS, data);
-    },
-  },
-  watch: {
-    preselectedItems(items) {
-      if (!items.length) {
-        this[this.filterName].forEach((item, index) => {
-          this.$set(this[this.filterName][index], 'selected', false);
-        });
       }
     },
   },

@@ -20,21 +20,19 @@
               :label="$t('confirm.new.password')"
               :rules="confirmPasswordRules"
               ref="confirmPassword"
+              @valid="isValid => (validConfirmPassword = isValid)"
             />
             <v-container fluid px-0>
               <v-layout row mt-5 px-0 align-center justify-space-around>
                 <v-flex order-lg2>
-                  <router-link class="back-to-login" :to="{ name: 'login' }">{{
-                    $t('back.to.login')
-                  }}</router-link>
+                  <router-link class="back-to-login" :to="{ name: 'login' }">
+                    {{ $t('back.to.login') }}
+                  </router-link>
                 </v-flex>
                 <v-flex order-lg2>
-                  <custom-button
-                    :title="$t('reset.password')"
-                    :loading="loading"
-                    :disabled="!valid"
-                    @click="onSubmit"
-                  />
+                  <v-btn @click="onSubmit" class="button" :disabled="!valid">{{
+                    $t('reset.password')
+                  }}</v-btn>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -46,7 +44,6 @@
 </template>
 
 <script>
-import CustomButton from '@/components/CustomButton';
 import {
   validateFieldCantBeEmpty,
   validateMinTextLength,
@@ -62,17 +59,11 @@ export default {
   name: 'ResetPasswordForm',
   components: {
     FieldPassword,
-    CustomButton,
-  },
-  props: {
-    loading: {
-      type: Boolean,
-      required: true,
-    },
   },
   data() {
     return {
       validPassword: false,
+      validConfirmPassword: false,
       password: '',
       confirmPassword: '',
       passwordRules: [
@@ -91,23 +82,11 @@ export default {
         validateTextShouldBeEqual(this.password, this.confirmPassword, 'password.do.not.match')
       );
     },
-    validConfirmPassword() {
-      return this.password === this.confirmPassword;
-    },
   },
   methods: {
     onSubmit() {
       if (this.valid) {
         this.$emit('resetPassword', this.password);
-      }
-    },
-  },
-  watch: {
-    password() {
-      if (this.confirmPassword.length) {
-        this.$nextTick(() => {
-          this.$refs.confirmPassword.validate();
-        });
       }
     },
   },

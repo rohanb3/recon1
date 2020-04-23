@@ -48,19 +48,42 @@
         </v-flex>
         <v-flex md6 ml-5>
           <v-text-field
+            :value="installationDate | dateShortDayMonthYear"
+            :label="$t('dispute.installation.date')"
+            disabled
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
+      <v-layout row mb-2>
+        <v-flex md6>
+          <v-text-field
             :value="creationAge"
             disabled
             :label="$t('dispute.age.by.creation.date')"
           ></v-text-field>
         </v-flex>
+        <v-flex md6 ml-5>
+          <v-text-field
+            :value="installationAge"
+            disabled
+            :label="$t('dispute.age.by.instalation.date')"
+          ></v-text-field>
+        </v-flex>
       </v-layout>
       <v-layout row mb-2>
-        <v-flex md12>
-          <v-textarea
-            :label="$t('dispute.order.comment')"
-            readonly
-            :value="orderComment"
-          ></v-textarea>
+        <v-flex md6>
+          <v-text-field
+            :value="expectedCommission | currency"
+            disabled
+            :label="$t('dispute.expected.comission')"
+          ></v-text-field>
+        </v-flex>
+        <v-flex md6 ml-5>
+          <v-text-field
+            :value="receivedCommission | currency"
+            disabled
+            :label="$t('dispute.recived.comission.difference')"
+          ></v-text-field>
         </v-flex>
       </v-layout>
     </v-form>
@@ -72,6 +95,7 @@ import FieldAccountNumber from '@/components/FieldAccountNumber';
 import FieldOrderConfirmation from '@/components/FieldOrderConfirmation';
 import FieldWoNumber from '@/components/FieldWoNumber';
 
+import currency from '@/filters/currency';
 import { dateShortDayMonthYear } from '@/filters/dateFormat';
 import { validateFieldCantBeEmpty } from '@/services/validators';
 
@@ -89,6 +113,7 @@ export default {
     },
   },
   filters: {
+    currency,
     dateShortDayMonthYear,
   },
   data() {
@@ -112,11 +137,17 @@ export default {
     installationAge() {
       return this.value.installationAge || ' ';
     },
+    expectedCommission() {
+      return this.value.expectedCommission || ' ';
+    },
+    receivedCommission() {
+      return this.value.receivedCommission || ' ';
+    },
     createdOn() {
       return this.value.createdOn || ' ';
     },
-    orderComment() {
-      return this.value.orderComment || ' ';
+    installationDate() {
+      return this.value.installationDate || ' ';
     },
     disputeInfo: {
       get() {

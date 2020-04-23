@@ -2,13 +2,13 @@ import disputesApi from '@/services/disputesApi';
 import {
   getOrders,
   getServiceList,
-  getDisputesOrderStatusList,
+  getOrderStatusList,
   orderSync,
   checkOrderSync,
-  getDisputesOrdersCsvFile,
+  getOrdersCsvFile,
   getFiscalPeriods,
 } from '@/services/ordersRepository';
-import { paramsSerializer } from '@/services/serializers';
+import { paramsSerializer } from '@/services/repositoryUtils';
 
 describe('ordersRepository', () => {
   describe('getOrders', () => {
@@ -27,7 +27,7 @@ describe('ordersRepository', () => {
       const response = await getOrders(filters);
 
       expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith('/order/orders/disputing', {
+      expect(disputesApi.get).toHaveBeenCalledWith('/order', {
         params: { ...filters },
         paramsSerializer,
       });
@@ -47,16 +47,16 @@ describe('ordersRepository', () => {
     });
   });
 
-  describe('getDisputesOrderStatusList', () => {
+  describe('getOrderStatusList', () => {
     it('should call api.get and return correct data', async () => {
       const data = [{ id: 0, statusName: 'canceled' }, { id: 1, statusName: 'not_canceled' }];
 
       disputesApi.get = jest.fn(() => Promise.resolve({ data }));
 
-      const response = await getDisputesOrderStatusList();
+      const response = await getOrderStatusList();
 
       expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith('/order/disputing/status');
+      expect(disputesApi.get).toHaveBeenCalledWith('/order/status');
     });
   });
 
@@ -91,7 +91,7 @@ describe('ordersRepository', () => {
     });
   });
 
-  describe('getDisputesOrdersCsvFile', () => {
+  describe('getOrdersCsvFile', () => {
     it('should call api.get and return corect data', async () => {
       const filters = {
         offset: 0,
@@ -103,13 +103,10 @@ describe('ordersRepository', () => {
       const data = { id: '777' };
       disputesApi.get = jest.fn(() => Promise.resolve({ data }));
 
-      const response = await getDisputesOrdersCsvFile(filters);
+      const response = await getOrdersCsvFile(filters);
 
       expect(response).toEqual(data);
-      expect(disputesApi.get).toHaveBeenCalledWith(
-        '/order/orders/disputing/csv',
-        expect.any(Object)
-      );
+      expect(disputesApi.get).toHaveBeenCalledWith('/order/csv', expect.any(Object));
     });
   });
 });

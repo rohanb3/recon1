@@ -1,6 +1,6 @@
 import axios from 'axios';
-import debounce from 'lodash.debounce';
 import store from '@/store';
+import debounce from 'lodash.debounce';
 import { REFRESH_TOKEN, USER_LOGOUT } from '@/store/loggedInUser/actionTypes';
 import { RESPONSE_STATUSES, ROUTE_NAMES } from '@/constants';
 import { SET_TOKEN, SET_PROMISE_REFRESH_TOKEN } from '@/store/loggedInUser/mutationTypes';
@@ -12,12 +12,10 @@ function requestInterceptor(request) {
   const { token } = store.state.loggedInUser;
 
   if (!request.disableAuthHeader && token) {
-    const headers = {
+    request.headers = {
       ...request.headers,
       Authorization: `Bearer ${token.accessToken}`,
     };
-
-    Object.assign(request, { headers });
   }
   return request;
 }
@@ -46,6 +44,7 @@ async function errorResponseInterceptor(data, router) {
       return axios.request({
         ...data.config,
         url: data.config.url.replace(data.config.baseURL, ''),
+        ...headers,
       });
     } catch {
       await store.dispatch(USER_LOGOUT);
@@ -62,7 +61,3 @@ export default function interceptors(instance, router) {
     error => errorResponseInterceptor(error, router)
   );
 }
-
-export const authInterceptors = {
-  __private__: { requestInterceptor, isUnauthorized, errorResponseInterceptor },
-};

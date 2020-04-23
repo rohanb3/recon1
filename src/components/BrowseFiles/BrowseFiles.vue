@@ -2,12 +2,7 @@
   <div class="browse-files">
     <div class="browse-files-header">
       <span>{{ $t('browse.files.or.images') }}</span>
-      <table-button
-        :title="$t('choose.file')"
-        :disabled="loadingStatus"
-        :preloader="loadingStatus"
-        @click="onChangePhoto"
-      />
+      <table-button :title="$t('choose.file')" :disabled="loadingStatus" @click="onChangePhoto" />
       <input
         class="field-file-hidden"
         multiple
@@ -18,7 +13,7 @@
       />
     </div>
     <vue-perfect-scrollbar :settings="scrollSettings">
-      <div class="browse-files-content" v-if="attachments.length">
+      <div class="browse-files-content">
         <file-info
           v-for="attachment of attachments"
           :key="attachment"
@@ -33,8 +28,8 @@
 </template>
 
 <script>
-import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 import TableButton from '@/components/TableButton';
+import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 import FileInfo from './FileInfo';
 
 export default {
@@ -106,7 +101,7 @@ export default {
 }
 
 .browse-files-content {
-  max-height: 160px;
+  height: 160px;
   padding-right: 21px;
 }
 

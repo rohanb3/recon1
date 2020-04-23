@@ -1,11 +1,10 @@
 <template>
   <table-dates-editor
-    :boundaries-selector="`.${getTableName}-table`"
+    boundaries-selector=".disputes-table"
     :start-date="startDate"
     :title="$t('custom.range')"
     :end-date="endDate"
     @applyDateRange="handleFilterByDate"
-    @clearDateRange="onClearDateRange"
   />
 </template>
 
@@ -13,7 +12,6 @@
 import TableDatesEditor from '@/components/TableDatesEditor';
 import { FILTER_NAMES } from '@/constants';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
-import contextRageFilterData from '@/mixins/contextRageFilterData';
 
 export default {
   name: 'CustomRangeFilter',
@@ -26,7 +24,6 @@ export default {
       required: true,
     },
   },
-  mixins: [contextRageFilterData],
   computed: {
     filters() {
       return this.tableData.filters || {};
@@ -35,13 +32,10 @@ export default {
       return this.$store.state.tables[this.tableName] || {};
     },
     startDate() {
-      return this.filters[this.fromFilterName];
+      return this.filters[FILTER_NAMES.CREATED_FROM];
     },
     endDate() {
-      return this.filters[this.toFilterName];
-    },
-    getTableName() {
-      return this.tableName.toLowerCase();
+      return this.filters[FILTER_NAMES.CREATED_TO];
     },
   },
   methods: {
@@ -50,12 +44,16 @@ export default {
         tableName: this.tableName,
         filters: [
           {
-            name: this.fromFilterName,
+            name: FILTER_NAMES.CREATED_FROM,
             value: value.startDate,
           },
           {
-            name: this.toFilterName,
+            name: FILTER_NAMES.CREATED_TO,
             value: value.endDate,
+          },
+          {
+            name: FILTER_NAMES.FISCAL_PERIOD_FROM,
+            value: '',
           },
           {
             name: FILTER_NAMES.FISCAL_PERIOD_TO,
@@ -64,22 +62,6 @@ export default {
           {
             name: FILTER_NAMES.FISCAL_PERIOD_ID,
             value: null,
-          },
-        ],
-      };
-      this.$store.dispatch(APPLY_FILTERS, data);
-    },
-    onClearDateRange() {
-      const data = {
-        tableName: this.tableName,
-        filters: [
-          {
-            name: this.fromFilterName,
-            value: '',
-          },
-          {
-            name: this.toFilterName,
-            value: '',
           },
         ],
       };

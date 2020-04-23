@@ -5,7 +5,7 @@
       <slot name="filters"></slot>
     </div>
     <div class="table-toolbar-info">
-      <slot name="toolbar-info"></slot>
+      <selected-range-filter :tableName="tableName" />
       <v-spacer />
       <clear-all-filters :tableName="tableName" />
     </div>
@@ -13,11 +13,12 @@
 </template>
 
 <script>
+import SelectedRangeFilter from '@/components/SelectedRangeFilter';
 import ClearAllFilters from '@/containers/ClearAllFilters';
 
 export default {
   name: 'TableToolbar',
-  components: { ClearAllFilters },
+  components: { SelectedRangeFilter, ClearAllFilters },
   props: {
     title: {
       type: String,

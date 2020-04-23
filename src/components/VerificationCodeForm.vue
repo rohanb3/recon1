@@ -32,24 +32,24 @@
               />
             </div>
             <div class="resend-code-wrapper">
-              <a class="resend-link" href="#" @click.prevent="debounceResendCode">{{
-                $t('resend.code')
-              }}</a>
+              <a class="resend-link" href="#" @click.prevent="$emit('resendCode')">
+                {{ $t('resend.code') }}
+              </a>
             </div>
             <v-container fluid>
               <v-layout row mt-4 align-center justify-space-around>
                 <v-flex order-lg2>
-                  <router-link class="back-to-login" :to="{ name: 'login' }">{{
-                    $t('back.to.login')
-                  }}</router-link>
+                  <router-link class="back-to-login" :to="{ name: 'login' }">
+                    {{ $t('back.to.login') }}
+                  </router-link>
                 </v-flex>
                 <v-flex order-lg2>
-                  <custom-button
-                    :title="$t('login.submit')"
-                    :loading="loading"
-                    :disabled="!valid"
+                  <v-btn
+                    class="button"
                     @click="$emit('sendVerificationCode', code)"
-                  />
+                    :disabled="!valid"
+                    >{{ $t('login.submit') }}</v-btn
+                  >
                 </v-flex>
               </v-layout>
             </v-container>
@@ -61,23 +61,12 @@
 </template>
 
 <script>
-import debounce from 'lodash.debounce';
 import FieldEnteredCode from '@/components/FieldEnteredCode';
-import CustomButton from '@/components/CustomButton';
-
-const RESEND_CODE_TIMEOUT = 500;
 
 export default {
   name: 'VerificationCodeForm',
   components: {
     FieldEnteredCode,
-    CustomButton,
-  },
-  props: {
-    loading: {
-      type: Boolean,
-      required: true,
-    },
   },
   data() {
     return {
@@ -110,9 +99,6 @@ export default {
       }
       return numberPrevField;
     },
-    debounceResendCode: debounce(function debounceResendCode() {
-      this.$emit('resendCode');
-    }, RESEND_CODE_TIMEOUT),
   },
 };
 </script>

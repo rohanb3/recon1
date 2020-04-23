@@ -4,9 +4,8 @@
       :title="$t('choose.fiscal.period')"
       :items="fiscalPeriodListWithSelected"
       :loading-status="loading"
-      :boundariesSelector="`.${getTableName}-table`"
+      boundariesSelector=".disputes-table"
       @selectFiscalPeriod="handleFiscalPeriod"
-      @clearFiscalPeriod="onClearFiscalPeriod"
     />
   </div>
 </template>
@@ -16,7 +15,6 @@ import TableFiscalPeriodFilter from '@/components/TableFiscalPeriodFilter/TableF
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
 import { FILTER_NAMES } from '@/constants';
 import { getFiscalPeriods } from '@/services/ordersRepository';
-import contextRageFilterData from '@/mixins/contextRageFilterData';
 
 export default {
   name: 'FiscalPeriodFilter',
@@ -29,7 +27,6 @@ export default {
       required: true,
     },
   },
-  mixins: [contextRageFilterData],
   mounted() {
     this.loadFiscalPeriodList();
   },
@@ -57,9 +54,6 @@ export default {
     fiscalPeriodId() {
       return this.filters[FILTER_NAMES.FISCAL_PERIOD_ID];
     },
-    getTableName() {
-      return this.tableName.toLowerCase();
-    },
   },
   methods: {
     loadFiscalPeriodList() {
@@ -73,45 +67,24 @@ export default {
         });
     },
     handleFiscalPeriod(fiscalPeriodId) {
-      const fiscalPeriod = this.fiscalPeriodList.find(fp => fp.id === fiscalPeriodId);
       const data = {
         tableName: this.tableName,
         filters: [
           {
-            name: this.fromFilterName,
+            name: FILTER_NAMES.CREATED_FROM,
             value: '',
           },
           {
-            name: this.toFilterName,
+            name: FILTER_NAMES.CREATED_TO,
             value: '',
           },
           {
             name: FILTER_NAMES.FISCAL_PERIOD_ID,
             value: fiscalPeriodId,
           },
-          {
-            name: FILTER_NAMES.FISCAL_PERIOD_TO,
-            value: fiscalPeriod.name,
-          },
         ],
       };
 
-      this.$store.dispatch(APPLY_FILTERS, data);
-    },
-    onClearFiscalPeriod() {
-      const data = {
-        tableName: this.tableName,
-        filters: [
-          {
-            name: FILTER_NAMES.FISCAL_PERIOD_ID,
-            value: null,
-          },
-          {
-            name: FILTER_NAMES.FISCAL_PERIOD_TO,
-            value: '',
-          },
-        ],
-      };
       this.$store.dispatch(APPLY_FILTERS, data);
     },
   },

@@ -4,14 +4,12 @@
       v-if="isInprogressStatus"
       class="disput-button button-blue"
       :title="$t('approve')"
-      :disabled="isStatusNotEditableOrStatusProcessing"
-      :preloader="statusProcessing"
       @click="onResubmit"
     />
     <span
-      v-if="isApprovedStatus || isConfirmApprovedStatus"
-      :title="statusChangedOn | dateDefaultFormat"
-      >{{ statusChangedOn | dateYearMonthDay }}</span
+      v-if="!isInprogressStatus && isContainsApprovedStatus"
+      :title="approveDate | dateDefaultFormat"
+      >{{ approveDate | dateYearMonthDay }}</span
     >
   </div>
 </template>
@@ -33,11 +31,19 @@ export default {
   components: {
     TableButton,
   },
+  computed: {
+    approveDate() {
+      return this.getLastDisputeStatus(DISPUTE_STATUSES_ID.APPROVED).timeStamp || '';
+    },
+    isContainsApprovedStatus() {
+      return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.APPROVED);
+    },
+  },
   methods: {
     onResubmit() {
       this.$emit('confirmApproveDisputeStatus', {
-        id: this.item.id,
-        statusId: DISPUTE_STATUSES_ID.CONFIRM_APPROVED,
+        disputeId: this.item.id,
+        statusId: DISPUTE_STATUSES_ID.APPROVED,
       });
     },
   },
@@ -56,7 +62,7 @@ export default {
   .disput-button {
     line-height: 0;
 
-    &.button-blue:not(.disabled-button) {
+    &.button-blue {
       color: $base-white;
       background: $base-blue;
     }

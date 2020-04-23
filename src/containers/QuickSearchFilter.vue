@@ -9,48 +9,47 @@
 </template>
 
 <script>
-import debounce from 'lodash.debounce';
-import { mapGetters } from 'vuex';
 import { APPLY_FILTERS } from '@/store/tables/actionTypes';
+import { FILTER_NAMES } from '@/constants';
 import QuickSearch from '@/components/QuickSearch';
-import contextRageFilterData from '@/mixins/contextRageFilterData';
-
-const SEARCH_TIMEOUT = 500;
 
 export default {
-  name: 'QuickSearchFilter',
+  name: 'QuickSearchBranchesFilter',
   props: {
     tableName: {
       type: String,
       required: true,
     },
   },
-  mixins: [contextRageFilterData],
   components: {
     QuickSearch,
   },
   computed: {
-    ...mapGetters(['tableData']),
+    tableData() {
+      return this.$store.state.tables[this.tableName] || {};
+    },
     filters() {
-      return this.tableData(this.tableName).filters;
+      return this.tableData.filters || {};
     },
     selectedPhrase() {
-      return this.filters[this.searchFilterName] || '';
+      return this.filters[FILTER_NAMES.SEARCH_ORDERS] || '';
     },
   },
   methods: {
-    handleQuickSearchInput: debounce(function onInput(searchPhrase) {
+    handleQuickSearchInput(searchPhrase) {
+      const filterName = {
+        name: FILTER_NAMES.SEARCH_ORDERS,
+        value: searchPhrase,
+      };
+      this.applyFilter(filterName);
+    },
+    applyFilter(...filters) {
       const data = {
         tableName: this.tableName,
-        filters: [
-          {
-            name: this.searchFilterName,
-            value: searchPhrase,
-          },
-        ],
+        filters,
       };
       this.$store.dispatch(APPLY_FILTERS, data);
-    }, SEARCH_TIMEOUT),
+    },
   },
 };
 </script>

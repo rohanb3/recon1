@@ -1,42 +1,33 @@
-import { dateRange } from '@/services/dateHelper';
-import { DATE_FORMATS } from '@/constants';
+import { secondsToMinutesSeconds } from '@/services/dateHelper';
 
 describe('dateHelper', () => {
-  describe('dateRange', () => {
-    it('should return date range with default format', () => {
-      const dateFrom = '2019-06-01';
-      const dateTo = '2019-06-07';
-
-      const resultDateRange = dateRange(dateFrom, dateTo);
-
-      const expectedDateRange = [
-        '01 June',
-        '02 June',
-        '03 June',
-        '04 June',
-        '05 June',
-        '06 June',
-        '07 June',
-      ];
-      expect(resultDateRange).toEqual(expectedDateRange);
+  describe('secondsToMinutesSeconds', () => {
+    it('should return "" if no value was passed', () => {
+      expect(secondsToMinutesSeconds()).toBe('');
     });
 
-    it('should return date range with custome format', () => {
-      const dateFrom = '2019-06-01';
-      const dateTo = '2019-06-07';
+    it('should return "" if 0 was passed', () => {
+      expect(secondsToMinutesSeconds(0)).toBe('');
+    });
 
-      const resultDateRange = dateRange(dateFrom, dateTo, DATE_FORMATS.SHORT_DAY_MONTH_FULL_YEAR);
+    it('should return "1s" if 1 was passed', () => {
+      expect(secondsToMinutesSeconds(1)).toBe('1s');
+    });
 
-      const expectedDateRange = [
-        '01 June 2019',
-        '02 June 2019',
-        '03 June 2019',
-        '04 June 2019',
-        '05 June 2019',
-        '06 June 2019',
-        '07 June 2019',
-      ];
-      expect(resultDateRange).toEqual(expectedDateRange);
+    it('should return "1m 2s" if 62 was passed', () => {
+      expect(secondsToMinutesSeconds(62)).toBe('1m 2s');
+    });
+
+    it('should return "0m 0s" if 0 was passed and showZero is true', () => {
+      expect(secondsToMinutesSeconds(0, true)).toBe('0m 0s');
+    });
+
+    it('should return "0m 1s" if 1 was passed and showZero is true', () => {
+      expect(secondsToMinutesSeconds(1, true)).toBe('0m 1s');
+    });
+
+    it('should return "1m 0s" if 60 was passed and showZero is true', () => {
+      expect(secondsToMinutesSeconds(60, true)).toBe('1m 0s');
     });
   });
 });

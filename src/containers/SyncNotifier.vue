@@ -3,14 +3,14 @@
 </template>
 
 <script>
-import { TABLE_NAMES, ORDER_SYNC_STATUS } from '@/constants';
+import { ENTITY_TYPES, ORDER_SYNC_STATUS } from '@/constants';
 import { successMessage, errorMessage } from '@/services/notifications';
 
 export default {
   name: 'SyncNotifier',
   computed: {
     syncOrderStatus() {
-      return this.$store.state.storage[TABLE_NAMES.CLAIMS_ORDERS].syncOrdersStatus;
+      return this.$store.state.storage[ENTITY_TYPES.ORDERS].syncOrdersStatus;
     },
   },
   watch: {

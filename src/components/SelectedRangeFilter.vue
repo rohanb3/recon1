@@ -5,12 +5,12 @@
     :selectedDateRange="selectedDateRange"
     :selectedFiscalPeriod="selectedFiscalPeriod"
   >
-    <span v-if="!!selectedFiscalPeriod"
-      >{{ $t('selected.fiscal.period') }}: {{ selectedFiscalPeriod }}</span
-    >
-    <span v-else
-      >{{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}</span
-    >
+    <span v-if="!!selectedFiscalPeriod">
+      {{ $t('selected.fiscal.period') }}: {{ selectedFiscalPeriod }}
+    </span>
+    <span v-else>
+      {{ $t('selected.date.range') }}{{ selectedDateRange | dateRange({ prefix: ': ' }) }}
+    </span>
   </div>
 </template>
 

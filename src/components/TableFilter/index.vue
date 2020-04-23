@@ -63,9 +63,9 @@
 </template>
 
 <script>
+import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
 import debounce from 'lodash.debounce';
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
-import tableToolbarBalloon from '@/mixins/tableToolbarBalloon';
 import ClearButton from './ClearButton';
 import { getStringFromValuesByKey } from '@/services/utils';
 

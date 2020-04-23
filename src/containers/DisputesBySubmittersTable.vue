@@ -1,9 +1,10 @@
 <template>
-  <div class="disputes-table disputes_by_submitters-table">
-    <table-toolbar :table-name="tableName" :title="$t('disputes.statistics.by.submitters')">
-      <selected-range-filter slot="toolbar-info" :tableName="tableName" />
-      <disputes-by-submitters-table-toolbar :tableName="tableName" slot="filters" />
-    </table-toolbar>
+  <div class="disputes-table disputes_by_submitters-table" v-if="false">
+    <div class="table-toolbar">
+      <table-toolbar :table-name="tableName" :title="$t('disputes.statistics.by.submitters')">
+        <disputes-by-submitters-table-toolbar :tableName="tableName" slot="filters" />
+      </table-toolbar>
+    </div>
     <disputes-by-submitters-badges />
     <lazy-load-table :tableName="tableName">
       <component
@@ -33,16 +34,14 @@ import DisputesBySubmittersBadges from '@/containers/DisputesBySubmittersBadges'
 
 import disputeCommonTable from '@/mixins/disputeCommonTable';
 
-import { TABLE_NAMES } from '@/constants';
+import { ENTITY_TYPES } from '@/constants';
 
 import dateRange from '@/filters/boundaries';
 import TableToolbar from '../components/TableToolbar';
-import SelectedRangeFilter from '../components/SelectedRangeFilter';
 
 export default {
   name: 'DisputesBySubmittersTable',
   components: {
-    SelectedRangeFilter,
     TableToolbar,
     DisputesBySubmittersTableToolbar,
     DisputesBySubmittersBadges,
@@ -60,7 +59,7 @@ export default {
   mixins: [disputeCommonTable],
   data() {
     return {
-      tableName: TABLE_NAMES.DISPUTES_BY_SUBMITTERS,
+      tableName: ENTITY_TYPES.DISPUTES_BY_SUBMITTERS,
       rowComponentsHash: {
         default: 'DefaultCell',
         percent: 'PercentCell',
@@ -75,6 +74,11 @@ export default {
 .disputes_by_submitters-table {
   @include table-base-container;
 }
+.table-toolbar {
+  @include table-base-toolbar;
+  padding: 0;
+  height: 95px;
+}
 .table-title {
   @include table-base-title;
 }
@@ -84,7 +88,7 @@ export default {
     height: 100vh;
     max-height: calc(
       100vh - #{$header-height} - 2 * #{$table-list-padding} - #{$table-toolbar-height} - #{$table-header-height} -
-        80px - #{$switcher-height}
+        80px
     );
   }
 

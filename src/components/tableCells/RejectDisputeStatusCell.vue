@@ -4,14 +4,12 @@
       v-if="isInprogressStatus"
       class="disput-button"
       :title="$t('reject')"
-      :disabled="isStatusNotEditableOrStatusProcessing"
-      :preloader="statusProcessing"
       @click="onResubmit"
     />
     <span
-      v-if="isRejectedStatus || isConfirmRejectedStatus"
-      :title="statusChangedOn | dateDefaultFormat"
-      >{{ statusChangedOn | dateYearMonthDay }}</span
+      v-if="!isInprogressStatus && isContainsRejectedStatus"
+      :title="rejectDate | dateDefaultFormat"
+      >{{ rejectDate | dateYearMonthDay }}</span
     >
   </div>
 </template>
@@ -29,18 +27,22 @@ export default {
       type: Object,
       required: true,
     },
-    scopes: {
-      type: Array,
-      required: true,
-    },
   },
   components: {
     TableButton,
   },
+  computed: {
+    rejectDate() {
+      return this.getLastDisputeStatus(DISPUTE_STATUSES_ID.REJECTED).timeStamp || '';
+    },
+    isContainsRejectedStatus() {
+      return this.isContainsStatusInHistory(DISPUTE_STATUSES_ID.REJECTED);
+    },
+  },
   methods: {
     onResubmit() {
       this.$emit('confirmRejectDisputeStatus', {
-        id: this.item.id,
+        disputeId: this.item.id,
         statusId: DISPUTE_STATUSES_ID.REJECTED,
       });
     },
@@ -59,13 +61,11 @@ export default {
 
   .disput-button {
     line-height: 0;
-    &:not(.disabled-button) {
-      border: 1px solid $base-red;
-      color: $base-red;
+    border: 1px solid $base-red;
+    color: $base-red;
 
-      &.brown-button {
-        color: $button-brown-color;
-      }
+    &.brown-button {
+      color: $button-brown-color;
     }
   }
 }

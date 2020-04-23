@@ -2,13 +2,13 @@
   <v-text-field
     :label="$t('email')"
     name="email"
-    v-model.trim="email"
+    v-model="email"
     autofocus
     required
     ref="fieldEmail"
     :rules="emailRules"
     :validate-on-blur="true"
-    @keydown.space.prevent
+    @input="validate"
   ></v-text-field>
 </template>
 
@@ -53,11 +53,6 @@ export default {
       const status = this.$refs.fieldEmail.validate();
       this.$emit('valid', status);
       return status;
-    },
-  },
-  watch: {
-    email() {
-      this.$nextTick(() => this.validate());
     },
   },
 };
