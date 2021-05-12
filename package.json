@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "chartjs-plugin-labels": "^1.1.0",
     "core-js": "^2.6.5",
     "lodash.chunk": "^4.2.0",
